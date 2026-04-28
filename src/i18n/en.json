@@ -1,0 +1,99 @@
+{
+  "common": {
+    "seeMore": "See more",
+    "wifi": "Wifi",
+    "guests": "Guests",
+    "bedrooms": "Bedrooms",
+    "baths": "Baths",
+    "email": "info@arboreaexperiences.com",
+    "website": "arboreaexperiences.com"
+  },
+  "nav": {
+    "open": "Open menu",
+    "close": "Close menu",
+    "links": {
+      "home": "Home",
+      "experiences": "Experiences",
+      "about": "About Us",
+      "gallery": "Gallery",
+      "contact": "Contact"
+    }
+  },
+  "properties": {
+    "casaMango": {
+      "name": "Casa Mango",
+      "description": "Villa Mango also includes a game room for entertainment, a spacious yoga deck surrounded by nature, and open social areas that invite guests to unwind and enjoy time together."
+    },
+    "casaRonRon": {
+      "name": "Casa Ron Ron",
+      "description": "The villa is designed to provide a tranquil and inspiring space. Its warm interiors and outdoor living areas are thoughtfully crafted to fully complement the natural beauty of the surrounding forest."
+    },
+    "casaCeiba": {
+      "name": "Casa Ceiba",
+      "description": "Set apart as a private studio, Villa Ceiba is designed for couples seeking intimacy and relaxation. Its private pool, design, and serene atmosphere create a retreat in the heart of the Osa Peninsula."
+    },
+    "casaCorteza": {
+      "name": "Casa Corteza Amarilla",
+      "description": "Casa Corteza Amarilla is named after the iconic Cortez Amarillo tree (Handroanthus guayacan), whose vibrant yellow blossoms transform the landscape into a golden paradise every April."
+    },
+    "casaPalmera": {
+      "name": "Casa Palmera",
+      "description": "The villa's design mirrors the elegance of its namesake tree, with spacious interiors, refined decor, and modern amenities. A perfect choice for families or friends seeking a peaceful escape in nature."
+    }
+  },
+  "footer": {
+    "description": "Nestled in the heart of Costa Rica's Osa Peninsula, Arborea Experiences offers a collection of private villas surrounded by lush jungle, breathtaking views, and unmatched tranquility.",
+    "location": "Desamparados, Costa Rica",
+    "copyright": "© Arborea 2026. All rights reserved.",
+    "links": {
+      "heading": "Links",
+      "items": [
+        { "label": "Houses", "href": "/" },
+        { "label": "Massages & Wellness", "href": "/" },
+        { "label": "Private Chef Information", "href": "/" },
+        { "label": "Tours & Activities", "href": "/" },
+        { "label": "Good to Know", "href": "/" },
+        { "label": "Private Chef", "href": "/" }
+      ]
+    },
+    "about": {
+      "heading": "About Us",
+      "items": [
+        { "label": "Emergency Contacts", "href": "/" },
+        { "label": "WhatsApp", "href": "https://wa.me/50686778536" },
+        { "label": "Facebook", "href": "https://facebook.com" },
+        { "label": "LinkedIn", "href": "https://linkedin.com" }
+      ]
+    },
+    "contact": {
+      "heading": "Contact Us",
+      "phone": "(+506) 8677 - 8536"
+    }
+  },
+  "goodToKnow": {
+    "title": "Our villas are located in a pristine mountain environment, and part of the magic of staying here comes with a few things worth keeping in mind to ensure a comfortable experience.",
+    "badge": "Good to Know",
+    "cards": {
+      "meshDoors": {
+        "title": "Mesh Doors and Windows",
+        "description": "Our villas are equipped with mesh screens on doors and windows to keep insects out. We kindly ask that you keep them closed at all times, especially in the evenings, to ensure a comfortable and bug-free stay."
+      },
+      "powerOutages": {
+        "title": "Power Outages",
+        "description": "Due to our remote mountain location, occasional brief power outages may occur. We recommend keeping your phone charged and having a flashlight handy, both of which are available at the villa."
+      },
+      "transportation": {
+        "title": "Transportation",
+        "description": "A 4x4 vehicle is highly recommended to access the villa and surrounding areas safely and comfortably."
+      },
+      "foodStorage": {
+        "title": "Food Storage",
+        "description": "We ask that all food be stored in the refrigerator or in sealed containers when not in use. Leaving food out in the kitchen or common areas can attract wildlife, which is a natural part of our mountain ecosystem but best admired from a distance."
+      },
+      "nighttimeLighting": {
+        "title": "Nighttime Lighting",
+        "description": "We provide exterior lighting along pathways for your safety. Please keep in mind that lights left on unnecessarily at night tend to attract insects, so we suggest turning off any lights in rooms or terraces that are not in use, and keeping doors and windows closed."
+      }
+    }
+  }
+}

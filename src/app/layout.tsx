@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Inter, Playfair_Display } from "next/font/google";
-import { LoadingProvider } from "./context/LoadingContext";
+import { I18nProvider } from "./context/I18nContext";
+import LenisProvider from "@/components/LenisProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -12,6 +13,7 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
 });
+
 import Script from "next/script";
 import AOSInit from "@/components/AOSInit";
 import JsonLd from "@/components/JsonLd";
@@ -26,7 +28,7 @@ export const metadata: Metadata = {
   authors: [{ name: "", url: "" }],
   creator: "",
   publisher: "",
-  metadataBase: new URL("https://"),
+  metadataBase: new URL("https://welcome.arboreaexperiences.com"),
   alternates: {
     canonical: "/",
     languages: {
@@ -84,10 +86,11 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body className={`${inter.variable} ${playfair.variable} antialiased`}>
-        <LoadingProvider>
-          <AOSInit />
-          {children}
-        </LoadingProvider>
+        <I18nProvider>
+            <LenisProvider />
+            <AOSInit />
+            {children}
+        </I18nProvider>
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`

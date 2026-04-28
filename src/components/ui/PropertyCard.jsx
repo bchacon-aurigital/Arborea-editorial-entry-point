@@ -1,0 +1,122 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import { TbWifi } from "react-icons/tb";
+import { IoPeopleOutline, IoBedOutline } from "react-icons/io5";
+import { PiBathtub } from "react-icons/pi";
+import { useI18n } from "@/app/context/I18nContext";
+
+export default function PropertyCard({
+  name = "",
+  description = "",
+  images = [],
+  guests,
+  bedrooms,
+  baths,
+  href = "#",
+}) {
+  const { t } = useI18n();
+  const [current, setCurrent] = useState(0);
+  const intervalRef = useRef(null);
+  const isMobile = useRef(false);
+
+  const next = () => setCurrent((c) => (c + 1) % images.length);
+
+  const startCycle = (ms) => {
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(next, ms);
+  };
+
+  const stopCycle = () => {
+    clearInterval(intervalRef.current);
+    setCurrent(0);
+  };
+
+  useEffect(() => {
+    isMobile.current = window.innerWidth < 768;
+    if (isMobile.current && images.length > 1) startCycle(2000);
+    return () => clearInterval(intervalRef.current);
+  }, [images.length]);
+
+  const amenities = [
+    { key: "wifi", icon: TbWifi, iconSize: 18, label: t("common.wifi"), value: null, show: true },
+    { key: "guests", icon: IoPeopleOutline, iconSize: 16, label: t("common.guests"), value: guests, show: Boolean(guests) },
+    { key: "bedrooms", icon: IoBedOutline, iconSize: 18, label: t("common.bedrooms"), value: bedrooms, show: Boolean(bedrooms) },
+    { key: "baths", icon: PiBathtub, iconSize: 18, label: t("common.baths"), value: baths, show: Boolean(baths) },
+  ].filter((item) => item.show);
+
+  return (
+    <div className="bg-[#f4e9dc] flex flex-col rounded-2xl p-3 h-full">
+
+      <div
+        className="relative h-[321px] rounded-xl overflow-hidden flex items-end justify-center p-4 shrink-0"
+        onMouseEnter={() => { if (!isMobile.current && images.length > 1) startCycle(2000); }}
+        onMouseLeave={() => { if (!isMobile.current) stopCycle(); }}
+      >
+        {images.map((src, i) => (
+          <img
+            key={i}
+            src={src}
+            alt={`${name} ${i + 1}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 rounded-xl ${
+              i === current ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
+
+        {images.length > 1 && (
+          <div className="relative z-10 flex gap-1.5">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  i === current ? "bg-white scale-110" : "bg-white/50"
+                }`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Contenido */}
+      <div className="flex flex-col flex-1 pt-6 pb-5 px-3">
+
+        {/* Nombre + descripción — crece para igualar altura entre cards */}
+        <div className="flex flex-col flex-1 gap-3 mb-5">
+          <p className="font-sans font-medium text-xl text-[#381d14]">{name}</p>
+          <p className="font-sans text-sm text-[#381d14]/50">{description}</p>
+        </div>
+
+        {/* Amenities */}
+        <div className="flex flex-wrap mb-4 justify-center items-center border-t border-[#381d14]/15 pt-4">
+          {amenities.map((item, index) => {
+            const Icon = item.icon;
+            const isLast = index === amenities.length - 1;
+            return (
+              <div
+                key={item.key}
+                className={`text-sm flex gap-2 items-center justify-center px-3 py-2 shrink-0 ${!isLast ? "border-r border-[#381d14]/10" : ""}`}
+              >
+                <Icon size={item.iconSize} className="text-[#381d14]/50 shrink-0" />
+                <span className="font-sans font-medium text-[#381d14]/50 whitespace-nowrap">
+                  {item.value == null ? item.label : (
+                    <>{item.label}: <span className="text-[#381d14]">{item.value}</span></>
+                  )}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        <Link
+          href={href}
+          className="flex items-center justify-center w-full h-12 rounded-full border border-[#381d14]/10 font-sans font-medium text-base text-[#381d14]/50 hover:border-[#381d14]/30 hover:text-[#381d14] transition-colors duration-300"
+        >
+          {t("common.seeMore")}
+        </Link>
+      </div>
+    </div>
+  );
+}

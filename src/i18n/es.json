@@ -1,0 +1,99 @@
+{
+  "common": {
+    "seeMore": "Ver más",
+    "wifi": "Wifi",
+    "guests": "Huéspedes",
+    "bedrooms": "Habitaciones",
+    "baths": "Baños",
+    "email": "info@arboreaexperiences.com",
+    "website": "arboreaexperiences.com"
+  },
+  "nav": {
+    "open": "Abrir menú",
+    "close": "Cerrar menú",
+    "links": {
+      "home": "Inicio",
+      "experiences": "Experiencias",
+      "about": "Nosotros",
+      "gallery": "Galería",
+      "contact": "Contacto"
+    }
+  },
+  "properties": {
+    "casaMango": {
+      "name": "Casa Mango",
+      "description": "Villa Mango también cuenta con una sala de juegos para entretenimiento, una amplia terraza de yoga rodeada de naturaleza y áreas sociales abiertas que invitan a los huéspedes a relajarse y disfrutar del tiempo juntos."
+    },
+    "casaRonRon": {
+      "name": "Casa Ron Ron",
+      "description": "La villa está diseñada para brindar un espacio tranquilo e inspirador. Sus cálidos interiores y áreas de vida al aire libre están cuidadosamente diseñados para complementar la belleza natural del bosque circundante."
+    },
+    "casaCeiba": {
+      "name": "Casa Ceiba",
+      "description": "Diseñada como un estudio privado, Villa Ceiba es ideal para parejas que buscan intimidad y relajación. Su piscina privada, diseño y ambiente sereno crean un retiro en el corazón de la Península de Osa."
+    },
+    "casaCorteza": {
+      "name": "Casa Corteza Amarilla",
+      "description": "Casa Corteza Amarilla lleva el nombre del icónico árbol Cortez Amarillo (Handroanthus guayacan), cuyas flores amarillas transforman el paisaje en un paraíso dorado cada abril."
+    },
+    "casaPalmera": {
+      "name": "Casa Palmera",
+      "description": "El diseño de la villa refleja la elegancia de su árbol homónimo, con amplios interiores, decoración refinada y comodidades modernas. Es la opción perfecta para familias o amigos que buscan un escape tranquilo en la naturaleza."
+    }
+  },
+  "footer": {
+    "description": "Ubicado en el corazón de la Península de Osa en Costa Rica, Arborea Experiences ofrece una colección de villas privadas rodeadas de selva exuberante, vistas impresionantes y una tranquilidad sin igual.",
+    "location": "Desamparados, Costa Rica",
+    "copyright": "© Arborea 2026. Todos los derechos reservados.",
+    "links": {
+      "heading": "Links",
+      "items": [
+        { "label": "Casas", "href": "/" },
+        { "label": "Masajes y Bienestar", "href": "/" },
+        { "label": "Información de Chef Privado", "href": "/" },
+        { "label": "Tours y Actividades", "href": "/" },
+        { "label": "Bueno Saber", "href": "/" },
+        { "label": "Chef Privado", "href": "/" }
+      ]
+    },
+    "about": {
+      "heading": "Nosotros",
+      "items": [
+        { "label": "Contactos de Emergencia", "href": "/" },
+        { "label": "WhatsApp", "href": "https://wa.me/50686778536" },
+        { "label": "Facebook", "href": "https://facebook.com" },
+        { "label": "LinkedIn", "href": "https://linkedin.com" }
+      ]
+    },
+    "contact": {
+      "heading": "Contáctanos",
+      "phone": "(+506) 8677 - 8536"
+    }
+  },
+  "goodToKnow": {
+    "title": "Nuestras villas están ubicadas en un entorno de montaña virgen, y parte de la magia de quedarse aquí viene con algunas cosas que vale la pena tener en cuenta para garantizar una experiencia cómoda.",
+    "badge": "Bueno Saber",
+    "cards": {
+      "meshDoors": {
+        "title": "Puertas y Ventanas con Malla",
+        "description": "Nuestras villas están equipadas con mallas en puertas y ventanas para mantener los insectos afuera. Le pedimos amablemente que las mantenga cerradas en todo momento, especialmente por las tardes, para garantizar una estadía cómoda y sin insectos."
+      },
+      "powerOutages": {
+        "title": "Cortes de Luz",
+        "description": "Debido a nuestra remota ubicación en la montaña, pueden ocurrir breves cortes de luz ocasionales. Recomendamos mantener su teléfono cargado y tener una linterna a mano, ambas disponibles en la villa."
+      },
+      "transportation": {
+        "title": "Transporte",
+        "description": "Se recomienda altamente un vehículo 4x4 para acceder a la villa y las áreas circundantes de forma segura y cómoda."
+      },
+      "foodStorage": {
+        "title": "Almacenamiento de Alimentos",
+        "description": "Le pedimos que todos los alimentos se guarden en el refrigerador o en recipientes sellados cuando no se usen. Dejar comida en la cocina o áreas comunes puede atraer vida silvestre, que es parte natural de nuestro ecosistema de montaña pero mejor admirada desde lejos."
+      },
+      "nighttimeLighting": {
+        "title": "Iluminación Nocturna",
+        "description": "Proporcionamos iluminación exterior a lo largo de los senderos para su seguridad. Tenga en cuenta que las luces encendidas innecesariamente por la noche tienden a atraer insectos, por lo que sugerimos apagar las luces en habitaciones o terrazas que no estén en uso, y mantener puertas y ventanas cerradas."
+      }
+    }
+  }
+}

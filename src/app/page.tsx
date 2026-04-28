@@ -1,11 +1,19 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Navbar from "@/components/layout/navbar";
+import HeroSection from "@/components/sections/HeroSection";
+import GoodToKnowSection from "@/components/sections/GoodToKnowSection";
+import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-
-    </main>
+    <>
+      <Navbar />
+      <main>
+        <HeroSection />
+        <GoodToKnowSection />
+      </main>
+      <Footer />
+    </>
   );
 }

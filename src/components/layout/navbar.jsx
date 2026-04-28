@@ -2,183 +2,109 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useI18n } from "@/app/context/I18nContext";
 
-const Navbar = () => {
+const navLinkKeys = [
+  { key: "home", href: "/" },
+  { key: "experiences", href: "/experiencias" },
+  { key: "about", href: "/nosotros" },
+  { key: "gallery", href: "/galeria" },
+  { key: "contact", href: "/contacto" },
+];
 
+export default function Navbar() {
+  const { locale, toggleLocale, t } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [hasScrolled, setHasScrolled] = useState(false);
-
-  const navLinks = [
-    { name: 'Template', href: '/#' },
-  ];
+  const [visible, setVisible] = useState(true);
+  const [lastY, setLastY] = useState(0);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setVisible(y < lastY || y < 80);
+      setLastY(y);
     };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [lastY]);
 
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-    };
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") setIsOpen(false); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      setHasScrolled(currentScrollY > 50);
-
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false);
-      } else if (currentScrollY < lastScrollY) {
-        setIsVisible(true);
-      }
-
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [lastScrollY]);
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
-
-  const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <>
-      <nav
-        className={`w-full sticky top-0 left-0 z-50 py-4 transition-transform duration-300 bg-white font-medium ${
-          hasScrolled ? 'shadow-lg' : ''
-        } ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}
-        role="navigation"
-        aria-label="Main navigation"
+      {/* Logo + idioma */}
+      <header
+        className={`fixed top-0 left-0 w-full z-40 flex items-center justify-between px-8 md:px-16 py-5 transition-transform duration-300 pointer-events-none ${
+          visible ? "translate-y-0" : "-translate-y-full"
+        }`}
       >
-        <div className="mx-auto flex items-center justify-between px-4 sm:px-6">
-          <Link
-            href="/"
-            className="flex-shrink-0"
-            aria-label="Go to home"
-          >
-            <object
-              data="/assets/Logo.svg"
-              type="image/svg+xml"
-              width="150"
-              height="80"
-              className="h-auto w-[180px]"
-              aria-label="Brand Logo"
-            >
-              <img src="/assets/Logo.svg" alt="Brand Logo" />
-            </object>
-          </Link>
+        <Link href="/" className="pointer-events-auto inline-block bg-[#eddac4] p-2 rounded-xl">
+          <object type="image/svg+xml" data="/assets/logos/LogoNavbar.svg" width={162} height={63} aria-label="Arborea Experiences" className="pointer-events-none" />
+        </Link>
+
+      </header>
+
+      {/* Nav Osmo */}
+      <nav
+        data-navigation-status={isOpen ? "active" : "not-active"}
+        className="navigation"
+        aria-label="Menú principal"
+      >
+        <div
+          data-navigation-toggle="close"
+          className="navigation__dark-bg"
+          onClick={() => setIsOpen(false)}
+        />
+
+        <div className="hamburger-nav">
+          <div className="hamburger-nav__bg" />
+
+          <div className="hamburger-nav__group">
+            <p className="text-xs uppercase tracking-widest opacity-50 mb-0 text-[#381d14]">Menu</p>
+            <ul className="flex flex-col gap-1.5 p-0 m-0 list-none">
+              <li>
+                <button
+                  onClick={toggleLocale}
+                  className="hamburger-nav__a w-full"
+                  style={{ background: "transparent" }}
+                >
+                  <span className="font-display text-4xl whitespace-nowrap pr-5">
+                    {locale === "es" ? "English" : "Español"}
+                  </span>
+                  <div className="hamburger-nav__dot" />
+                </button>
+              </li>
+              {navLinkKeys.map((link) => (
+                <li key={link.key}>
+                  <Link href={link.href} className="hamburger-nav__a" onClick={() => setIsOpen(false)}>
+                    <span className="font-display text-4xl whitespace-nowrap pr-5">{t(`nav.links.${link.key}`)}</span>
+                    <div className="hamburger-nav__dot" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <button
-            className="lg:hidden text-gray-900 focus:outline-none relative w-6 h-6 z-50 -translate-x-4"
-            onClick={toggleMenu}
-            aria-label={isOpen ? "Close menu" : "Open menu"}
+            className="hamburger-nav__toggle"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={isOpen}
-            aria-controls="mobile-menu"
           >
-            <span
-              className={`absolute w-6 h-1 bg-gray-900 transition-all duration-500 ease-in-out ${isOpen ? "rotate-45 top-3" : "top-1"
-                }`}
-            />
-            <span
-              className={`absolute w-6 h-1 bg-gray-900 transition-all duration-500 ease-in-out ${isOpen ? "opacity-0" : "top-3"
-                }`}
-            />
-            <span
-              className={`absolute w-6 h-1 bg-gray-900 transition-all duration-500 ease-in-out ${isOpen ? "-rotate-45 top-3" : "top-5"
-                }`}
-            />
+            <div className="hamburger-nav__toggle-bar" />
+            <div className="hamburger-nav__toggle-bar" />
           </button>
-
-          <div className="hidden lg:flex items-center justify-center flex-grow gap-5" role="menubar">
-            {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="text-gray-900 text-base font-medium hover:text-gray-600 px-4 py-2 transition-all duration-300 ease-in-out tracking-widest"
-                  role="menuitem"
-                >
-                  {link.name}
-                </Link>
-            ))}
-          </div>
-
-          <div className="hidden lg:block">
-              <Link
-                className="flex flex-row items-center bg-gray-900 text-white font-semibold transition-all duration-300 tracking-widest text-sm px-8 py-3 rounded-full hover:bg-gray-800 hover:scale-105 hover:shadow-lg"
-                aria-label="Call to action"
-                href="/#"
-              >
-                <p>CTA</p>
-              </Link>
-          </div>
         </div>
       </nav>
-
-      <div
-        className={`lg:hidden fixed inset-0 bg-gray-900/30 backdrop-blur-sm transition-opacity duration-500 z-30 ${isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
-        onClick={toggleMenu}
-        aria-hidden="true"
-      />
-
-      <div
-        id="mobile-menu"
-        className={`lg:hidden fixed top-0 right-0 w-[80%] h-full bg-white transform transition-transform duration-500 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"
-          } z-40`}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Mobile navigation menu"
-      >
-        <div className="flex flex-col h-full pt-20 px-6">
-          <nav className="flex flex-col space-y-6" role="navigation" aria-label="Mobile menu">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-gray-900 font-medium hover:text-gray-600 px-3 py-2 text-lg transition-all duration-300 ease-in-out tracking-wider"
-                onClick={toggleMenu}
-                role="menuitem"
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="mt-auto py-6">
-              <Link
-                href="/#"
-                className="flex flex-row items-center w-full bg-gray-900 text-white px-7 py-3 font-semibold hover:bg-gray-800 hover:scale-105 hover:shadow-lg transition-all duration-300 tracking-wider rounded-full justify-center"
-                onClick={toggleMenu}
-              >
-                <p>CTA</p>
-              </Link>
-          </div>
-        </div>
-      </div>
     </>
   );
-};
-
-export default Navbar;
+}
