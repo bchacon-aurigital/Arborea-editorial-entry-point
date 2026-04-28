@@ -1,0 +1,13 @@
+# Robots.txt
+
+User-agent: *
+Allow: /
+
+# Rutas bloqueadas
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /private/
+
+# Sitemap
+Sitemap: https:///sitemap.xml

@@ -1,0 +1,120 @@
+# ======================================================================
+# CONFIGURACIÓN BÁSICA SEO - .htaccess
+# ======================================================================
+
+# ----------------------------------------------------------------------
+# Forzar HTTPS
+# ----------------------------------------------------------------------
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ----------------------------------------------------------------------
+# Forzar WWW o sin WWW (descomentar una opción)
+# ----------------------------------------------------------------------
+# Opción 1: Forzar WWW
+# RewriteEngine On
+# RewriteCond %{HTTP_HOST} !^www\. [NC]
+# RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
+
+# Opción 2: Forzar sin WWW
+# RewriteEngine On
+# RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+# RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# ----------------------------------------------------------------------
+# Eliminar trailing slash (excepto directorios)
+# ----------------------------------------------------------------------
+# RewriteEngine On
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteCond %{REQUEST_URI} (.+)/$
+# RewriteRule ^ %1 [R=301,L]
+
+# ----------------------------------------------------------------------
+# Compresión GZIP
+# ----------------------------------------------------------------------
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE font/ttf
+    AddOutputFilterByType DEFLATE font/otf
+    AddOutputFilterByType DEFLATE font/woff
+    AddOutputFilterByType DEFLATE font/woff2
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Cache del navegador
+# ----------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+
+    # Imágenes
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+
+    # Fuentes
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+
+    # CSS y JavaScript
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+
+    # HTML
+    ExpiresByType text/html "access plus 0 seconds"
+
+    # Datos
+    ExpiresByType application/json "access plus 0 seconds"
+    ExpiresByType application/xml "access plus 0 seconds"
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Headers de seguridad
+# ----------------------------------------------------------------------
+<IfModule mod_headers.c>
+    # Prevenir clickjacking
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # Prevenir MIME type sniffing
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Habilitar XSS Protection
+    Header always set X-XSS-Protection "1; mode=block"
+
+    # Referrer Policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Permissions Policy (antes Feature-Policy)
+    # Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Bloquear acceso a archivos sensibles
+# ----------------------------------------------------------------------
+<FilesMatch "(^\.env|\.log|\.sql|\.bak|\.config)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ----------------------------------------------------------------------
+# Páginas de error personalizadas
+# ----------------------------------------------------------------------
+# ErrorDocument 404 /404.html
+# ErrorDocument 500 /500.html
