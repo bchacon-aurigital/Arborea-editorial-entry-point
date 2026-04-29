@@ -32,7 +32,10 @@ export default function ToursActivitiesSection() {
               {t("tours.pill")}
             </span>
           </div>
-          <h2 className="font-sans font-semibold text-4xl md:text-5xl text-[#381d14] tracking-tight leading-tight">
+          <h2
+            className="text-4xl md:text-5xl text-[#381d14] tracking-tight leading-tight"
+            style={{ fontFamily: "var(--font-alpina)" }}
+          >
             {t("tours.title")}
           </h2>
         </div>

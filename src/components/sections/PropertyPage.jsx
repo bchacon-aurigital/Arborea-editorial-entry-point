@@ -42,7 +42,10 @@ export default function PropertyPage({ property }) {
             <p className="font-sans text-sm text-[#381d14]/50 tracking-tight">
               {t("propertyPage.subtitle")}
             </p>
-            <h1 className="font-sans font-semibold text-3xl md:text-4xl text-[#381d14]/90 tracking-tight">
+            <h1
+              className="text-3xl md:text-4xl text-[#381d14]/90 tracking-tight"
+              style={{ fontFamily: "var(--font-alpina)" }}
+            >
               {name}
             </h1>
           </div>

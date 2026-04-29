@@ -7,7 +7,6 @@ import { useI18n } from "@/app/context/I18nContext";
 const navLinkKeys = [
   { key: "houses",      href: "/#casas" },
   { key: "massages",    href: "/" },
-  { key: "chefInfo",    href: "/" },
   { key: "tours",       href: "/#tours" },
   { key: "goodToKnow",  href: "/#bueno-saber" },
   { key: "chef",        href: "/" },
@@ -70,7 +69,7 @@ export default function Navbar() {
           <div className="hamburger-nav__bg" />
 
           <div className="hamburger-nav__group">
-            <p className="text-xs uppercase tracking-widest opacity-50 mb-0 text-[#381d14]">Menu</p>
+            <p className="text-xs uppercase tracking-widest opacity-50 mb-0 text-[#381d14] font-extrabold">Menu</p>
             <ul className="flex flex-col gap-1.5 p-0 m-0 list-none">
               <li>
                 <button
@@ -78,7 +77,7 @@ export default function Navbar() {
                   className="hamburger-nav__a w-full"
                   style={{ background: "transparent" }}
                 >
-                  <span className="font-display text-4xl whitespace-nowrap pr-5">
+                  <span className="text-2xl whitespace-nowrap pr-5">
                     {locale === "es" ? "English" : "Español"}
                   </span>
                   <div className="hamburger-nav__dot" />
@@ -87,7 +86,7 @@ export default function Navbar() {
               {navLinkKeys.map((link) => (
                 <li key={link.key}>
                   <Link href={link.href} className="hamburger-nav__a" onClick={() => setIsOpen(false)}>
-                    <span className="font-display text-4xl whitespace-nowrap pr-5">{t(`nav.links.${link.key}`)}</span>
+                    <span className="text-2xl whitespace-nowrap pr-5">{t(`nav.links.${link.key}`)}</span>
                     <div className="hamburger-nav__dot" />
                   </Link>
                 </li>

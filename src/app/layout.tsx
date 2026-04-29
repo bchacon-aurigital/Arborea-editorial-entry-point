@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter } from "next/font/google";
 import { I18nProvider } from "./context/I18nContext";
 import LenisProvider from "@/components/LenisProvider";
 
@@ -9,10 +9,6 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-});
 
 import Script from "next/script";
 import AOSInit from "@/components/AOSInit";
@@ -83,7 +79,7 @@ export default function RootLayout({
       <head>
         <JsonLd />
       </head>
-      <body className={`${inter.variable} ${playfair.variable} antialiased`}>
+      <body className={`${inter.variable} antialiased`}>
         <I18nProvider>
             <SplashScreen />
             <LenisProvider />

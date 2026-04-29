@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { TbWifi } from "react-icons/tb";
+import { TbWifi, TbMapPin } from "react-icons/tb";
 import { IoPeopleOutline, IoBedOutline } from "react-icons/io5";
 import { PiBathtub } from "react-icons/pi";
 import { useI18n } from "@/app/context/I18nContext";
@@ -15,6 +15,7 @@ export default function PropertyCard({
   bedrooms,
   baths,
   href = "#",
+  directionsUrl = "",
 }) {
   const { t } = useI18n();
   const [current, setCurrent] = useState(0);
@@ -110,12 +111,25 @@ export default function PropertyCard({
           })}
         </div>
 
-        <Link
-          href={href}
-          className="flex items-center justify-center w-full h-12 rounded-full border border-[#381d14]/10 font-sans font-medium text-base text-[#381d14]/50 hover:border-[#381d14]/30 hover:text-[#381d14] transition-colors duration-300"
-        >
-          {t("common.seeMore")}
-        </Link>
+        <div className={`flex flex-col xl:grid gap-2 ${directionsUrl ? "xl:grid-cols-2" : ""}`}>
+          {directionsUrl && (
+            <a
+              href={directionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 h-12 px-5 rounded-full bg-[#381d14] font-sans font-medium text-sm text-[#eddac4] hover:bg-[#381d14]/90 transition-colors duration-300"
+            >
+              <TbMapPin size={15} />
+              {t("common.getDirections")}
+            </a>
+          )}
+          <Link
+            href={href}
+            className="flex items-center justify-center h-12 rounded-full border border-[#381d14]/10 font-sans font-medium text-base text-[#381d14]/50 hover:border-[#381d14]/30 hover:text-[#381d14] transition-colors duration-300"
+          >
+            {t("common.seeMore")}
+          </Link>
+        </div>
       </div>
     </div>
   );

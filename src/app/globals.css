@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'GT Alpina';
+  src: url('/fonts/GT Alpina/GT-Alpina-Standard-Medium 2.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-alpina: 'GT Alpina', Georgia, serif;
+}
+
 html, body {
   scroll-behavior: smooth;
   background-color: #EDDAC4;

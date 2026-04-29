@@ -1,55 +1,281 @@
 {
   "hero": {
+    "introPill": "Your safe heaven",
+    "introTitle": "Welcome to Arborea Experiences",
+    "introSubtitle": "Our villas are located in a pristine mountain environment, and part of the magic of staying here comes with a few things worth keeping in mind to ensure a comfortable experience.",
+    "whatsappCta": "Arborea's WhatsApp",
     "pill": "Take a breather",
     "title": "Houses & Villas"
+  },
+  "emergency": {
+    "pill": "Safety first",
+    "title": "Emergency Contacts",
+    "description": "There are multiple pharmacies available in Uvita within a 15-minute radius and many offer extended hours and basic medical assistance.",
+    "contacts": [
+      {
+        "title": "Immediate Emergency (24/7 – First Call)",
+        "subtitle": "In remote areas such as Ojochal, response times may vary. If possible, proceed to the nearest clinic while awaiting assistance.",
+        "rows": [
+          { "label": "911:", "value": "Police, Fire, Ambulance (English available)" },
+          { "label": "128:", "value": "Red Cross Ambulance" },
+          { "label": "117:", "value": "Fire Department" }
+        ]
+      },
+      {
+        "title": "Hospital Tomás Casas Casajús (Cortés)",
+        "subtitle": "Public hospital with 24/7 emergency services",
+        "rows": [
+          { "label": "Name:", "value": "Hospital Tomás Casas Casajús (Cortés)" },
+          { "label": "Distance:", "value": "~20 minutes from Uvita / Ojochal" },
+          { "label": "Phone:", "value": "2786-8198 / 2786-8148" }
+        ]
+      },
+      {
+        "title": "Hospital Las Américas – San Isidro",
+        "subtitle": "Private hospital with faster service",
+        "rows": [
+          { "label": "Name:", "value": "Hospital Las Américas – San Isidro" },
+          { "label": "Distance:", "value": "~1–1.5 hours inland" },
+          { "label": "Phone:", "value": "2771-3122" }
+        ]
+      },
+      {
+        "title": "Hospital Max Terán Valls – Quepos",
+        "subtitle": "Public hospital with 24/7 emergency services",
+        "rows": [
+          { "label": "Name:", "value": "Hospital Max Terán Valls – Quepos" },
+          { "label": "Distance:", "value": "~45 minutes north" },
+          { "label": "Phone:", "value": "2774-9500" }
+        ]
+      },
+      {
+        "title": "Hospital CIMA – San José",
+        "subtitle": "International-level private hospital",
+        "rows": [
+          { "label": "Distance:", "value": "~3.5 hours or air transfer" },
+          { "label": "Phone:", "value": "2208-1000" }
+        ]
+      },
+      {
+        "title": "Local Medical Clinic (Uvita)",
+        "subtitle": "Walk-in urgent care (daytime hours)",
+        "rows": [
+          { "label": "WhatsApp:", "value": "8732-5555" },
+          { "label": "Phone:", "value": "2215-4848" }
+        ]
+      },
+      {
+        "title": "Dr. Solano (On-call doctor)",
+        "subtitle": null,
+        "rows": [
+          { "label": "WhatsApp:", "value": "8579-5097" }
+        ]
+      },
+      {
+        "title": "Costa Rica Medical Response",
+        "subtitle": null,
+        "rows": [
+          { "label": "Phone:", "value": "2286-1818" }
+        ]
+      },
+      {
+        "title": "Lifeguard Air Ambulance",
+        "subtitle": null,
+        "rows": [
+          { "label": "Phone:", "value": "2220-0911" }
+        ]
+      },
+      {
+        "title": "Tourist Police",
+        "subtitle": null,
+        "rows": [
+          { "label": "Phone:", "value": "2222-1365" }
+        ]
+      },
+      {
+        "title": "OIJ (Judicial Investigation Police)",
+        "subtitle": null,
+        "rows": [
+          { "label": "Phone:", "value": "800-8000-645" }
+        ]
+      },
+      {
+        "title": "Canadian Embassy (San José)",
+        "subtitle": null,
+        "rows": [
+          { "label": "Phone:", "value": "2242-4400" }
+        ]
+      }
+    ]
   },
   "tours": {
     "pill": "Explore the area",
     "title": "Tours & Activities",
     "activities": [
       {
-        "title": "Whale Watching Tour",
-        "description": "Witness humpback whales in their natural habitat in the warm waters of the Osa Peninsula — one of the world's premier whale watching destinations.",
-        "features": ["Best season: July – November", "Up to 10 guests", "Drake Bay departure", "3 – 4 hours", "Snorkeling included"],
+        "title": "Tandem Paragliding — Zion",
+        "description": "15–20 minute tandem flight with 15 years of operating experience. Licensed and fully insured pilots. Departs from Dominical.",
+        "features": ["15–20 min flight", "Licensed + insured pilots, 15 yrs experience", "Transport to/from launch & landing site", "Full safety equipment included", "Photo package available (+$30)"],
         "pricing": [
-          { "label": "Shared tour / 2 people", "price": "$95 / person" },
-          { "label": "Children (under 10)", "price": "$50 / person" },
-          { "label": "Private tour", "price": "$380" }
+          { "label": "Per person", "price": "$150 + IVA" },
+          { "label": "Photo package", "price": "+$30" },
+          { "label": "Private transport (Uvita/Ojochal)", "price": "+$40–50 roundtrip" }
         ],
-        "commission": "15% commission included for all bookings.",
-        "contactName": "Carlos Mora",
+        "commission": "$20 per person",
+        "contactName": "Zion Paragliding",
+        "whatsapp": "+506 8711 5683"
+      },
+      {
+        "title": "Corcovado + Marine Experience",
+        "description": "Premium Corcovado and marine operator with a unique whale tour led by a marine biologist using hydrophone listening. Includes Tapir Trail private reserve.",
+        "features": ["Sirena day tour + overnight options", "Whale tour with marine biologist + hydrophone", "Tapir Trail private reserve (less crowded)", "Caño Island snorkeling", "Horseback riding, birdwatching, night tours"],
+        "pricing": [
+          { "label": "Sirena day", "price": "$110 cash / $125 card" },
+          { "label": "Overnight (2D/1N)", "price": "$375 cash / $424 card" },
+          { "label": "Whale & dolphin", "price": "$120 adult / $85 child" },
+          { "label": "Tapir Trail", "price": "$75–85" },
+          { "label": "Night tour", "price": "$50" },
+          { "label": "Birdwatching", "price": "$45" }
+        ],
+        "commission": "Flexible — negotiable by volume",
+        "contactName": "Alberto Quesada Calvo",
+        "whatsapp": "+506 8703 1862"
+      },
+      {
+        "title": "Nature & Wildlife Jungle Experiences",
+        "description": "Multi-category nature reserve with wildlife tours, birdwatching, night tours, and the premium Chilamate experience. 330-hectare private reserve.",
+        "features": ["Wildlife tour (2.5–3 hrs)", "Birdwatching (6 AM)", "Night tour: reptiles, frogs, nocturnal animals", "Chilamate tour (3.5–4 hrs, most immersive)", "Small groups of 2–8 people only"],
+        "pricing": [
+          { "label": "Wildlife tour", "price": "~$11–12 profit / adult" },
+          { "label": "Chilamate tour", "price": "~$14+ profit / adult" },
+          { "label": "Pricing model", "price": "Net rate — you mark up" }
+        ],
+        "commission": "Net rates — monthly invoice",
+        "contactName": "Barú Tours / Hacienda Barú",
+        "whatsapp": ""
+      },
+      {
+        "title": "Jungle ATV with Cultural Experience",
+        "description": "5-hour ATV or side-by-side experience combining jungle riding with a visit to a local Costa Rican family, coffee harvesting, snacks buffet, and bilingual guide.",
+        "features": ["Rivers, waterfalls, jungle riding", "Visit to local CR family + coffee demo", "Snacks + fruit buffet included", "Bilingual guide", "ATV or side-by-side options", "Minimum age: 4 years"],
+        "pricing": [
+          { "label": "Single ATV", "price": "$150" },
+          { "label": "Side-by-side 2-seater", "price": "$230" },
+          { "label": "Side-by-side 4-seater", "price": "$400" },
+          { "label": "Private group add-on", "price": "+$150–250" }
+        ],
+        "commission": "15% (~$22.50 per ATV)",
+        "contactName": "Adventure Motorsports",
+        "whatsapp": ""
+      },
+      {
+        "title": "Corcovado National Park — Sirena & San Pedrillo",
+        "description": "Full-service nature operator with access to the top ranger stations in Corcovado. High wildlife probability: monkeys, sloths, tapirs, birds. Overnight expeditions available.",
+        "features": ["Sirena + San Pedrillo ranger station access", "High wildlife: monkeys, sloths, tapirs", "Certified bilingual guide", "Boat transport + park fees + meals included", "Overnight & 2-night expedition options"],
+        "pricing": [
+          { "label": "San Pedrillo tour", "price": "$100 / person" },
+          { "label": "Caño Island snorkeling", "price": "$100 / person" },
+          { "label": "Sirena day tour", "price": "$125 / person" },
+          { "label": "Whale & dolphin tour", "price": "$120–150 / person" },
+          { "label": "Overnight Corcovado", "price": "$375 / person" },
+          { "label": "2-night expedition", "price": "$595 / person" }
+        ],
+        "commission": "15% on all tours",
+        "contactName": "Corcovado Info Center",
+        "whatsapp": ""
+      },
+      {
+        "title": "ATV & Side-by-Side Jungle Adventure",
+        "description": "Private facility ATV experience through forests, rivers, and hills with a coffee farm visit. Best for experienced riders seeking a premium feel.",
+        "features": ["Jungle riding: forests, rivers, hills", "Coffee farm visit + tasting", "Scenic viewpoints + waterfalls", "Helmet, goggles, snacks, water included", "Private facility — premium, controlled environment"],
+        "pricing": [
+          { "label": "Single ATV", "price": "$150 (experienced only)" },
+          { "label": "Turbo 2-seater SxS", "price": "$300" },
+          { "label": "3-seater SxS", "price": "$450" },
+          { "label": "4-seater SxS", "price": "$500" }
+        ],
+        "commission": "Flexible (~$20+ margin)",
+        "contactName": "Morete ATV Tours",
+        "whatsapp": "+506 8742 3541"
+      },
+      {
+        "title": "Tandem Paragliding — Dominical & Rivas",
+        "description": "20–30 minute tandem flight (longer than competitors) with certified instructor. Family-run, 14 years experience. English spoken. Payment collected after the activity.",
+        "features": ["20–30 min flight (longest available)", "Certified instructor-pilot, 14 yrs experience", "English spoken", "Flexible pickup from villa", "Payment after activity — very guest-friendly"],
+        "pricing": [
+          { "label": "Dominical site", "price": "$135 net / person" },
+          { "label": "Rivas site", "price": "$120 net / person" },
+          { "label": "Markup", "price": "Flexible — you control pricing" }
+        ],
+        "commission": "Flexible (~$20+ margin)",
+        "contactName": "Alex Badilla",
+        "whatsapp": "+506 8711 5683"
+      },
+      {
+        "title": "Full-Day Waterfall Tour",
+        "description": "Full-day guided tour visiting 3 different waterfalls, beach stop, and lunch at a restaurant with ocean view. Transportation from office included.",
+        "features": ["Visit to 3 different waterfalls", "Beach stop included", "Lunch at ocean-view restaurant", "Transportation from office"],
+        "pricing": [
+          { "label": "Full day", "price": "$130 / person" }
+        ],
+        "commission": "$20 per person",
+        "contactName": "Uvita Paradise Adventures",
+        "whatsapp": "+506 6457 8157"
+      },
+      {
+        "title": "Vuelo del Tucán Canopy",
+        "description": "7 zip lines through a 330-hectare private nature reserve. Small groups of 2–8 people, with ecological walk and high wildlife spotting potential.",
+        "features": ["7 zip lines + ecological walk (45 min)", "Small groups: 2–8 people only", "Wildlife spotting potential", "Multiple daily schedules: 8 AM, 11 AM, 2 PM"],
+        "pricing": [
+          { "label": "Adult (rack)", "price": "$85.80" }
+        ],
+        "commission": "~$12.87 per adult (net rate model)",
+        "contactName": "Barú Tours / Hacienda Barú",
+        "whatsapp": ""
+      },
+      {
+        "title": "Canyoning & Waterfall Rappelling",
+        "description": "Multiple waterfall rappels with jungle hiking and natural pool interaction. A complete package for adventure-seekers — beginners welcome.",
+        "features": ["Waterfall rappels (main highlight)", "Jungle hike + natural pool", "Helmet, harness, full safety gear included", "4x4 transport to start point", "Photos + videos + traditional lunch included"],
+        "pricing": [
+          { "label": "Shared tour (9 AM)", "price": "$150 / person" },
+          { "label": "2 people", "price": "$200 total" },
+          { "label": "Children", "price": "$95" },
+          { "label": "Private tour (1 PM)", "price": "$200 / person" }
+        ],
+        "commission": "$20 per person",
+        "contactName": "Carlos Andrés Argüello",
         "whatsapp": "+506 8706 7703"
       },
       {
-        "title": "Corcovado National Park",
-        "description": "Explore one of the most biodiverse places on Earth. Guided hike through primary rainforest with experienced naturalist guides.",
-        "features": ["Full day excursion", "Up to 8 guests", "Sirena station", "Guided by certified naturalist", "Lunch included"],
+        "title": "Osa Canopy Tour",
+        "description": "7 zip lines including a 1.1 km longest line, 2–3 rappels, and 2 hanging bridges. Small to medium groups, scenic mountain setting.",
+        "features": ["7 zip lines (1.1 km longest)", "2–3 rappels + 2 hanging bridges", "Guided experience", "Transport: office → mountain"],
         "pricing": [
-          { "label": "Shared tour / 2 people", "price": "$130 / person" },
-          { "label": "Children (under 12)", "price": "$80 / person" },
-          { "label": "Private tour", "price": "$490" }
+          { "label": "Adult", "price": "$80 + IVA" },
+          { "label": "Child", "price": "$60 + IVA" }
         ],
-        "commission": "15% commission included for all bookings.",
-        "contactName": "María Solano",
-        "whatsapp": "+506 8706 7703"
+        "commission": "$16 per adult / $12 per child",
+        "contactName": "Osa Canopy",
+        "whatsapp": "+506 8884 1237"
       },
       {
-        "title": "Kayaking & Snorkeling",
-        "description": "Paddle through mangroves and snorkel vibrant coral reefs teeming with tropical fish along the Osa coastline.",
-        "features": ["Half day (4 hours)", "Up to 6 guests", "All equipment included", "Beach picnic stop", "Suitable for beginners"],
+        "title": "Zipline + Waterfalls Adventure Combo",
+        "description": "Multi-activity adventure combining 5 zip lines, tree rappelling, monkey drop into water, natural pool, and waterfall slide. Local lunch included.",
+        "features": ["5 zip lines", "Tree rappelling + monkey drop", "Natural pool & waterfall slide", "Local lunch at the end"],
         "pricing": [
-          { "label": "Shared tour / 2 people", "price": "$75 / person" },
-          { "label": "Children (under 12)", "price": "$45 / person" },
-          { "label": "Private tour", "price": "$280" }
+          { "label": "Regular (shared)", "price": "$90 / person" },
+          { "label": "2 people", "price": "$110 / person" }
         ],
-        "commission": "15% commission included for all bookings.",
-        "contactName": "Luis Vargas",
-        "whatsapp": "+506 8706 7703"
+        "commission": "$25 per person",
+        "contactName": "Uvita Paradise Adventures",
+        "whatsapp": "+506 6457 8157"
       }
     ]
   },
   "common": {
     "seeMore": "See more",
+    "getDirections": "Get directions",
     "wifi": "Wifi",
     "guests": "Guests",
     "bedrooms": "Bedrooms",
@@ -91,7 +317,6 @@
     "links": {
       "houses":     "Houses",
       "massages":   "Massages & Wellness",
-      "chefInfo":   "Private Chef Info",
       "tours":      "Tours & Activities",
       "goodToKnow": "Good to Know",
       "chef":       "Private Chef"
@@ -125,14 +350,12 @@
     }
   },
   "footer": {
-    "location": "Desamparados, Costa Rica",
     "copyright": "© Arborea 2026. All rights reserved.",
     "links": {
       "heading": "Links",
       "items": [
         { "label": "Houses", "href": "/#casas" },
         { "label": "Massages & Wellness", "href": "/" },
-        { "label": "Private Chef Information", "href": "/" },
         { "label": "Tours & Activities", "href": "/#tours" },
         { "label": "Good to Know", "href": "/#bueno-saber" },
         { "label": "Private Chef", "href": "/" }
@@ -141,7 +364,7 @@
     "about": {
       "heading": "About Us",
       "items": [
-        { "label": "Emergency Contacts", "href": "/" },
+        { "label": "Emergency Contacts", "href": "/#emergencias" },
         { "label": "WhatsApp", "href": "https://wa.me/50685011042" },
         { "label": "Instagram", "href": "https://www.instagram.com/arboreavillas/" },
         { "label": "Facebook", "href": "https://www.facebook.com/profile.php?id=61574441755795" }

@@ -44,7 +44,7 @@ export default function ActivityCard({ activity }) {
       {/* Pricing */}
       <div className="py-6 border-b border-[#381d14]/15 flex flex-col gap-3">
         {pricing.map((row, i) => (
-          <div key={i} className="flex items-center justify-between gap-4">
+          <div key={i} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
             <span className="font-sans text-sm text-[#381d14]/70">{row.label}</span>
             <span className="font-sans font-medium text-sm text-[#381d14]">{row.price}</span>
           </div>

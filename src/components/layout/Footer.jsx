@@ -14,11 +14,6 @@ export default function Footer() {
           <Link href="/" className="inline-block">
             <object type="image/svg+xml" data="/assets/logos/LogoNavbar.svg" width={242} height={113} aria-label="Arborea Experiences" className="pointer-events-none" />
           </Link>
-          <div className="flex flex-col gap-5">
-            <p className="font-sans font-medium text-sm text-[#381d14]/80">
-              {t("footer.location")}
-            </p>
-          </div>
         </div>
 
         <div className="flex flex-wrap gap-12 md:gap-16 lg:gap-24">
@@ -57,7 +52,6 @@ export default function Footer() {
                   {t("common.email")}
                 </a>
               </li>
-              <li className="font-sans text-sm text-[#381d14]/50">{t("footer.location")}</li>
             </ul>
           </div>
         </div>
