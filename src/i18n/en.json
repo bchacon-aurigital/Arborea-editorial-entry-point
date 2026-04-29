@@ -65,6 +65,7 @@
     "wifiName": "WiFi Name",
     "password": "Password",
     "directions": "Directions",
+    "directionsComingSoon": "Coming soon",
     "highlightsSection": "Highlights",
     "aboutSection": "About",
     "highlights": {
@@ -88,11 +89,12 @@
     "open": "Open menu",
     "close": "Close menu",
     "links": {
-      "home": "Home",
-      "experiences": "Experiences",
-      "about": "About Us",
-      "gallery": "Gallery",
-      "contact": "Contact"
+      "houses":     "Houses",
+      "massages":   "Massages & Wellness",
+      "chefInfo":   "Private Chef Info",
+      "tours":      "Tours & Activities",
+      "goodToKnow": "Good to Know",
+      "chef":       "Private Chef"
     }
   },
   "properties": {
@@ -128,11 +130,11 @@
     "links": {
       "heading": "Links",
       "items": [
-        { "label": "Houses", "href": "/" },
+        { "label": "Houses", "href": "/#casas" },
         { "label": "Massages & Wellness", "href": "/" },
         { "label": "Private Chef Information", "href": "/" },
-        { "label": "Tours & Activities", "href": "/" },
-        { "label": "Good to Know", "href": "/" },
+        { "label": "Tours & Activities", "href": "/#tours" },
+        { "label": "Good to Know", "href": "/#bueno-saber" },
         { "label": "Private Chef", "href": "/" }
       ]
     },
@@ -140,14 +142,14 @@
       "heading": "About Us",
       "items": [
         { "label": "Emergency Contacts", "href": "/" },
-        { "label": "WhatsApp", "href": "https://wa.me/50686778536" },
-        { "label": "Facebook", "href": "https://facebook.com" },
-        { "label": "LinkedIn", "href": "https://linkedin.com" }
+        { "label": "WhatsApp", "href": "https://wa.me/50685011042" },
+        { "label": "Instagram", "href": "https://www.instagram.com/arboreavillas/" },
+        { "label": "Facebook", "href": "https://www.facebook.com/profile.php?id=61574441755795" }
       ]
     },
     "contact": {
       "heading": "Contact Us",
-      "phone": "(+506) 8677 - 8536"
+      "phone": "(+506) 8501 - 1042"
     }
   },
   "goodToKnow": {

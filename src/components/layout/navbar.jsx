@@ -5,11 +5,12 @@ import Link from "next/link";
 import { useI18n } from "@/app/context/I18nContext";
 
 const navLinkKeys = [
-  { key: "home", href: "/" },
-  { key: "experiences", href: "/experiencias" },
-  { key: "about", href: "/nosotros" },
-  { key: "gallery", href: "/galeria" },
-  { key: "contact", href: "/contacto" },
+  { key: "houses",      href: "/#casas" },
+  { key: "massages",    href: "/" },
+  { key: "chefInfo",    href: "/" },
+  { key: "tours",       href: "/#tours" },
+  { key: "goodToKnow",  href: "/#bueno-saber" },
+  { key: "chef",        href: "/" },
 ];
 
 export default function Navbar() {

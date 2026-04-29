@@ -54,15 +54,17 @@ export default function PropertyPage({ property }) {
               {t("propertyPage.share")}
               <TbShare size={14} />
             </button>
-            <a
-              href={directionsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#381d14] font-sans font-medium text-sm text-[#eddac4] hover:bg-[#381d14]/90 transition-colors duration-200"
-            >
-              <TbMapPin size={14} />
-              <span className="hidden sm:inline">{t("propertyPage.seeDirections")}</span>
-            </a>
+            {directionsUrl && (
+              <a
+                href={directionsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#381d14] font-sans font-medium text-sm text-[#eddac4] hover:bg-[#381d14]/90 transition-colors duration-200"
+              >
+                <TbMapPin size={14} />
+                <span className="hidden sm:inline">{t("propertyPage.seeDirections")}</span>
+              </a>
+            )}
           </div>
         </div>
 
@@ -114,25 +116,37 @@ export default function PropertyPage({ property }) {
                 label={t("propertyPage.password")}
                 value={wifi.password}
               />
-              <a
-                href={directionsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-[#381d14] rounded-xl px-4 py-4 flex items-center justify-between gap-3 hover:bg-[#381d14]/90 transition-colors duration-200"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="bg-[#eddac4] rounded-xl size-12 flex items-center justify-center shrink-0">
-                    <TbMapPin size={20} className="text-[#381d14]" />
+              {directionsUrl ? (
+                <a
+                  href={directionsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#381d14] rounded-xl px-4 py-4 flex items-center justify-between gap-3 hover:bg-[#381d14]/90 transition-colors duration-200"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="bg-[#eddac4] rounded-xl size-12 flex items-center justify-center shrink-0">
+                      <TbMapPin size={20} className="text-[#381d14]" />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <p className="font-sans font-semibold text-sm text-[#eddac4]">{t("propertyPage.directions")}</p>
+                      <p className="font-sans text-sm text-[#eddac4]/60">{t("propertyPage.seeDirections")}</p>
+                    </div>
+                  </div>
+                  <div className="border border-[#eddac4]/20 rounded-xl size-9 flex items-center justify-center shrink-0">
+                    <TbChevronRight size={16} className="text-[#eddac4]/60" />
+                  </div>
+                </a>
+              ) : (
+                <div className="bg-[#381d14]/10 rounded-xl px-4 py-4 flex items-center gap-3">
+                  <div className="bg-[#381d14]/10 rounded-xl size-12 flex items-center justify-center shrink-0">
+                    <TbMapPin size={20} className="text-[#381d14]/40" />
                   </div>
                   <div className="flex flex-col gap-1">
-                    <p className="font-sans font-semibold text-sm text-[#eddac4]">{t("propertyPage.directions")}</p>
-                    <p className="font-sans text-sm text-[#eddac4]/60">{t("propertyPage.seeDirections")}</p>
+                    <p className="font-sans font-semibold text-sm text-[#381d14]/40">{t("propertyPage.directions")}</p>
+                    <p className="font-sans text-sm text-[#381d14]/30">{t("propertyPage.directionsComingSoon")}</p>
                   </div>
                 </div>
-                <div className="border border-[#eddac4]/20 rounded-xl size-9 flex items-center justify-center shrink-0">
-                  <TbChevronRight size={16} className="text-[#eddac4]/60" />
-                </div>
-              </a>
+              )}
             </div>
           </div>
 

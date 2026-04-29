@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FaFacebook, FaLinkedin } from "react-icons/fa";
+import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { useI18n } from "@/app/context/I18nContext";
 
 export default function Footer() {
@@ -67,22 +67,22 @@ export default function Footer() {
         <p className="font-sans text-sm text-[#381d14]/80">{t("footer.copyright")}</p>
         <div className="flex items-center gap-3">
           <a
-            href="https://facebook.com"
+            href="https://www.instagram.com/arboreavillas/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            className="size-12 rounded-full border border-[#381d14]/[0.12] flex items-center justify-center hover:border-[#381d14]/30 transition-colors duration-200"
+          >
+            <FaInstagram size={18} className="text-[#381d14]/70" />
+          </a>
+          <a
+            href="https://www.facebook.com/profile.php?id=61574441755795"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Facebook"
             className="size-12 rounded-full border border-[#381d14]/[0.12] flex items-center justify-center hover:border-[#381d14]/30 transition-colors duration-200"
           >
             <FaFacebook size={18} className="text-[#381d14]/70" />
-          </a>
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className="size-12 rounded-full border border-[#381d14]/[0.12] flex items-center justify-center hover:border-[#381d14]/30 transition-colors duration-200"
-          >
-            <FaLinkedin size={18} className="text-[#381d14]/70" />
           </a>
         </div>
       </div>

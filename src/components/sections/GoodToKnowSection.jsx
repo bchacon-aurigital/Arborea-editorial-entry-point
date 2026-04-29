@@ -33,7 +33,7 @@ export default function GoodToKnowSection() {
   const { t } = useI18n();
 
   return (
-    <section className="w-full bg-[#381d14] rounded-3xl px-8 md:px-16 py-16 md:py-24 flex flex-col gap-16 md:gap-24">
+    <section id="bueno-saber" className="w-full bg-[#381d14] rounded-3xl px-8 md:px-16 py-16 md:py-24 flex flex-col gap-16 md:gap-24">
       <div className="flex flex-col-reverse md:flex-row items-start justify-between gap-8">
         <p className="font-sans font-medium text-[#eddac4] text-xl md:text-2xl leading-tight tracking-tight max-w-4xl">
           {t("goodToKnow.title")}

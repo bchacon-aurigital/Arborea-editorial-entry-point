@@ -21,7 +21,7 @@ export default function HeroSection() {
   const swiperRef = useRef(null);
 
   return (
-    <section className="flex flex-col px-8 md:px-16 pt-32 pb-24 gap-8">
+    <section id="casas" className="flex flex-col px-8 md:px-16 pt-32 pb-24 gap-8">
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">

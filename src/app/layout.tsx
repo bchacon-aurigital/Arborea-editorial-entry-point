@@ -17,46 +17,44 @@ const playfair = Playfair_Display({
 import Script from "next/script";
 import AOSInit from "@/components/AOSInit";
 import JsonLd from "@/components/JsonLd";
+import SplashScreen from "@/components/SplashScreen";
 
 export const metadata: Metadata = {
   title: {
-    default: "",
-    template: "%s | ",
+    default: "Arbórea Experiences | Villas en la Península de Osa, Costa Rica",
+    template: "%s | Arbórea Experiences",
   },
-  description: "",
-  keywords: [""],
-  authors: [{ name: "", url: "" }],
-  creator: "",
-  publisher: "",
+  description: "Villas privadas de lujo en la Península de Osa, Costa Rica. Rodeadas de selva tropical y con vistas al Océano Pacífico. Reserva tu experiencia única en naturaleza.",
+  keywords: ["villas Costa Rica", "Península de Osa", "alquiler villa lujo", "Arborea Experiences", "casas vacaciones Costa Rica", "Pacífico Sur Costa Rica"],
+  authors: [{ name: "Arbórea Experiences", url: "https://welcome.arboreaexperiences.com" }],
+  creator: "Arbórea Experiences",
+  publisher: "Arbórea Experiences",
   metadataBase: new URL("https://welcome.arboreaexperiences.com"),
   alternates: {
     canonical: "/",
-    languages: {
-      "es-ES": "/es",
-    },
   },
   openGraph: {
     type: "website",
-    locale: "es_ES",
+    locale: "es_CR",
     url: "/",
-    siteName: "",
-    title: "",
-    description: "",
+    siteName: "Arbórea Experiences",
+    title: "Arbórea Experiences | Villas en la Península de Osa, Costa Rica",
+    description: "Villas privadas de lujo en la Península de Osa, Costa Rica. Rodeadas de selva tropical y con vistas al Océano Pacífico.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/assets/cover.png",
         width: 1200,
         height: 630,
-        alt: "",
+        alt: "Arbórea Experiences — Villas privadas en la Península de Osa",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "",
-    description: "",
-    images: ["/og-image.jpg"],
-    creator: "@",
+    title: "Arbórea Experiences | Villas en la Península de Osa",
+    description: "Villas privadas de lujo en la Península de Osa, Costa Rica. Rodeadas de selva tropical y con vistas al Pacífico.",
+    images: ["/assets/cover.png"],
+    creator: "@arboreavillas",
   },
   robots: {
     index: true,
@@ -87,6 +85,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${playfair.variable} antialiased`}>
         <I18nProvider>
+            <SplashScreen />
             <LenisProvider />
             <AOSInit />
             {children}
