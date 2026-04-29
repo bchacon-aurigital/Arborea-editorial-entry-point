@@ -1,4 +1,80 @@
 {
+  "propertyPage": {
+    "subtitle": "Diseñado para el confort",
+    "share": "Compartir",
+    "seeDirections": "Ver indicaciones",
+    "wifiSection": "WiFi e Indicaciones",
+    "wifiName": "Nombre WiFi",
+    "password": "Contraseña",
+    "directions": "Indicaciones",
+    "highlightsSection": "Destacados",
+    "aboutSection": "Acerca de",
+    "highlights": {
+      "pool":           { "title": "Piscina",           "description": "Piscina infinita con vistas panorámicas al Océano Pacífico" },
+      "jacuzzi":        { "title": "Jacuzzi",            "description": "Jacuzzi disponible las 24 horas" },
+      "yogaDeck":       { "title": "Deck de yoga",       "description": "Deck de yoga con vista al océano" },
+      "views":          { "title": "Vistas",             "description": "Entorno de selva tropical con sonidos de jungla y océano" },
+      "privacy":        { "title": "Privacidad",         "description": "Villa alquilada exclusivamente — privacidad total" },
+      "selfCheckin":    { "title": "Auto check-in",      "description": "Check-in mediante teclado numérico" },
+      "jungleVibes":    { "title": "Ambiente selvático", "description": "Áreas de vida interior y exterior que se fusionan con la jungla circundante" },
+      "oceanViews":     { "title": "Vistas al océano",   "description": "Impresionantes vistas al Océano Pacífico desde la cama y los balcones" },
+      "soakingTub":     { "title": "Bañera",             "description": "Bañera de inmersión con vistas panorámicas" },
+      "outdoorKitchen": { "title": "Cocina exterior",    "description": "Cocina interior y exterior completamente equipadas" },
+      "petsAllowed":    { "title": "Se admiten mascotas","description": "La única villa que acepta mascotas" },
+      "sunsets":        { "title": "Atardeceres",        "description": "Impresionantes atardeceres cada tarde desde la villa" },
+      "oceanBreeze":    { "title": "Brisa marina",       "description": "Ubicada donde la montaña se encuentra con la brisa del océano" },
+      "yogaArea":       { "title": "Área de yoga",       "description": "Zona verde ideal para yoga rodeada de palmeras tropicales" }
+    }
+  },
+  "hero": {
+    "pill": "Tómate un respiro",
+    "title": "Casas y Villas"
+  },
+  "tours": {
+    "pill": "Explora el área",
+    "title": "Tours y Actividades",
+    "activities": [
+      {
+        "title": "Tour de Avistamiento de Ballenas",
+        "description": "Observa ballenas jorobadas en su hábitat natural en las cálidas aguas de la Península de Osa, uno de los mejores destinos del mundo para avistar ballenas.",
+        "features": ["Mejor temporada: julio – noviembre", "Hasta 10 huéspedes", "Salida desde Bahía Drake", "3 – 4 horas", "Snorkel incluido"],
+        "pricing": [
+          { "label": "Tour compartido / 2 personas", "price": "$95 / persona" },
+          { "label": "Niños (menores de 10 años)", "price": "$50 / persona" },
+          { "label": "Tour privado", "price": "$380" }
+        ],
+        "commission": "15% de comisión incluida en todas las reservaciones.",
+        "contactName": "Carlos Mora",
+        "whatsapp": "+506 8706 7703"
+      },
+      {
+        "title": "Parque Nacional Corcovado",
+        "description": "Explora uno de los lugares más biodiversos del planeta. Caminata guiada por bosque primario con guías naturalistas certificados.",
+        "features": ["Excursión de día completo", "Hasta 8 huéspedes", "Estación Sirena", "Guiado por naturalista certificado", "Almuerzo incluido"],
+        "pricing": [
+          { "label": "Tour compartido / 2 personas", "price": "$130 / persona" },
+          { "label": "Niños (menores de 12 años)", "price": "$80 / persona" },
+          { "label": "Tour privado", "price": "$490" }
+        ],
+        "commission": "15% de comisión incluida en todas las reservaciones.",
+        "contactName": "María Solano",
+        "whatsapp": "+506 8706 7703"
+      },
+      {
+        "title": "Kayak y Snorkel",
+        "description": "Recorre manglares en kayak y bucea entre arrecifes llenos de peces tropicales a lo largo de la costa de Osa.",
+        "features": ["Medio día (4 horas)", "Hasta 6 huéspedes", "Todo el equipo incluido", "Parada para picnic en playa", "Apto para principiantes"],
+        "pricing": [
+          { "label": "Tour compartido / 2 personas", "price": "$75 / persona" },
+          { "label": "Niños (menores de 12 años)", "price": "$45 / persona" },
+          { "label": "Tour privado", "price": "$280" }
+        ],
+        "commission": "15% de comisión incluida en todas las reservaciones.",
+        "contactName": "Luis Vargas",
+        "whatsapp": "+506 8706 7703"
+      }
+    ]
+  },
   "common": {
     "seeMore": "Ver más",
     "wifi": "Wifi",
@@ -22,27 +98,31 @@
   "properties": {
     "casaMango": {
       "name": "Casa Mango",
-      "description": "Villa Mango también cuenta con una sala de juegos para entretenimiento, una amplia terraza de yoga rodeada de naturaleza y áreas sociales abiertas que invitan a los huéspedes a relajarse y disfrutar del tiempo juntos."
+      "description": "Villa Mango también cuenta con una sala de juegos para entretenimiento, una amplia terraza de yoga rodeada de naturaleza y áreas sociales abiertas que invitan a los huéspedes a relajarse y disfrutar del tiempo juntos.",
+      "about": "Casa Mango es un escape exclusivo diseñado para el confort, el espacio y la conexión. Su entorno privado y su relajada atmósfera la convierten en el destino perfecto para grupos y familias que buscan compartir momentos inolvidables en un ambiente refinado y natural.\n\nVilla Mango también cuenta con una sala de juegos para entretenimiento, una amplia terraza de yoga rodeada de naturaleza y áreas sociales abiertas que invitan a los huéspedes a relajarse y disfrutar del tiempo juntos."
     },
     "casaRonRon": {
       "name": "Casa Ron Ron",
-      "description": "La villa está diseñada para brindar un espacio tranquilo e inspirador. Sus cálidos interiores y áreas de vida al aire libre están cuidadosamente diseñados para complementar la belleza natural del bosque circundante."
+      "description": "La villa está diseñada para brindar un espacio tranquilo e inspirador. Sus cálidos interiores y áreas de vida al aire libre están cuidadosamente diseñados para complementar la belleza natural del bosque circundante.",
+      "about": "Casa Ron Ron toma su nombre del majestuoso árbol ron ron (Astronium graveolens), una especie nativa celebrada por su madera duradera y su característica corteza exfoliante.\n\nLa villa está diseñada para brindar un espacio tranquilo e inspirador, con cuatro amplias habitaciones. Sus cálidos interiores y áreas de vida al aire libre complementan a la perfección la belleza natural del bosque circundante."
     },
     "casaCeiba": {
       "name": "Casa Ceiba",
-      "description": "Diseñada como un estudio privado, Villa Ceiba es ideal para parejas que buscan intimidad y relajación. Su piscina privada, diseño y ambiente sereno crean un retiro en el corazón de la Península de Osa."
+      "description": "Diseñada como un estudio privado, Villa Ceiba es ideal para parejas que buscan intimidad y relajación. Su piscina privada, diseño y ambiente sereno crean un retiro en el corazón de la Península de Osa.",
+      "about": "Casa Ceiba está inspirada en el legendario árbol Ceiba (Ceiba pentandra), símbolo de vida y conexión con sus imponentes raíces y amplio dosel.\n\nApartada como estudio privado, Villa Ceiba está diseñada para parejas que buscan intimidad y relajación. Su piscina privada, diseño elegante y serena atmósfera crean un retiro sin igual en el corazón de la Península de Osa."
     },
     "casaCorteza": {
       "name": "Casa Corteza Amarilla",
-      "description": "Casa Corteza Amarilla lleva el nombre del icónico árbol Cortez Amarillo (Handroanthus guayacan), cuyas flores amarillas transforman el paisaje en un paraíso dorado cada abril."
+      "description": "Casa Corteza Amarilla lleva el nombre del icónico árbol Cortez Amarillo (Handroanthus guayacan), cuyas flores amarillas transforman el paisaje en un paraíso dorado cada abril.",
+      "about": "Casa Corteza Amarilla lleva el nombre del icónico árbol Cortez Amarillo (Handroanthus guayacan), cuya floración amarilla vibrante transforma el paisaje en un paraíso dorado cada abril. Esta especie en peligro de extinción es símbolo de renovación y belleza.\n\nEl árbol destaca en la propiedad como pieza central natural. En el interior, cuatro espaciosas habitaciones ofrecen una combinación de confort y sofisticación, con espacios abiertos diseñados para conectar con el exterior."
     },
     "casaPalmera": {
       "name": "Casa Palmera",
-      "description": "El diseño de la villa refleja la elegancia de su árbol homónimo, con amplios interiores, decoración refinada y comodidades modernas. Es la opción perfecta para familias o amigos que buscan un escape tranquilo en la naturaleza."
+      "description": "El diseño de la villa refleja la elegancia de su árbol homónimo, con amplios interiores, decoración refinada y comodidades modernas. Es la opción perfecta para familias o amigos que buscan un escape tranquilo en la naturaleza.",
+      "about": "Casa Palmera Azul lleva el nombre de la llamativa palmera azul (Bismarckia nobilis), conocida por sus grandes hojas en forma de abanico con un único tono plateado-azulado.\n\nEl diseño de la villa refleja la elegancia de su árbol homónimo, con amplios interiores, decoración refinada y comodidades modernas. Es la opción perfecta para familias o amigos que buscan un escape tranquilo en la naturaleza."
     }
   },
   "footer": {
-    "description": "Ubicado en el corazón de la Península de Osa en Costa Rica, Arborea Experiences ofrece una colección de villas privadas rodeadas de selva exuberante, vistas impresionantes y una tranquilidad sin igual.",
     "location": "Desamparados, Costa Rica",
     "copyright": "© Arborea 2026. Todos los derechos reservados.",
     "links": {

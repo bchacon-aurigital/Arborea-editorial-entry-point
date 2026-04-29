@@ -2,10 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
+html, body {
   scroll-behavior: smooth;
   background-color: #EDDAC4;
+  overflow-x: hidden;
+}
 
+/* ── Property image swiper pagination ── */
+.property-swiper .swiper-pagination-bullet {
+  background: #fff;
+  opacity: 0.5;
+}
+.property-swiper .swiper-pagination-bullet-active {
+  background: #fff;
+  opacity: 1;
+}
+.property-swiper .swiper-pagination {
+  bottom: 12px;
 }
 
 /* ── Swiper equal-height cards ── */

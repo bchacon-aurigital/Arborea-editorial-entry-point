@@ -16,7 +16,7 @@ const propertyKeys = [
   { key: "casaPalmera", images: ["/assets/CasaPalmera/17.avif", "/assets/CasaPalmera/18.avif", "/assets/CasaPalmera/19.avif", "/assets/CasaPalmera/20.avif"],                       guests: 8,  bedrooms: 4, baths: 2,   href: "/casa-palmera" },
 ];
 
-export default function PropertiesCarousel() {
+export default function PropertiesCarousel({ swiperRef }) {
   const { t } = useI18n();
 
   return (
@@ -33,6 +33,7 @@ export default function PropertiesCarousel() {
         disableOnInteraction: true,
       }}
       loop={true}
+      onSwiper={(swiper) => { if (swiperRef) swiperRef.current = swiper; }}
       className="hero-swiper !pb-2"
     >
       {propertyKeys.map(({ key, images, guests, bedrooms, baths, href }) => (

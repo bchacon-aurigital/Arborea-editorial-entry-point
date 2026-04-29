@@ -12,12 +12,9 @@ export default function Footer() {
       <div className="flex flex-col md:flex-row items-start justify-between gap-16 pb-16">
         <div className="flex flex-col gap-6 max-w-sm shrink-0">
           <Link href="/" className="inline-block">
-            <object type="image/svg+xml" data="/assets/logos/LogoNavbar.svg" width={182} height={83} aria-label="Arborea Experiences" className="pointer-events-none" />
+            <object type="image/svg+xml" data="/assets/logos/LogoNavbar.svg" width={242} height={113} aria-label="Arborea Experiences" className="pointer-events-none" />
           </Link>
           <div className="flex flex-col gap-5">
-            <p className="font-sans text-base text-[#381d14]/50 leading-relaxed">
-              {t("footer.description")}
-            </p>
             <p className="font-sans font-medium text-sm text-[#381d14]/80">
               {t("footer.location")}
             </p>

@@ -1,4 +1,53 @@
 {
+  "hero": {
+    "pill": "Take a breather",
+    "title": "Houses & Villas"
+  },
+  "tours": {
+    "pill": "Explore the area",
+    "title": "Tours & Activities",
+    "activities": [
+      {
+        "title": "Whale Watching Tour",
+        "description": "Witness humpback whales in their natural habitat in the warm waters of the Osa Peninsula — one of the world's premier whale watching destinations.",
+        "features": ["Best season: July – November", "Up to 10 guests", "Drake Bay departure", "3 – 4 hours", "Snorkeling included"],
+        "pricing": [
+          { "label": "Shared tour / 2 people", "price": "$95 / person" },
+          { "label": "Children (under 10)", "price": "$50 / person" },
+          { "label": "Private tour", "price": "$380" }
+        ],
+        "commission": "15% commission included for all bookings.",
+        "contactName": "Carlos Mora",
+        "whatsapp": "+506 8706 7703"
+      },
+      {
+        "title": "Corcovado National Park",
+        "description": "Explore one of the most biodiverse places on Earth. Guided hike through primary rainforest with experienced naturalist guides.",
+        "features": ["Full day excursion", "Up to 8 guests", "Sirena station", "Guided by certified naturalist", "Lunch included"],
+        "pricing": [
+          { "label": "Shared tour / 2 people", "price": "$130 / person" },
+          { "label": "Children (under 12)", "price": "$80 / person" },
+          { "label": "Private tour", "price": "$490" }
+        ],
+        "commission": "15% commission included for all bookings.",
+        "contactName": "María Solano",
+        "whatsapp": "+506 8706 7703"
+      },
+      {
+        "title": "Kayaking & Snorkeling",
+        "description": "Paddle through mangroves and snorkel vibrant coral reefs teeming with tropical fish along the Osa coastline.",
+        "features": ["Half day (4 hours)", "Up to 6 guests", "All equipment included", "Beach picnic stop", "Suitable for beginners"],
+        "pricing": [
+          { "label": "Shared tour / 2 people", "price": "$75 / person" },
+          { "label": "Children (under 12)", "price": "$45 / person" },
+          { "label": "Private tour", "price": "$280" }
+        ],
+        "commission": "15% commission included for all bookings.",
+        "contactName": "Luis Vargas",
+        "whatsapp": "+506 8706 7703"
+      }
+    ]
+  },
   "common": {
     "seeMore": "See more",
     "wifi": "Wifi",
@@ -7,6 +56,33 @@
     "baths": "Baths",
     "email": "info@arboreaexperiences.com",
     "website": "arboreaexperiences.com"
+  },
+  "propertyPage": {
+    "subtitle": "Designed for comfort",
+    "share": "Share",
+    "seeDirections": "See directions",
+    "wifiSection": "WiFi & Directions",
+    "wifiName": "WiFi Name",
+    "password": "Password",
+    "directions": "Directions",
+    "highlightsSection": "Highlights",
+    "aboutSection": "About",
+    "highlights": {
+      "pool":           { "title": "Pool",             "description": "Infinity pool with sweeping Pacific Ocean views" },
+      "jacuzzi":        { "title": "Jacuzzi",           "description": "24/7 jacuzzi available" },
+      "yogaDeck":       { "title": "Yoga deck",         "description": "Ocean-view yoga deck" },
+      "views":          { "title": "Views",             "description": "Rainforest setting with jungle & ocean sounds" },
+      "privacy":        { "title": "Privacy",           "description": "Entire villa rented exclusively — full privacy" },
+      "selfCheckin":    { "title": "Self check-in",     "description": "Check-in via keypad" },
+      "jungleVibes":    { "title": "Jungle atmosphere", "description": "Indoor and outdoor living areas that blend into the surrounding jungle" },
+      "oceanViews":     { "title": "Ocean views",       "description": "Breathtaking Pacific Ocean views from the bed and balconies" },
+      "soakingTub":     { "title": "Soaking bathtub",   "description": "Soaking bathtub with scenic views" },
+      "outdoorKitchen": { "title": "Outdoor kitchen",   "description": "Indoor and outdoor fully equipped kitchen" },
+      "petsAllowed":    { "title": "Pets allowed",      "description": "The only villa that welcomes pets" },
+      "sunsets":        { "title": "Sunsets",           "description": "Breathtaking sunsets every evening from the villa" },
+      "oceanBreeze":    { "title": "Ocean breeze",      "description": "Located where the mountain meets the ocean breeze" },
+      "yogaArea":       { "title": "Yoga area",         "description": "Green area ideal for yoga surrounded by tropical palms" }
+    }
   },
   "nav": {
     "open": "Open menu",
@@ -22,27 +98,31 @@
   "properties": {
     "casaMango": {
       "name": "Casa Mango",
-      "description": "Villa Mango also includes a game room for entertainment, a spacious yoga deck surrounded by nature, and open social areas that invite guests to unwind and enjoy time together."
+      "description": "Villa Mango also includes a game room for entertainment, a spacious yoga deck surrounded by nature, and open social areas that invite guests to unwind and enjoy time together.",
+      "about": "Casa Mango is an exclusive escape designed for comfort, space, and connection. Its private setting and relaxed atmosphere make it the perfect destination for groups and families seeking to share unforgettable moments in a refined and natural environment.\n\nVilla Mango also includes a game room for entertainment, a spacious yoga deck surrounded by nature, and open social areas that invite guests to unwind and enjoy time together. It's an ideal retreat for experiencing Costa Rica in a refined yet natural way."
     },
     "casaRonRon": {
       "name": "Casa Ron Ron",
-      "description": "The villa is designed to provide a tranquil and inspiring space. Its warm interiors and outdoor living areas are thoughtfully crafted to fully complement the natural beauty of the surrounding forest."
+      "description": "The villa is designed to provide a tranquil and inspiring space. Its warm interiors and outdoor living areas are thoughtfully crafted to fully complement the natural beauty of the surrounding forest.",
+      "about": "Casa Ron Ron is designed to provide a tranquil and inspiring space. Its warm interiors and outdoor living areas are thoughtfully crafted to fully complement the natural beauty of the surrounding forest.\n\nThe villa offers a peaceful retreat ideal for families or groups seeking a genuine connection with nature while enjoying refined amenities."
     },
     "casaCeiba": {
       "name": "Casa Ceiba",
-      "description": "Set apart as a private studio, Villa Ceiba is designed for couples seeking intimacy and relaxation. Its private pool, design, and serene atmosphere create a retreat in the heart of the Osa Peninsula."
+      "description": "Set apart as a private studio, Villa Ceiba is designed for couples seeking intimacy and relaxation. Its private pool, design, and serene atmosphere create a retreat in the heart of the Osa Peninsula.",
+      "about": "Set apart as a private studio, Villa Ceiba is designed for couples seeking intimacy and relaxation. Its private pool, thoughtful design, and serene atmosphere create an intimate retreat in the heart of the Osa Peninsula.\n\nEvery detail has been curated to ensure comfort and tranquility in a truly unique natural setting."
     },
     "casaCorteza": {
       "name": "Casa Corteza Amarilla",
-      "description": "Casa Corteza Amarilla is named after the iconic Cortez Amarillo tree (Handroanthus guayacan), whose vibrant yellow blossoms transform the landscape into a golden paradise every April."
+      "description": "Casa Corteza Amarilla is named after the iconic Cortez Amarillo tree (Handroanthus guayacan), whose vibrant yellow blossoms transform the landscape into a golden paradise every April.",
+      "about": "Casa Corteza Amarilla is named after the iconic Cortez Amarillo tree (Handroanthus guayacan), whose vibrant yellow blossoms transform the landscape into a golden paradise every April.\n\nThis villa combines natural beauty with refined comfort, offering spacious areas for groups to gather, relax, and connect with the extraordinary surroundings."
     },
     "casaPalmera": {
       "name": "Casa Palmera",
-      "description": "The villa's design mirrors the elegance of its namesake tree, with spacious interiors, refined decor, and modern amenities. A perfect choice for families or friends seeking a peaceful escape in nature."
+      "description": "The villa's design mirrors the elegance of its namesake tree, with spacious interiors, refined decor, and modern amenities. A perfect choice for families or friends seeking a peaceful escape in nature.",
+      "about": "Casa Palmera's design mirrors the elegance of its namesake tree, with spacious interiors, refined decor, and modern amenities.\n\nA perfect choice for families or friends seeking a peaceful escape in nature, the villa offers a harmonious blend of comfort and the wild beauty of Costa Rica's landscape."
     }
   },
   "footer": {
-    "description": "Nestled in the heart of Costa Rica's Osa Peninsula, Arborea Experiences offers a collection of private villas surrounded by lush jungle, breathtaking views, and unmatched tranquility.",
     "location": "Desamparados, Costa Rica",
     "copyright": "© Arborea 2026. All rights reserved.",
     "links": {
