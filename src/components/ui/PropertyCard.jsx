@@ -86,7 +86,15 @@ export default function PropertyCard({
 
         {/* Nombre + descripción — crece para igualar altura entre cards */}
         <div className="flex flex-col flex-1 gap-3 mb-5">
-          <p className="font-sans font-medium text-xl text-[#381d14]">{name}</p>
+          <div className="flex items-center justify-between gap-2">
+            <p className="font-sans font-medium text-xl text-[#381d14]">{name}</p>
+            <Link
+              href={href}
+              className="font-sans font-medium text-sm text-[#381d14]/50 hover:text-[#381d14] hover:border-[#381d14]/30 transition-colors duration-300 whitespace-nowrap shrink-0 border border-[#381d14]/10 rounded-full px-4 py-1.5"
+            >
+              {t("common.seeMore")}
+            </Link>
+          </div>
           <p className="font-sans text-sm text-[#381d14]/50">{description}</p>
         </div>
 
@@ -111,25 +119,17 @@ export default function PropertyCard({
           })}
         </div>
 
-        <div className={`flex flex-col xl:grid gap-2 ${directionsUrl ? "xl:grid-cols-2" : ""}`}>
-          {directionsUrl && (
-            <a
-              href={directionsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 h-12 px-5 rounded-full bg-[#381d14] font-sans font-medium text-sm text-[#eddac4] hover:bg-[#381d14]/90 transition-colors duration-300"
-            >
-              <TbMapPin size={15} />
-              {t("common.getDirections")}
-            </a>
-          )}
-          <Link
-            href={href}
-            className="flex items-center justify-center h-12 rounded-full border border-[#381d14]/10 font-sans font-medium text-base text-[#381d14]/50 hover:border-[#381d14]/30 hover:text-[#381d14] transition-colors duration-300"
+        {directionsUrl && (
+          <a
+            href={directionsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 h-12 px-5 rounded-full bg-[#381d14] font-sans font-medium text-sm text-[#eddac4] hover:bg-[#381d14]/90 transition-colors duration-300"
           >
-            {t("common.seeMore")}
-          </Link>
-        </div>
+            <TbMapPin size={15} />
+            {t("common.getDirections")}
+          </a>
+        )}
       </div>
     </div>
   );
