@@ -9,16 +9,11 @@ const messages = { en, es };
 const I18nContext = createContext(null);
 
 export function I18nProvider({ children }) {
-  const [locale, setLocale] = useState("es");
+  const [locale, setLocale] = useState("en");
 
   useEffect(() => {
     const saved = localStorage.getItem("locale");
-    if (saved === "en" || saved === "es") {
-      setLocale(saved);
-    } else {
-      const browser = navigator.language || navigator.languages?.[0] || "es";
-      setLocale(browser.startsWith("en") ? "en" : "es");
-    }
+    if (saved === "en" || saved === "es") setLocale(saved);
   }, []);
 
   const toggleLocale = () => {
