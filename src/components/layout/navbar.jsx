@@ -6,10 +6,9 @@ import { useI18n } from "@/app/context/I18nContext";
 
 const navLinkKeys = [
   { key: "houses",      href: "/#casas" },
-  { key: "massages",    href: "/" },
-  { key: "tours",       href: "/#tours" },
-  { key: "goodToKnow",  href: "/#bueno-saber" },
-  { key: "chef",        href: "/" },
+  { key: "tours",       href: "#tours" },
+  { key: "goodToKnow",  href: "#bueno-saber" },
+  { key: "emergencias", href: "#emergencias" },
 ];
 
 export default function Navbar() {

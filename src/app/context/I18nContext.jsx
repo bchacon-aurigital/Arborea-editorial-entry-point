@@ -13,7 +13,12 @@ export function I18nProvider({ children }) {
 
   useEffect(() => {
     const saved = localStorage.getItem("locale");
-    if (saved === "en" || saved === "es") setLocale(saved);
+    if (saved === "en" || saved === "es") {
+      setLocale(saved);
+    } else {
+      const browser = navigator.language || navigator.languages?.[0] || "es";
+      setLocale(browser.startsWith("en") ? "en" : "es");
+    }
   }, []);
 
   const toggleLocale = () => {

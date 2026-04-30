@@ -21,7 +21,7 @@ export default function HeroSection() {
   const swiperRef = useRef(null);
 
   return (
-    <section id="casas" className="flex flex-col pb-24 gap-8">
+    <section className="flex flex-col pb-24 gap-8">
 
       {/* ── Hero intro ── */}
       <div className="flex flex-col items-center justify-center gap-6 px-8 md:px-16 pt-32 pb-16 text-center" data-aos="fade-up">
@@ -87,7 +87,7 @@ export default function HeroSection() {
       </div>
 
       {/* ── Carousel ── */}
-      <div className="w-full px-8 md:px-16">
+      <div id="casas" className="w-full px-8 md:px-16">
         <PropertiesCarousel swiperRef={swiperRef} />
       </div>
 

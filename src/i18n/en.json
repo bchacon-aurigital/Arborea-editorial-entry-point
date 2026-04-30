@@ -315,11 +315,10 @@
     "open": "Open menu",
     "close": "Close menu",
     "links": {
-      "houses":     "Houses",
-      "massages":   "Massages & Wellness",
-      "tours":      "Tours & Activities",
-      "goodToKnow": "Good to Know",
-      "chef":       "Private Chef"
+      "houses":      "Houses",
+      "tours":       "Tours & Activities",
+      "goodToKnow":  "Good to Know",
+      "emergencias": "Emergency Contacts"
     }
   },
   "properties": {
@@ -355,10 +354,9 @@
       "heading": "Links",
       "items": [
         { "label": "Houses", "href": "/#casas" },
-        { "label": "Massages & Wellness", "href": "/" },
         { "label": "Tours & Activities", "href": "/#tours" },
         { "label": "Good to Know", "href": "/#bueno-saber" },
-        { "label": "Private Chef", "href": "/" }
+        { "label": "Emergency Contacts", "href": "/#emergencias" }
       ]
     },
     "about": {
