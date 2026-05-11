@@ -136,6 +136,24 @@
       }
     ]
   },
+  "inhouse": {
+    "pill": "Todo lo que necesitas",
+    "title": "Servicios In-house",
+    "services": [
+      {
+        "category": "Bienestar en casa",
+        "title": "Experiencia Spa",
+        "description": "Vive una experiencia de bienestar de lujo en tu villa con nuestros terapeutas certificados. Disfruta de tratamientos personalizados diseñados para restaurar tu cuerpo y mente.",
+        "features": ["Aromaterapia", "Tejido profundo", "Piedras calientes", "Masajes a cuatro manos", "Faciales revitalizantes", "Tratamientos de limpieza profunda"]
+      },
+      {
+        "category": "Gastronomía en casa",
+        "title": "Experiencia Chef Privado",
+        "description": "Disfruta de una experiencia culinaria privada creada por nuestros talentosos chefs. Desde cenas íntimas hasta banquetes familiares, cada comida se elabora con ingredientes frescos y de origen local.",
+        "features": ["Cenas de cuatro tiempos", "Comidas familiares", "Ingredientes locales", "Frescos", "Orgánicos", "Menús personalizados"]
+      }
+    ]
+  },
   "tours": {
     "pill": "Explora el área",
     "title": "Tours y Actividades",

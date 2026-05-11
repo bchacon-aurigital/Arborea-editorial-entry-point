@@ -108,6 +108,24 @@
       }
     ]
   },
+  "inhouse": {
+    "pill": "All you need",
+    "title": "In-house Services",
+    "services": [
+      {
+        "category": "In-casa Wellness",
+        "title": "Spa Experience",
+        "description": "Experience a luxury in-casa wellness experience designed to relax, restore, and rejuvenate. Couples experiences, bridal and bachelorette spa packages, and wellness-focused treatments can all be enjoyed in the comfort and privacy of your casa. Each experience is thoughtfully curated to bring relaxation, balance, and indulgence directly to you.",
+        "features": ["Aromatherapy", "Deep tissue", "Hot Stone", "Four-hands Massages", "Revitalizing facials", "Deep cleansing treatments"]
+      },
+      {
+        "category": "In-casa Dining",
+        "title": "Private Chef Experience",
+        "description": "Enjoy a private culinary experience designed around elevated dining, exceptional service, and memorable shared moments. Inspired by global cuisine and Costa Rican flavors, every dish is carefully prepared and beautifully presented for an unforgettable dining experience in the comfort and privacy of your casa.",
+        "features": ["Four-course Dinners", "Family-style meals", "Locally Sourced", "Fresh", "Organic Ingredients", "Customized menus"]
+      }
+    ]
+  },
   "tours": {
     "pill": "Explore the area",
     "title": "Tours & Activities",

@@ -3,6 +3,7 @@
 import Navbar from "@/components/layout/navbar";
 import HeroSection from "@/components/sections/HeroSection";
 import ToursActivitiesSection from "@/components/sections/ToursActivitiesSection";
+import InHouseServicesSection from "@/components/sections/InHouseServicesSection";
 import EmergencyContactsSection from "@/components/sections/EmergencyContactsSection";
 import GoodToKnowSection from "@/components/sections/GoodToKnowSection";
 import Footer from "@/components/layout/Footer";
@@ -14,6 +15,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <ToursActivitiesSection />
+        <InHouseServicesSection />
         <EmergencyContactsSection />
         <GoodToKnowSection />
       </main>
