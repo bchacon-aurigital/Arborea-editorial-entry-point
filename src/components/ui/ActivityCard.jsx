@@ -1,21 +1,19 @@
-import { TbBrandWhatsapp, TbUsers, TbMapPin, TbClock, TbStar } from "react-icons/tb";
+import { TbUsers, TbMapPin, TbClock, TbStar } from "react-icons/tb";
 
 const FEATURE_ICONS = [TbStar, TbUsers, TbMapPin, TbClock, TbUsers];
 
+const ARBOREA_WHATSAPP = "50685011042";
+
 export default function ActivityCard({ activity }) {
-  const {
-    title,
-    description,
-    features = [],
-    pricing = [],
-    commission,
-    contactName,
-    whatsapp,
-  } = activity;
+  const { title, description, features = [] } = activity;
 
   return (
-    <div className="bg-[#f4e9dc] rounded-2xl px-8 pt-10 pb-8 flex flex-col gap-0 h-full">
-
+    <a
+      href={`https://wa.me/${ARBOREA_WHATSAPP}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="bg-[#f4e9dc] rounded-2xl px-8 pt-10 pb-8 flex flex-col gap-0 h-full cursor-pointer hover:bg-[#ecdcc9] transition-colors duration-200"
+    >
       {/* Title + description */}
       <div className="pb-6 border-b border-[#381d14]/15 flex flex-col gap-2">
         <h3 className="font-sans font-medium text-xl text-[#381d14] tracking-tight">
@@ -27,7 +25,7 @@ export default function ActivityCard({ activity }) {
       </div>
 
       {/* Features */}
-      <div className="py-6 border-b border-[#381d14]/15 flex flex-col gap-3">
+      <div className="py-6 flex flex-col gap-3">
         {features.map((feat, i) => {
           const Icon = FEATURE_ICONS[i % FEATURE_ICONS.length];
           return (
@@ -40,36 +38,6 @@ export default function ActivityCard({ activity }) {
           );
         })}
       </div>
-
-      {/* Pricing */}
-      <div className="py-6 border-b border-[#381d14]/15 flex flex-col gap-3">
-        {pricing.map((row, i) => (
-          <div key={i} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
-            <span className="font-sans text-sm text-[#381d14]/70">{row.label}</span>
-            <span className="font-sans font-medium text-sm text-[#381d14]">{row.price}</span>
-          </div>
-        ))}
-        {commission && (
-          <p className="font-sans text-xs text-[#381d14]/40 italic mt-1">{commission}</p>
-        )}
-      </div>
-
-      {/* Contact */}
-      <div className="pt-6 flex items-center justify-between gap-4">
-        <span className="font-sans font-medium text-sm text-[#381d14]">{contactName}</span>
-        {whatsapp && (
-          <a
-            href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-[#381d14]/70 hover:text-[#381d14] transition-colors duration-200"
-          >
-            <TbBrandWhatsapp size={16} />
-            <span className="font-sans">{whatsapp}</span>
-          </a>
-        )}
-      </div>
-
-    </div>
+    </a>
   );
 }
