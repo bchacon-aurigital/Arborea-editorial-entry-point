@@ -10,12 +10,14 @@ import GoodToKnowSection from "@/components/sections/GoodToKnowSection";
 import Footer from "@/components/layout/Footer";
 import { useI18n } from "@/app/context/I18nContext";
 import { HIGHLIGHT_ICONS } from "@/data/properties";
+import { useRouter } from "next/navigation";
 import {
-  TbWifi, TbKey, TbMapPin, TbCopy, TbCheck, TbShare, TbChevronRight,
+  TbWifi, TbKey, TbMapPin, TbCopy, TbCheck, TbShare, TbChevronRight, TbArrowLeft,
 } from "react-icons/tb";
 
 export default function PropertyPage({ property }) {
   const { t } = useI18n();
+  const router = useRouter();
   const { i18nKey, images, wifi, directionsUrl, highlights } = property;
 
   const name  = t(`properties.${i18nKey}.name`);
@@ -39,11 +41,18 @@ export default function PropertyPage({ property }) {
         {/* ── Header ── */}
         <div className="px-8 md:px-16 pt-8 pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="flex flex-col gap-1" data-aos="fade-up">
-            <p className="font-sans text-sm text-[#381d14]/50 tracking-tight">
+            <button
+              onClick={() => router.back()}
+              className="flex items-center gap-1.5 w-fit mb-3 text-sm font-sans font-medium text-[#222E2C]/50 hover:text-[#222E2C] transition-colors duration-200"
+            >
+              <TbArrowLeft size={16} />
+              {t("common.back")}
+            </button>
+            <p className="font-sans text-sm text-[#222E2C]/50 tracking-tight">
               {t("propertyPage.subtitle")}
             </p>
             <h1
-              className="text-3xl md:text-4xl text-[#381d14]/90 tracking-tight"
+              className="text-3xl md:text-4xl text-[#213B2F] tracking-tight"
               style={{ fontFamily: "var(--font-alpina)" }}
             >
               {name}
@@ -52,7 +61,7 @@ export default function PropertyPage({ property }) {
           <div className="flex items-center gap-3 shrink-0" data-aos="fade-up" data-aos-delay="100">
             <button
               onClick={handleShare}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#381d14] font-sans font-medium text-sm text-[#381d14] hover:bg-[#381d14]/5 transition-colors duration-200"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#222E2C] font-sans font-medium text-sm text-[#222E2C] hover:bg-[#222E2C]/5 transition-colors duration-200"
             >
               {t("propertyPage.share")}
               <TbShare size={14} />
@@ -62,7 +71,7 @@ export default function PropertyPage({ property }) {
                 href={directionsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#381d14] font-sans font-medium text-sm text-[#eddac4] hover:bg-[#381d14]/90 transition-colors duration-200"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#213B2F] font-sans font-medium text-sm text-[#D8DDB8] hover:bg-[#213B2F]/90 transition-colors duration-200"
               >
                 <TbMapPin size={14} />
                 <span className="hidden sm:inline">{t("propertyPage.seeDirections")}</span>
@@ -105,17 +114,17 @@ export default function PropertyPage({ property }) {
 
           {/* WiFi & Directions */}
           <div className="flex flex-col gap-5" data-aos="fade-up">
-            <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#381d14] tracking-tight">
+            <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
               {t("propertyPage.wifiSection")}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <CopyCard
-                icon={<TbWifi size={20} className="text-[#381d14]" />}
+                icon={<TbWifi size={20} className="text-[#213B2F]" />}
                 label={t("propertyPage.wifiName")}
                 value={wifi.name}
               />
               <CopyCard
-                icon={<TbKey size={20} className="text-[#381d14]" />}
+                icon={<TbKey size={20} className="text-[#213B2F]" />}
                 label={t("propertyPage.password")}
                 value={wifi.password}
               />
@@ -124,29 +133,29 @@ export default function PropertyPage({ property }) {
                   href={directionsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-[#381d14] rounded-xl px-4 py-4 flex items-center justify-between gap-3 hover:bg-[#381d14]/90 transition-colors duration-200"
+                  className="bg-[#213B2F] rounded-xl px-4 py-4 flex items-center justify-between gap-3 hover:bg-[#213B2F]/90 transition-colors duration-200"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="bg-[#eddac4] rounded-xl size-12 flex items-center justify-center shrink-0">
-                      <TbMapPin size={20} className="text-[#381d14]" />
+                    <div className="bg-[#EDE5D8] rounded-xl size-12 flex items-center justify-center shrink-0">
+                      <TbMapPin size={20} className="text-[#213B2F]" />
                     </div>
                     <div className="flex flex-col gap-1">
-                      <p className="font-sans font-semibold text-sm text-[#eddac4]">{t("propertyPage.directions")}</p>
-                      <p className="font-sans text-sm text-[#eddac4]/60">{t("propertyPage.seeDirections")}</p>
+                      <p className="font-sans font-semibold text-sm text-[#D8DDB8]">{t("propertyPage.directions")}</p>
+                      <p className="font-sans text-sm text-[#D8DDB8]/60">{t("propertyPage.seeDirections")}</p>
                     </div>
                   </div>
-                  <div className="border border-[#eddac4]/20 rounded-xl size-9 flex items-center justify-center shrink-0">
-                    <TbChevronRight size={16} className="text-[#eddac4]/60" />
+                  <div className="border border-[#D8DDB8]/20 rounded-xl size-9 flex items-center justify-center shrink-0">
+                    <TbChevronRight size={16} className="text-[#D8DDB8]/60" />
                   </div>
                 </a>
               ) : (
-                <div className="bg-[#381d14]/10 rounded-xl px-4 py-4 flex items-center gap-3">
-                  <div className="bg-[#381d14]/10 rounded-xl size-12 flex items-center justify-center shrink-0">
-                    <TbMapPin size={20} className="text-[#381d14]/40" />
+                <div className="bg-[#222E2C]/10 rounded-xl px-4 py-4 flex items-center gap-3">
+                  <div className="bg-[#222E2C]/10 rounded-xl size-12 flex items-center justify-center shrink-0">
+                    <TbMapPin size={20} className="text-[#222E2C]/40" />
                   </div>
                   <div className="flex flex-col gap-1">
-                    <p className="font-sans font-semibold text-sm text-[#381d14]/40">{t("propertyPage.directions")}</p>
-                    <p className="font-sans text-sm text-[#381d14]/30">{t("propertyPage.directionsComingSoon")}</p>
+                    <p className="font-sans font-semibold text-sm text-[#222E2C]/40">{t("propertyPage.directions")}</p>
+                    <p className="font-sans text-sm text-[#222E2C]/30">{t("propertyPage.directionsComingSoon")}</p>
                   </div>
                 </div>
               )}
@@ -155,8 +164,8 @@ export default function PropertyPage({ property }) {
 
           {/* Highlights */}
           <div className="flex flex-col gap-5" data-aos="fade-up">
-            <div className="border-b border-[#381d14]/15 pb-4">
-              <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#381d14] tracking-tight">
+            <div className="border-b border-[#222E2C]/15 pb-4">
+              <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
                 {t("propertyPage.highlightsSection")}
               </h2>
             </div>
@@ -165,14 +174,14 @@ export default function PropertyPage({ property }) {
                 const Icon = HIGHLIGHT_ICONS[key] ?? HIGHLIGHT_ICONS.views;
                 return (
                   <div key={key} className="flex items-center gap-3" data-aos="fade-up" data-aos-delay={i * 60}>
-                    <div className="border border-[#381d14]/15 rounded-xl size-10 flex items-center justify-center shrink-0">
-                      <Icon size={20} className="text-[#381d14]/70" />
+                    <div className="border border-[#222E2C]/15 rounded-xl size-10 flex items-center justify-center shrink-0">
+                      <Icon size={20} className="text-[#222E2C]/70" />
                     </div>
                     <div className="flex flex-col gap-0.5">
-                      <p className="font-sans font-semibold text-sm text-[#381d14]">
+                      <p className="font-sans font-semibold text-sm text-[#222E2C]">
                         {t(`propertyPage.highlights.${key}.title`)}
                       </p>
-                      <p className="font-sans text-sm text-[#381d14]/60">
+                      <p className="font-sans text-sm text-[#222E2C]/60">
                         {t(`propertyPage.highlights.${key}.description`)}
                       </p>
                     </div>
@@ -184,12 +193,12 @@ export default function PropertyPage({ property }) {
 
           {/* About */}
           <div className="flex flex-col gap-5" data-aos="fade-up">
-            <div className="border-b border-[#381d14]/15 pb-4">
-              <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#381d14] tracking-tight">
+            <div className="border-b border-[#222E2C]/15 pb-4">
+              <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
                 {t("propertyPage.aboutSection")}
               </h2>
             </div>
-            <p className="font-sans text-base text-[#381d14]/60 leading-relaxed whitespace-pre-line max-w-4xl">
+            <p className="font-sans text-base text-[#222E2C]/60 leading-relaxed whitespace-pre-line max-w-4xl">
               {about}
             </p>
           </div>
@@ -213,24 +222,24 @@ function CopyCard({ icon, label, value }) {
   };
 
   return (
-    <div className="bg-[#381d14] rounded-xl px-4 py-4 flex items-center justify-between gap-3">
+    <div className="bg-[#213B2F] rounded-xl px-4 py-4 flex items-center justify-between gap-3">
       <div className="flex items-center gap-3 min-w-0">
-        <div className="bg-[#eddac4] rounded-xl size-12 flex items-center justify-center shrink-0">
+        <div className="bg-[#EDE5D8] rounded-xl size-12 flex items-center justify-center shrink-0">
           {icon}
         </div>
         <div className="flex flex-col gap-1 min-w-0">
-          <p className="font-sans font-semibold text-sm text-[#eddac4]">{label}</p>
-          <p className="font-sans text-sm text-[#eddac4]/60 truncate">{value}</p>
+          <p className="font-sans font-semibold text-sm text-[#D8DDB8]">{label}</p>
+          <p className="font-sans text-sm text-[#D8DDB8]/60 truncate">{value}</p>
         </div>
       </div>
       <button
         onClick={copy}
-        className="border border-[#eddac4]/20 rounded-xl size-9 flex items-center justify-center shrink-0 hover:border-[#eddac4]/40 transition-colors duration-200"
+        className="border border-[#D8DDB8]/20 rounded-xl size-9 flex items-center justify-center shrink-0 hover:border-[#D8DDB8]/40 transition-colors duration-200"
         aria-label="Copy"
       >
         {copied
-          ? <TbCheck size={16} className="text-[#eddac4]/60" />
-          : <TbCopy size={16} className="text-[#eddac4]/60" />
+          ? <TbCheck size={16} className="text-[#D8DDB8]/60" />
+          : <TbCopy size={16} className="text-[#D8DDB8]/60" />
         }
       </button>
     </div>

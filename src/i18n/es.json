@@ -15,14 +15,14 @@
       "jacuzzi":        { "title": "Jacuzzi",            "description": "Jacuzzi disponible las 24 horas" },
       "yogaDeck":       { "title": "Deck de yoga",       "description": "Deck de yoga con vista al océano" },
       "views":          { "title": "Vistas",             "description": "Entorno de selva tropical con sonidos de jungla y océano" },
-      "privacy":        { "title": "Privacidad",         "description": "Villa alquilada exclusivamente — privacidad total" },
+      "privacy":        { "title": "Privacidad",         "description": "Casa alquilada exclusivamente — privacidad total" },
       "selfCheckin":    { "title": "Auto check-in",      "description": "Check-in mediante teclado numérico" },
       "jungleVibes":    { "title": "Ambiente selvático", "description": "Áreas de vida interior y exterior que se fusionan con la jungla circundante" },
       "oceanViews":     { "title": "Vistas al océano",   "description": "Impresionantes vistas al Océano Pacífico desde la cama y los balcones" },
       "soakingTub":     { "title": "Bañera",             "description": "Bañera de inmersión con vistas panorámicas" },
       "outdoorKitchen": { "title": "Cocina exterior",    "description": "Cocina interior y exterior completamente equipadas" },
-      "petsAllowed":    { "title": "Se admiten mascotas","description": "La única villa que acepta mascotas" },
-      "sunsets":        { "title": "Atardeceres",        "description": "Impresionantes atardeceres cada tarde desde la villa" },
+      "petsAllowed":    { "title": "Se admiten mascotas","description": "La única casa que acepta mascotas" },
+      "sunsets":        { "title": "Atardeceres",        "description": "Impresionantes atardeceres cada tarde desde la casa" },
       "oceanBreeze":    { "title": "Brisa marina",       "description": "Ubicada donde la montaña se encuentra con la brisa del océano" },
       "yogaArea":       { "title": "Área de yoga",       "description": "Zona verde ideal para yoga rodeada de palmeras tropicales" }
     }
@@ -33,12 +33,14 @@
     "introSubtitle": "Nuestro conjunto de residencias de selva cuidadosamente seleccionadas están ubicadas en un entorno de montaña virgen, y parte de la magia de quedarse aquí viene con algunas cosas que vale la pena tener en cuenta para garantizar una experiencia cómoda.",
     "whatsappCta": "WhatsApp de Arborea",
     "pill": "Tómate un respiro",
-    "title": "Casas y Villas"
+    "title": "Casas"
   },
   "emergency": {
     "pill": "Seguridad primero",
     "title": "Contactos de Emergencia",
     "description": "Hay varias farmacias disponibles en Uvita en un radio de 15 minutos, muchas con horario extendido y asistencia médica básica.",
+    "seeMore": "Ver más contactos",
+    "seeLess": "Ver menos",
     "contacts": [
       {
         "title": "Emergencia Inmediata (24/7 – Primera Llamada)",
@@ -50,74 +52,81 @@
         ]
       },
       {
-        "title": "Hospital Tomás Casas Casajús (Cortés)",
-        "subtitle": "Hospital público con servicios de emergencia 24/7",
+        "title": "Dr. Solano (Médico de guardia)",
+        "subtitle": null,
         "rows": [
-          { "label": "Nombre:", "value": "Hospital Tomás Casas Casajús (Cortés)" },
-          { "label": "Distancia:", "value": "~20 minutos desde Uvita / Ojochal" },
-          { "label": "Teléfono:", "value": "2786-8198 / 2786-8148" }
+          { "label": "WhatsApp:", "value": "+506 8579-5097" }
         ]
       },
       {
-        "title": "Hospital Las Américas – San Isidro",
-        "subtitle": "Hospital privado con atención más rápida",
+        "title": "Erika Quirós – Médico Disponible",
+        "subtitle": "Disponible para emergencias médicas",
         "rows": [
-          { "label": "Nombre:", "value": "Hospital Las Américas – San Isidro" },
-          { "label": "Distancia:", "value": "~1–1.5 horas hacia el interior" },
-          { "label": "Teléfono:", "value": "2771-3122" }
-        ]
-      },
-      {
-        "title": "Hospital Max Terán Valls – Quepos",
-        "subtitle": "Hospital público con servicios de emergencia 24/7",
-        "rows": [
-          { "label": "Nombre:", "value": "Hospital Max Terán Valls – Quepos" },
-          { "label": "Distancia:", "value": "~45 minutos al norte" },
-          { "label": "Teléfono:", "value": "2774-9500" }
-        ]
-      },
-      {
-        "title": "Hospital CIMA – San José",
-        "subtitle": "Hospital privado de nivel internacional",
-        "rows": [
-          { "label": "Distancia:", "value": "~3.5 horas o traslado aéreo" },
-          { "label": "Teléfono:", "value": "2208-1000" }
+          { "label": "WhatsApp:", "value": "+506 7010-3990" }
         ]
       },
       {
         "title": "Clínica Médica Local (Uvita)",
         "subtitle": "Atención urgente sin cita (horario diurno)",
         "rows": [
-          { "label": "WhatsApp:", "value": "8732-5555" },
-          { "label": "Teléfono:", "value": "2215-4848" }
-        ]
-      },
-      {
-        "title": "Dr. Solano (Médico de guardia)",
-        "subtitle": null,
-        "rows": [
-          { "label": "WhatsApp:", "value": "8579-5097" }
+          { "label": "WhatsApp:", "value": "+506 8732-5555" },
+          { "label": "Teléfono:", "value": "+506 2215-4848" }
         ]
       },
       {
         "title": "Costa Rica Medical Response",
         "subtitle": null,
         "rows": [
-          { "label": "Teléfono:", "value": "2286-1818" }
+          { "label": "Teléfono:", "value": "+506 2286-1818" }
         ]
       },
       {
         "title": "Lifeguard Air Ambulance",
         "subtitle": null,
         "rows": [
-          { "label": "Teléfono:", "value": "2220-0911" }
+          { "label": "Teléfono:", "value": "+506 2220-0911" }
+        ]
+      },
+      {
+        "title": "Hospital Tomás Casas Casajús (Cortés)",
+        "subtitle": "Hospital público con servicios de emergencia 24/7 — ~20 min",
+        "rows": [
+          { "label": "Teléfono:", "value": "+506 2786-8198 / +506 2786-8148" }
+        ]
+      },
+      {
+        "title": "Hospital Max Terán Valls – Quepos",
+        "subtitle": "Hospital público con servicios de emergencia 24/7 — ~45 min",
+        "rows": [
+          { "label": "Teléfono:", "value": "+506 2774-9500" }
+        ]
+      },
+      {
+        "title": "Hospital Las Américas – San Isidro",
+        "subtitle": "Hospital privado con atención más rápida — ~1–1.5 horas",
+        "rows": [
+          { "label": "Teléfono:", "value": "+506 2771-3122" }
+        ]
+      },
+      {
+        "title": "Hospital CIMA – San José",
+        "subtitle": "Hospital privado de nivel internacional — ~3.5 horas o traslado aéreo",
+        "rows": [
+          { "label": "Teléfono:", "value": "+506 2208-1000" }
+        ]
+      },
+      {
+        "title": "Diego Alonso Pinto Ulate – Mecánico de Confianza",
+        "subtitle": null,
+        "rows": [
+          { "label": "WhatsApp:", "value": "+506 8701-2678" }
         ]
       },
       {
         "title": "Policía Turística",
         "subtitle": null,
         "rows": [
-          { "label": "Teléfono:", "value": "2222-1365" }
+          { "label": "Teléfono:", "value": "+506 2222-1365" }
         ]
       },
       {
@@ -131,7 +140,7 @@
         "title": "Embajada de Canadá (San José)",
         "subtitle": null,
         "rows": [
-          { "label": "Teléfono:", "value": "2242-4400" }
+          { "label": "Teléfono:", "value": "+506 2242-4400" }
         ]
       }
     ]
@@ -143,16 +152,256 @@
       {
         "category": "Bienestar en casa",
         "title": "Experiencia Spa",
-        "description": "Vive una experiencia de bienestar de lujo en tu villa con nuestros terapeutas certificados. Disfruta de tratamientos personalizados diseñados para restaurar tu cuerpo y mente.",
+        "description": "Vive una experiencia de bienestar de lujo en tu casa con nuestros terapeutas certificados. Disfruta de tratamientos personalizados diseñados para restaurar tu cuerpo y mente.",
         "features": ["Aromaterapia", "Tejido profundo", "Piedras calientes", "Masajes a cuatro manos", "Faciales revitalizantes", "Tratamientos de limpieza profunda"]
       },
       {
         "category": "Gastronomía en casa",
         "title": "Experiencia Chef Privado",
         "description": "Disfruta de una experiencia culinaria privada creada por nuestros talentosos chefs. Desde cenas íntimas hasta banquetes familiares, cada comida se elabora con ingredientes frescos y de origen local.",
-        "features": ["Cenas de cuatro tiempos", "Comidas familiares", "Ingredientes locales", "Frescos", "Orgánicos", "Menús personalizados"]
+        "features": ["Cenas de cuatro tiempos", "Comidas familiares", "Ingredientes locales", "Frescos", "Orgánicos", "Menús personalizados"],
+        "href": "/private-chef",
+        "cta": "Ver el menú"
+      },
+      {
+        "category": "De la Finca al Refrigerador",
+        "title": "Nevera Llena",
+        "description": "Llega a tu casa con el refrigerador lleno de productos frescos directamente de la finca de Arborea. Si quieres cocinar en casa o simplemente disfrutar de lo que sabes que es seguro, todo es orgánico, rico en nutrientes y cultivado con cuidado — sin adivinar, sin ir al supermercado.",
+        "features": ["Productos frescos de la finca", "Orgánico y nutritivo", "Ingredientes seguros y trazables", "Listo a tu llegada", "Ideal para cocinar en casa", "Cultivado en el lugar"],
+        "href": "/full-fridge",
+        "cta": "Ver más"
       }
     ]
+  },
+  "privateChef": {
+    "pill": "Gastronomía en casa",
+    "title": "Experiencia Chef Privado",
+    "subtitle": "Cocina de finca a mesa en asociación con Seguras Farm Shop",
+    "whatsapp": "Reservar experiencia",
+    "ctaHeading": "¿Listo para saborear Costa Rica?",
+    "ctaSubheading": "Escríbenos por WhatsApp y nosotros nos encargamos del resto.",
+    "story": {
+      "heading": "Nuestra Historia",
+      "body": "Todo comienza con un brote.\n\nSeguras Farm Shop nació de una idea simple: en lugar de depender de una sola finca, construir una red de productores de distintas regiones de Costa Rica, cada uno experto en lo que mejor sabe dar su tierra. Café de altura de Tarrazú, pesca fresca del Pacífico, vegetales de las faldas volcánicas, miel de la zona norte.\n\nEn Arbórea llevamos esa selección curada de fincas asociadas directamente a tu mesa el mismo día. Cada plato lleva el nombre de la región que lo cultivó, cada brote cuenta una historia de paciencia, y cada bocado es nuestra manera de agradecer a la tierra costarricense que nos alimenta.\n\nCocina de finca a mesa. Ingredientes con nombre y apellido de región. Una experiencia que realmente sabe a Costa Rica."
+    },
+    "breakfast": {
+      "heading": "Desayuno de Finca",
+      "subheading": "Recién cosechado, cada mañana",
+      "note": "Todos los desayunos incluyen fruta de temporada, café de altura y jugo recién exprimido de Seguras Farm Shop.",
+      "items": [
+        { "title": "Brotes con Huevo Pochado", "description": "Pan de masa madre horneado en casa, brotes tiernos de Seguras Farm Shop, aguacate y un huevo pochado con salsa holandesa de mantequilla de finca." },
+        { "title": "Omelet de Brotes y Queso de Cabra", "description": "Huevos de gallinas de libre pastoreo, brotes salteados y queso de cabra artesanal de productores locales, servido con ensalada del día." },
+        { "title": "Arepas de Maíz Criollo", "description": "Maíz criollo molido en la finca, servido con frijoles orgánicos, huevo al gusto y natilla de leche cruda." },
+        { "title": "Farm Toast", "description": "Pan de masa madre, ricotta casera, brotes de rábano y miel de flor de café de nuestras propias colmenas." },
+        { "title": "Pancakes de Plátano de Finca", "description": "Plátano maduro de Seguras Farm Shop, canela y nuez moscada, servido con miel de nuestras colmenas y mantequilla de finca.", "tag": "Clásico Costarricense" },
+        { "title": "Gallo Pinto", "description": "Arroz y frijoles negros salteados con culantro coyote del huerto, servido con huevos de libre pastoreo al gusto, queso de finca y crema fresca.", "tag": "Clásico Costarricense" },
+        { "title": "Garden Bowl", "description": "Yogur de leche cruda, granola de avena orgánica horneada en casa, fruta de temporada y miel de nuestras colmenas." },
+        { "title": "Burrito de Finca", "description": "Huevos revueltos, tocino de cerdo de pastoreo, queso de finca, aguacate y frijoles, envueltos en tortilla de maíz nixtamalizado." },
+        { "title": "Parfait de Temporada", "description": "Granola artesanal, yogur natural, brotes dulces, semillas y fruta según la cosecha del día." },
+        { "title": "Huevos Rancheros de Finca", "description": "Tortillas de maíz criollo, frijoles orgánicos, huevos de libre pastoreo, salsa ranchera y mozzarella de finca." }
+      ],
+      "extrasHeading": "Extras para el Desayuno",
+      "extrasSubheading": "Añade tu proteína favorita a cualquier desayuno.",
+      "extras": [
+        { "title": "Tocino Seguras Farm Shop", "description": "Tocino de cerdo de pastoreo, curado y ahumado artesanalmente." },
+        { "title": "Chorizo de Res de Finca", "description": "Sazonado con hierbas del huerto de nuestros productores asociados." },
+        { "title": "Brisket Ahumado de Finca", "description": "Ahumado lentamente sobre leña — un pequeño lujo para empezar el día." }
+      ]
+    },
+    "lunch": {
+      "heading": "Almuerzo del Huerto",
+      "subheading": "Del surco directo al plato",
+      "items": [
+        { "title": "Bowl de Vegetales de Temporada", "description": "Vegetales de raíz asados, brotes crudos, quinua orgánica, aguacate y vinagreta cítrica de finca." },
+        { "title": "Sándwich de Pollo de Libre Pastoreo", "description": "Pechuga de pollo a la plancha, queso de finca, brotes frescos y aioli de hierbas, servido con yuca frita." },
+        { "title": "Ensalada de Brotes y Quinua", "description": "Brotes mixtos, quinua, vegetales de temporada, semillas tostadas y queso de cabra fresco." },
+        { "title": "Tacos de Captura del Día", "description": "Pescado local, repollo morado, pico de gallo del huerto, guacamole y tortilla de maíz criollo." },
+        { "title": "Sopa de Vegetales de Finca", "description": "Caldo de vegetales de temporada, hierbas frescas del huerto y pan de masa madre tostado." },
+        { "title": "Wrap de Vegetales Asados", "description": "Vegetales de raíz asados, hummus casero, brotes tiernos y queso de finca en tortilla de trigo integral." },
+        { "title": "Ceviche Clásico", "description": "Captura del día marinada en limón de finca, cebolla morada, cilantro y culantro coyote del huerto, servido con patacones.", "tag": "Clásico Costarricense" },
+        { "title": "Patacones de Finca", "description": "Plátano verde frito dos veces de la finca, servido con frijoles molidos y queso fresco local.", "tag": "Clásico Costarricense" },
+        { "title": "Arroz con Leche Caribeño", "description": "Arroz y frijoles cocinados en leche de coco, con pollo de libre pastoreo en salsa curry caribeña y hierbas del huerto.", "tag": "Clásico Costarricense" },
+        { "title": "Chifrijo del Huerto", "description": "Frijoles del huerto, chicharrón de cerdo de pastoreo, arroz, pico de gallo y aguacate de finca.", "tag": "Clásico Costarricense" },
+        { "title": "Sopa Negra Costarricense", "description": "Frijoles negros del huerto, huevo duro, culantro coyote y plátano maduro de finca.", "tag": "Clásico Costarricense" },
+        { "title": "Casado Tradicional Costarricense", "description": "Arroz, frijoles del huerto, plátano maduro de finca, ensalada de repollo, picadillo de vegetales de temporada y proteína a elección.", "tag": "Clásico Costarricense" },
+        { "title": "Arroz con Pollo Clásico", "description": "Arroz cocinado con pollo de libre pastoreo, vegetales del huerto, culantro coyote y un toque de achiote.", "tag": "Clásico Costarricense" }
+      ]
+    },
+    "dinner": {
+      "heading": "Cena de Temporada",
+      "subheading": "Lo que la tierra dio hoy",
+      "items": [
+        { "title": "Res de Pastoreo", "description": "Corte de res de pastoreo, puré de papa criolla, brotes salteados y jus de hierbas de finca." },
+        { "title": "Risotto de Brotes y Hongos Silvestres", "description": "Arroz cremoso, hongos silvestres de temporada, brotes tiernos y parmesano curado." },
+        { "title": "Captura del Día Costeño", "description": "Pescado fresco del día, vegetales de raíz asados y mantequilla de hierbas de finca." },
+        { "title": "Pollo de Libre Pastoreo al Horno", "description": "Pollo de libre pastoreo marinado en hierbas del huerto, servido con vegetales asados y su propio jugo de sartén." },
+        { "title": "Casado Tradicional Costarricense", "description": "Arroz, frijoles del huerto, plátano maduro de finca, ensalada de repollo, picadillo de vegetales de temporada y proteína a elección.", "tag": "Clásico Costarricense" },
+        { "title": "Arroz con Pollo Clásico", "description": "Arroz cocinado con pollo de libre pastoreo, vegetales del huerto, culantro coyote y un toque de achiote.", "tag": "Clásico Costarricense" },
+        { "title": "Ceviche Clásico", "description": "Captura del día marinada en limón de finca, cebolla morada, cilantro y culantro coyote del huerto, servido con patacones.", "tag": "Clásico Costarricense" },
+        { "title": "Patacones de Finca", "description": "Plátano verde frito dos veces de la finca, servido con frijoles molidos y queso fresco local.", "tag": "Clásico Costarricense" },
+        { "title": "Arroz con Leche Caribeño", "description": "Arroz y frijoles cocinados en leche de coco, con pollo de libre pastoreo en salsa curry caribeña y hierbas del huerto.", "tag": "Clásico Costarricense" },
+        { "title": "Chifrijo del Huerto", "description": "Frijoles del huerto, chicharrón de cerdo de pastoreo, arroz, pico de gallo y aguacate de finca.", "tag": "Clásico Costarricense" },
+        { "title": "Sopa Negra Costarricense", "description": "Frijoles negros del huerto, huevo duro, culantro coyote y plátano maduro de finca.", "tag": "Clásico Costarricense" }
+      ]
+    },
+    "desserts": {
+      "heading": "Postres del Huerto",
+      "subheading": "El dulce final de la cosecha",
+      "items": [
+        { "title": "Panna Cotta de Finca", "description": "Leche cruda de finca, compota de fruta de temporada y miel de flor de café." },
+        { "title": "Tres Leches de Finca", "description": "Bizcocho casero empapado en leche de finca, canela y café de altura." },
+        { "title": "Mousse de Chocolate y Aguacate", "description": "Chocolate oscuro, aguacate de finca y frutos rojos de temporada." },
+        { "title": "Fruta de Temporada con Miel", "description": "Una selección de la fruta del día, yogur natural y miel de nuestras colmenas." },
+        { "title": "Crepas de Dulce de Leche de Finca", "description": "Crepas caseras rellenas de dulce de leche de finca y fruta de temporada." },
+        { "title": "Sorbete de Fruta de Temporada", "description": "Fruta de la cosecha del día, menta fresca del huerto y un toque de miel." }
+      ]
+    },
+    "bakery": {
+      "heading": "Panadería de Finca",
+      "subheading": "Horneado cada mañana con nuestra propia masa madre",
+      "items": [
+        { "title": "Pan de Masa Madre", "description": "Nuestra receta insignia, fermentada 24 horas, horneada en piedra." },
+        { "title": "Repostería de Finca", "description": "Croissants y panecillos hechos con mantequilla de finca, horneados diariamente." },
+        { "title": "Focaccia de Hierbas del Huerto", "description": "Aceite de oliva, romero y tomates cherry de temporada." },
+        { "title": "Galletas de Avena y Miel", "description": "Avena orgánica, miel de nuestras colmenas y chocolate de origen único." },
+        { "title": "Pan de Plátano y Nueces", "description": "Plátano maduro de finca, nueces tostadas y canela." },
+        { "title": "Tartaletas de Fruta de Temporada", "description": "Masa sablée casera rellena de crema y fruta recién cosechada." }
+      ]
+    },
+    "themedNights": {
+      "heading": "Noches Temáticas",
+      "subheading": "Una experiencia diferente cada vez",
+      "description": "Cada noche temática incluye 1 botella de vino de nuestra selección natural, pan de la casa y la cosecha del día de Seguras Farm Shop. Elige tu experiencia y deja que el chef se encargue del resto.",
+      "nights": [
+        {
+          "title": "Noche de Tacos del Huerto",
+          "subtitle": "Estilo finca, brote a brote",
+          "description": "Arma tu propio taco con ingredientes recién cosechados y salsas caseras.",
+          "includes": ["Tortillas de maíz criollo hechas a mano", "Frijoles refritos de finca", "Repollo morado y brotes frescos", "Captura del día", "Pollo de libre pastoreo deshebrado", "Res de pastoreo", "Cerdo de pastoreo confitado", "Guacamole de aguacate de finca", "Salsa verde de tomatillo del huerto", "Salsa de chile ahumado", "Aioli de cilantro de finca", "Pico de gallo del huerto", "Queso de cabra fresco", "Cebolla curtida de finca", "Arroz con cilantro y limón"],
+          "dessert": "Crepas de dulce de leche de finca con fruta de temporada"
+        },
+        {
+          "title": "Noche de Ahumados",
+          "subtitle": "Leña, tiempo y paciencia de finca",
+          "description": "Cortes y vegetales ahumados lentamente sobre leña de nuestra propia finca.",
+          "includes": ["Costillas de cerdo de pastoreo, ahumadas 12 horas", "Pecho de res de pastoreo ahumado", "Pollo entero de libre pastoreo ahumado", "Captura del día ahumada en hojas de plátano", "Vegetales de raíz asados a las brasas", "Maíz de finca a la plancha con mantequilla de hierbas", "Frijoles del huerto ahumados", "Ensalada de brotes y hierbas frescas", "Pan de masa madre tostado en leña", "Salsa BBQ de tamarindo de finca", "Chimichurri de hierbas del huerto"],
+          "dessert": "Plátano asado en leña con miel de finca y nueces tostadas"
+        },
+        {
+          "title": "Cena Tica",
+          "subtitle": "Sabores de siempre, de nuestra propia tierra",
+          "description": "Un homenaje a la cocina costarricense, con ingredientes 100% de finca.",
+          "includes": ["Casado a elección: pollo, res, cerdo o captura del día", "Arroz con frijoles del huerto", "Plátano maduro de finca", "Picadillo de vegetales de temporada", "Ensalada de brotes frescos", "Chimichurri de finca"],
+          "dessert": "Tres leches de finca con canela y café de altura"
+        },
+        {
+          "title": "Noche Vegana",
+          "subtitle": "100% del huerto, sin excepciones",
+          "description": "Una experiencia completamente vegetal, con lo mejor de la cosecha de Seguras Farm Shop.",
+          "includes": ["Hummus de garbanzo del huerto con pan de masa madre", "Ensalada de brotes, quinua y semillas tostadas", "Ceviche de palmito de finca", "Risotto de hongos silvestres y brotes", "Vegetales de raíz asados con romero del huerto", "Tacos de jackfruit ahumado con repollo morado", "Curry de vegetales con leche de coco", "Patacones con guacamole y pico de gallo"],
+          "dessert": "Mousse de chocolate y aguacate de finca con frutos rojos"
+        },
+        {
+          "title": "Cena del Océano",
+          "subtitle": "La captura del día, sin intermediarios",
+          "description": "Lo mejor del mar, servido el mismo día que fue pescado.",
+          "includes": ["Ceviche con leche de tigre cítrica de finca", "Camarones al ajillo con mantequilla de hierbas", "Pulpo a la plancha con puré de papa criolla", "Pescado entero horneado en hojas de plátano", "Arroz de mariscos con vegetales del huerto", "Mejillones a la diabla", "Ensalada de brotes y cítricos", "Pan de masa madre con aioli de finca"],
+          "dessert": "Sorbete de fruta de temporada con menta del huerto"
+        }
+      ]
+    },
+    "pricing": {
+      "heading": "Tarifas",
+      "subheading": "Servicio de chef en casa",
+      "description": "Nuestros precios se mantienen por debajo del mercado promedio de chef privado en Uvita y la Costa Ballena, sin sacrificar el origen de finca de cada ingrediente. Todo incluye chef, mesero, ingredientes y limpieza.",
+      "note": "Todos los precios incluyen impuestos.",
+      "perService": {
+        "heading": "Por Servicio",
+        "subheading": "Incluye: chef, mesero, ingredientes de finca y limpieza.",
+        "items": [
+          { "label": "Desayuno", "price": "Desde $230 para 2 · +$24 por persona adicional" },
+          { "label": "Almuerzo", "price": "Desde $235 para 2 · +$28 por persona adicional" },
+          { "label": "Cena", "price": "Desde $245 para 2 · +$52 por persona adicional" },
+          { "label": "Día Completo", "price": "Desde $610 para 2 · +$80 por persona adicional" }
+        ]
+      },
+      "themedNights": {
+        "heading": "Noches Temáticas",
+        "subheading": "Taco Night · Ahumados · Cena Tica · Noche Vegana",
+        "items": [
+          { "label": "2–5 personas", "price": "$530 total" },
+          { "label": "6–10 personas", "price": "$835 total" },
+          { "label": "11–15 personas", "price": "$1,140 total" },
+          { "label": "Cena del Océano", "price": "+$100 sobre cualquier tarifa de noche temática" }
+        ]
+      },
+      "bartender": {
+        "heading": "Añadir Bartender",
+        "items": [
+          { "label": "Solo atardecer (4–7 PM)", "price": "$170" },
+          { "label": "Atardecer + Cena (4–9 PM)", "price": "$255" }
+        ]
+      }
+    }
+  },
+  "fullFridge": {
+    "pill": "De la Finca al Refrigerador",
+    "title": "Nevera Llena",
+    "subtitle": "Tu cocina, lista antes de que llegues",
+    "whatsapp": "Organizar mi Nevera Llena",
+    "ctaHeading": "¿Listo para llenar tu nevera?",
+    "ctaSubheading": "Dinos tu fecha de llegada y lo tenemos listo cuando entres.",
+    "concept": {
+      "heading": "Tu cocina, lista antes de que llegues",
+      "body": "Llegamos antes que tú y surtimos tu nevera y despensa con lo mejor de Seguras Farm Shop: vegetales, carnes, pescado y fruta de temporada para que puedas preparar tu propio desayuno, almuerzo y cena durante toda tu estadía.\n\nTodo proviene de nuestra red curada de productores costarricenses — orgánico, trazable y entregado fresco la mañana de tu llegada. Sin carreras al supermercado, sin adivinar, sin compromisos."
+    },
+    "produce": {
+      "heading": "Qué incluye",
+      "subheading": "Todo lo que necesitas para desayuno, almuerzo y cena durante tu estadía.",
+      "categories": [
+        { "title": "Vegetales y Frutas del Huerto", "items": ["Vegetales de temporada para desayuno, almuerzo y cena", "Aguacate, brotes tiernos y hierbas frescas del huerto", "Fruta tropical de temporada para desayuno y snacks"] },
+        { "title": "Despensa Básica", "items": ["Pan y repostería de la Panadería Seguras Farm Shop", "Café de altura, leche cruda, yogur y queso de finca", "Arroz, frijoles, tortillas de maíz criollo, aceite de oliva y especias"] },
+        { "title": "Carnes y Proteínas", "items": ["Pollo de libre pastoreo", "Res de pastoreo", "Cerdo de pastoreo", "Huevos de gallinas felices"] },
+        { "title": "Pescado y Mariscos", "items": ["Captura del día, sujeto a disponibilidad", "Camarones frescos (opcional, según el paquete)"] }
+      ]
+    },
+    "beverages": {
+      "heading": "Bebidas Opcionales",
+      "subheading": "Vinos, cervezas y licores para tu nevera.",
+      "note": "¿Buscas algo específico? Pídenos nuestra lista completa de vinos o licores. Nuestros precios son hasta un 30% más bajos que los supermercados y restaurantes locales.",
+      "items": [
+        { "title": "Paquete de Vinos", "description": "Selección de 2 vinos naturales", "price": "$45" },
+        { "title": "Paquete Premium de Vinos", "description": "Selección de 4 vinos naturales", "price": "$85" },
+        { "title": "Cerveza Artesanal — Six-Pack", "description": "Selección artesanal costarricense", "price": "$18" },
+        { "title": "Cerveza Artesanal — 24 Unidades", "description": "Selección artesanal costarricense", "price": "$65" },
+        { "title": "Licor Individual", "description": "Ron, guaro o whisky", "price": "Desde $30" },
+        { "title": "Bar Completo", "description": "Ron, guaro, whisky, vodka y gin", "price": "$150" }
+      ]
+    },
+    "pricing": {
+      "heading": "Precios del Paquete",
+      "subheading": "Por tamaño de grupo y duración de estadía",
+      "description": "Incluye vegetales, carnes, pescado, frutas y despensa básica para desayuno, almuerzo y cena. Bebidas opcionales se cotizan por separado.",
+      "note": "Precios en USD. Entregado antes de tu llegada. Grupos de más de 8 personas o estadías mayores de 8 días: cotización personalizada. Restricciones y preferencias dietéticas se adaptan sin costo adicional.",
+      "columns": ["Pareja (2)", "Familia de 4", "Familia de 6", "Familia de 8"],
+      "rows": [
+        { "label": "3 Días", "prices": ["$230", "$410", "$560", "$670"] },
+        { "label": "5 Días", "prices": ["$380", "$680", "$930", "$1,120"] },
+        { "label": "8 Días", "prices": ["$610", "$1,090", "$1,490", "$1,790"] }
+      ]
+    },
+    "howItWorks": {
+      "heading": "Cómo funciona",
+      "steps": [
+        { "title": "Dinos tu fecha de llegada", "description": "Envíanos un WhatsApp con tu fecha de llegada y la cantidad de huéspedes para los que preparamos." },
+        { "title": "Lo conseguimos fresco para ti", "description": "Seguras Farm Shop prepara tu pedido la mañana de tu llegada — obtenido de los mejores productores regionales de Costa Rica." },
+        { "title": "Encuéntralo listo al llegar", "description": "Entra a tu casa y tu nevera ya está surtida. Sin paradas, sin estrés — solo cocina." }
+      ]
+    },
+    "farm": {
+      "heading": "Sobre Seguras Farm Shop",
+      "body": "Seguras Farm Shop nació de una idea simple: en lugar de depender de una sola finca, construir una red de productores de distintas regiones de Costa Rica, cada uno experto en lo que mejor sabe dar su tierra.\n\nCafé de altura de Tarrazú, pesca fresca del Pacífico, vegetales de las faldas volcánicas, miel de la zona norte. Cada ingrediente lleva nombre y apellido de región. Cada bocado cuenta una historia de paciencia, cuidado y profundo respeto por la tierra costarricense."
+    }
   },
   "tours": {
     "pill": "Explora el área",
@@ -247,7 +496,7 @@
       {
         "title": "Parapente en Tándem — Dominical y Rivas",
         "description": "Vuelo en tándem de 20–30 minutos (más largo que la competencia) con instructor certificado. Empresa familiar, 14 años de experiencia. Se habla inglés. Pago después de la actividad.",
-        "features": ["Vuelo de 20–30 min (el más largo disponible)", "Instructor-piloto certificado, 14 años de experiencia", "Se habla inglés", "Recogida flexible desde la villa", "Pago después de la actividad — muy cómodo para los huéspedes"],
+        "features": ["Vuelo de 20–30 min (el más largo disponible)", "Instructor-piloto certificado, 14 años de experiencia", "Se habla inglés", "Recogida flexible desde la casa", "Pago después de la actividad — muy cómodo para los huéspedes"],
         "pricing": [
           { "label": "Sitio Dominical", "price": "$135 neto / persona" },
           { "label": "Sitio Rivas", "price": "$120 neto / persona" },
@@ -320,6 +569,7 @@
     ]
   },
   "common": {
+    "back": "Volver",
     "seeMore": "Ver más",
     "getDirections": "Cómo llegar",
     "wifi": "Wifi",
@@ -342,18 +592,18 @@
   "properties": {
     "casaMango": {
       "name": "Casa Mango",
-      "description": "Villa Mango también cuenta con una sala de juegos para entretenimiento, una amplia terraza de yoga rodeada de naturaleza y áreas sociales abiertas que invitan a los huéspedes a relajarse y disfrutar del tiempo juntos.",
-      "about": "Casa Mango es un escape exclusivo diseñado para el confort, el espacio y la conexión. Su entorno privado y su relajada atmósfera la convierten en el destino perfecto para grupos y familias que buscan compartir momentos inolvidables en un ambiente refinado y natural.\n\nVilla Mango también cuenta con una sala de juegos para entretenimiento, una amplia terraza de yoga rodeada de naturaleza y áreas sociales abiertas que invitan a los huéspedes a relajarse y disfrutar del tiempo juntos."
+      "description": "Casa Mango también cuenta con una sala de juegos para entretenimiento, una amplia terraza de yoga rodeada de naturaleza y áreas sociales abiertas que invitan a los huéspedes a relajarse y disfrutar del tiempo juntos.",
+      "about": "Casa Mango es un escape exclusivo diseñado para el confort, el espacio y la conexión. Su entorno privado y su relajada atmósfera la convierten en el destino perfecto para grupos y familias que buscan compartir momentos inolvidables en un ambiente refinado y natural.\n\nCasa Mango también cuenta con una sala de juegos para entretenimiento, una amplia terraza de yoga rodeada de naturaleza y áreas sociales abiertas que invitan a los huéspedes a relajarse y disfrutar del tiempo juntos."
     },
     "casaRonRon": {
       "name": "Casa Ron Ron",
-      "description": "La villa está diseñada para brindar un espacio tranquilo e inspirador. Sus cálidos interiores y áreas de vida al aire libre están cuidadosamente diseñados para complementar la belleza natural del bosque circundante.",
-      "about": "Casa Ron Ron toma su nombre del majestuoso árbol ron ron (Astronium graveolens), una especie nativa celebrada por su madera duradera y su característica corteza exfoliante.\n\nLa villa está diseñada para brindar un espacio tranquilo e inspirador, con cuatro amplias habitaciones. Sus cálidos interiores y áreas de vida al aire libre complementan a la perfección la belleza natural del bosque circundante."
+      "description": "La casa está diseñada para brindar un espacio tranquilo e inspirador. Sus cálidos interiores y áreas de vida al aire libre están cuidadosamente diseñados para complementar la belleza natural del bosque circundante.",
+      "about": "Casa Ron Ron toma su nombre del majestuoso árbol ron ron (Astronium graveolens), una especie nativa celebrada por su madera duradera y su característica corteza exfoliante.\n\nLa casa está diseñada para brindar un espacio tranquilo e inspirador, con cuatro amplias habitaciones. Sus cálidos interiores y áreas de vida al aire libre complementan a la perfección la belleza natural del bosque circundante."
     },
     "casaCeiba": {
       "name": "Casa Ceiba",
-      "description": "Diseñada como un estudio privado, Villa Ceiba es ideal para parejas que buscan intimidad y relajación. Su piscina privada, diseño y ambiente sereno crean un retiro en el corazón de la Península de Osa.",
-      "about": "Casa Ceiba está inspirada en el legendario árbol Ceiba (Ceiba pentandra), símbolo de vida y conexión con sus imponentes raíces y amplio dosel.\n\nApartada como estudio privado, Villa Ceiba está diseñada para parejas que buscan intimidad y relajación. Su piscina privada, diseño elegante y serena atmósfera crean un retiro sin igual en el corazón de la Península de Osa."
+      "description": "Diseñada como un estudio privado, Casa Ceiba es ideal para parejas que buscan intimidad y relajación. Su piscina privada, diseño y ambiente sereno crean un retiro en el corazón de la Península de Osa.",
+      "about": "Casa Ceiba está inspirada en el legendario árbol Ceiba (Ceiba pentandra), símbolo de vida y conexión con sus imponentes raíces y amplio dosel.\n\nApartada como estudio privado, Casa Ceiba está diseñada para parejas que buscan intimidad y relajación. Su piscina privada, diseño elegante y serena atmósfera crean un retiro sin igual en el corazón de la Península de Osa."
     },
     "casaCorteza": {
       "name": "Casa Corteza Amarilla",
@@ -362,8 +612,8 @@
     },
     "casaPalmera": {
       "name": "Casa Palmera",
-      "description": "El diseño de la villa refleja la elegancia de su árbol homónimo, con amplios interiores, decoración refinada y comodidades modernas. Es la opción perfecta para familias o amigos que buscan un escape tranquilo en la naturaleza.",
-      "about": "Casa Palmera Azul lleva el nombre de la llamativa palmera azul (Bismarckia nobilis), conocida por sus grandes hojas en forma de abanico con un único tono plateado-azulado.\n\nEl diseño de la villa refleja la elegancia de su árbol homónimo, con amplios interiores, decoración refinada y comodidades modernas. Es la opción perfecta para familias o amigos que buscan un escape tranquilo en la naturaleza."
+      "description": "El diseño de la casa refleja la elegancia de su árbol homónimo, con amplios interiores, decoración refinada y comodidades modernas. Es la opción perfecta para familias o amigos que buscan un escape tranquilo en la naturaleza.",
+      "about": "Casa Palmera Azul lleva el nombre de la llamativa palmera azul (Bismarckia nobilis), conocida por sus grandes hojas en forma de abanico con un único tono plateado-azulado.\n\nEl diseño de la casa refleja la elegancia de su árbol homónimo, con amplios interiores, decoración refinada y comodidades modernas. Es la opción perfecta para familias o amigos que buscan un escape tranquilo en la naturaleza."
     }
   },
   "footer": {
@@ -382,7 +632,7 @@
       "items": [
         { "label": "Contactos de Emergencia", "href": "/#emergencias" },
         { "label": "WhatsApp", "href": "https://wa.me/50685011042" },
-        { "label": "Instagram", "href": "https://www.instagram.com/arboreavillas/" },
+        { "label": "Instagram", "href": "https://www.instagram.com/arboreaexperiences/" },
         { "label": "Facebook", "href": "https://www.facebook.com/profile.php?id=61574441755795" }
       ]
     },
@@ -401,11 +651,11 @@
       },
       "powerOutages": {
         "title": "Cortes de Luz",
-        "description": "Debido a nuestra remota ubicación en la montaña, pueden ocurrir breves cortes de luz ocasionales. Recomendamos mantener su teléfono cargado y tener una linterna a mano, ambas disponibles en la villa."
+        "description": "Debido a nuestra remota ubicación en la montaña, pueden ocurrir breves cortes de luz ocasionales. Recomendamos mantener su teléfono cargado y tener una linterna a mano, ambas disponibles en la casa."
       },
       "transportation": {
         "title": "Transporte",
-        "description": "Se recomienda altamente un vehículo 4x4 para acceder a la villa y las áreas circundantes de forma segura y cómoda."
+        "description": "Se requiere un vehículo 4x4 con tracción en las 4 ruedas para acceder a las casas y áreas circundantes de forma segura. Arborea puede encargarse del transporte — pero si preferís alquilar su propio vehículo, asegurate de que tenga tracción total en las 4 ruedas activada, no solo tracción en las 2 ruedas delanteras."
       },
       "foodStorage": {
         "title": "Almacenamiento de Alimentos",

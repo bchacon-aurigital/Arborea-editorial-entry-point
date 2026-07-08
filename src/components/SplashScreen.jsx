@@ -19,7 +19,7 @@ export default function SplashScreen() {
 
   return (
     <div
-      className="fixed inset-0 z-[9999] bg-[#EDDAC4] flex items-center justify-center transition-opacity duration-700"
+      className="fixed inset-0 z-[9999] bg-[#EDE5D8] flex items-center justify-center transition-opacity duration-700"
       style={{ opacity: fading ? 0 : 1 }}
     >
       <object

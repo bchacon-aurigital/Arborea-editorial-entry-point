@@ -16,14 +16,14 @@ function InfoCard({ icon: Icon, title, description, delay = 0 }) {
     <div
       data-aos="zoom-in"
       data-aos-delay={delay}
-      className="bg-[#eddac4] rounded-2xl px-8 py-10 flex flex-col justify-between gap-8 min-h-80 md:min-h-[420px]"
+      className="bg-[#8C8F77] rounded-2xl px-8 py-10 flex flex-col justify-between gap-8 min-h-80 md:min-h-[420px]"
     >
-      <div className="bg-[#381d14] rounded-xl p-2.5 size-14 flex items-center justify-center shrink-0">
-        <Icon size={26} className="text-[#eddac4]" />
+      <div className="bg-[#4B4D40] rounded-xl p-2.5 size-14 flex items-center justify-center shrink-0">
+        <Icon size={26} className="text-[#EDE5D8]" />
       </div>
       <div className="flex flex-col gap-3">
-        <p className="font-display font-semibold text-[#381d14] text-xl">{title}</p>
-        <p className="font-sans font-medium text-[#381d14]/50 text-base leading-snug">{description}</p>
+        <p className="font-display font-semibold text-[#121F19] text-xl">{title}</p>
+        <p className="font-sans font-medium text-[#121F19]/70 text-base leading-snug">{description}</p>
       </div>
     </div>
   );
@@ -33,14 +33,14 @@ export default function GoodToKnowSection() {
   const { t } = useI18n();
 
   return (
-    <section id="bueno-saber" className="w-full bg-[#381d14] rounded-3xl px-8 md:px-16 py-16 md:py-24 flex flex-col gap-16 md:gap-24">
+    <section id="bueno-saber" className="w-full bg-[#213B2F] rounded-3xl px-8 md:px-16 py-16 md:py-24 flex flex-col gap-16 md:gap-24">
       <div className="flex flex-col-reverse md:flex-row items-start justify-between gap-8">
-        <p className="font-sans font-medium text-[#eddac4] text-xl md:text-2xl leading-tight tracking-tight max-w-4xl">
+        <p className="font-sans font-medium text-white/80 text-xl md:text-2xl leading-tight tracking-tight max-w-4xl">
           {t("goodToKnow.title")}
         </p>
         <div className="flex items-center gap-2 border border-white/[0.12] rounded-full px-4 py-2 shrink-0">
-          <div className="w-2 h-2 rounded-full bg-[#eddac4]" />
-          <span className="font-sans font-medium text-[#eddac4] text-sm whitespace-nowrap">
+          <div className="w-2 h-2 rounded-full bg-white/60" />
+          <span className="font-sans font-medium text-white/70 text-sm whitespace-nowrap">
             {t("goodToKnow.badge")}
           </span>
         </div>

@@ -7,19 +7,22 @@ const ARBOREA_WHATSAPP = "50685011042";
 export default function ActivityCard({ activity }) {
   const { title, description, features = [] } = activity;
 
+  const waMessage = encodeURIComponent(`Hi! I'm interested in: *${title}*`);
+  const waUrl = `https://wa.me/${ARBOREA_WHATSAPP}?text=${waMessage}`;
+
   return (
     <a
-      href={`https://wa.me/${ARBOREA_WHATSAPP}`}
+      href={waUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="bg-[#f4e9dc] rounded-2xl px-8 pt-10 pb-8 flex flex-col gap-0 h-full cursor-pointer hover:bg-[#ecdcc9] transition-colors duration-200"
+      className="bg-[#4B4D40] rounded-2xl px-8 pt-10 pb-8 flex flex-col gap-0 h-full cursor-pointer hover:bg-[#3E4035] transition-colors duration-200"
     >
       {/* Title + description */}
-      <div className="pb-6 border-b border-[#381d14]/15 flex flex-col gap-2">
-        <h3 className="font-sans font-medium text-xl text-[#381d14] tracking-tight">
+      <div className="pb-6 border-b border-white/15 flex flex-col gap-2">
+        <h3 className="font-sans font-medium text-xl text-white tracking-tight">
           {title}
         </h3>
-        <p className="font-sans text-sm text-[#381d14]/50 leading-relaxed">
+        <p className="font-sans text-sm text-white/60 leading-relaxed">
           {description}
         </p>
       </div>
@@ -30,10 +33,10 @@ export default function ActivityCard({ activity }) {
           const Icon = FEATURE_ICONS[i % FEATURE_ICONS.length];
           return (
             <div key={i} className="flex items-center gap-3">
-              <div className="bg-[#381d14]/10 rounded-xl size-8 flex items-center justify-center shrink-0">
-                <Icon size={16} className="text-[#381d14]/70" />
+              <div className="bg-white/10 rounded-xl size-8 flex items-center justify-center shrink-0">
+                <Icon size={16} className="text-white/70" />
               </div>
-              <span className="font-sans text-sm text-[#381d14]/70">{feat}</span>
+              <span className="font-sans text-sm text-white/70">{feat}</span>
             </div>
           );
         })}

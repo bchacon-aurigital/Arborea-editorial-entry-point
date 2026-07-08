@@ -5,12 +5,14 @@
     "introSubtitle": "Our collective of curated jungle residences are located in a pristine mountain environment, and part of the magic of staying here comes with a few things worth keeping in mind to ensure a comfortable experience.",
     "whatsappCta": "Arborea's WhatsApp",
     "pill": "Take a breather",
-    "title": "Houses & Villas"
+    "title": "Casas"
   },
   "emergency": {
     "pill": "Safety first",
     "title": "Emergency Contacts",
     "description": "There are multiple pharmacies available in Uvita within a 15-minute radius and many offer extended hours and basic medical assistance.",
+    "seeMore": "See more contacts",
+    "seeLess": "See less",
     "contacts": [
       {
         "title": "Immediate Emergency (24/7 – First Call)",
@@ -22,74 +24,81 @@
         ]
       },
       {
-        "title": "Hospital Tomás Casas Casajús (Cortés)",
-        "subtitle": "Public hospital with 24/7 emergency services",
+        "title": "Dr. Solano (On-call doctor)",
+        "subtitle": null,
         "rows": [
-          { "label": "Name:", "value": "Hospital Tomás Casas Casajús (Cortés)" },
-          { "label": "Distance:", "value": "~20 minutes from Uvita / Ojochal" },
-          { "label": "Phone:", "value": "2786-8198 / 2786-8148" }
+          { "label": "WhatsApp:", "value": "+506 8579-5097" }
         ]
       },
       {
-        "title": "Hospital Las Américas – San Isidro",
-        "subtitle": "Private hospital with faster service",
+        "title": "Erika Quirós – On-call Doctor",
+        "subtitle": "Available for medical emergencies",
         "rows": [
-          { "label": "Name:", "value": "Hospital Las Américas – San Isidro" },
-          { "label": "Distance:", "value": "~1–1.5 hours inland" },
-          { "label": "Phone:", "value": "2771-3122" }
-        ]
-      },
-      {
-        "title": "Hospital Max Terán Valls – Quepos",
-        "subtitle": "Public hospital with 24/7 emergency services",
-        "rows": [
-          { "label": "Name:", "value": "Hospital Max Terán Valls – Quepos" },
-          { "label": "Distance:", "value": "~45 minutes north" },
-          { "label": "Phone:", "value": "2774-9500" }
-        ]
-      },
-      {
-        "title": "Hospital CIMA – San José",
-        "subtitle": "International-level private hospital",
-        "rows": [
-          { "label": "Distance:", "value": "~3.5 hours or air transfer" },
-          { "label": "Phone:", "value": "2208-1000" }
+          { "label": "WhatsApp:", "value": "+506 7010-3990" }
         ]
       },
       {
         "title": "Local Medical Clinic (Uvita)",
         "subtitle": "Walk-in urgent care (daytime hours)",
         "rows": [
-          { "label": "WhatsApp:", "value": "8732-5555" },
-          { "label": "Phone:", "value": "2215-4848" }
-        ]
-      },
-      {
-        "title": "Dr. Solano (On-call doctor)",
-        "subtitle": null,
-        "rows": [
-          { "label": "WhatsApp:", "value": "8579-5097" }
+          { "label": "WhatsApp:", "value": "+506 8732-5555" },
+          { "label": "Phone:", "value": "+506 2215-4848" }
         ]
       },
       {
         "title": "Costa Rica Medical Response",
         "subtitle": null,
         "rows": [
-          { "label": "Phone:", "value": "2286-1818" }
+          { "label": "Phone:", "value": "+506 2286-1818" }
         ]
       },
       {
         "title": "Lifeguard Air Ambulance",
         "subtitle": null,
         "rows": [
-          { "label": "Phone:", "value": "2220-0911" }
+          { "label": "Phone:", "value": "+506 2220-0911" }
+        ]
+      },
+      {
+        "title": "Hospital Tomás Casas Casajús (Cortés)",
+        "subtitle": "Public hospital with 24/7 emergency services — ~20 min",
+        "rows": [
+          { "label": "Phone:", "value": "+506 2786-8198 / +506 2786-8148" }
+        ]
+      },
+      {
+        "title": "Hospital Max Terán Valls – Quepos",
+        "subtitle": "Public hospital with 24/7 emergency services — ~45 min",
+        "rows": [
+          { "label": "Phone:", "value": "+506 2774-9500" }
+        ]
+      },
+      {
+        "title": "Hospital Las Américas – San Isidro",
+        "subtitle": "Private hospital with faster service — ~1–1.5 hours",
+        "rows": [
+          { "label": "Phone:", "value": "+506 2771-3122" }
+        ]
+      },
+      {
+        "title": "Hospital CIMA – San José",
+        "subtitle": "International-level private hospital — ~3.5 hours or air transfer",
+        "rows": [
+          { "label": "Phone:", "value": "+506 2208-1000" }
+        ]
+      },
+      {
+        "title": "Diego Alonso Pinto Ulate – Trusted Mechanic",
+        "subtitle": null,
+        "rows": [
+          { "label": "WhatsApp:", "value": "+506 8701-2678" }
         ]
       },
       {
         "title": "Tourist Police",
         "subtitle": null,
         "rows": [
-          { "label": "Phone:", "value": "2222-1365" }
+          { "label": "Phone:", "value": "+506 2222-1365" }
         ]
       },
       {
@@ -103,7 +112,7 @@
         "title": "Canadian Embassy (San José)",
         "subtitle": null,
         "rows": [
-          { "label": "Phone:", "value": "2242-4400" }
+          { "label": "Phone:", "value": "+506 2242-4400" }
         ]
       }
     ]
@@ -122,9 +131,249 @@
         "category": "In-casa Dining",
         "title": "Private Chef Experience",
         "description": "Enjoy a private culinary experience designed around elevated dining, exceptional service, and memorable shared moments. Inspired by global cuisine and Costa Rican flavors, every dish is carefully prepared and beautifully presented for an unforgettable dining experience in the comfort and privacy of your casa.",
-        "features": ["Four-course Dinners", "Family-style meals", "Locally Sourced", "Fresh", "Organic Ingredients", "Customized menus"]
+        "features": ["Four-course Dinners", "Family-style meals", "Locally Sourced", "Fresh", "Organic Ingredients", "Customized menus"],
+        "href": "/private-chef",
+        "cta": "See the menu"
+      },
+      {
+        "category": "Farm to Fridge",
+        "title": "Full Fridge",
+        "description": "Arrive to a fully stocked fridge filled with fresh produce straight from Arborea's own farm. Whether you want to cook at home or simply snack on what you know is safe, everything is organic, nutrient-rich, and grown with care — no guessing, no grocery runs.",
+        "features": ["Farm-fresh produce", "Organic & nutrient-rich", "Safe & traceable ingredients", "Ready on arrival", "Ideal for home cooking", "Grown on-site"],
+        "href": "/full-fridge",
+        "cta": "See more"
       }
     ]
+  },
+  "privateChef": {
+    "pill": "In-casa Dining",
+    "title": "Private Chef Experience",
+    "subtitle": "Farm-to-table cuisine in partnership with Seguras Farm Shop",
+    "whatsapp": "Book your experience",
+    "ctaHeading": "Ready to taste Costa Rica?",
+    "ctaSubheading": "Reach out on WhatsApp and we'll take care of the rest.",
+    "story": {
+      "heading": "Our Story",
+      "body": "It all begins with a sprout.\n\nSeguras Farm Shop was born from a simple idea: instead of relying on a single farm, build a network of producers across different regions of Costa Rica, each an expert in what their land does best. High-altitude coffee from Tarrazú, fresh catch from the Pacific, vegetables from the volcanic foothills, honey from the northern zone.\n\nAt Arbórea we take that curated selection of partner farms straight to your table the same day. Every dish carries the name of the region that grew it, every sprout tells a story of patience, and every bite is our way of saying thank you to the Costa Rican land that feeds us.\n\nFarm-to-table cooking. Ingredients with a region's first and last name. An experience that truly tastes of Costa Rica."
+    },
+    "breakfast": {
+      "heading": "Farm Breakfast",
+      "subheading": "Freshly harvested, every morning",
+      "note": "All breakfasts include seasonal fruit, high-altitude coffee, and freshly squeezed juice from Seguras Farm Shop.",
+      "items": [
+        { "title": "Sprouts and Poached Egg", "description": "House-baked sourdough bread, tender sprouts from Seguras Farm Shop, avocado, and a poached egg draped in farm-butter hollandaise." },
+        { "title": "Sprout and Goat Cheese Omelet", "description": "Free-range eggs, sautéed sprouts, and artisanal goat cheese from local producers, served with the salad of the day." },
+        { "title": "Heirloom Corn Arepas", "description": "Heirloom corn milled on the farm, served with organic beans, egg any style, and raw-milk sour cream." },
+        { "title": "Farm Toast", "description": "Sourdough bread, house-made ricotta, radish sprouts, and coffee-flower honey from our own beehives." },
+        { "title": "Farm Banana Pancakes", "description": "Ripe banana from Seguras Farm Shop, cinnamon and nutmeg, served with honey from our beehives and farm butter.", "tag": "Costa Rican Classic" },
+        { "title": "Gallo Pinto", "description": "Sautéed rice and black beans with culantro coyote from the garden, served with free-range eggs any style, farm cheese, and fresh cream.", "tag": "Costa Rican Classic" },
+        { "title": "Garden Bowl", "description": "Raw-milk yogurt, house-baked organic oat granola, seasonal fruit, and honey from our beehives." },
+        { "title": "Farmhouse Burrito", "description": "Scrambled eggs, pasture-raised pork bacon, farm cheese, avocado and beans, wrapped in a nixtamalized corn tortilla." },
+        { "title": "Seasonal Parfait", "description": "Artisanal granola, natural yogurt, sweet sprouts, seeds, and fruit according to the day's harvest." },
+        { "title": "Farm-Style Huevos Rancheros", "description": "Heirloom corn tortillas, organic beans, free-range eggs, ranchera sauce, and farm mozzarella." }
+      ],
+      "extrasHeading": "Breakfast Extras",
+      "extrasSubheading": "Add your favorite protein to any breakfast.",
+      "extras": [
+        { "title": "Seguras Farm Shop Bacon", "description": "Pasture-raised pork bacon, cured and artisanally smoked." },
+        { "title": "Farm Beef Chorizo", "description": "Seasoned with garden herbs from our partner producers." },
+        { "title": "Farm Smoked Brisket", "description": "Slow-smoked over firewood — a little indulgence in the morning." }
+      ]
+    },
+    "lunch": {
+      "heading": "Garden Lunch",
+      "subheading": "From the furrow straight to the plate",
+      "items": [
+        { "title": "Seasonal Vegetable Bowl", "description": "Roasted root vegetables, raw sprouts, organic quinoa, avocado, and a farm citrus vinaigrette." },
+        { "title": "Free-Range Chicken Sandwich", "description": "Grilled free-range chicken breast, farm cheese, fresh sprouts, and herb aioli, served with fried yuca." },
+        { "title": "Sprout and Quinoa Salad", "description": "Mixed sprouts, quinoa, seasonal vegetables, toasted seeds, and fresh goat cheese." },
+        { "title": "Catch of the Day Tacos", "description": "Local fish, purple cabbage, garden pico de gallo, guacamole, and heirloom corn tortilla." },
+        { "title": "Farm Vegetable Soup", "description": "Seasonal vegetable broth, fresh garden herbs, and toasted sourdough bread." },
+        { "title": "Roasted Vegetable Wrap", "description": "Roasted root vegetables, house-made hummus, tender sprouts, and farm cheese in a whole-wheat tortilla." },
+        { "title": "Classic Ceviche", "description": "Catch of the day marinated in farm lime, purple onion, cilantro and culantro coyote from the garden, served with patacones.", "tag": "Costa Rican Classic" },
+        { "title": "Farm Patacones", "description": "Twice-fried green plantain from the farm, served with mashed beans and local fresh cheese.", "tag": "Costa Rican Classic" },
+        { "title": "Caribbean Rice and Beans", "description": "Rice and beans cooked in coconut milk, with free-range chicken in a Caribbean curry sauce and garden herbs.", "tag": "Costa Rican Classic" },
+        { "title": "Garden Chifrijo", "description": "Garden beans, pasture-raised pork chicharrón, rice, pico de gallo, and farm avocado.", "tag": "Costa Rican Classic" },
+        { "title": "Costa Rican Black Bean Soup", "description": "Garden black beans, hard-boiled egg, culantro coyote, and farm ripe plantain.", "tag": "Costa Rican Classic" },
+        { "title": "Traditional Costa Rican Casado", "description": "Rice, garden beans, farm ripe plantain, cabbage salad, seasonal vegetable picadillo, and your choice of protein.", "tag": "Costa Rican Classic" },
+        { "title": "Classic Arroz con Pollo", "description": "Rice simmered with free-range chicken, garden vegetables, culantro coyote, and a touch of achiote.", "tag": "Costa Rican Classic" }
+      ]
+    },
+    "dinner": {
+      "heading": "Seasonal Dinner",
+      "subheading": "Whatever the land gave today",
+      "items": [
+        { "title": "Pasture-Raised Beef", "description": "Pasture-raised beef cut, creole potato purée, sautéed sprouts, and a farm herb jus." },
+        { "title": "Sprout and Wild Mushroom Risotto", "description": "Creamy rice, seasonal wild mushrooms, tender sprouts, and aged parmesan." },
+        { "title": "Coastal Catch of the Day", "description": "Fresh fish of the day, roasted root vegetables, and farm herb butter." },
+        { "title": "Roasted Free-Range Chicken", "description": "Free-range chicken marinated in garden herbs, served with roasted vegetables and its own pan sauce." },
+        { "title": "Traditional Costa Rican Casado", "description": "Rice, garden beans, farm ripe plantain, cabbage salad, seasonal vegetable picadillo, and your choice of protein.", "tag": "Costa Rican Classic" },
+        { "title": "Classic Arroz con Pollo", "description": "Rice simmered with free-range chicken, garden vegetables, culantro coyote, and a touch of achiote.", "tag": "Costa Rican Classic" },
+        { "title": "Classic Ceviche", "description": "Catch of the day marinated in farm lime, purple onion, cilantro and culantro coyote from the garden, served with patacones.", "tag": "Costa Rican Classic" },
+        { "title": "Farm Patacones", "description": "Twice-fried green plantain from the farm, served with mashed beans and local fresh cheese.", "tag": "Costa Rican Classic" },
+        { "title": "Caribbean Rice and Beans", "description": "Rice and beans cooked in coconut milk, with free-range chicken in a Caribbean curry sauce and garden herbs.", "tag": "Costa Rican Classic" },
+        { "title": "Garden Chifrijo", "description": "Garden beans, pasture-raised pork chicharrón, rice, pico de gallo, and farm avocado.", "tag": "Costa Rican Classic" },
+        { "title": "Costa Rican Black Bean Soup", "description": "Garden black beans, hard-boiled egg, culantro coyote, and farm ripe plantain.", "tag": "Costa Rican Classic" }
+      ]
+    },
+    "desserts": {
+      "heading": "Garden Desserts",
+      "subheading": "The sweet ending of the harvest",
+      "items": [
+        { "title": "Farm Panna Cotta", "description": "Raw farm milk, seasonal fruit compote, and coffee-flower honey." },
+        { "title": "Farm Tres Leches", "description": "House-made sponge cake soaked in farm milk, cinnamon, and high-altitude coffee." },
+        { "title": "Chocolate and Avocado Mousse", "description": "Dark chocolate, farm avocado, and seasonal red berries." },
+        { "title": "Seasonal Fruit and Honey", "description": "A selection of the day's fruit, natural yogurt, and honey from our beehives." },
+        { "title": "Farm Dulce de Leche Crepes", "description": "House-made crepes filled with farm milk dulce de leche and seasonal fruit." },
+        { "title": "Seasonal Fruit Sorbet", "description": "Fruit from the day's harvest, fresh garden mint, and a touch of honey." }
+      ]
+    },
+    "bakery": {
+      "heading": "Farm Bakery",
+      "subheading": "Baked every morning with our own sourdough starter",
+      "items": [
+        { "title": "Sourdough Bread", "description": "Our signature recipe, fermented for 24 hours, stone-baked." },
+        { "title": "Farm Pastries", "description": "Croissants and buns made with farm butter, baked daily." },
+        { "title": "Garden Herb Focaccia", "description": "Olive oil, rosemary, and seasonal cherry tomatoes." },
+        { "title": "Oat and Honey Cookies", "description": "Organic oats, honey from our beehives, and single-origin chocolate." },
+        { "title": "Banana Nut Bread", "description": "Ripe farm banana, toasted nuts, and cinnamon." },
+        { "title": "Seasonal Fruit Tartlets", "description": "House-made shortcrust pastry filled with cream and freshly harvested fruit." }
+      ]
+    },
+    "themedNights": {
+      "heading": "Themed Nights",
+      "subheading": "A different experience every time",
+      "description": "Every themed night includes 1 bottle of wine from our natural selection, house bread, and the day's harvest from Seguras Farm Shop. Choose your experience and let the chef handle the rest.",
+      "nights": [
+        {
+          "title": "Garden Taco Night",
+          "subtitle": "Farm style, sprout by sprout",
+          "description": "Build your own taco with freshly harvested ingredients and house-made sauces.",
+          "includes": ["Hand-made heirloom corn tortillas", "Farm refried beans", "Purple cabbage and fresh sprouts", "Catch of the day", "Shredded free-range chicken", "Pasture-raised beef", "Confit pasture-raised pork", "Farm avocado guacamole", "Garden tomatillo green salsa", "Smoked chile salsa", "Farm cilantro aioli", "Garden pico de gallo", "Fresh goat cheese", "Farm pickled onion", "Cilantro-lime rice"],
+          "dessert": "Farm dulce de leche crepes with seasonal fruit"
+        },
+        {
+          "title": "Smokehouse Night",
+          "subtitle": "Firewood, time, and farm patience",
+          "description": "Cuts and vegetables slow-smoked over firewood from our own farm.",
+          "includes": ["Pasture-raised pork ribs, smoked 12 hours", "Smoked pasture-raised beef brisket", "Whole smoked free-range chicken", "Catch of the day smoked in plantain leaves", "Ember-roasted root vegetables", "Grilled farm corn with herb butter", "Smoked garden beans", "Sprout and fresh herb salad", "Wood-toasted sourdough bread", "Farm tamarind BBQ sauce", "Garden herb chimichurri"],
+          "dessert": "Wood-roasted plantain with farm honey and toasted nuts"
+        },
+        {
+          "title": "Tico Dinner",
+          "subtitle": "Timeless flavors, from our own land",
+          "description": "A tribute to Costa Rican cuisine, with 100% farm ingredients.",
+          "includes": ["Casado with your choice: chicken, beef, pork, or catch of the day", "Garden rice and beans", "Farm ripe plantain", "Seasonal vegetable picadillo", "Fresh sprout salad", "Farm chimichurri"],
+          "dessert": "Farm tres leches with cinnamon and high-altitude coffee"
+        },
+        {
+          "title": "Vegan Night",
+          "subtitle": "100% from the garden, no exceptions",
+          "description": "A fully plant-based experience, with the best of the Seguras Farm Shop harvest.",
+          "includes": ["Garden chickpea hummus with sourdough bread", "Sprout, quinoa, and toasted seed salad", "Farm heart of palm ceviche", "Wild mushroom and sprout risotto", "Roasted root vegetables with garden rosemary", "Smoked jackfruit tacos with purple cabbage", "Seasonal vegetable curry with coconut milk", "Patacones with guacamole and pico de gallo"],
+          "dessert": "Chocolate and farm avocado mousse with red berries"
+        },
+        {
+          "title": "Ocean Dinner",
+          "subtitle": "The catch of the day, no middlemen",
+          "description": "The best of the sea, served the same day it's caught.",
+          "includes": ["Ceviche with farm citrus leche de tigre", "Garlic shrimp with herb butter", "Grilled octopus with creole potato purée", "Whole fish baked in plantain leaves", "Seafood rice with garden vegetables", "Deviled mussels", "Sprout and citrus salad", "Sourdough bread with farm aioli"],
+          "dessert": "Seasonal fruit sorbet with garden mint"
+        }
+      ]
+    },
+    "pricing": {
+      "heading": "Rates",
+      "subheading": "In-home chef service",
+      "description": "Our prices stay below the average private chef market in Uvita and the Costa Ballena, without sacrificing the farm origin of every ingredient. Everything includes chef, server, farm ingredients, and cleaning.",
+      "note": "All prices include taxes.",
+      "perService": {
+        "heading": "Per Service",
+        "subheading": "Includes: chef, server, farm ingredients, and cleaning.",
+        "items": [
+          { "label": "Breakfast", "price": "From $230 for 2 · +$24 per extra person" },
+          { "label": "Lunch", "price": "From $235 for 2 · +$28 per extra person" },
+          { "label": "Dinner", "price": "From $245 for 2 · +$52 per extra person" },
+          { "label": "Full Day", "price": "From $610 for 2 · +$80 per extra person" }
+        ]
+      },
+      "themedNights": {
+        "heading": "Themed Nights",
+        "subheading": "Taco Night · Smokehouse · Tico Dinner · Vegan Night",
+        "items": [
+          { "label": "2–5 people", "price": "$530 total" },
+          { "label": "6–10 people", "price": "$835 total" },
+          { "label": "11–15 people", "price": "$1,140 total" },
+          { "label": "Ocean Dinner", "price": "+$100 on any themed night rate" }
+        ]
+      },
+      "bartender": {
+        "heading": "Add a Bartender",
+        "items": [
+          { "label": "Sunset only (4–7 PM)", "price": "$170" },
+          { "label": "Sunset + Dinner (4–9 PM)", "price": "$255" }
+        ]
+      }
+    }
+  },
+  "fullFridge": {
+    "pill": "Farm to Fridge",
+    "title": "Full Fridge",
+    "subtitle": "Your kitchen, ready before you arrive",
+    "whatsapp": "Arrange your Full Fridge",
+    "ctaHeading": "Ready to fill your fridge?",
+    "ctaSubheading": "Let us know your arrival date and we'll have it ready when you walk in.",
+    "concept": {
+      "heading": "Your kitchen, ready before you arrive",
+      "body": "We arrive before you do and stock your fridge and pantry with the best of Seguras Farm Shop: vegetables, meats, fish, and seasonal fruit so you can put together your own breakfast, lunch, and dinner throughout your stay.\n\nEverything is sourced from our curated network of Costa Rican producers — organic, traceable, and delivered fresh the morning of your arrival. No grocery runs, no guessing, no compromises."
+    },
+    "produce": {
+      "heading": "What's included",
+      "subheading": "Everything you need for breakfast, lunch, and dinner throughout your stay.",
+      "categories": [
+        { "title": "Garden Vegetables & Fruit", "items": ["Seasonal vegetables for breakfast, lunch, and dinner", "Avocado, tender sprouts, and fresh garden herbs", "Fresh seasonal fruit for breakfast and snacks"] },
+        { "title": "Pantry Basics", "items": ["Sourdough bread and pastries from Seguras Farm Shop Bakery", "High-altitude coffee, raw milk, yogurt, and farm cheese", "Rice, beans, heirloom corn tortillas, olive oil, and spices"] },
+        { "title": "Meats & Proteins", "items": ["Free-range chicken", "Pasture-raised beef", "Pasture-raised pork", "Eggs from happy hens"] },
+        { "title": "Fish & Seafood", "items": ["Catch of the day, subject to availability", "Fresh shrimp (optional, depending on package)"] }
+      ]
+    },
+    "beverages": {
+      "heading": "Optional Beverages",
+      "subheading": "Wine, beer, and spirits for your fridge.",
+      "note": "Looking for something specific? Ask for our full wine or spirits list. Our prices run up to 30% below local supermarkets and restaurants.",
+      "items": [
+        { "title": "Wine Package", "description": "Selection of 2 natural wines", "price": "$45" },
+        { "title": "Premium Wine Package", "description": "Selection of 4 natural wines", "price": "$85" },
+        { "title": "Craft Beer — Six-Pack", "description": "Costa Rican craft selection", "price": "$18" },
+        { "title": "Craft Beer — 24 Units", "description": "Costa Rican craft selection", "price": "$65" },
+        { "title": "Individual Spirit", "description": "Rum, guaro, or whisky", "price": "From $30" },
+        { "title": "Full Bar", "description": "Rum, guaro, whisky, vodka, and gin", "price": "$150" }
+      ]
+    },
+    "pricing": {
+      "heading": "Package Prices",
+      "subheading": "By group size and length of stay",
+      "description": "Includes vegetables, meats, fish, fruit, and pantry basics for breakfast, lunch, and dinner. Optional beverages quoted separately.",
+      "note": "Prices in USD. Delivered before your arrival. Groups of more than 8 or stays longer than 8 days: custom quote. Dietary restrictions and preferences customizable at no extra cost.",
+      "columns": ["Couples (2)", "Family of 4", "Family of 6", "Family of 8"],
+      "rows": [
+        { "label": "3 Days", "prices": ["$230", "$410", "$560", "$670"] },
+        { "label": "5 Days", "prices": ["$380", "$680", "$930", "$1,120"] },
+        { "label": "8 Days", "prices": ["$610", "$1,090", "$1,490", "$1,790"] }
+      ]
+    },
+    "howItWorks": {
+      "heading": "How it works",
+      "steps": [
+        { "title": "Tell us your arrival date", "description": "Send us a WhatsApp message with your arrival date and the number of guests we're stocking for." },
+        { "title": "We source fresh for you", "description": "Seguras Farm Shop prepares your order the morning of your arrival — sourced from Costa Rica's best regional producers." },
+        { "title": "Find it ready on arrival", "description": "Walk into your casa and your fridge is already stocked. No stops, no stress — just cook." }
+      ]
+    },
+    "farm": {
+      "heading": "About Seguras Farm Shop",
+      "body": "Seguras Farm Shop was born from a simple idea: instead of relying on a single farm, build a network of producers across different regions of Costa Rica, each an expert in what their land does best.\n\nHigh-altitude coffee from Tarrazú, fresh catch from the Pacific, vegetables from the volcanic foothills, honey from the northern zone. Every ingredient carries a region's first and last name. Every bite tells a story of patience, care, and deep respect for the Costa Rican land."
+    }
   },
   "tours": {
     "pill": "Explore the area",
@@ -219,7 +468,7 @@
       {
         "title": "Tandem Paragliding — Dominical & Rivas",
         "description": "20–30 minute tandem flight (longer than competitors) with certified instructor. Family-run, 14 years experience. English spoken. Payment collected after the activity.",
-        "features": ["20–30 min flight (longest available)", "Certified instructor-pilot, 14 yrs experience", "English spoken", "Flexible pickup from villa", "Payment after activity — very guest-friendly"],
+        "features": ["20–30 min flight (longest available)", "Certified instructor-pilot, 14 yrs experience", "English spoken", "Flexible pickup from casa", "Payment after activity — very guest-friendly"],
         "pricing": [
           { "label": "Dominical site", "price": "$135 net / person" },
           { "label": "Rivas site", "price": "$120 net / person" },
@@ -292,6 +541,7 @@
     ]
   },
   "common": {
+    "back": "Back",
     "seeMore": "See more",
     "getDirections": "Get directions",
     "wifi": "Wifi",
@@ -317,14 +567,14 @@
       "jacuzzi":        { "title": "Jacuzzi",           "description": "24/7 jacuzzi available" },
       "yogaDeck":       { "title": "Yoga deck",         "description": "Ocean-view yoga deck" },
       "views":          { "title": "Views",             "description": "Rainforest setting with jungle & ocean sounds" },
-      "privacy":        { "title": "Privacy",           "description": "Entire villa rented exclusively — full privacy" },
+      "privacy":        { "title": "Privacy",           "description": "Entire casa rented exclusively — full privacy" },
       "selfCheckin":    { "title": "Self check-in",     "description": "Check-in via keypad" },
       "jungleVibes":    { "title": "Jungle atmosphere", "description": "Indoor and outdoor living areas that blend into the surrounding jungle" },
       "oceanViews":     { "title": "Ocean views",       "description": "Breathtaking Pacific Ocean views from the bed and balconies" },
       "soakingTub":     { "title": "Soaking bathtub",   "description": "Soaking bathtub with scenic views" },
       "outdoorKitchen": { "title": "Outdoor kitchen",   "description": "Indoor and outdoor fully equipped kitchen" },
-      "petsAllowed":    { "title": "Pets allowed",      "description": "The only villa that welcomes pets" },
-      "sunsets":        { "title": "Sunsets",           "description": "Breathtaking sunsets every evening from the villa" },
+      "petsAllowed":    { "title": "Pets allowed",      "description": "The only casa that welcomes pets" },
+      "sunsets":        { "title": "Sunsets",           "description": "Breathtaking sunsets every evening from the casa" },
       "oceanBreeze":    { "title": "Ocean breeze",      "description": "Located where the mountain meets the ocean breeze" },
       "yogaArea":       { "title": "Yoga area",         "description": "Green area ideal for yoga surrounded by tropical palms" }
     }
@@ -342,28 +592,28 @@
   "properties": {
     "casaMango": {
       "name": "Casa Mango",
-      "description": "Villa Mango also includes a game room for entertainment, a spacious yoga deck surrounded by nature, and open social areas that invite guests to unwind and enjoy time together.",
-      "about": "Casa Mango is an exclusive escape designed for comfort, space, and connection. Its private setting and relaxed atmosphere make it the perfect destination for groups and families seeking to share unforgettable moments in a refined and natural environment.\n\nVilla Mango also includes a game room for entertainment, a spacious yoga deck surrounded by nature, and open social areas that invite guests to unwind and enjoy time together. It's an ideal retreat for experiencing Costa Rica in a refined yet natural way."
+      "description": "Casa Mango also includes a game room for entertainment, a spacious yoga deck surrounded by nature, and open social areas that invite guests to unwind and enjoy time together.",
+      "about": "Casa Mango is an exclusive escape designed for comfort, space, and connection. Its private setting and relaxed atmosphere make it the perfect destination for groups and families seeking to share unforgettable moments in a refined and natural environment.\n\nCasa Mango also includes a game room for entertainment, a spacious yoga deck surrounded by nature, and open social areas that invite guests to unwind and enjoy time together. It's an ideal retreat for experiencing Costa Rica in a refined yet natural way."
     },
     "casaRonRon": {
       "name": "Casa Ron Ron",
-      "description": "The villa is designed to provide a tranquil and inspiring space. Its warm interiors and outdoor living areas are thoughtfully crafted to fully complement the natural beauty of the surrounding forest.",
-      "about": "Casa Ron Ron is designed to provide a tranquil and inspiring space. Its warm interiors and outdoor living areas are thoughtfully crafted to fully complement the natural beauty of the surrounding forest.\n\nThe villa offers a peaceful retreat ideal for families or groups seeking a genuine connection with nature while enjoying refined amenities."
+      "description": "The casa is designed to provide a tranquil and inspiring space. Its warm interiors and outdoor living areas are thoughtfully crafted to fully complement the natural beauty of the surrounding forest.",
+      "about": "Casa Ron Ron is designed to provide a tranquil and inspiring space. Its warm interiors and outdoor living areas are thoughtfully crafted to fully complement the natural beauty of the surrounding forest.\n\nThe casa offers a peaceful retreat ideal for families or groups seeking a genuine connection with nature while enjoying refined amenities."
     },
     "casaCeiba": {
       "name": "Casa Ceiba",
-      "description": "Set apart as a private studio, Villa Ceiba is designed for couples seeking intimacy and relaxation. Its private pool, design, and serene atmosphere create a retreat in the heart of the Osa Peninsula.",
-      "about": "Set apart as a private studio, Villa Ceiba is designed for couples seeking intimacy and relaxation. Its private pool, thoughtful design, and serene atmosphere create an intimate retreat in the heart of the Osa Peninsula.\n\nEvery detail has been curated to ensure comfort and tranquility in a truly unique natural setting."
+      "description": "Set apart as a private studio, Casa Ceiba is designed for couples seeking intimacy and relaxation. Its private pool, design, and serene atmosphere create a retreat in the heart of the Osa Peninsula.",
+      "about": "Set apart as a private studio, Casa Ceiba is designed for couples seeking intimacy and relaxation. Its private pool, thoughtful design, and serene atmosphere create an intimate retreat in the heart of the Osa Peninsula.\n\nEvery detail has been curated to ensure comfort and tranquility in a truly unique natural setting."
     },
     "casaCorteza": {
       "name": "Casa Corteza Amarilla",
       "description": "Casa Corteza Amarilla is named after the iconic Cortez Amarillo tree (Handroanthus guayacan), whose vibrant yellow blossoms transform the landscape into a golden paradise every April.",
-      "about": "Casa Corteza Amarilla is named after the iconic Cortez Amarillo tree (Handroanthus guayacan), whose vibrant yellow blossoms transform the landscape into a golden paradise every April.\n\nThis villa combines natural beauty with refined comfort, offering spacious areas for groups to gather, relax, and connect with the extraordinary surroundings."
+      "about": "Casa Corteza Amarilla is named after the iconic Cortez Amarillo tree (Handroanthus guayacan), whose vibrant yellow blossoms transform the landscape into a golden paradise every April.\n\nThis casa combines natural beauty with refined comfort, offering spacious areas for groups to gather, relax, and connect with the extraordinary surroundings."
     },
     "casaPalmera": {
       "name": "Casa Palmera",
-      "description": "The villa's design mirrors the elegance of its namesake tree, with spacious interiors, refined decor, and modern amenities. A perfect choice for families or friends seeking a peaceful escape in nature.",
-      "about": "Casa Palmera's design mirrors the elegance of its namesake tree, with spacious interiors, refined decor, and modern amenities.\n\nA perfect choice for families or friends seeking a peaceful escape in nature, the villa offers a harmonious blend of comfort and the wild beauty of Costa Rica's landscape."
+      "description": "The casa's design mirrors the elegance of its namesake tree, with spacious interiors, refined decor, and modern amenities. A perfect choice for families or friends seeking a peaceful escape in nature.",
+      "about": "Casa Palmera's design mirrors the elegance of its namesake tree, with spacious interiors, refined decor, and modern amenities.\n\nA perfect choice for families or friends seeking a peaceful escape in nature, the casa offers a harmonious blend of comfort and the wild beauty of Costa Rica's landscape."
     }
   },
   "footer": {
@@ -382,7 +632,7 @@
       "items": [
         { "label": "Emergency Contacts", "href": "/#emergencias" },
         { "label": "WhatsApp", "href": "https://wa.me/50685011042" },
-        { "label": "Instagram", "href": "https://www.instagram.com/arboreavillas/" },
+        { "label": "Instagram", "href": "https://www.instagram.com/arboreaexperiences/" },
         { "label": "Facebook", "href": "https://www.facebook.com/profile.php?id=61574441755795" }
       ]
     },
@@ -401,11 +651,11 @@
       },
       "powerOutages": {
         "title": "Power Outages",
-        "description": "Due to our remote mountain location, occasional brief power outages may occur. We recommend keeping your phone charged and having a flashlight handy, both of which are available at the villa."
+        "description": "Due to our remote mountain location, occasional brief power outages may occur. We recommend keeping your phone charged and having a flashlight handy, both of which are available at the casa."
       },
       "transportation": {
         "title": "Transportation",
-        "description": "A 4x4 vehicle is highly recommended to access the villa and surrounding areas safely and comfortably."
+        "description": "A 4x4 vehicle with 4-wheel traction is required to access the casas and surrounding areas safely. Arborea can arrange transportation for you — but if you prefer to rent your own vehicle, make sure it has full 4-wheel drive engaged, not just all-wheel drive."
       },
       "foodStorage": {
         "title": "Food Storage",

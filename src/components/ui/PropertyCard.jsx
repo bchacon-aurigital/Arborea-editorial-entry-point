@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { TbWifi, TbMapPin } from "react-icons/tb";
 import { IoPeopleOutline, IoBedOutline } from "react-icons/io5";
 import { PiBathtub } from "react-icons/pi";
@@ -18,6 +19,7 @@ export default function PropertyCard({
   directionsUrl = "",
 }) {
   const { t } = useI18n();
+  const router = useRouter();
   const [current, setCurrent] = useState(0);
   const intervalRef = useRef(null);
   const isMobile = useRef(false);
@@ -48,8 +50,11 @@ export default function PropertyCard({
   ].filter((item) => item.show);
 
   return (
-    <div className="bg-[#f4e9dc] flex flex-col rounded-2xl p-3 h-full">
-
+    <div
+      className="bg-[#E0D4C4] flex flex-col rounded-2xl p-3 h-full cursor-pointer transition-transform duration-200 hover:scale-[1.01]"
+      onClick={() => router.push(href)}
+    >
+      {/* Carrusel de imágenes */}
       <div
         className="relative h-[321px] rounded-xl overflow-hidden flex items-end justify-center p-4 shrink-0"
         onMouseEnter={() => { if (!isMobile.current && images.length > 1) startCycle(2000); }}
@@ -71,7 +76,7 @@ export default function PropertyCard({
             {images.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setCurrent(i)}
+                onClick={(e) => { e.stopPropagation(); setCurrent(i); }}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   i === current ? "bg-white scale-110" : "bg-white/50"
                 }`}
@@ -84,34 +89,26 @@ export default function PropertyCard({
       {/* Contenido */}
       <div className="flex flex-col flex-1 pt-6 pb-5 px-3">
 
-        {/* Nombre + descripción — crece para igualar altura entre cards */}
+        {/* Nombre + descripción */}
         <div className="flex flex-col flex-1 gap-3 mb-5">
-          <div className="flex items-center justify-between gap-2">
-            <p className="font-sans font-medium text-xl text-[#381d14]">{name}</p>
-            <Link
-              href={href}
-              className="font-sans font-medium text-sm text-[#381d14]/50 hover:text-[#381d14] hover:border-[#381d14]/30 transition-colors duration-300 whitespace-nowrap shrink-0 border border-[#381d14]/10 rounded-full px-4 py-1.5"
-            >
-              {t("common.seeMore")}
-            </Link>
-          </div>
-          <p className="font-sans text-sm text-[#381d14]/50">{description}</p>
+          <p className="font-sans font-medium text-xl text-[#222E2C]">{name}</p>
+          <p className="font-sans text-sm text-[#222E2C]/50">{description}</p>
         </div>
 
         {/* Amenities */}
-        <div className="flex flex-wrap mb-4 justify-center items-center border-t border-[#381d14]/15 pt-4">
+        <div className="flex flex-wrap mb-4 justify-center items-center border-t border-[#222E2C]/15 pt-4">
           {amenities.map((item, index) => {
             const Icon = item.icon;
             const isLast = index === amenities.length - 1;
             return (
               <div
                 key={item.key}
-                className={`text-sm flex gap-2 items-center justify-center px-3 py-2 shrink-0 ${!isLast ? "border-r border-[#381d14]/10" : ""}`}
+                className={`text-sm flex gap-2 items-center justify-center px-3 py-2 shrink-0 ${!isLast ? "border-r border-[#222E2C]/10" : ""}`}
               >
-                <Icon size={item.iconSize} className="text-[#381d14]/50 shrink-0" />
-                <span className="font-sans font-medium text-[#381d14]/50 whitespace-nowrap">
+                <Icon size={item.iconSize} className="text-[#222E2C]/50 shrink-0" />
+                <span className="font-sans font-medium text-[#222E2C]/50 whitespace-nowrap">
                   {item.value == null ? item.label : (
-                    <>{item.label}: <span className="text-[#381d14]">{item.value}</span></>
+                    <>{item.label}: <span className="text-[#222E2C]">{item.value}</span></>
                   )}
                 </span>
               </div>
@@ -119,17 +116,29 @@ export default function PropertyCard({
           })}
         </div>
 
-        {directionsUrl && (
-          <a
-            href={directionsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 h-12 px-5 rounded-full bg-[#381d14] font-sans font-medium text-sm text-[#eddac4] hover:bg-[#381d14]/90 transition-colors duration-300"
+        {/* Botones */}
+        <div className="flex flex-col gap-3">
+          {directionsUrl && (
+            <a
+              href={directionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center justify-center gap-2 h-12 px-5 rounded-full bg-[#213B2F] font-sans font-medium text-sm text-[#D8DDB8] hover:bg-[#213B2F]/90 transition-colors duration-300"
+            >
+              <TbMapPin size={15} />
+              {t("common.getDirections")}
+            </a>
+          )}
+
+          <Link
+            href={href}
+            onClick={(e) => e.stopPropagation()}
+            className="flex items-center justify-center h-12 px-5 rounded-full border-2 border-[#222E2C]/20 font-sans font-medium text-sm text-[#222E2C] hover:border-[#222E2C]/50 hover:bg-[#222E2C]/5 transition-all duration-300"
           >
-            <TbMapPin size={15} />
-            {t("common.getDirections")}
-          </a>
-        )}
+            {t("common.seeMore")}
+          </Link>
+        </div>
       </div>
     </div>
   );

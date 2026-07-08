@@ -18,11 +18,11 @@ export default function Footer() {
 
         <div className="flex flex-wrap gap-12 md:gap-16 lg:gap-24">
           <div className="flex flex-col gap-5">
-            <p className="font-sans font-bold text-base text-[#381d14]/80">{t("footer.links.heading")}</p>
+            <p className="font-sans font-bold text-base text-[#222E2C]/80">{t("footer.links.heading")}</p>
             <ul className="flex flex-col gap-2 list-none p-0 m-0">
               {(t("footer.links.items") || []).map((item, i) => (
                 <li key={i}>
-                  <Link href={item.href} className="font-sans text-sm text-[#381d14]/50 hover:text-[#381d14] transition-colors duration-200">
+                  <Link href={item.href} className="font-sans text-sm text-[#222E2C]/50 hover:text-[#222E2C] transition-colors duration-200">
                     {item.label}
                   </Link>
                 </li>
@@ -31,11 +31,11 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col gap-5">
-            <p className="font-sans font-bold text-base text-[#381d14]/80">{t("footer.about.heading")}</p>
+            <p className="font-sans font-bold text-base text-[#222E2C]/80">{t("footer.about.heading")}</p>
             <ul className="flex flex-col gap-2 list-none p-0 m-0">
               {(t("footer.about.items") || []).map((item, i) => (
                 <li key={i}>
-                  <a href={item.href} target="_blank" rel="noopener noreferrer" className="font-sans text-sm text-[#381d14]/50 hover:text-[#381d14] transition-colors duration-200">
+                  <a href={item.href} target="_blank" rel="noopener noreferrer" className="font-sans text-sm text-[#222E2C]/50 hover:text-[#222E2C] transition-colors duration-200">
                     {item.label}
                   </a>
                 </li>
@@ -44,11 +44,11 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col gap-5">
-            <p className="font-sans font-bold text-base text-[#381d14]/80">{t("footer.contact.heading")}</p>
+            <p className="font-sans font-bold text-base text-[#222E2C]/80">{t("footer.contact.heading")}</p>
             <ul className="flex flex-col gap-2 list-none p-0 m-0">
-              <li className="font-sans text-sm text-[#381d14]/50">{t("footer.contact.phone")}</li>
+              <li className="font-sans text-sm text-[#222E2C]/50">{t("footer.contact.phone")}</li>
               <li>
-                <a href={`mailto:${t("common.email")}`} className="font-sans text-sm text-[#381d14]/50 hover:text-[#381d14] underline transition-colors duration-200">
+                <a href={`mailto:${t("common.email")}`} className="font-sans text-sm text-[#222E2C]/50 hover:text-[#222E2C] underline transition-colors duration-200">
                   {t("common.email")}
                 </a>
               </li>
@@ -57,26 +57,26 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-[#381d14]/[0.12] pt-6 flex items-center justify-between">
-        <p className="font-sans text-sm text-[#381d14]/80">{t("footer.copyright")}</p>
+      <div className="border-t border-[#222E2C]/[0.12] pt-6 flex items-center justify-between">
+        <p className="font-sans text-sm text-[#222E2C]/80">{t("footer.copyright")}</p>
         <div className="flex items-center gap-3">
           <a
-            href="https://www.instagram.com/arboreavillas/"
+            href="https://www.instagram.com/arboreaexperiences/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
-            className="size-12 rounded-full border border-[#381d14]/[0.12] flex items-center justify-center hover:border-[#381d14]/30 transition-colors duration-200"
+            className="size-12 rounded-full border border-[#222E2C]/[0.12] flex items-center justify-center hover:border-[#222E2C]/30 transition-colors duration-200"
           >
-            <FaInstagram size={18} className="text-[#381d14]/70" />
+            <FaInstagram size={18} className="text-[#222E2C]/70" />
           </a>
           <a
             href="https://www.facebook.com/profile.php?id=61574441755795"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Facebook"
-            className="size-12 rounded-full border border-[#381d14]/[0.12] flex items-center justify-center hover:border-[#381d14]/30 transition-colors duration-200"
+            className="size-12 rounded-full border border-[#222E2C]/[0.12] flex items-center justify-center hover:border-[#222E2C]/30 transition-colors duration-200"
           >
-            <FaFacebook size={18} className="text-[#381d14]/70" />
+            <FaFacebook size={18} className="text-[#222E2C]/70" />
           </a>
         </div>
       </div>
