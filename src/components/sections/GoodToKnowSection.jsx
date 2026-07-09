@@ -16,7 +16,7 @@ function InfoCard({ icon: Icon, title, description, delay = 0 }) {
     <div
       data-aos="zoom-in"
       data-aos-delay={delay}
-      className="bg-[#8C8F77] rounded-2xl px-8 py-10 flex flex-col justify-between gap-8 min-h-80 md:min-h-[420px]"
+      className="bg-[#E0D4C4] rounded-2xl px-8 py-10 flex flex-col justify-between gap-8 min-h-80 md:min-h-[420px]"
     >
       <div className="bg-[#4B4D40] rounded-xl p-2.5 size-14 flex items-center justify-center shrink-0">
         <Icon size={26} className="text-[#EDE5D8]" />

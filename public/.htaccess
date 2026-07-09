@@ -1,36 +1,3 @@
-# ======================================================================
-# Next.js Static Export — welcome.arboreaexperiences.com
-# ======================================================================
-
 Options -Indexes
-
-RewriteEngine On
-RewriteBase /
-
-# Forzar HTTPS (Hostinger termina SSL en el proxy)
-RewriteCond %{HTTPS} off
-RewriteCond %{HTTP:X-Forwarded-Proto} !https
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# Pasar archivos reales sin modificar
-RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule ^ - [L]
-
-# Eliminar trailing slash (excepto raíz)
-RewriteRule ^(.+)/$ /$1 [L,R=301]
-
-# Pretty URLs: /casa-mango → casa-mango.html
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.html -f
-RewriteRule ^(.+)$ $1.html [L]
-
-# Caché larga para assets versionados de Next.js
-<IfModule mod_headers.c>
-  <FilesMatch "\.(js|css|woff2?|ttf|otf|eot|svg|png|jpg|jpeg|gif|webp|ico)$">
-    Header set Cache-Control "public, max-age=31536000, immutable"
-  </FilesMatch>
-  <FilesMatch "\.(html)$">
-    Header set Cache-Control "public, max-age=0, must-revalidate"
-  </FilesMatch>
-</IfModule>
 
 ErrorDocument 404 /404.html

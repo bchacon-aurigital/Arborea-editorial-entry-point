@@ -11,20 +11,62 @@
     "highlightsSection": "Destacados",
     "aboutSection": "Acerca de",
     "highlights": {
-      "pool":           { "title": "Piscina",           "description": "Piscina infinita con vistas panorámicas al Océano Pacífico" },
-      "jacuzzi":        { "title": "Jacuzzi",            "description": "Jacuzzi disponible las 24 horas" },
-      "yogaDeck":       { "title": "Deck de yoga",       "description": "Deck de yoga con vista al océano" },
-      "views":          { "title": "Vistas",             "description": "Entorno de selva tropical con sonidos de jungla y océano" },
-      "privacy":        { "title": "Privacidad",         "description": "Casa alquilada exclusivamente — privacidad total" },
-      "selfCheckin":    { "title": "Auto check-in",      "description": "Check-in mediante teclado numérico" },
-      "jungleVibes":    { "title": "Ambiente selvático", "description": "Áreas de vida interior y exterior que se fusionan con la jungla circundante" },
-      "oceanViews":     { "title": "Vistas al océano",   "description": "Impresionantes vistas al Océano Pacífico desde la cama y los balcones" },
-      "soakingTub":     { "title": "Bañera",             "description": "Bañera de inmersión con vistas panorámicas" },
-      "outdoorKitchen": { "title": "Cocina exterior",    "description": "Cocina interior y exterior completamente equipadas" },
-      "petsAllowed":    { "title": "Se admiten mascotas","description": "La única casa que acepta mascotas" },
-      "sunsets":        { "title": "Atardeceres",        "description": "Impresionantes atardeceres cada tarde desde la casa" },
-      "oceanBreeze":    { "title": "Brisa marina",       "description": "Ubicada donde la montaña se encuentra con la brisa del océano" },
-      "yogaArea":       { "title": "Área de yoga",       "description": "Zona verde ideal para yoga rodeada de palmeras tropicales" }
+      "pool": {
+        "title": "Piscina",
+        "description": "Piscina infinita con vistas panorámicas al Océano Pacífico"
+      },
+      "jacuzzi": {
+        "title": "Jacuzzi",
+        "description": "Jacuzzi disponible las 24 horas"
+      },
+      "yogaDeck": {
+        "title": "Deck de yoga",
+        "description": "Deck de yoga con vista al océano"
+      },
+      "views": {
+        "title": "Vistas",
+        "description": "Entorno de selva tropical con sonidos de jungla y océano"
+      },
+      "privacy": {
+        "title": "Privacidad",
+        "description": "Casa alquilada exclusivamente — privacidad total"
+      },
+      "selfCheckin": {
+        "title": "Auto check-in",
+        "description": "Check-in mediante teclado numérico"
+      },
+      "jungleVibes": {
+        "title": "Ambiente selvático",
+        "description": "Áreas de vida interior y exterior que se fusionan con la jungla circundante"
+      },
+      "oceanViews": {
+        "title": "Vistas al océano",
+        "description": "Impresionantes vistas al Océano Pacífico desde la cama y los balcones"
+      },
+      "soakingTub": {
+        "title": "Bañera",
+        "description": "Bañera de inmersión con vistas panorámicas"
+      },
+      "outdoorKitchen": {
+        "title": "Cocina exterior",
+        "description": "Cocina interior y exterior completamente equipadas"
+      },
+      "petsAllowed": {
+        "title": "Se admiten mascotas",
+        "description": "La única casa que acepta mascotas"
+      },
+      "sunsets": {
+        "title": "Atardeceres",
+        "description": "Impresionantes atardeceres cada tarde desde la casa"
+      },
+      "oceanBreeze": {
+        "title": "Brisa marina",
+        "description": "Ubicada donde la montaña se encuentra con la brisa del océano"
+      },
+      "yogaArea": {
+        "title": "Área de yoga",
+        "description": "Zona verde ideal para yoga rodeada de palmeras tropicales"
+      }
     }
   },
   "hero": {
@@ -46,101 +88,192 @@
         "title": "Emergencia Inmediata (24/7 – Primera Llamada)",
         "subtitle": "En zonas remotas como Ojochal, los tiempos de respuesta pueden variar. De ser posible, diríjase a la clínica más cercana mientras espera asistencia.",
         "rows": [
-          { "label": "911:", "value": "Policía, Bomberos, Ambulancia (inglés disponible)" },
-          { "label": "128:", "value": "Cruz Roja Ambulancia" },
-          { "label": "117:", "value": "Cuerpo de Bomberos" }
+          {
+            "label": "911:",
+            "value": "Policía, Bomberos, Ambulancia (inglés disponible)"
+          },
+          {
+            "label": "128:",
+            "value": "Cruz Roja Ambulancia"
+          },
+          {
+            "label": "117:",
+            "value": "Cuerpo de Bomberos"
+          }
         ]
       },
       {
         "title": "Dr. Solano (Médico de guardia)",
         "subtitle": null,
         "rows": [
-          { "label": "WhatsApp:", "value": "+506 8579-5097" }
+          {
+            "label": "WhatsApp:",
+            "value": "+506 8579-5097"
+          }
         ]
       },
       {
         "title": "Erika Quirós – Médico Disponible",
         "subtitle": "Disponible para emergencias médicas",
         "rows": [
-          { "label": "WhatsApp:", "value": "+506 7010-3990" }
+          {
+            "label": "WhatsApp:",
+            "value": "+506 7010-3990"
+          }
         ]
       },
       {
         "title": "Clínica Médica Local (Uvita)",
         "subtitle": "Atención urgente sin cita (horario diurno)",
         "rows": [
-          { "label": "WhatsApp:", "value": "+506 8732-5555" },
-          { "label": "Teléfono:", "value": "+506 2215-4848" }
+          {
+            "label": "WhatsApp:",
+            "value": "+506 8732-5555"
+          },
+          {
+            "label": "Teléfono:",
+            "value": "+506 2215-4848"
+          }
         ]
       },
       {
         "title": "Costa Rica Medical Response",
         "subtitle": null,
         "rows": [
-          { "label": "Teléfono:", "value": "+506 2286-1818" }
+          {
+            "label": "Teléfono:",
+            "value": "+506 2286-1818"
+          }
         ]
       },
       {
         "title": "Lifeguard Air Ambulance",
         "subtitle": null,
         "rows": [
-          { "label": "Teléfono:", "value": "+506 2220-0911" }
+          {
+            "label": "Teléfono:",
+            "value": "+506 2220-0911"
+          }
         ]
       },
       {
         "title": "Hospital Tomás Casas Casajús (Cortés)",
         "subtitle": "Hospital público con servicios de emergencia 24/7 — ~20 min",
         "rows": [
-          { "label": "Teléfono:", "value": "+506 2786-8198 / +506 2786-8148" }
+          {
+            "label": "Teléfono:",
+            "value": "+506 2786-8198 / +506 2786-8148"
+          }
         ]
       },
       {
         "title": "Hospital Max Terán Valls – Quepos",
         "subtitle": "Hospital público con servicios de emergencia 24/7 — ~45 min",
         "rows": [
-          { "label": "Teléfono:", "value": "+506 2774-9500" }
+          {
+            "label": "Teléfono:",
+            "value": "+506 2774-9500"
+          }
         ]
       },
       {
         "title": "Hospital Las Américas – San Isidro",
         "subtitle": "Hospital privado con atención más rápida — ~1–1.5 horas",
         "rows": [
-          { "label": "Teléfono:", "value": "+506 2771-3122" }
+          {
+            "label": "Teléfono:",
+            "value": "+506 2771-3122"
+          }
         ]
       },
       {
         "title": "Hospital CIMA – San José",
         "subtitle": "Hospital privado de nivel internacional — ~3.5 horas o traslado aéreo",
         "rows": [
-          { "label": "Teléfono:", "value": "+506 2208-1000" }
+          {
+            "label": "Teléfono:",
+            "value": "+506 2208-1000"
+          }
         ]
       },
       {
         "title": "Diego Alonso Pinto Ulate – Mecánico de Confianza",
         "subtitle": null,
         "rows": [
-          { "label": "WhatsApp:", "value": "+506 8701-2678" }
+          {
+            "label": "WhatsApp:",
+            "value": "+506 8701-2678"
+          }
         ]
       },
       {
         "title": "Policía Turística",
         "subtitle": null,
         "rows": [
-          { "label": "Teléfono:", "value": "+506 2222-1365" }
+          {
+            "label": "Teléfono:",
+            "value": "+506 2222-1365"
+          }
         ]
       },
       {
         "title": "OIJ (Policía Judicial)",
         "subtitle": null,
         "rows": [
-          { "label": "Teléfono:", "value": "800-8000-645" }
+          {
+            "label": "Teléfono:",
+            "value": "800-8000-645"
+          }
         ]
       },
       {
         "title": "Embajada de Canadá (San José)",
         "subtitle": null,
         "rows": [
-          { "label": "Teléfono:", "value": "+506 2242-4400" }
+          {
+            "label": "Teléfono:",
+            "value": "+506 2242-4400"
+          }
+        ]
+      },
+      {
+        "title": "Embajada de EE.UU. (San José)",
+        "subtitle": "Servicios para ciudadanos americanos — línea de emergencia 24/7",
+        "rows": [
+          {
+            "label": "Teléfono:",
+            "value": "+506 2519-2000"
+          }
+        ]
+      },
+      {
+        "title": "Embajada de Italia (San José)",
+        "subtitle": null,
+        "rows": [
+          {
+            "label": "Teléfono:",
+            "value": "+506 2234-2326"
+          }
+        ]
+      },
+      {
+        "title": "Embajada de Francia (San José)",
+        "subtitle": null,
+        "rows": [
+          {
+            "label": "Teléfono:",
+            "value": "+506 2234-4167"
+          }
+        ]
+      },
+      {
+        "title": "Embajada de España (San José)",
+        "subtitle": null,
+        "rows": [
+          {
+            "label": "Teléfono:",
+            "value": "+506 2222-1933"
+          }
         ]
       }
     ]
@@ -153,13 +286,27 @@
         "category": "Bienestar en casa",
         "title": "Experiencia Spa",
         "description": "Vive una experiencia de bienestar de lujo en tu casa con nuestros terapeutas certificados. Disfruta de tratamientos personalizados diseñados para restaurar tu cuerpo y mente.",
-        "features": ["Aromaterapia", "Tejido profundo", "Piedras calientes", "Masajes a cuatro manos", "Faciales revitalizantes", "Tratamientos de limpieza profunda"]
+        "features": [
+          "Aromaterapia",
+          "Tejido profundo",
+          "Piedras calientes",
+          "Masajes a cuatro manos",
+          "Faciales revitalizantes",
+          "Tratamientos de limpieza profunda"
+        ]
       },
       {
         "category": "Gastronomía en casa",
         "title": "Experiencia Chef Privado",
         "description": "Disfruta de una experiencia culinaria privada creada por nuestros talentosos chefs. Desde cenas íntimas hasta banquetes familiares, cada comida se elabora con ingredientes frescos y de origen local.",
-        "features": ["Cenas de cuatro tiempos", "Comidas familiares", "Ingredientes locales", "Frescos", "Orgánicos", "Menús personalizados"],
+        "features": [
+          "Cenas de cuatro tiempos",
+          "Comidas familiares",
+          "Ingredientes locales",
+          "Frescos",
+          "Orgánicos",
+          "Menús personalizados"
+        ],
         "href": "/private-chef",
         "cta": "Ver el menú"
       },
@@ -167,7 +314,14 @@
         "category": "De la Finca al Refrigerador",
         "title": "Nevera Llena",
         "description": "Llega a tu casa con el refrigerador lleno de productos frescos directamente de la finca de Arborea. Si quieres cocinar en casa o simplemente disfrutar de lo que sabes que es seguro, todo es orgánico, rico en nutrientes y cultivado con cuidado — sin adivinar, sin ir al supermercado.",
-        "features": ["Productos frescos de la finca", "Orgánico y nutritivo", "Ingredientes seguros y trazables", "Listo a tu llegada", "Ideal para cocinar en casa", "Cultivado en el lugar"],
+        "features": [
+          "Productos frescos de la finca",
+          "Orgánico y nutritivo",
+          "Ingredientes seguros y trazables",
+          "Listo a tu llegada",
+          "Ideal para cocinar en casa",
+          "Cultivado en el lugar"
+        ],
         "href": "/full-fridge",
         "cta": "Ver más"
       }
@@ -189,83 +343,246 @@
       "subheading": "Recién cosechado, cada mañana",
       "note": "Todos los desayunos incluyen fruta de temporada, café de altura y jugo recién exprimido de Seguras Farm Shop.",
       "items": [
-        { "title": "Brotes con Huevo Pochado", "description": "Pan de masa madre horneado en casa, brotes tiernos de Seguras Farm Shop, aguacate y un huevo pochado con salsa holandesa de mantequilla de finca." },
-        { "title": "Omelet de Brotes y Queso de Cabra", "description": "Huevos de gallinas de libre pastoreo, brotes salteados y queso de cabra artesanal de productores locales, servido con ensalada del día." },
-        { "title": "Arepas de Maíz Criollo", "description": "Maíz criollo molido en la finca, servido con frijoles orgánicos, huevo al gusto y natilla de leche cruda." },
-        { "title": "Farm Toast", "description": "Pan de masa madre, ricotta casera, brotes de rábano y miel de flor de café de nuestras propias colmenas." },
-        { "title": "Pancakes de Plátano de Finca", "description": "Plátano maduro de Seguras Farm Shop, canela y nuez moscada, servido con miel de nuestras colmenas y mantequilla de finca.", "tag": "Clásico Costarricense" },
-        { "title": "Gallo Pinto", "description": "Arroz y frijoles negros salteados con culantro coyote del huerto, servido con huevos de libre pastoreo al gusto, queso de finca y crema fresca.", "tag": "Clásico Costarricense" },
-        { "title": "Garden Bowl", "description": "Yogur de leche cruda, granola de avena orgánica horneada en casa, fruta de temporada y miel de nuestras colmenas." },
-        { "title": "Burrito de Finca", "description": "Huevos revueltos, tocino de cerdo de pastoreo, queso de finca, aguacate y frijoles, envueltos en tortilla de maíz nixtamalizado." },
-        { "title": "Parfait de Temporada", "description": "Granola artesanal, yogur natural, brotes dulces, semillas y fruta según la cosecha del día." },
-        { "title": "Huevos Rancheros de Finca", "description": "Tortillas de maíz criollo, frijoles orgánicos, huevos de libre pastoreo, salsa ranchera y mozzarella de finca." }
+        {
+          "title": "Brotes con Huevo Pochado",
+          "description": "Pan de masa madre horneado en casa, brotes tiernos de Seguras Farm Shop, aguacate y un huevo pochado con salsa holandesa de mantequilla de finca."
+        },
+        {
+          "title": "Omelet de Brotes y Queso de Cabra",
+          "description": "Huevos de gallinas de libre pastoreo, brotes salteados y queso de cabra artesanal de productores locales, servido con ensalada del día."
+        },
+        {
+          "title": "Arepas de Maíz Criollo",
+          "description": "Maíz criollo molido en la finca, servido con frijoles orgánicos, huevo al gusto y natilla de leche cruda."
+        },
+        {
+          "title": "Farm Toast",
+          "description": "Pan de masa madre, ricotta casera, brotes de rábano y miel de flor de café de nuestras propias colmenas."
+        },
+        {
+          "title": "Pancakes de Plátano de Finca",
+          "description": "Plátano maduro de Seguras Farm Shop, canela y nuez moscada, servido con miel de nuestras colmenas y mantequilla de finca.",
+          "tag": "Clásico Costarricense"
+        },
+        {
+          "title": "Gallo Pinto",
+          "description": "Arroz y frijoles negros salteados con culantro coyote del huerto, servido con huevos de libre pastoreo al gusto, queso de finca y crema fresca.",
+          "tag": "Clásico Costarricense"
+        },
+        {
+          "title": "Garden Bowl",
+          "description": "Yogur de leche cruda, granola de avena orgánica horneada en casa, fruta de temporada y miel de nuestras colmenas."
+        },
+        {
+          "title": "Burrito de Finca",
+          "description": "Huevos revueltos, tocino de cerdo de pastoreo, queso de finca, aguacate y frijoles, envueltos en tortilla de maíz nixtamalizado."
+        },
+        {
+          "title": "Parfait de Temporada",
+          "description": "Granola artesanal, yogur natural, brotes dulces, semillas y fruta según la cosecha del día."
+        },
+        {
+          "title": "Huevos Rancheros de Finca",
+          "description": "Tortillas de maíz criollo, frijoles orgánicos, huevos de libre pastoreo, salsa ranchera y mozzarella de finca."
+        }
       ],
       "extrasHeading": "Extras para el Desayuno",
       "extrasSubheading": "Añade tu proteína favorita a cualquier desayuno.",
       "extras": [
-        { "title": "Tocino Seguras Farm Shop", "description": "Tocino de cerdo de pastoreo, curado y ahumado artesanalmente." },
-        { "title": "Chorizo de Res de Finca", "description": "Sazonado con hierbas del huerto de nuestros productores asociados." },
-        { "title": "Brisket Ahumado de Finca", "description": "Ahumado lentamente sobre leña — un pequeño lujo para empezar el día." }
+        {
+          "title": "Tocino Seguras Farm Shop",
+          "description": "Tocino de cerdo de pastoreo, curado y ahumado artesanalmente."
+        },
+        {
+          "title": "Chorizo de Res de Finca",
+          "description": "Sazonado con hierbas del huerto de nuestros productores asociados."
+        },
+        {
+          "title": "Brisket Ahumado de Finca",
+          "description": "Ahumado lentamente sobre leña — un pequeño lujo para empezar el día."
+        }
       ]
     },
     "lunch": {
       "heading": "Almuerzo del Huerto",
       "subheading": "Del surco directo al plato",
       "items": [
-        { "title": "Bowl de Vegetales de Temporada", "description": "Vegetales de raíz asados, brotes crudos, quinua orgánica, aguacate y vinagreta cítrica de finca." },
-        { "title": "Sándwich de Pollo de Libre Pastoreo", "description": "Pechuga de pollo a la plancha, queso de finca, brotes frescos y aioli de hierbas, servido con yuca frita." },
-        { "title": "Ensalada de Brotes y Quinua", "description": "Brotes mixtos, quinua, vegetales de temporada, semillas tostadas y queso de cabra fresco." },
-        { "title": "Tacos de Captura del Día", "description": "Pescado local, repollo morado, pico de gallo del huerto, guacamole y tortilla de maíz criollo." },
-        { "title": "Sopa de Vegetales de Finca", "description": "Caldo de vegetales de temporada, hierbas frescas del huerto y pan de masa madre tostado." },
-        { "title": "Wrap de Vegetales Asados", "description": "Vegetales de raíz asados, hummus casero, brotes tiernos y queso de finca en tortilla de trigo integral." },
-        { "title": "Ceviche Clásico", "description": "Captura del día marinada en limón de finca, cebolla morada, cilantro y culantro coyote del huerto, servido con patacones.", "tag": "Clásico Costarricense" },
-        { "title": "Patacones de Finca", "description": "Plátano verde frito dos veces de la finca, servido con frijoles molidos y queso fresco local.", "tag": "Clásico Costarricense" },
-        { "title": "Arroz con Leche Caribeño", "description": "Arroz y frijoles cocinados en leche de coco, con pollo de libre pastoreo en salsa curry caribeña y hierbas del huerto.", "tag": "Clásico Costarricense" },
-        { "title": "Chifrijo del Huerto", "description": "Frijoles del huerto, chicharrón de cerdo de pastoreo, arroz, pico de gallo y aguacate de finca.", "tag": "Clásico Costarricense" },
-        { "title": "Sopa Negra Costarricense", "description": "Frijoles negros del huerto, huevo duro, culantro coyote y plátano maduro de finca.", "tag": "Clásico Costarricense" },
-        { "title": "Casado Tradicional Costarricense", "description": "Arroz, frijoles del huerto, plátano maduro de finca, ensalada de repollo, picadillo de vegetales de temporada y proteína a elección.", "tag": "Clásico Costarricense" },
-        { "title": "Arroz con Pollo Clásico", "description": "Arroz cocinado con pollo de libre pastoreo, vegetales del huerto, culantro coyote y un toque de achiote.", "tag": "Clásico Costarricense" }
+        {
+          "title": "Bowl de Vegetales de Temporada",
+          "description": "Vegetales de raíz asados, brotes crudos, quinua orgánica, aguacate y vinagreta cítrica de finca."
+        },
+        {
+          "title": "Sándwich de Pollo de Libre Pastoreo",
+          "description": "Pechuga de pollo a la plancha, queso de finca, brotes frescos y aioli de hierbas, servido con yuca frita."
+        },
+        {
+          "title": "Ensalada de Brotes y Quinua",
+          "description": "Brotes mixtos, quinua, vegetales de temporada, semillas tostadas y queso de cabra fresco."
+        },
+        {
+          "title": "Tacos de Captura del Día",
+          "description": "Pescado local, repollo morado, pico de gallo del huerto, guacamole y tortilla de maíz criollo."
+        },
+        {
+          "title": "Sopa de Vegetales de Finca",
+          "description": "Caldo de vegetales de temporada, hierbas frescas del huerto y pan de masa madre tostado."
+        },
+        {
+          "title": "Wrap de Vegetales Asados",
+          "description": "Vegetales de raíz asados, hummus casero, brotes tiernos y queso de finca en tortilla de trigo integral."
+        },
+        {
+          "title": "Ceviche Clásico",
+          "description": "Captura del día marinada en limón de finca, cebolla morada, cilantro y culantro coyote del huerto, servido con patacones.",
+          "tag": "Clásico Costarricense"
+        },
+        {
+          "title": "Patacones de Finca",
+          "description": "Plátano verde frito dos veces de la finca, servido con frijoles molidos y queso fresco local.",
+          "tag": "Clásico Costarricense"
+        },
+        {
+          "title": "Arroz con Leche Caribeño",
+          "description": "Arroz y frijoles cocinados en leche de coco, con pollo de libre pastoreo en salsa curry caribeña y hierbas del huerto.",
+          "tag": "Clásico Costarricense"
+        },
+        {
+          "title": "Chifrijo del Huerto",
+          "description": "Frijoles del huerto, chicharrón de cerdo de pastoreo, arroz, pico de gallo y aguacate de finca.",
+          "tag": "Clásico Costarricense"
+        },
+        {
+          "title": "Sopa Negra Costarricense",
+          "description": "Frijoles negros del huerto, huevo duro, culantro coyote y plátano maduro de finca.",
+          "tag": "Clásico Costarricense"
+        },
+        {
+          "title": "Casado Tradicional Costarricense",
+          "description": "Arroz, frijoles del huerto, plátano maduro de finca, ensalada de repollo, picadillo de vegetales de temporada y proteína a elección.",
+          "tag": "Clásico Costarricense"
+        },
+        {
+          "title": "Arroz con Pollo Clásico",
+          "description": "Arroz cocinado con pollo de libre pastoreo, vegetales del huerto, culantro coyote y un toque de achiote.",
+          "tag": "Clásico Costarricense"
+        }
       ]
     },
     "dinner": {
       "heading": "Cena de Temporada",
       "subheading": "Lo que la tierra dio hoy",
       "items": [
-        { "title": "Res de Pastoreo", "description": "Corte de res de pastoreo, puré de papa criolla, brotes salteados y jus de hierbas de finca." },
-        { "title": "Risotto de Brotes y Hongos Silvestres", "description": "Arroz cremoso, hongos silvestres de temporada, brotes tiernos y parmesano curado." },
-        { "title": "Captura del Día Costeño", "description": "Pescado fresco del día, vegetales de raíz asados y mantequilla de hierbas de finca." },
-        { "title": "Pollo de Libre Pastoreo al Horno", "description": "Pollo de libre pastoreo marinado en hierbas del huerto, servido con vegetales asados y su propio jugo de sartén." },
-        { "title": "Casado Tradicional Costarricense", "description": "Arroz, frijoles del huerto, plátano maduro de finca, ensalada de repollo, picadillo de vegetales de temporada y proteína a elección.", "tag": "Clásico Costarricense" },
-        { "title": "Arroz con Pollo Clásico", "description": "Arroz cocinado con pollo de libre pastoreo, vegetales del huerto, culantro coyote y un toque de achiote.", "tag": "Clásico Costarricense" },
-        { "title": "Ceviche Clásico", "description": "Captura del día marinada en limón de finca, cebolla morada, cilantro y culantro coyote del huerto, servido con patacones.", "tag": "Clásico Costarricense" },
-        { "title": "Patacones de Finca", "description": "Plátano verde frito dos veces de la finca, servido con frijoles molidos y queso fresco local.", "tag": "Clásico Costarricense" },
-        { "title": "Arroz con Leche Caribeño", "description": "Arroz y frijoles cocinados en leche de coco, con pollo de libre pastoreo en salsa curry caribeña y hierbas del huerto.", "tag": "Clásico Costarricense" },
-        { "title": "Chifrijo del Huerto", "description": "Frijoles del huerto, chicharrón de cerdo de pastoreo, arroz, pico de gallo y aguacate de finca.", "tag": "Clásico Costarricense" },
-        { "title": "Sopa Negra Costarricense", "description": "Frijoles negros del huerto, huevo duro, culantro coyote y plátano maduro de finca.", "tag": "Clásico Costarricense" }
+        {
+          "title": "Res de Pastoreo",
+          "description": "Corte de res de pastoreo, puré de papa criolla, brotes salteados y jus de hierbas de finca."
+        },
+        {
+          "title": "Risotto de Brotes y Hongos Silvestres",
+          "description": "Arroz cremoso, hongos silvestres de temporada, brotes tiernos y parmesano curado."
+        },
+        {
+          "title": "Captura del Día Costeño",
+          "description": "Pescado fresco del día, vegetales de raíz asados y mantequilla de hierbas de finca."
+        },
+        {
+          "title": "Pollo de Libre Pastoreo al Horno",
+          "description": "Pollo de libre pastoreo marinado en hierbas del huerto, servido con vegetales asados y su propio jugo de sartén."
+        },
+        {
+          "title": "Casado Tradicional Costarricense",
+          "description": "Arroz, frijoles del huerto, plátano maduro de finca, ensalada de repollo, picadillo de vegetales de temporada y proteína a elección.",
+          "tag": "Clásico Costarricense"
+        },
+        {
+          "title": "Arroz con Pollo Clásico",
+          "description": "Arroz cocinado con pollo de libre pastoreo, vegetales del huerto, culantro coyote y un toque de achiote.",
+          "tag": "Clásico Costarricense"
+        },
+        {
+          "title": "Ceviche Clásico",
+          "description": "Captura del día marinada en limón de finca, cebolla morada, cilantro y culantro coyote del huerto, servido con patacones.",
+          "tag": "Clásico Costarricense"
+        },
+        {
+          "title": "Patacones de Finca",
+          "description": "Plátano verde frito dos veces de la finca, servido con frijoles molidos y queso fresco local.",
+          "tag": "Clásico Costarricense"
+        },
+        {
+          "title": "Arroz con Leche Caribeño",
+          "description": "Arroz y frijoles cocinados en leche de coco, con pollo de libre pastoreo en salsa curry caribeña y hierbas del huerto.",
+          "tag": "Clásico Costarricense"
+        },
+        {
+          "title": "Chifrijo del Huerto",
+          "description": "Frijoles del huerto, chicharrón de cerdo de pastoreo, arroz, pico de gallo y aguacate de finca.",
+          "tag": "Clásico Costarricense"
+        },
+        {
+          "title": "Sopa Negra Costarricense",
+          "description": "Frijoles negros del huerto, huevo duro, culantro coyote y plátano maduro de finca.",
+          "tag": "Clásico Costarricense"
+        }
       ]
     },
     "desserts": {
       "heading": "Postres del Huerto",
       "subheading": "El dulce final de la cosecha",
       "items": [
-        { "title": "Panna Cotta de Finca", "description": "Leche cruda de finca, compota de fruta de temporada y miel de flor de café." },
-        { "title": "Tres Leches de Finca", "description": "Bizcocho casero empapado en leche de finca, canela y café de altura." },
-        { "title": "Mousse de Chocolate y Aguacate", "description": "Chocolate oscuro, aguacate de finca y frutos rojos de temporada." },
-        { "title": "Fruta de Temporada con Miel", "description": "Una selección de la fruta del día, yogur natural y miel de nuestras colmenas." },
-        { "title": "Crepas de Dulce de Leche de Finca", "description": "Crepas caseras rellenas de dulce de leche de finca y fruta de temporada." },
-        { "title": "Sorbete de Fruta de Temporada", "description": "Fruta de la cosecha del día, menta fresca del huerto y un toque de miel." }
+        {
+          "title": "Panna Cotta de Finca",
+          "description": "Leche cruda de finca, compota de fruta de temporada y miel de flor de café."
+        },
+        {
+          "title": "Tres Leches de Finca",
+          "description": "Bizcocho casero empapado en leche de finca, canela y café de altura."
+        },
+        {
+          "title": "Mousse de Chocolate y Aguacate",
+          "description": "Chocolate oscuro, aguacate de finca y frutos rojos de temporada."
+        },
+        {
+          "title": "Fruta de Temporada con Miel",
+          "description": "Una selección de la fruta del día, yogur natural y miel de nuestras colmenas."
+        },
+        {
+          "title": "Crepas de Dulce de Leche de Finca",
+          "description": "Crepas caseras rellenas de dulce de leche de finca y fruta de temporada."
+        },
+        {
+          "title": "Sorbete de Fruta de Temporada",
+          "description": "Fruta de la cosecha del día, menta fresca del huerto y un toque de miel."
+        }
       ]
     },
     "bakery": {
       "heading": "Panadería de Finca",
       "subheading": "Horneado cada mañana con nuestra propia masa madre",
       "items": [
-        { "title": "Pan de Masa Madre", "description": "Nuestra receta insignia, fermentada 24 horas, horneada en piedra." },
-        { "title": "Repostería de Finca", "description": "Croissants y panecillos hechos con mantequilla de finca, horneados diariamente." },
-        { "title": "Focaccia de Hierbas del Huerto", "description": "Aceite de oliva, romero y tomates cherry de temporada." },
-        { "title": "Galletas de Avena y Miel", "description": "Avena orgánica, miel de nuestras colmenas y chocolate de origen único." },
-        { "title": "Pan de Plátano y Nueces", "description": "Plátano maduro de finca, nueces tostadas y canela." },
-        { "title": "Tartaletas de Fruta de Temporada", "description": "Masa sablée casera rellena de crema y fruta recién cosechada." }
+        {
+          "title": "Pan de Masa Madre",
+          "description": "Nuestra receta insignia, fermentada 24 horas, horneada en piedra."
+        },
+        {
+          "title": "Repostería de Finca",
+          "description": "Croissants y panecillos hechos con mantequilla de finca, horneados diariamente."
+        },
+        {
+          "title": "Focaccia de Hierbas del Huerto",
+          "description": "Aceite de oliva, romero y tomates cherry de temporada."
+        },
+        {
+          "title": "Galletas de Avena y Miel",
+          "description": "Avena orgánica, miel de nuestras colmenas y chocolate de origen único."
+        },
+        {
+          "title": "Pan de Plátano y Nueces",
+          "description": "Plátano maduro de finca, nueces tostadas y canela."
+        },
+        {
+          "title": "Tartaletas de Fruta de Temporada",
+          "description": "Masa sablée casera rellena de crema y fruta recién cosechada."
+        }
       ]
     },
     "themedNights": {
@@ -277,35 +594,88 @@
           "title": "Noche de Tacos del Huerto",
           "subtitle": "Estilo finca, brote a brote",
           "description": "Arma tu propio taco con ingredientes recién cosechados y salsas caseras.",
-          "includes": ["Tortillas de maíz criollo hechas a mano", "Frijoles refritos de finca", "Repollo morado y brotes frescos", "Captura del día", "Pollo de libre pastoreo deshebrado", "Res de pastoreo", "Cerdo de pastoreo confitado", "Guacamole de aguacate de finca", "Salsa verde de tomatillo del huerto", "Salsa de chile ahumado", "Aioli de cilantro de finca", "Pico de gallo del huerto", "Queso de cabra fresco", "Cebolla curtida de finca", "Arroz con cilantro y limón"],
+          "includes": [
+            "Tortillas de maíz criollo hechas a mano",
+            "Frijoles refritos de finca",
+            "Repollo morado y brotes frescos",
+            "Captura del día",
+            "Pollo de libre pastoreo deshebrado",
+            "Res de pastoreo",
+            "Cerdo de pastoreo confitado",
+            "Guacamole de aguacate de finca",
+            "Salsa verde de tomatillo del huerto",
+            "Salsa de chile ahumado",
+            "Aioli de cilantro de finca",
+            "Pico de gallo del huerto",
+            "Queso de cabra fresco",
+            "Cebolla curtida de finca",
+            "Arroz con cilantro y limón"
+          ],
           "dessert": "Crepas de dulce de leche de finca con fruta de temporada"
         },
         {
           "title": "Noche de Ahumados",
           "subtitle": "Leña, tiempo y paciencia de finca",
           "description": "Cortes y vegetales ahumados lentamente sobre leña de nuestra propia finca.",
-          "includes": ["Costillas de cerdo de pastoreo, ahumadas 12 horas", "Pecho de res de pastoreo ahumado", "Pollo entero de libre pastoreo ahumado", "Captura del día ahumada en hojas de plátano", "Vegetales de raíz asados a las brasas", "Maíz de finca a la plancha con mantequilla de hierbas", "Frijoles del huerto ahumados", "Ensalada de brotes y hierbas frescas", "Pan de masa madre tostado en leña", "Salsa BBQ de tamarindo de finca", "Chimichurri de hierbas del huerto"],
+          "includes": [
+            "Costillas de cerdo de pastoreo, ahumadas 12 horas",
+            "Pecho de res de pastoreo ahumado",
+            "Pollo entero de libre pastoreo ahumado",
+            "Captura del día ahumada en hojas de plátano",
+            "Vegetales de raíz asados a las brasas",
+            "Maíz de finca a la plancha con mantequilla de hierbas",
+            "Frijoles del huerto ahumados",
+            "Ensalada de brotes y hierbas frescas",
+            "Pan de masa madre tostado en leña",
+            "Salsa BBQ de tamarindo de finca",
+            "Chimichurri de hierbas del huerto"
+          ],
           "dessert": "Plátano asado en leña con miel de finca y nueces tostadas"
         },
         {
           "title": "Cena Tica",
           "subtitle": "Sabores de siempre, de nuestra propia tierra",
           "description": "Un homenaje a la cocina costarricense, con ingredientes 100% de finca.",
-          "includes": ["Casado a elección: pollo, res, cerdo o captura del día", "Arroz con frijoles del huerto", "Plátano maduro de finca", "Picadillo de vegetales de temporada", "Ensalada de brotes frescos", "Chimichurri de finca"],
+          "includes": [
+            "Casado a elección: pollo, res, cerdo o captura del día",
+            "Arroz con frijoles del huerto",
+            "Plátano maduro de finca",
+            "Picadillo de vegetales de temporada",
+            "Ensalada de brotes frescos",
+            "Chimichurri de finca"
+          ],
           "dessert": "Tres leches de finca con canela y café de altura"
         },
         {
           "title": "Noche Vegana",
           "subtitle": "100% del huerto, sin excepciones",
           "description": "Una experiencia completamente vegetal, con lo mejor de la cosecha de Seguras Farm Shop.",
-          "includes": ["Hummus de garbanzo del huerto con pan de masa madre", "Ensalada de brotes, quinua y semillas tostadas", "Ceviche de palmito de finca", "Risotto de hongos silvestres y brotes", "Vegetales de raíz asados con romero del huerto", "Tacos de jackfruit ahumado con repollo morado", "Curry de vegetales con leche de coco", "Patacones con guacamole y pico de gallo"],
+          "includes": [
+            "Hummus de garbanzo del huerto con pan de masa madre",
+            "Ensalada de brotes, quinua y semillas tostadas",
+            "Ceviche de palmito de finca",
+            "Risotto de hongos silvestres y brotes",
+            "Vegetales de raíz asados con romero del huerto",
+            "Tacos de jackfruit ahumado con repollo morado",
+            "Curry de vegetales con leche de coco",
+            "Patacones con guacamole y pico de gallo"
+          ],
           "dessert": "Mousse de chocolate y aguacate de finca con frutos rojos"
         },
         {
           "title": "Cena del Océano",
           "subtitle": "La captura del día, sin intermediarios",
           "description": "Lo mejor del mar, servido el mismo día que fue pescado.",
-          "includes": ["Ceviche con leche de tigre cítrica de finca", "Camarones al ajillo con mantequilla de hierbas", "Pulpo a la plancha con puré de papa criolla", "Pescado entero horneado en hojas de plátano", "Arroz de mariscos con vegetales del huerto", "Mejillones a la diabla", "Ensalada de brotes y cítricos", "Pan de masa madre con aioli de finca"],
+          "includes": [
+            "Ceviche con leche de tigre cítrica de finca",
+            "Camarones al ajillo con mantequilla de hierbas",
+            "Pulpo a la plancha con puré de papa criolla",
+            "Pescado entero horneado en hojas de plátano",
+            "Arroz de mariscos con vegetales del huerto",
+            "Mejillones a la diabla",
+            "Ensalada de brotes y cítricos",
+            "Pan de masa madre con aioli de finca"
+          ],
           "dessert": "Sorbete de fruta de temporada con menta del huerto"
         }
       ]
@@ -319,27 +689,57 @@
         "heading": "Por Servicio",
         "subheading": "Incluye: chef, mesero, ingredientes de finca y limpieza.",
         "items": [
-          { "label": "Desayuno", "price": "Desde $230 para 2 · +$24 por persona adicional" },
-          { "label": "Almuerzo", "price": "Desde $235 para 2 · +$28 por persona adicional" },
-          { "label": "Cena", "price": "Desde $245 para 2 · +$52 por persona adicional" },
-          { "label": "Día Completo", "price": "Desde $610 para 2 · +$80 por persona adicional" }
+          {
+            "label": "Desayuno",
+            "price": "Desde $230 para 2 · +$24 por persona adicional"
+          },
+          {
+            "label": "Almuerzo",
+            "price": "Desde $235 para 2 · +$28 por persona adicional"
+          },
+          {
+            "label": "Cena",
+            "price": "Desde $245 para 2 · +$52 por persona adicional"
+          },
+          {
+            "label": "Día Completo",
+            "price": "Desde $610 para 2 · +$80 por persona adicional"
+          }
         ]
       },
       "themedNights": {
         "heading": "Noches Temáticas",
         "subheading": "Taco Night · Ahumados · Cena Tica · Noche Vegana",
         "items": [
-          { "label": "2–5 personas", "price": "$530 total" },
-          { "label": "6–10 personas", "price": "$835 total" },
-          { "label": "11–15 personas", "price": "$1,140 total" },
-          { "label": "Cena del Océano", "price": "+$100 sobre cualquier tarifa de noche temática" }
+          {
+            "label": "2–5 personas",
+            "price": "$530 total"
+          },
+          {
+            "label": "6–10 personas",
+            "price": "$835 total"
+          },
+          {
+            "label": "11–15 personas",
+            "price": "$1,140 total"
+          },
+          {
+            "label": "Cena del Océano",
+            "price": "+$100 sobre cualquier tarifa de noche temática"
+          }
         ]
       },
       "bartender": {
         "heading": "Añadir Bartender",
         "items": [
-          { "label": "Solo atardecer (4–7 PM)", "price": "$170" },
-          { "label": "Atardecer + Cena (4–9 PM)", "price": "$255" }
+          {
+            "label": "Solo atardecer (4–7 PM)",
+            "price": "$170"
+          },
+          {
+            "label": "Atardecer + Cena (4–9 PM)",
+            "price": "$255"
+          }
         ]
       }
     }
@@ -359,10 +759,38 @@
       "heading": "Qué incluye",
       "subheading": "Todo lo que necesitas para desayuno, almuerzo y cena durante tu estadía.",
       "categories": [
-        { "title": "Vegetales y Frutas del Huerto", "items": ["Vegetales de temporada para desayuno, almuerzo y cena", "Aguacate, brotes tiernos y hierbas frescas del huerto", "Fruta tropical de temporada para desayuno y snacks"] },
-        { "title": "Despensa Básica", "items": ["Pan y repostería de la Panadería Seguras Farm Shop", "Café de altura, leche cruda, yogur y queso de finca", "Arroz, frijoles, tortillas de maíz criollo, aceite de oliva y especias"] },
-        { "title": "Carnes y Proteínas", "items": ["Pollo de libre pastoreo", "Res de pastoreo", "Cerdo de pastoreo", "Huevos de gallinas felices"] },
-        { "title": "Pescado y Mariscos", "items": ["Captura del día, sujeto a disponibilidad", "Camarones frescos (opcional, según el paquete)"] }
+        {
+          "title": "Vegetales y Frutas del Huerto",
+          "items": [
+            "Vegetales de temporada para desayuno, almuerzo y cena",
+            "Aguacate, brotes tiernos y hierbas frescas del huerto",
+            "Fruta tropical de temporada para desayuno y snacks"
+          ]
+        },
+        {
+          "title": "Despensa Básica",
+          "items": [
+            "Pan y repostería de la Panadería Seguras Farm Shop",
+            "Café de altura, leche cruda, yogur y queso de finca",
+            "Arroz, frijoles, tortillas de maíz criollo, aceite de oliva y especias"
+          ]
+        },
+        {
+          "title": "Carnes y Proteínas",
+          "items": [
+            "Pollo de libre pastoreo",
+            "Res de pastoreo",
+            "Cerdo de pastoreo",
+            "Huevos de gallinas felices"
+          ]
+        },
+        {
+          "title": "Pescado y Mariscos",
+          "items": [
+            "Captura del día, sujeto a disponibilidad",
+            "Camarones frescos (opcional, según el paquete)"
+          ]
+        }
       ]
     },
     "beverages": {
@@ -370,12 +798,36 @@
       "subheading": "Vinos, cervezas y licores para tu nevera.",
       "note": "¿Buscas algo específico? Pídenos nuestra lista completa de vinos o licores. Nuestros precios son hasta un 30% más bajos que los supermercados y restaurantes locales.",
       "items": [
-        { "title": "Paquete de Vinos", "description": "Selección de 2 vinos naturales", "price": "$45" },
-        { "title": "Paquete Premium de Vinos", "description": "Selección de 4 vinos naturales", "price": "$85" },
-        { "title": "Cerveza Artesanal — Six-Pack", "description": "Selección artesanal costarricense", "price": "$18" },
-        { "title": "Cerveza Artesanal — 24 Unidades", "description": "Selección artesanal costarricense", "price": "$65" },
-        { "title": "Licor Individual", "description": "Ron, guaro o whisky", "price": "Desde $30" },
-        { "title": "Bar Completo", "description": "Ron, guaro, whisky, vodka y gin", "price": "$150" }
+        {
+          "title": "Paquete de Vinos",
+          "description": "Selección de 2 vinos naturales",
+          "price": "$45"
+        },
+        {
+          "title": "Paquete Premium de Vinos",
+          "description": "Selección de 4 vinos naturales",
+          "price": "$85"
+        },
+        {
+          "title": "Cerveza Artesanal — Six-Pack",
+          "description": "Selección artesanal costarricense",
+          "price": "$18"
+        },
+        {
+          "title": "Cerveza Artesanal — 24 Unidades",
+          "description": "Selección artesanal costarricense",
+          "price": "$65"
+        },
+        {
+          "title": "Licor Individual",
+          "description": "Ron, guaro o whisky",
+          "price": "Desde $30"
+        },
+        {
+          "title": "Bar Completo",
+          "description": "Ron, guaro, whisky, vodka y gin",
+          "price": "$150"
+        }
       ]
     },
     "pricing": {
@@ -383,19 +835,57 @@
       "subheading": "Por tamaño de grupo y duración de estadía",
       "description": "Incluye vegetales, carnes, pescado, frutas y despensa básica para desayuno, almuerzo y cena. Bebidas opcionales se cotizan por separado.",
       "note": "Precios en USD. Entregado antes de tu llegada. Grupos de más de 8 personas o estadías mayores de 8 días: cotización personalizada. Restricciones y preferencias dietéticas se adaptan sin costo adicional.",
-      "columns": ["Pareja (2)", "Familia de 4", "Familia de 6", "Familia de 8"],
+      "columns": [
+        "Pareja (2)",
+        "Familia de 4",
+        "Familia de 6",
+        "Familia de 8"
+      ],
       "rows": [
-        { "label": "3 Días", "prices": ["$230", "$410", "$560", "$670"] },
-        { "label": "5 Días", "prices": ["$380", "$680", "$930", "$1,120"] },
-        { "label": "8 Días", "prices": ["$610", "$1,090", "$1,490", "$1,790"] }
+        {
+          "label": "3 Días",
+          "prices": [
+            "$230",
+            "$410",
+            "$560",
+            "$670"
+          ]
+        },
+        {
+          "label": "5 Días",
+          "prices": [
+            "$380",
+            "$680",
+            "$930",
+            "$1,120"
+          ]
+        },
+        {
+          "label": "8 Días",
+          "prices": [
+            "$610",
+            "$1,090",
+            "$1,490",
+            "$1,790"
+          ]
+        }
       ]
     },
     "howItWorks": {
       "heading": "Cómo funciona",
       "steps": [
-        { "title": "Dinos tu fecha de llegada", "description": "Envíanos un WhatsApp con tu fecha de llegada y la cantidad de huéspedes para los que preparamos." },
-        { "title": "Lo conseguimos fresco para ti", "description": "Seguras Farm Shop prepara tu pedido la mañana de tu llegada — obtenido de los mejores productores regionales de Costa Rica." },
-        { "title": "Encuéntralo listo al llegar", "description": "Entra a tu casa y tu nevera ya está surtida. Sin paradas, sin estrés — solo cocina." }
+        {
+          "title": "Dinos tu fecha de llegada",
+          "description": "Envíanos un WhatsApp con tu fecha de llegada y la cantidad de huéspedes para los que preparamos."
+        },
+        {
+          "title": "Lo conseguimos fresco para ti",
+          "description": "Seguras Farm Shop prepara tu pedido la mañana de tu llegada — obtenido de los mejores productores regionales de Costa Rica."
+        },
+        {
+          "title": "Encuéntralo listo al llegar",
+          "description": "Entra a tu casa y tu nevera ya está surtida. Sin paradas, sin estrés — solo cocina."
+        }
       ]
     },
     "farm": {
@@ -410,11 +900,26 @@
       {
         "title": "Parapente en Tándem — Zion",
         "description": "Vuelo en tándem de 15–20 minutos con 15 años de experiencia operativa. Pilotos licenciados y completamente asegurados. Sale desde Dominical.",
-        "features": ["Vuelo de 15–20 min", "Pilotos licenciados y asegurados, 15 años de experiencia", "Transporte al sitio de despegue y aterrizaje", "Equipo de seguridad completo incluido", "Paquete de fotos disponible (+$30)"],
+        "features": [
+          "Vuelo de 15–20 min",
+          "Pilotos licenciados y asegurados, 15 años de experiencia",
+          "Transporte al sitio de despegue y aterrizaje",
+          "Equipo de seguridad completo incluido",
+          "Paquete de fotos disponible (+$30)"
+        ],
         "pricing": [
-          { "label": "Por persona", "price": "$150 + IVA" },
-          { "label": "Paquete de fotos", "price": "+$30" },
-          { "label": "Transporte privado (Uvita/Ojochal)", "price": "+$40–50 ida y vuelta" }
+          {
+            "label": "Por persona",
+            "price": "$150 + IVA"
+          },
+          {
+            "label": "Paquete de fotos",
+            "price": "+$30"
+          },
+          {
+            "label": "Transporte privado (Uvita/Ojochal)",
+            "price": "+$40–50 ida y vuelta"
+          }
         ],
         "commission": "$20 por persona",
         "contactName": "Zion Paragliding",
@@ -423,14 +928,38 @@
       {
         "title": "Corcovado + Experiencia Marina",
         "description": "Operador premium de Corcovado y marina con un tour de ballenas único guiado por un biólogo marino con hidrofón. Incluye reserva privada Tapir Trail.",
-        "features": ["Tour de día a Sirena + opciones de pernocta", "Tour de ballenas con biólogo marino + hidrofón", "Reserva privada Tapir Trail (menos concurrida)", "Snorkel en Isla del Caño", "Caminata a caballo, avistamiento de aves, tours nocturnos"],
+        "features": [
+          "Tour de día a Sirena + opciones de pernocta",
+          "Tour de ballenas con biólogo marino + hidrofón",
+          "Reserva privada Tapir Trail (menos concurrida)",
+          "Snorkel en Isla del Caño",
+          "Caminata a caballo, avistamiento de aves, tours nocturnos"
+        ],
         "pricing": [
-          { "label": "Día Sirena", "price": "$110 efectivo / $125 tarjeta" },
-          { "label": "Pernocta (2D/1N)", "price": "$375 efectivo / $424 tarjeta" },
-          { "label": "Ballenas y delfines", "price": "$120 adulto / $85 niño" },
-          { "label": "Tapir Trail", "price": "$75–85" },
-          { "label": "Tour nocturno", "price": "$50" },
-          { "label": "Avistamiento de aves", "price": "$45" }
+          {
+            "label": "Día Sirena",
+            "price": "$110 efectivo / $125 tarjeta"
+          },
+          {
+            "label": "Pernocta (2D/1N)",
+            "price": "$375 efectivo / $424 tarjeta"
+          },
+          {
+            "label": "Ballenas y delfines",
+            "price": "$120 adulto / $85 niño"
+          },
+          {
+            "label": "Tapir Trail",
+            "price": "$75–85"
+          },
+          {
+            "label": "Tour nocturno",
+            "price": "$50"
+          },
+          {
+            "label": "Avistamiento de aves",
+            "price": "$45"
+          }
         ],
         "commission": "Flexible — negociable por volumen",
         "contactName": "Alberto Quesada Calvo",
@@ -439,11 +968,26 @@
       {
         "title": "Naturaleza y Vida Silvestre en la Selva",
         "description": "Reserva natural con tours de vida silvestre, avistamiento de aves, tours nocturnos y la experiencia premium Chilamate. Reserva privada de 330 hectáreas.",
-        "features": ["Tour de vida silvestre (2.5–3 hrs)", "Avistamiento de aves (6 AM)", "Tour nocturno: reptiles, ranas, animales nocturnos", "Tour Chilamate (3.5–4 hrs, el más inmersivo)", "Grupos pequeños de 2–8 personas únicamente"],
+        "features": [
+          "Tour de vida silvestre (2.5–3 hrs)",
+          "Avistamiento de aves (6 AM)",
+          "Tour nocturno: reptiles, ranas, animales nocturnos",
+          "Tour Chilamate (3.5–4 hrs, el más inmersivo)",
+          "Grupos pequeños de 2–8 personas únicamente"
+        ],
         "pricing": [
-          { "label": "Tour de vida silvestre", "price": "~$11–12 ganancia / adulto" },
-          { "label": "Tour Chilamate", "price": "~$14+ ganancia / adulto" },
-          { "label": "Modelo de precio", "price": "Tarifa neta — tú defines el precio" }
+          {
+            "label": "Tour de vida silvestre",
+            "price": "~$11–12 ganancia / adulto"
+          },
+          {
+            "label": "Tour Chilamate",
+            "price": "~$14+ ganancia / adulto"
+          },
+          {
+            "label": "Modelo de precio",
+            "price": "Tarifa neta — tú defines el precio"
+          }
         ],
         "commission": "Tarifas netas — factura mensual",
         "contactName": "Barú Tours / Hacienda Barú",
@@ -452,12 +996,31 @@
       {
         "title": "ATV en la Jungla con Experiencia Cultural",
         "description": "Experiencia de 5 horas en ATV o side-by-side combinando paseo por la selva con visita a una familia costarricense, cosecha de café, buffet de bocadillos y guía bilingüe.",
-        "features": ["Ríos, cascadas y manejo en selva", "Visita a familia tica + demostración de café", "Bocadillos + buffet de frutas incluido", "Guía bilingüe", "Opciones de ATV o side-by-side", "Edad mínima: 4 años"],
+        "features": [
+          "Ríos, cascadas y manejo en selva",
+          "Visita a familia tica + demostración de café",
+          "Bocadillos + buffet de frutas incluido",
+          "Guía bilingüe",
+          "Opciones de ATV o side-by-side",
+          "Edad mínima: 4 años"
+        ],
         "pricing": [
-          { "label": "ATV individual", "price": "$150" },
-          { "label": "Side-by-side 2 puestos", "price": "$230" },
-          { "label": "Side-by-side 4 puestos", "price": "$400" },
-          { "label": "Grupo privado adicional", "price": "+$150–250" }
+          {
+            "label": "ATV individual",
+            "price": "$150"
+          },
+          {
+            "label": "Side-by-side 2 puestos",
+            "price": "$230"
+          },
+          {
+            "label": "Side-by-side 4 puestos",
+            "price": "$400"
+          },
+          {
+            "label": "Grupo privado adicional",
+            "price": "+$150–250"
+          }
         ],
         "commission": "15% (~$22.50 por ATV)",
         "contactName": "Adventure Motorsports",
@@ -466,14 +1029,38 @@
       {
         "title": "Parque Nacional Corcovado — Sirena & San Pedrillo",
         "description": "Operador integral con acceso a las mejores estaciones de guardaparques de Corcovado. Alta probabilidad de avistamiento: monos, perezosos, tapires, aves. Expediciones con pernocta disponibles.",
-        "features": ["Acceso a estaciones Sirena + San Pedrillo", "Alta presencia de fauna: monos, perezosos, tapires", "Guía bilingüe certificado", "Transporte en lancha + entrada al parque + comidas incluidas", "Opciones de pernocta y expedición de 2 noches"],
+        "features": [
+          "Acceso a estaciones Sirena + San Pedrillo",
+          "Alta presencia de fauna: monos, perezosos, tapires",
+          "Guía bilingüe certificado",
+          "Transporte en lancha + entrada al parque + comidas incluidas",
+          "Opciones de pernocta y expedición de 2 noches"
+        ],
         "pricing": [
-          { "label": "Tour San Pedrillo", "price": "$100 / persona" },
-          { "label": "Snorkel Isla del Caño", "price": "$100 / persona" },
-          { "label": "Tour de día Sirena", "price": "$125 / persona" },
-          { "label": "Tour ballenas y delfines", "price": "$120–150 / persona" },
-          { "label": "Pernocta Corcovado", "price": "$375 / persona" },
-          { "label": "Expedición 2 noches", "price": "$595 / persona" }
+          {
+            "label": "Tour San Pedrillo",
+            "price": "$100 / persona"
+          },
+          {
+            "label": "Snorkel Isla del Caño",
+            "price": "$100 / persona"
+          },
+          {
+            "label": "Tour de día Sirena",
+            "price": "$125 / persona"
+          },
+          {
+            "label": "Tour ballenas y delfines",
+            "price": "$120–150 / persona"
+          },
+          {
+            "label": "Pernocta Corcovado",
+            "price": "$375 / persona"
+          },
+          {
+            "label": "Expedición 2 noches",
+            "price": "$595 / persona"
+          }
         ],
         "commission": "15% en todos los tours",
         "contactName": "Corcovado Info Center",
@@ -482,12 +1069,30 @@
       {
         "title": "ATV y Side-by-Side en la Selva",
         "description": "Experiencia en instalación privada a través de bosques, ríos y colinas con visita a una finca cafetalera. Ideal para riders con experiencia que buscan un ambiente premium.",
-        "features": ["Manejo en selva: bosques, ríos y colinas", "Visita a finca de café + cata", "Miradores + cascadas", "Casco, gafas, snacks y agua incluidos", "Instalación privada — entorno controlado y premium"],
+        "features": [
+          "Manejo en selva: bosques, ríos y colinas",
+          "Visita a finca de café + cata",
+          "Miradores + cascadas",
+          "Casco, gafas, snacks y agua incluidos",
+          "Instalación privada — entorno controlado y premium"
+        ],
         "pricing": [
-          { "label": "ATV individual", "price": "$150 (solo con experiencia)" },
-          { "label": "SxS Turbo 2 puestos", "price": "$300" },
-          { "label": "SxS 3 puestos", "price": "$450" },
-          { "label": "SxS 4 puestos", "price": "$500" }
+          {
+            "label": "ATV individual",
+            "price": "$150 (solo con experiencia)"
+          },
+          {
+            "label": "SxS Turbo 2 puestos",
+            "price": "$300"
+          },
+          {
+            "label": "SxS 3 puestos",
+            "price": "$450"
+          },
+          {
+            "label": "SxS 4 puestos",
+            "price": "$500"
+          }
         ],
         "commission": "Flexible (~$20+ de margen)",
         "contactName": "Morete ATV Tours",
@@ -496,11 +1101,26 @@
       {
         "title": "Parapente en Tándem — Dominical y Rivas",
         "description": "Vuelo en tándem de 20–30 minutos (más largo que la competencia) con instructor certificado. Empresa familiar, 14 años de experiencia. Se habla inglés. Pago después de la actividad.",
-        "features": ["Vuelo de 20–30 min (el más largo disponible)", "Instructor-piloto certificado, 14 años de experiencia", "Se habla inglés", "Recogida flexible desde la casa", "Pago después de la actividad — muy cómodo para los huéspedes"],
+        "features": [
+          "Vuelo de 20–30 min (el más largo disponible)",
+          "Instructor-piloto certificado, 14 años de experiencia",
+          "Se habla inglés",
+          "Recogida flexible desde la casa",
+          "Pago después de la actividad — muy cómodo para los huéspedes"
+        ],
         "pricing": [
-          { "label": "Sitio Dominical", "price": "$135 neto / persona" },
-          { "label": "Sitio Rivas", "price": "$120 neto / persona" },
-          { "label": "Precio final", "price": "Flexible — tú decides el precio" }
+          {
+            "label": "Sitio Dominical",
+            "price": "$135 neto / persona"
+          },
+          {
+            "label": "Sitio Rivas",
+            "price": "$120 neto / persona"
+          },
+          {
+            "label": "Precio final",
+            "price": "Flexible — tú decides el precio"
+          }
         ],
         "commission": "Flexible (~$20+ de margen)",
         "contactName": "Alex Badilla",
@@ -509,9 +1129,17 @@
       {
         "title": "Tour de Cascadas — Día Completo",
         "description": "Tour guiado de día completo visitando 3 cascadas diferentes, parada en playa y almuerzo en restaurante con vista al mar. Transporte desde la oficina incluido.",
-        "features": ["Visita a 3 cascadas diferentes", "Parada en playa incluida", "Almuerzo en restaurante con vista al mar", "Transporte desde la oficina"],
+        "features": [
+          "Visita a 3 cascadas diferentes",
+          "Parada en playa incluida",
+          "Almuerzo en restaurante con vista al mar",
+          "Transporte desde la oficina"
+        ],
         "pricing": [
-          { "label": "Día completo", "price": "$130 / persona" }
+          {
+            "label": "Día completo",
+            "price": "$130 / persona"
+          }
         ],
         "commission": "$20 por persona",
         "contactName": "Uvita Paradise Adventures",
@@ -520,9 +1148,17 @@
       {
         "title": "Canopy Vuelo del Tucán",
         "description": "7 tirolesas a través de una reserva natural privada de 330 hectáreas. Grupos pequeños de 2–8 personas, con caminata ecológica y alta probabilidad de avistamiento de fauna.",
-        "features": ["7 tirolesas + caminata ecológica (45 min)", "Grupos pequeños: solo 2–8 personas", "Alta posibilidad de ver fauna silvestre", "Múltiples horarios: 8 AM, 11 AM, 2 PM"],
+        "features": [
+          "7 tirolesas + caminata ecológica (45 min)",
+          "Grupos pequeños: solo 2–8 personas",
+          "Alta posibilidad de ver fauna silvestre",
+          "Múltiples horarios: 8 AM, 11 AM, 2 PM"
+        ],
         "pricing": [
-          { "label": "Adulto (precio de lista)", "price": "$85.80" }
+          {
+            "label": "Adulto (precio de lista)",
+            "price": "$85.80"
+          }
         ],
         "commission": "~$12.87 por adulto (modelo tarifa neta)",
         "contactName": "Barú Tours / Hacienda Barú",
@@ -531,12 +1167,30 @@
       {
         "title": "Rapel en Cascadas y Cañonismo",
         "description": "Múltiples rapeles en cascadas con caminata por la selva e interacción con pozas naturales. Un paquete completo para aventureros — principiantes bienvenidos.",
-        "features": ["Rapeles en cascadas (experiencia principal)", "Caminata por la selva + poza natural", "Casco, arnés y equipo de seguridad completo incluido", "Transporte en 4x4 al punto de inicio", "Fotos + videos + almuerzo tradicional incluidos"],
+        "features": [
+          "Rapeles en cascadas (experiencia principal)",
+          "Caminata por la selva + poza natural",
+          "Casco, arnés y equipo de seguridad completo incluido",
+          "Transporte en 4x4 al punto de inicio",
+          "Fotos + videos + almuerzo tradicional incluidos"
+        ],
         "pricing": [
-          { "label": "Tour compartido (9 AM)", "price": "$150 / persona" },
-          { "label": "2 personas", "price": "$200 total" },
-          { "label": "Niños", "price": "$95" },
-          { "label": "Tour privado (1 PM)", "price": "$200 / persona" }
+          {
+            "label": "Tour compartido (9 AM)",
+            "price": "$150 / persona"
+          },
+          {
+            "label": "2 personas",
+            "price": "$200 total"
+          },
+          {
+            "label": "Niños",
+            "price": "$95"
+          },
+          {
+            "label": "Tour privado (1 PM)",
+            "price": "$200 / persona"
+          }
         ],
         "commission": "$20 por persona",
         "contactName": "Carlos Andrés Argüello",
@@ -545,10 +1199,21 @@
       {
         "title": "Tour de Canopy Osa",
         "description": "7 tirolesas incluyendo la más larga de 1.1 km, 2–3 rapeles y 2 puentes colgantes. Grupos pequeños a medianos, entorno montañoso con vistas panorámicas.",
-        "features": ["7 tirolesas (1.1 km la más larga)", "2–3 rapeles + 2 puentes colgantes", "Experiencia guiada", "Transporte: oficina → montaña"],
+        "features": [
+          "7 tirolesas (1.1 km la más larga)",
+          "2–3 rapeles + 2 puentes colgantes",
+          "Experiencia guiada",
+          "Transporte: oficina → montaña"
+        ],
         "pricing": [
-          { "label": "Adulto", "price": "$80 + IVA" },
-          { "label": "Niño", "price": "$60 + IVA" }
+          {
+            "label": "Adulto",
+            "price": "$80 + IVA"
+          },
+          {
+            "label": "Niño",
+            "price": "$60 + IVA"
+          }
         ],
         "commission": "$16 por adulto / $12 por niño",
         "contactName": "Osa Canopy",
@@ -557,10 +1222,21 @@
       {
         "title": "Combo Tirolesas + Cascadas",
         "description": "Aventura multideporte con 5 tirolesas, rapel en árbol, monkey drop al agua, poza natural y tobogán en cascada. Almuerzo local incluido al final.",
-        "features": ["5 tirolesas", "Rapel en árbol + monkey drop", "Poza natural y tobogán en cascada", "Almuerzo local al finalizar"],
+        "features": [
+          "5 tirolesas",
+          "Rapel en árbol + monkey drop",
+          "Poza natural y tobogán en cascada",
+          "Almuerzo local al finalizar"
+        ],
         "pricing": [
-          { "label": "Regular (compartido)", "price": "$90 / persona" },
-          { "label": "2 personas", "price": "$110 / persona" }
+          {
+            "label": "Regular (compartido)",
+            "price": "$90 / persona"
+          },
+          {
+            "label": "2 personas",
+            "price": "$110 / persona"
+          }
         ],
         "commission": "$25 por persona",
         "contactName": "Uvita Paradise Adventures",
@@ -583,9 +1259,9 @@
     "open": "Abrir menú",
     "close": "Cerrar menú",
     "links": {
-      "houses":      "Casas",
-      "tours":       "Tours y Actividades",
-      "goodToKnow":  "Bueno Saber",
+      "houses": "Casas",
+      "tours": "Tours y Actividades",
+      "goodToKnow": "Bueno Saber",
       "emergencias": "Contactos de Emergencia"
     }
   },
@@ -621,19 +1297,43 @@
     "links": {
       "heading": "Links",
       "items": [
-        { "label": "Casas", "href": "/#casas" },
-        { "label": "Tours y Actividades", "href": "/#tours" },
-        { "label": "Bueno Saber", "href": "/#bueno-saber" },
-        { "label": "Contactos de Emergencia", "href": "/#emergencias" }
+        {
+          "label": "Casas",
+          "href": "/#casas"
+        },
+        {
+          "label": "Tours y Actividades",
+          "href": "/#tours"
+        },
+        {
+          "label": "Bueno Saber",
+          "href": "/#bueno-saber"
+        },
+        {
+          "label": "Contactos de Emergencia",
+          "href": "/#emergencias"
+        }
       ]
     },
     "about": {
       "heading": "Nosotros",
       "items": [
-        { "label": "Contactos de Emergencia", "href": "/#emergencias" },
-        { "label": "WhatsApp", "href": "https://wa.me/50685011042" },
-        { "label": "Instagram", "href": "https://www.instagram.com/arboreaexperiences/" },
-        { "label": "Facebook", "href": "https://www.facebook.com/profile.php?id=61574441755795" }
+        {
+          "label": "Contactos de Emergencia",
+          "href": "/#emergencias"
+        },
+        {
+          "label": "WhatsApp",
+          "href": "https://wa.me/50685011042"
+        },
+        {
+          "label": "Instagram",
+          "href": "https://www.instagram.com/arboreaexperiences/"
+        },
+        {
+          "label": "Facebook",
+          "href": "https://www.facebook.com/profile.php?id=61574441755795"
+        }
       ]
     },
     "contact": {
@@ -665,6 +1365,175 @@
         "title": "Iluminación Nocturna",
         "description": "Proporcionamos iluminación exterior a lo largo de los senderos para su seguridad. Tenga en cuenta que las luces encendidas innecesariamente por la noche tienden a atraer insectos, por lo que sugerimos apagar las luces en habitaciones o terrazas que no estén en uso, y mantener puertas y ventanas cerradas."
       }
+    }
+  },
+  "wellnessSpa": {
+    "pill": "Bienestar en la Casa",
+    "title": "Experiencia de Spa y Bienestar",
+    "subtitle": "GV Massage Home Service · Lujo y relajación directamente en tu casa",
+    "whatsapp": "Reservar por WhatsApp",
+    "story": {
+      "heading": "Relájate, restaura y reconecta",
+      "body": "Vive una experiencia de bienestar de lujo diseñada para relajar, restaurar y rejuvenecer. GV Massage Home Service lleva terapeutas certificados directamente a tu casa, ofreciendo un menú curado de tratamientos en la comodidad y privacidad de tu retiro en la selva.\n\nDesde experiencias para parejas hasta rituales de spa, cada tratamiento está diseñado para traerte equilibrio e indulgencia — rodeado por los sonidos y la belleza del entorno natural de Costa Rica."
+    },
+    "massages": {
+      "subheading": "Servicios",
+      "heading": "Masajes",
+      "description": "Todos los estilos de masaje están disponibles en sesiones de 60 o 90 minutos. Elige la técnica que mejor se adapte a tu cuerpo y estado de ánimo.",
+      "items": [
+        "Masaje Relajante",
+        "Masaje de Tejido Profundo",
+        "Masaje de Piedras Calientes",
+        "Masaje de Aromaterapia",
+        "Masaje Lomi Lomi"
+      ],
+      "fourHands": {
+        "label": "Masaje a Cuatro Manos",
+        "duration": "60 min",
+        "price": "$190"
+      }
+    },
+    "facials": {
+      "subheading": "Tratamientos",
+      "heading": "Tratamientos Faciales",
+      "main": {
+        "name": "Limpieza Facial Profunda",
+        "price": "$80"
+      },
+      "addons": {
+        "heading": "Complementos",
+        "duration": "20 min",
+        "price": "$40 c/u",
+        "items": [
+          "Mini Facial",
+          "Exfoliación de Espalda",
+          "Masaje de Espalda",
+          "Masaje de Pies",
+          "Reflexología",
+          "Masaje Indio de Cabeza"
+        ]
+      }
+    },
+    "packages": {
+      "subheading": "Rituales",
+      "heading": "Rituales y Paquetes de Spa",
+      "description": "Experiencias de múltiples tratamientos diseñadas para una restauración profunda. Cada paquete combina terapias complementarias para un viaje de bienestar completo.",
+      "items": [
+        {
+          "name": "Romantic Escape",
+          "duration": "80 min",
+          "price": "$230",
+          "includes": [
+            "Masaje en Pareja (Relajante, Tejido Profundo o Aromaterapia)",
+            "Envoltura de Aloe Vera",
+            "Facial Hidratante"
+          ]
+        },
+        {
+          "name": "Romance",
+          "duration": "90 min",
+          "price": "$230",
+          "includes": [
+            "Masaje en Pareja con Aceite de Chocolate",
+            "Envoltura de Chocolate",
+            "Mascarilla de Chocolate"
+          ]
+        },
+        {
+          "name": "Detox",
+          "duration": "90 min",
+          "price": "$140",
+          "includes": [
+            "Masaje de Piedras Calientes",
+            "Exfoliación de Chocolate",
+            "Masaje de Cabeza"
+          ]
+        },
+        {
+          "name": "Balance",
+          "duration": "90 min",
+          "price": "$140",
+          "includes": [
+            "Masaje de Cuello, Espalda y Hombros",
+            "Reflexología",
+            "Mini Facial"
+          ]
+        },
+        {
+          "name": "Organic",
+          "duration": "90 min",
+          "price": "$140",
+          "includes": [
+            "Masaje",
+            "Envoltura de Chocolate",
+            "Mini Facial"
+          ]
+        },
+        {
+          "name": "Tropical",
+          "duration": "80 min",
+          "price": "$135",
+          "includes": [
+            "Limpieza Profunda de Espalda",
+            "Masaje Relajante"
+          ]
+        },
+        {
+          "name": "Calma",
+          "duration": "80 min",
+          "price": "$140",
+          "includes": [
+            "Masaje de Espalda",
+            "Mini Facial",
+            "Exfoliación de Pies"
+          ]
+        }
+      ]
+    },
+    "pricing": {
+      "subheading": "Tarifas",
+      "heading": "Precios",
+      "massagesHeading": "Masajes",
+      "massages": [
+        {
+          "label": "60 min",
+          "price": "$95"
+        },
+        {
+          "label": "90 min",
+          "price": "$120"
+        }
+      ],
+      "fourHandsHeading": "Masaje a Cuatro Manos",
+      "fourHands": [
+        {
+          "label": "60 min",
+          "price": "$190"
+        }
+      ],
+      "facialsHeading": "Tratamientos Faciales",
+      "facials": [
+        {
+          "label": "Limpieza Facial Profunda",
+          "price": "$80"
+        }
+      ],
+      "addonsHeading": "Complementos",
+      "addonsSubheading": "20 min · cualquiera de los complementos",
+      "addons": [
+        {
+          "label": "Mini Facial, Exfoliación de Espalda, Masaje de Espalda, Masaje de Pies, Reflexología o Masaje Indio de Cabeza",
+          "price": "$40"
+        }
+      ],
+      "note": "Precios por persona. Los paquetes para parejas se indican. Traslado e instalación incluidos para todos los huéspedes de las casas Arborea."
+    },
+    "ctaHeading": "¿Lista para tu experiencia de bienestar?",
+    "ctaSubheading": "Contacta a GV Massage para reservar tu tratamiento en la casa",
+    "provider": {
+      "phone": "+506 8301-0027",
+      "website": "www.gvmassagecr.com",
+      "instagram": "@gvcostarica"
     }
   }
 }
