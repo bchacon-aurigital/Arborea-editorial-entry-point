@@ -8,7 +8,7 @@ export default function Footer() {
   const { t } = useI18n();
 
   return (
-    <footer className="w-full px-8 md:px-16 pt-24 pb-8">
+    <footer className="w-full px-8 md:px-16 pt-24 pb-8 relative">
       <div className="flex flex-col md:flex-row items-start justify-between gap-16 pb-16">
         <div className="flex flex-col gap-6 max-w-sm shrink-0">
           <Link href="/" className="inline-block">
@@ -79,6 +79,21 @@ export default function Footer() {
             <FaFacebook size={18} className="text-[#381d14]/70" />
           </a>
         </div>
+      </div>
+
+      <div className="w-full h-6 flex justify-center items-center absolute left-0 bottom-0 bg-black">
+        <a
+          href="https://aurigital.com?utm_source=arborea-website&utm_medium=footer&utm_campaign=branding"
+          target="_blank"
+          rel="noopener"
+          className="flex justify-center items-center mx-auto w-full"
+          aria-label="Créditos de diseño y desarrollo por Aurigital"
+        >
+          <p className="text-white/60 uppercase text-[10px] text-center p-1 hover:text-white/80 transition-colors">
+            Made by Aurigital
+          </p>
+          <img src="/assets/isotipo.avif" alt="Aurigital" className="h-[18px] w-[18px] ml-1" />
+        </a>
       </div>
     </footer>
   );
