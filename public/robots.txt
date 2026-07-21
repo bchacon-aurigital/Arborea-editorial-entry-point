@@ -1,13 +1,4 @@
-# Robots.txt
-
 User-agent: *
-Allow: /
+Disallow: /
 
-# Rutas bloqueadas
-Disallow: /api/
-Disallow: /admin/
-Disallow: /_next/
-Disallow: /private/
-
-# Sitemap
-Sitemap: https:///sitemap.xml
+Sitemap: https://welcome.arboreaexperiences.com/sitemap.xml

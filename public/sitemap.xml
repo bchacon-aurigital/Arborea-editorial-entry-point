@@ -1,29 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://</loc>
-    <lastmod></lastmod>
+    <loc>https://welcome.arboreaexperiences.com/</loc>
+    <lastmod>2026-07-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
-  <!--
   <url>
-    <loc>https:///about</loc>
-    <lastmod></lastmod>
+    <loc>https://welcome.arboreaexperiences.com/casa-mango</loc>
+    <lastmod>2026-07-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https:///services</loc>
-    <lastmod></lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://welcome.arboreaexperiences.com/casa-ceiba</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https:///contact</loc>
-    <lastmod></lastmod>
+    <loc>https://welcome.arboreaexperiences.com/casa-palmera</loc>
+    <lastmod>2026-07-08</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.8</priority>
   </url>
-  -->
+  <url>
+    <loc>https://welcome.arboreaexperiences.com/casa-ron-ron</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://welcome.arboreaexperiences.com/casa-corteza-amarilla</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://welcome.arboreaexperiences.com/private-chef</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://welcome.arboreaexperiences.com/full-fridge</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>

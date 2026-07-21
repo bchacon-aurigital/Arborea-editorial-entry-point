@@ -46,9 +46,21 @@ export default function Navbar() {
           visible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <Link href="/" className="pointer-events-auto inline-block bg-[#eddac4] p-2 rounded-xl">
-          <object type="image/svg+xml" data="/assets/logos/LogoNavbar.svg" width={162} height={63} aria-label="Arborea Experiences" className="pointer-events-none" />
-        </Link>
+        <div className="flex items-center gap-3 pointer-events-auto">
+          <Link href="/" className="inline-block bg-[#E0D4C4] p-2 rounded-xl">
+            <object type="image/svg+xml" data="/assets/logos/LogoNavbar.svg" width={162} height={63} aria-label="Arborea Experiences" className="pointer-events-none" />
+          </Link>
+
+          <button
+            onClick={toggleLocale}
+            className="flex items-center gap-1.5 bg-[#213B2F] rounded-xl px-4 py-2.5 font-sans text-sm font-semibold text-[#D8DDB8] hover:bg-[#213B2F]/80 transition-colors duration-200"
+            aria-label="Switch language"
+          >
+            <span className={locale === "en" ? "opacity-100" : "opacity-40"}>EN</span>
+            <span className="opacity-30 select-none">|</span>
+            <span className={locale === "es" ? "opacity-100" : "opacity-40"}>ES</span>
+          </button>
+        </div>
 
       </header>
 
@@ -68,7 +80,7 @@ export default function Navbar() {
           <div className="hamburger-nav__bg" />
 
           <div className="hamburger-nav__group">
-            <p className="text-xs uppercase tracking-widest opacity-50 mb-0 text-[#381d14] font-extrabold">Menu</p>
+            <p className="text-xs uppercase tracking-widest opacity-50 mb-0 text-[#222E2C] font-extrabold">Menu</p>
             <ul className="flex flex-col gap-1.5 p-0 m-0 list-none">
               <li>
                 <button

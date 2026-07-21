@@ -6,8 +6,9 @@ export function generateStaticParams() {
   return Object.keys(properties).map((slug) => ({ slug }));
 }
 
-export default function Page({ params }) {
-  const property = properties[params.slug];
+export default async function Page({ params }) {
+  const { slug } = await params;
+  const property = properties[slug];
   if (!property) notFound();
   return <PropertyPage property={property} />;
 }

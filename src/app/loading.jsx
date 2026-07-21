@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="fixed inset-0 bg-[#EDDAC4] flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-[#EDE5D8] flex items-center justify-center z-50">
       <div className="flex flex-col items-center gap-6">
         <object
           type="image/svg+xml"

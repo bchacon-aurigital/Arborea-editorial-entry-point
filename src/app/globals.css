@@ -16,7 +16,7 @@
 
 html, body {
   scroll-behavior: smooth;
-  background-color: #EDDAC4;
+  background-color: #EDE5D8;
   overflow-x: hidden;
 }
 
@@ -42,9 +42,9 @@ html, body {
 }
 .hero-swiper .swiper-button-next,
 .hero-swiper .swiper-button-prev {
-  color: #381d14;
-  background: #EDDAC4;
-  border: 1px solid rgba(56,29,20,0.12);
+  color: #222E2C;
+  background: #E0D4C4;
+  border: 1px solid rgba(34,46,44,0.12);
   border-radius: 50%;
   width: 2.5rem;
   height: 2.5rem;
@@ -99,8 +99,8 @@ html, body {
 
 .hamburger-nav__bg {
   transition: all 0.7s cubic-bezier(0.5, 0.5, 0, 1);
-  background-color: #EDDAC4;
-  border: 1px solid #381d14;
+  background-color: #E0D4C4;
+  border: 1px solid #213B2F;
   border-radius: 1.75em;
   width: 3.5em;
   height: 3.5em;
@@ -134,7 +134,7 @@ html, body {
 }
 
 .hamburger-nav__a {
-  color: #381d14;
+  color: #222E2C;
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
@@ -184,7 +184,7 @@ html, body {
 
 .hamburger-nav__toggle-bar {
   transition: transform 0.7s cubic-bezier(0.5, 0.5, 0, 1);
-  background-color: #381d14;
+  background-color: #222E2C;
   width: 40%;
   height: .125em;
   position: absolute;
