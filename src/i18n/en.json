@@ -266,6 +266,15 @@
     "whatsapp": "Book your experience",
     "ctaHeading": "Ready to taste Costa Rica?",
     "ctaSubheading": "Reach out on WhatsApp and we'll take care of the rest.",
+    "orderBuilder": {
+      "heading": "Build your experience",
+      "standardTab": "Standard Menu",
+      "themedTab": "Themed Night",
+      "guestsLabel": "Number of guests",
+      "dishesHint": "Select the dishes you'd like — this doesn't change the price, it just tells the chef what to prepare.",
+      "bartenderHeading": "Add a Bartender",
+      "bartenderNone": "None"
+    },
     "story": {
       "heading": "Our Story",
       "body": "It all begins with a sprout.\n\nSeguras Farm Shop was born from a simple idea: instead of relying on a single farm, build a network of producers across different regions of Costa Rica, each an expert in what their land does best. High-altitude coffee from Tarrazú, fresh catch from the Pacific, vegetables from the volcanic foothills, honey from the northern zone.\n\nAt Arbórea we take that curated selection of partner farms straight to your table the same day. Every dish carries the name of the region that grew it, every sprout tells a story of patience, and every bite is our way of saying thank you to the Costa Rican land that feeds us.\n\nFarm-to-table cooking. Ingredients with a region's first and last name. An experience that truly tastes of Costa Rica."
@@ -623,19 +632,31 @@
         "items": [
           {
             "label": "Breakfast",
-            "price": "From $230 for 2 · +$24 per extra person"
+            "price": "From $230 for 2 · +$24 per extra person",
+            "basePrice": 230,
+            "baseGuests": 2,
+            "extraPersonPrice": 24
           },
           {
             "label": "Lunch",
-            "price": "From $235 for 2 · +$28 per extra person"
+            "price": "From $235 for 2 · +$28 per extra person",
+            "basePrice": 235,
+            "baseGuests": 2,
+            "extraPersonPrice": 28
           },
           {
             "label": "Dinner",
-            "price": "From $245 for 2 · +$52 per extra person"
+            "price": "From $245 for 2 · +$52 per extra person",
+            "basePrice": 245,
+            "baseGuests": 2,
+            "extraPersonPrice": 52
           },
           {
             "label": "Full Day",
-            "price": "From $610 for 2 · +$80 per extra person"
+            "price": "From $610 for 2 · +$80 per extra person",
+            "basePrice": 610,
+            "baseGuests": 2,
+            "extraPersonPrice": 80
           }
         ]
       },
@@ -645,32 +666,44 @@
         "items": [
           {
             "label": "2–5 people",
-            "price": "$530 total"
+            "price": "$530 total",
+            "priceValue": 530,
+            "minGuests": 2,
+            "maxGuests": 5
           },
           {
             "label": "6–10 people",
-            "price": "$835 total"
+            "price": "$835 total",
+            "priceValue": 835,
+            "minGuests": 6,
+            "maxGuests": 10
           },
           {
             "label": "11–15 people",
-            "price": "$1,140 total"
-          },
-          {
-            "label": "Ocean Dinner",
-            "price": "+$100 on any themed night rate"
+            "price": "$1,140 total",
+            "priceValue": 1140,
+            "minGuests": 11,
+            "maxGuests": 15
           }
-        ]
+        ],
+        "oceanDinner": {
+          "label": "Ocean Dinner",
+          "price": "+$100 on any themed night rate",
+          "priceValue": 100
+        }
       },
       "bartender": {
         "heading": "Add a Bartender",
         "items": [
           {
             "label": "Sunset only (4–7 PM)",
-            "price": "$170"
+            "price": "$170",
+            "priceValue": 170
           },
           {
             "label": "Sunset + Dinner (4–9 PM)",
-            "price": "$255"
+            "price": "$255",
+            "priceValue": 255
           }
         ]
       }
@@ -769,32 +802,38 @@
         {
           "title": "Wine Package",
           "description": "Selection of 2 natural wines",
-          "price": "$45"
+          "price": "$45",
+          "priceValue": 45
         },
         {
           "title": "Premium Wine Package",
           "description": "Selection of 4 natural wines",
-          "price": "$85"
+          "price": "$85",
+          "priceValue": 85
         },
         {
           "title": "Craft Beer — Six-Pack",
           "description": "Costa Rican craft selection",
-          "price": "$18"
+          "price": "$18",
+          "priceValue": 18
         },
         {
           "title": "Craft Beer — 24 Units",
           "description": "Costa Rican craft selection",
-          "price": "$65"
+          "price": "$65",
+          "priceValue": 65
         },
         {
           "title": "Individual Spirit",
           "description": "Rum, guaro, or whisky",
-          "price": "From $30"
+          "price": "From $30",
+          "priceValue": 30
         },
         {
           "title": "Full Bar",
           "description": "Rum, guaro, whisky, vodka, and gin",
-          "price": "$150"
+          "price": "$150",
+          "priceValue": 150
         }
       ]
     },
@@ -802,40 +841,33 @@
       "heading": "Package Prices",
       "subheading": "By group size and length of stay",
       "description": "Includes vegetables, meats, fish, fruit, and pantry basics for breakfast, lunch, and dinner. Optional beverages quoted separately.",
+      "daysLabel": "Length of stay",
+      "groupLabel": "Group size",
       "note": "Prices in USD. Delivered before your arrival. Groups of more than 8 or stays longer than 8 days: custom quote. Dietary restrictions and preferences customizable at no extra cost.",
       "columns": [
-        "Couples (2)",
-        "Family of 4",
-        "Family of 6",
-        "Family of 8"
+        { "label": "Couples (2)", "guests": 2 },
+        { "label": "Family of 4", "guests": 4 },
+        { "label": "Family of 6", "guests": 6 },
+        { "label": "Family of 8", "guests": 8 }
       ],
       "rows": [
         {
           "label": "3 Days",
-          "prices": [
-            "$230",
-            "$410",
-            "$560",
-            "$670"
-          ]
+          "days": 3,
+          "prices": ["$230", "$410", "$560", "$670"],
+          "priceValues": [230, 410, 560, 670]
         },
         {
           "label": "5 Days",
-          "prices": [
-            "$380",
-            "$680",
-            "$930",
-            "$1,120"
-          ]
+          "days": 5,
+          "prices": ["$380", "$680", "$930", "$1,120"],
+          "priceValues": [380, 680, 930, 1120]
         },
         {
           "label": "8 Days",
-          "prices": [
-            "$610",
-            "$1,090",
-            "$1,490",
-            "$1,790"
-          ]
+          "days": 8,
+          "prices": ["$610", "$1,090", "$1,490", "$1,790"],
+          "priceValues": [610, 1090, 1490, 1790]
         }
       ]
     },
@@ -865,73 +897,79 @@
       "heading": "Tell us your preferences",
       "subheading": "Answer a few quick questions so we can personalize your Full Fridge order before you arrive. Everything is customizable — this just helps us get it right on the first try.",
       "group": {
-        "heading": "1. Group Information",
+        "heading": "Group Information",
         "adults": "Number of adults",
         "children": "Number of children",
         "childrenAges": "Ages of children (optional)"
       },
       "dietary": {
-        "heading": "2. Dietary Preferences & Allergies",
+        "heading": "Dietary Preferences & Allergies",
         "question": "Do you or anyone in your group have any dietary restrictions or food allergies?",
         "options": ["Vegetarian", "Vegan", "Gluten-Free", "Dairy-Free", "Nut Allergy"],
         "other": "Other (please specify)",
         "otherPlaceholder": "Tell us more..."
       },
       "cooking": {
-        "heading": "3. Cooking Plans",
+        "heading": "Cooking Plans",
         "question": "How much do you plan to cook during your stay?",
         "options": ["Breakfast only", "Breakfast & Lunch", "Breakfast & Dinner", "Most meals", "We do not plan to cook"]
       },
       "groceries": {
-        "heading": "4. Grocery Preferences",
+        "heading": "Grocery Preferences",
         "question": "Are there any specific groceries, brands, or products you would like us to purchase?",
         "placeholder": "Tell us what you'd like..."
       },
       "beverages": {
-        "heading": "5. Beverages",
+        "heading": "Beverages",
         "question": "Which beverages would you like us to stock?",
         "options": ["Bottled Water", "Sparkling Water", "Coconut Water", "Juice", "Milk", "Almond Milk", "Oat Milk", "Soft Drinks", "Coffee", "Tea", "Beer", "Wine", "Spirits"],
         "other": "Other",
         "otherPlaceholder": "Tell us more..."
       },
       "fruits": {
-        "heading": "6. Fresh Tropical Fruits",
+        "heading": "Fresh Tropical Fruits",
         "question": "Would you like us to include a selection of fresh local tropical fruits?",
         "examples": "Examples: watermelon, papaya, pineapple, bananas, mango (seasonal), mangosteen (seasonal), and other seasonal fruits.",
         "yes": "Yes",
         "no": "No"
       },
       "breakfastItems": {
-        "heading": "7. Breakfast Essentials",
+        "heading": "Breakfast Essentials",
         "question": "Would you like breakfast items?",
         "options": ["Eggs", "Bread", "Butter", "Yogurt", "Granola", "Cereal", "Jam", "Honey"]
       },
       "pantryItems": {
-        "heading": "8. Pantry Essentials",
+        "heading": "Pantry Essentials",
         "question": "Would you like basic cooking ingredients?",
         "options": ["Rice", "Pasta", "Olive Oil", "Salt", "Pepper", "Sugar", "Flour", "Cooking Oil", "Basic Spices"]
       },
       "proteins": {
-        "heading": "9. Proteins",
+        "heading": "Proteins",
         "question": "Which proteins would you like?",
         "options": ["Chicken", "Beef", "Pork", "Fish", "Shrimp", "Bacon", "Deli Meats", "Cheese"],
         "other": "Other",
         "otherPlaceholder": "Tell us more..."
       },
       "snacks": {
-        "heading": "10. Snacks",
+        "heading": "Snacks",
         "question": "Would you like snacks for:",
         "forOptions": ["Adults", "Children"],
         "preferredLabel": "Preferred snacks",
         "placeholder": "e.g. chips, cookies, fruit snacks..."
       },
       "budget": {
-        "heading": "11. Budget",
+        "heading": "Budget",
         "question": "Do you have a preferred grocery budget?",
         "placeholder": "e.g. $300"
       },
       "submit": "Send my preferences",
       "messageIntro": "Hi! I'd like to arrange Full Fridge service with these preferences:",
+      "progressLabel": "answered",
+      "sections": {
+        "basics": "The basics",
+        "menu": "What's on the menu",
+        "extras": "The finishing touches"
+      },
       "labels": {
         "group": "Group",
         "dietary": "Dietary restrictions",
@@ -1314,6 +1352,28 @@
     "email": "info@arboreaexperiences.com",
     "website": "arboreaexperiences.com"
   },
+  "orderForm": {
+    "pill": "Build your order",
+    "heading": "Complete your order",
+    "subheading": "Fill in your details below and we'll confirm availability before your arrival.",
+    "barLabel": "selected",
+    "barCta": "View my order",
+    "summaryHeading": "Order summary",
+    "emptyCart": "Select at least one item above to build your order.",
+    "total": "Total",
+    "name": "Full name",
+    "namePlaceholder": "Your name",
+    "casa": "Casa",
+    "casaPlaceholder": "Select your casa",
+    "date": "Date needed",
+    "notes": "Additional notes",
+    "notesPlaceholder": "Anything else we should know?",
+    "submit": "Submit order",
+    "submitting": "Sending...",
+    "success": "Order received! We'll confirm by WhatsApp or email shortly.",
+    "error": "Something went wrong. Please try again or reach us on WhatsApp.",
+    "validation": "Please fill in your name, casa, and date, and select at least one item."
+  },
   "propertyPage": {
     "subtitle": "Designed for comfort",
     "share": "Share",
@@ -1519,20 +1579,27 @@
       "fourHands": {
         "label": "Four Hands Massage",
         "duration": "60 min",
-        "price": "$190"
-      }
+        "price": "$190",
+        "priceValue": 190
+      },
+      "durationPricing": [
+        { "label": "60 min", "priceValue": 95 },
+        { "label": "90 min", "priceValue": 120 }
+      ]
     },
     "facials": {
       "subheading": "Treatments",
       "heading": "Facial Treatments",
       "main": {
         "name": "Deep Facial Cleansing",
-        "price": "$80"
+        "price": "$80",
+        "priceValue": 80
       },
       "addons": {
         "heading": "Add-ons",
         "duration": "20 min",
         "price": "$40 each",
+        "priceValue": 40,
         "items": [
           "Mini Facial",
           "Back Exfoliation",
@@ -1552,6 +1619,7 @@
           "name": "Romantic Escape",
           "duration": "80 min",
           "price": "$230",
+          "priceValue": 230,
           "includes": [
             "Couple Massage (Relaxing, Deep Tissue, or Aromatherapy)",
             "Aloe Vera Wrap",
@@ -1562,6 +1630,7 @@
           "name": "Romance",
           "duration": "90 min",
           "price": "$230",
+          "priceValue": 230,
           "includes": [
             "Couples Massage with Chocolate Oil",
             "Chocolate Wrap",
@@ -1572,6 +1641,7 @@
           "name": "Detox",
           "duration": "90 min",
           "price": "$140",
+          "priceValue": 140,
           "includes": [
             "Hot Stone Massage",
             "Chocolate Scrub",
@@ -1582,6 +1652,7 @@
           "name": "Balance",
           "duration": "90 min",
           "price": "$140",
+          "priceValue": 140,
           "includes": [
             "Neck, Back & Shoulder Massage",
             "Reflexology",
@@ -1592,6 +1663,7 @@
           "name": "Organic",
           "duration": "90 min",
           "price": "$140",
+          "priceValue": 140,
           "includes": [
             "Massage",
             "Chocolate Wrap",
@@ -1602,6 +1674,7 @@
           "name": "Tropical",
           "duration": "80 min",
           "price": "$135",
+          "priceValue": 135,
           "includes": [
             "Deep Back Cleansing",
             "Relaxing Massage"
@@ -1611,6 +1684,7 @@
           "name": "Calma",
           "duration": "80 min",
           "price": "$140",
+          "priceValue": 140,
           "includes": [
             "Back Massage",
             "Mini Facial",

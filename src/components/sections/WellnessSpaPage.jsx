@@ -1,27 +1,31 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useI18n } from "@/app/context/I18nContext";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/Footer";
+import OrderCheckoutForm from "@/components/sections/OrderCheckoutForm";
+import { useOrderCart } from "@/hooks/useOrderCart";
 import {
-  TbArrowLeft, TbLeaf, TbCircleCheck, TbBrandWhatsapp,
+  TbArrowLeft, TbLeaf, TbCircleCheck, TbBrandWhatsapp, TbCheck,
   TbHeart, TbDroplet, TbFlame, TbSeedling, TbWaveSine, TbMoon, TbSparkles,
 } from "react-icons/tb";
 
-const WHATSAPP = "50683010027";
+const WHATSAPP = "50685011042";
 
 export default function WellnessSpaPage() {
   const { t } = useI18n();
+  const cart = useOrderCart();
+  const [notes, setNotes] = useState("");
 
-  const massageItems  = t("wellnessSpa.massages.items");
-  const fourHands     = t("wellnessSpa.massages.fourHands");
-  const facialMain    = t("wellnessSpa.facials.main");
-  const addonItems    = t("wellnessSpa.facials.addons.items");
-  const packages      = t("wellnessSpa.packages.items");
-  const pricingMassages  = t("wellnessSpa.pricing.massages");
-  const pricingFourHands = t("wellnessSpa.pricing.fourHands");
-  const pricingFacials   = t("wellnessSpa.pricing.facials");
+  const massageItems     = t("wellnessSpa.massages.items");
+  const durationPricing  = t("wellnessSpa.massages.durationPricing");
+  const fourHands        = t("wellnessSpa.massages.fourHands");
+  const facialMain       = t("wellnessSpa.facials.main");
+  const addonItems       = t("wellnessSpa.facials.addons.items");
+  const addonPrice       = t("wellnessSpa.facials.addons.priceValue");
+  const packages         = t("wellnessSpa.packages.items");
 
   return (
     <>
@@ -89,22 +93,23 @@ export default function WellnessSpaPage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {Array.isArray(massageItems) && massageItems.map((name, i) => (
-                <div key={i} className="bg-[#E0D4C4] rounded-xl px-5 py-5 flex flex-col gap-3">
-                  <TbLeaf size={18} className="text-[#213B2F]/50" />
-                  <div>
-                    <h3 className="font-sans font-semibold text-sm text-[#222E2C]">{name}</h3>
-                    <p className="font-sans text-xs text-[#222E2C]/50 mt-1">60 min · 90 min</p>
-                  </div>
-                </div>
+                <MassageCard
+                  key={i}
+                  name={name}
+                  groupId={`massage-${i}`}
+                  durations={Array.isArray(durationPricing) ? durationPricing : []}
+                  cart={cart}
+                />
               ))}
               {fourHands && (
-                <div className="bg-[#213B2F] rounded-xl px-5 py-5 flex flex-col gap-3">
-                  <TbHeart size={18} className="text-[#D8DDB8]/50" />
-                  <div>
-                    <h3 className="font-sans font-semibold text-sm text-[#D8DDB8]">{fourHands.label}</h3>
-                    <p className="font-sans text-xs text-[#D8DDB8]/50 mt-1">{fourHands.duration}</p>
-                  </div>
-                </div>
+                <SelectableTile
+                  selected={cart.isSelected("four-hands")}
+                  onClick={() => cart.toggleItem("four-hands", { label: fourHands.label, price: fourHands.priceValue })}
+                  icon={TbHeart}
+                  title={fourHands.label}
+                  subtitle={fourHands.duration}
+                  price={fourHands.priceValue}
+                />
               )}
             </div>
           </div>
@@ -121,9 +126,13 @@ export default function WellnessSpaPage() {
             </div>
             <div className="flex flex-col gap-4">
               {facialMain && (
-                <div className="bg-[#E0D4C4] rounded-xl px-6 py-5">
-                  <span className="font-sans font-semibold text-sm text-[#222E2C]">{facialMain.name}</span>
-                </div>
+                <SelectableTile
+                  wide
+                  selected={cart.isSelected("facial-main")}
+                  onClick={() => cart.toggleItem("facial-main", { label: facialMain.name, price: facialMain.priceValue })}
+                  title={facialMain.name}
+                  price={facialMain.priceValue}
+                />
               )}
               <div className="flex flex-col gap-3 pt-2">
                 <div>
@@ -134,9 +143,12 @@ export default function WellnessSpaPage() {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {Array.isArray(addonItems) && addonItems.map((name, i) => (
-                    <div key={i} className="border border-[#222E2C]/10 rounded-full px-4 py-2">
-                      <span className="font-sans text-sm text-[#222E2C]/70">{name}</span>
-                    </div>
+                    <PriceChip
+                      key={i}
+                      label={`${name} · $${addonPrice}`}
+                      selected={cart.isSelected(`addon-${i}`)}
+                      onClick={() => cart.toggleItem(`addon-${i}`, { label: name, price: addonPrice })}
+                    />
                   ))}
                 </div>
               </div>
@@ -158,95 +170,24 @@ export default function WellnessSpaPage() {
             </div>
             <div className="flex flex-col gap-3">
               {Array.isArray(packages) && packages.map((pkg, i) => (
-                <PackageCard key={i} pkg={pkg} colorIndex={i} />
+                <PackageCard
+                  key={i}
+                  pkg={pkg}
+                  colorIndex={i}
+                  selected={cart.isSelected(`package-${i}`)}
+                  onClick={() => cart.toggleItem(`package-${i}`, { label: `${pkg.name} (${pkg.duration})`, price: pkg.priceValue })}
+                />
               ))}
             </div>
           </div>
 
-          {/* Pricing */}
-          <div className="flex flex-col gap-10" data-aos="fade-up">
-            <div className="border-b border-[#222E2C]/15 pb-4">
-              <p className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest mb-1">
-                {t("wellnessSpa.pricing.subheading")}
-              </p>
-              <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
-                {t("wellnessSpa.pricing.heading")}
-              </h2>
-            </div>
-
-            {/* Individual treatments: 2-col on desktop */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-
-              {/* Left: Massages + Four Hands */}
-              <div className="flex flex-col gap-6">
-                <div className="flex flex-col gap-2">
-                  <p className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest">
-                    {t("wellnessSpa.pricing.massagesHeading")}
-                  </p>
-                  <div className="flex flex-col gap-2">
-                    {Array.isArray(pricingMassages) && pricingMassages.map((item, i) => (
-                      <PriceRow key={i} label={item.label} price={item.price} />
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <p className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest">
-                    {t("wellnessSpa.pricing.fourHandsHeading")}
-                  </p>
-                  <div className="flex flex-col gap-2">
-                    {Array.isArray(pricingFourHands) && pricingFourHands.map((item, i) => (
-                      <PriceRow key={i} label={item.label} price={item.price} />
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Right: Facials + Add-ons */}
-              <div className="flex flex-col gap-6">
-                <div className="flex flex-col gap-2">
-                  <p className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest">
-                    {t("wellnessSpa.pricing.facialsHeading")}
-                  </p>
-                  <div className="flex flex-col gap-2">
-                    {Array.isArray(pricingFacials) && pricingFacials.map((item, i) => (
-                      <PriceRow key={i} label={item.label} price={item.price} />
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <div>
-                    <p className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest">
-                      {t("wellnessSpa.pricing.addonsHeading")}
-                    </p>
-                    <p className="font-sans text-xs text-[#222E2C]/40 mt-0.5">
-                      {t("wellnessSpa.pricing.addonsSubheading")}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    {Array.isArray(addonItems) && addonItems.map((name, i) => (
-                      <PriceRow key={i} label={name} price="$40" />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Spa Packages: 2-col grid */}
-            <div className="flex flex-col gap-4">
-              <p className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest">
-                {t("wellnessSpa.packages.heading")}
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {Array.isArray(packages) && packages.map((pkg, i) => (
-                  <PriceRow key={i} label={`${pkg.name} · ${pkg.duration}`} price={pkg.price} />
-                ))}
-              </div>
-            </div>
-
-            <p className="font-sans text-xs text-[#222E2C]/40 italic">
-              {t("wellnessSpa.pricing.note")}
-            </p>
-          </div>
+          <OrderCheckoutForm
+            service="Wellness Spa"
+            lines={cart.lines}
+            total={cart.total}
+            notes={notes}
+            onNotesChange={setNotes}
+          />
 
           {/* Bottom CTA */}
           <div
@@ -279,6 +220,91 @@ export default function WellnessSpaPage() {
   );
 }
 
+function MassageCard({ name, groupId, durations, cart }) {
+  const selected = cart.items[groupId];
+  const pick = (d) => {
+    if (selected && selected.duration === d.label) {
+      cart.removeItem(groupId);
+    } else {
+      cart.setItem(groupId, { label: `${name} (${d.label})`, price: d.priceValue, duration: d.label });
+    }
+  };
+  return (
+    <div className={`rounded-xl px-5 py-5 flex flex-col gap-3 transition-colors duration-200 ${selected ? "bg-[#213B2F]" : "bg-[#E0D4C4]"}`}>
+      <TbLeaf size={18} className={selected ? "text-[#D8DDB8]/60" : "text-[#213B2F]/50"} />
+      <h3 className={`font-sans font-semibold text-sm ${selected ? "text-[#D8DDB8]" : "text-[#222E2C]"}`}>{name}</h3>
+      <div className="flex flex-wrap gap-2" role="radiogroup">
+        {durations.map((d, i) => {
+          const active = selected?.duration === d.label;
+          return (
+            <button
+              key={i}
+              type="button"
+              role="radio"
+              aria-checked={active}
+              onClick={() => pick(d)}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border font-sans text-xs transition-colors duration-200 ${
+                active
+                  ? "bg-[#D8DDB8] border-[#D8DDB8] text-[#213B2F]"
+                  : selected
+                    ? "border-[#D8DDB8]/30 text-[#D8DDB8]/80 hover:border-[#D8DDB8]/60"
+                    : "border-[#222E2C]/20 text-[#222E2C]/70 hover:border-[#222E2C]/40"
+              }`}
+            >
+              <span className={`flex items-center justify-center size-3 rounded-full border shrink-0 ${active ? "border-[#213B2F]" : "border-current opacity-50"}`}>
+                {active && <span className="size-1.5 rounded-full bg-[#213B2F]" />}
+              </span>
+              {d.label} · ${d.priceValue}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function SelectableTile({ selected, onClick, icon: Icon, title, subtitle, price, wide = false }) {
+  const bg = selected ? "bg-[#213B2F]" : "bg-[#E0D4C4]";
+  const textPrimary = selected ? "text-[#D8DDB8]" : "text-[#222E2C]";
+  const textSecondary = selected ? "text-[#D8DDB8]/50" : "text-[#222E2C]/50";
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`text-left rounded-xl px-5 py-5 flex ${wide ? "flex-row items-center justify-between" : "flex-col"} gap-3 border-2 transition-colors duration-200 ${bg} ${selected ? "border-[#D8DDB8]/40" : "border-transparent"}`}
+    >
+      <div className={`flex ${wide ? "flex-row items-center gap-3" : "flex-col gap-3"}`}>
+        {Icon && <Icon size={18} className={selected ? "text-[#D8DDB8]/60" : "text-[#213B2F]/50"} />}
+        <div>
+          <h3 className={`font-sans font-semibold text-sm ${textPrimary}`}>{title}</h3>
+          {subtitle && <p className={`font-sans text-xs mt-1 ${textSecondary}`}>{subtitle}</p>}
+        </div>
+      </div>
+      <div className="flex items-center gap-2 shrink-0">
+        <span className={`font-sans font-semibold text-sm ${textPrimary}`}>${price}</span>
+        {selected && <TbCheck size={16} className="text-[#D8DDB8]" />}
+      </div>
+    </button>
+  );
+}
+
+function PriceChip({ label, selected, onClick }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex items-center gap-1.5 px-4 py-2 rounded-full border font-sans text-sm transition-colors duration-200 ${
+        selected
+          ? "bg-[#213B2F] border-[#213B2F] text-[#D8DDB8]"
+          : "border-[#222E2C]/10 text-[#222E2C]/70 hover:border-[#222E2C]/30"
+      }`}
+    >
+      {selected && <TbCheck size={13} />}
+      {label}
+    </button>
+  );
+}
+
 const PACKAGE_THEMES = [
   { bg: "#9B7B6E", title: "#FFF4EF", body: "rgba(255,244,239,0.85)", subtle: "rgba(255,244,239,0.65)", border: "rgba(255,244,239,0.22)", icon: TbHeart },
   { bg: "#59493B", title: "#FFEAD8", body: "rgba(255,234,216,0.85)", subtle: "rgba(255,234,216,0.65)", border: "rgba(255,234,216,0.22)", icon: TbHeart },
@@ -289,16 +315,28 @@ const PACKAGE_THEMES = [
   { bg: "#6B7A8D", title: "#EEF0F8", body: "rgba(238,240,248,0.85)", subtle: "rgba(238,240,248,0.65)", border: "rgba(238,240,248,0.22)", icon: TbMoon },
 ];
 
-function PackageCard({ pkg, colorIndex = 0 }) {
+function PackageCard({ pkg, colorIndex = 0, selected, onClick }) {
   const theme = PACKAGE_THEMES[colorIndex] ?? PACKAGE_THEMES[0];
   const Icon = theme.icon;
   return (
-    <div style={{ backgroundColor: theme.bg }} className="rounded-2xl px-6 py-7 flex flex-col md:flex-row gap-6">
+    <button
+      type="button"
+      onClick={onClick}
+      style={{ backgroundColor: theme.bg, outlineColor: theme.title }}
+      className={`text-left rounded-2xl px-6 py-7 flex flex-col md:flex-row gap-6 transition-all duration-200 ${selected ? "ring-2 ring-[#213B2F] ring-offset-2 ring-offset-[#EDE5D8]" : ""}`}
+    >
       <div className="md:w-56 shrink-0 flex flex-col gap-3">
-        <Icon size={26} style={{ color: theme.subtle }} />
+        <div className="flex items-center justify-between">
+          <Icon size={26} style={{ color: theme.subtle }} />
+          {selected && (
+            <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/20">
+              <TbCheck size={12} style={{ color: theme.title }} />
+            </span>
+          )}
+        </div>
         <div>
           <h3 className="font-sans font-semibold text-lg" style={{ color: theme.title }}>{pkg.name}</h3>
-          <p className="font-sans text-xs mt-1" style={{ color: theme.subtle }}>{pkg.duration}</p>
+          <p className="font-sans text-xs mt-1" style={{ color: theme.subtle }}>{pkg.duration} · ${pkg.priceValue}</p>
         </div>
       </div>
 
@@ -318,15 +356,6 @@ function PackageCard({ pkg, colorIndex = 0 }) {
           ))}
         </div>
       </div>
-    </div>
-  );
-}
-
-function PriceRow({ label, price }) {
-  return (
-    <div className="bg-[#E0D4C4] rounded-xl px-4 py-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4 flex-1">
-      <span className="font-sans text-sm text-[#222E2C]/70">{label}</span>
-      <span className="font-sans font-semibold text-sm text-[#222E2C] sm:whitespace-nowrap">{price}</span>
-    </div>
+    </button>
   );
 }
