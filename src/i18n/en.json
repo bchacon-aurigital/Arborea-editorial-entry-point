@@ -692,35 +692,71 @@
       "subheading": "Everything you need for breakfast, lunch, and dinner throughout your stay.",
       "categories": [
         {
-          "title": "Garden Vegetables & Fruit",
+          "title": "Fresh Produce",
           "items": [
-            "Seasonal vegetables for breakfast, lunch, and dinner",
-            "Avocado, tender sprouts, and fresh garden herbs",
-            "Fresh seasonal fruit for breakfast and snacks"
+            "Tropical fruits",
+            "Fresh vegetables",
+            "Salad ingredients",
+            "Fresh herbs"
           ]
         },
         {
-          "title": "Pantry Basics",
+          "title": "Breakfast",
           "items": [
-            "Sourdough bread and pastries from Seguras Farm Shop Bakery",
-            "High-altitude coffee, raw milk, yogurt, and farm cheese",
-            "Rice, beans, heirloom corn tortillas, olive oil, and spices"
+            "Eggs",
+            "Bread",
+            "Butter",
+            "Yogurt",
+            "Granola",
+            "Cereal"
           ]
         },
         {
-          "title": "Meats & Proteins",
+          "title": "Pantry",
           "items": [
-            "Free-range chicken",
-            "Pasture-raised beef",
-            "Pasture-raised pork",
-            "Eggs from happy hens"
+            "Rice",
+            "Pasta",
+            "Olive oil",
+            "Salt & pepper",
+            "Sugar",
+            "Flour",
+            "Basic spices"
           ]
         },
         {
-          "title": "Fish & Seafood",
+          "title": "Dairy",
           "items": [
-            "Catch of the day, subject to availability",
-            "Fresh shrimp (optional, depending on package)"
+            "Milk",
+            "Cheese",
+            "Butter"
+          ]
+        },
+        {
+          "title": "Beverages",
+          "items": [
+            "Bottled water",
+            "Sparkling water",
+            "Juice",
+            "Coffee",
+            "Tea"
+          ]
+        },
+        {
+          "title": "Proteins",
+          "items": [
+            "Chicken",
+            "Beef",
+            "Fish or seafood (upon request)"
+          ]
+        },
+        {
+          "title": "Snacks",
+          "items": [
+            "Crackers",
+            "Chips",
+            "Cookies",
+            "Fresh fruit",
+            "Kid-friendly snacks"
           ]
         }
       ]
@@ -823,6 +859,97 @@
     "farm": {
       "heading": "About Seguras Farm Shop",
       "body": "Seguras Farm Shop was born from a simple idea: instead of relying on a single farm, build a network of producers across different regions of Costa Rica, each an expert in what their land does best.\n\nHigh-altitude coffee from Tarrazú, fresh catch from the Pacific, vegetables from the volcanic foothills, honey from the northern zone. Every ingredient carries a region's first and last name. Every bite tells a story of patience, care, and deep respect for the Costa Rican land."
+    },
+    "questionnaire": {
+      "pill": "Guest questionnaire",
+      "heading": "Tell us your preferences",
+      "subheading": "Answer a few quick questions so we can personalize your Full Fridge order before you arrive. Everything is customizable — this just helps us get it right on the first try.",
+      "group": {
+        "heading": "1. Group Information",
+        "adults": "Number of adults",
+        "children": "Number of children",
+        "childrenAges": "Ages of children (optional)"
+      },
+      "dietary": {
+        "heading": "2. Dietary Preferences & Allergies",
+        "question": "Do you or anyone in your group have any dietary restrictions or food allergies?",
+        "options": ["Vegetarian", "Vegan", "Gluten-Free", "Dairy-Free", "Nut Allergy"],
+        "other": "Other (please specify)",
+        "otherPlaceholder": "Tell us more..."
+      },
+      "cooking": {
+        "heading": "3. Cooking Plans",
+        "question": "How much do you plan to cook during your stay?",
+        "options": ["Breakfast only", "Breakfast & Lunch", "Breakfast & Dinner", "Most meals", "We do not plan to cook"]
+      },
+      "groceries": {
+        "heading": "4. Grocery Preferences",
+        "question": "Are there any specific groceries, brands, or products you would like us to purchase?",
+        "placeholder": "Tell us what you'd like..."
+      },
+      "beverages": {
+        "heading": "5. Beverages",
+        "question": "Which beverages would you like us to stock?",
+        "options": ["Bottled Water", "Sparkling Water", "Coconut Water", "Juice", "Milk", "Almond Milk", "Oat Milk", "Soft Drinks", "Coffee", "Tea", "Beer", "Wine", "Spirits"],
+        "other": "Other",
+        "otherPlaceholder": "Tell us more..."
+      },
+      "fruits": {
+        "heading": "6. Fresh Tropical Fruits",
+        "question": "Would you like us to include a selection of fresh local tropical fruits?",
+        "examples": "Examples: watermelon, papaya, pineapple, bananas, mango (seasonal), mangosteen (seasonal), and other seasonal fruits.",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "breakfastItems": {
+        "heading": "7. Breakfast Essentials",
+        "question": "Would you like breakfast items?",
+        "options": ["Eggs", "Bread", "Butter", "Yogurt", "Granola", "Cereal", "Jam", "Honey"]
+      },
+      "pantryItems": {
+        "heading": "8. Pantry Essentials",
+        "question": "Would you like basic cooking ingredients?",
+        "options": ["Rice", "Pasta", "Olive Oil", "Salt", "Pepper", "Sugar", "Flour", "Cooking Oil", "Basic Spices"]
+      },
+      "proteins": {
+        "heading": "9. Proteins",
+        "question": "Which proteins would you like?",
+        "options": ["Chicken", "Beef", "Pork", "Fish", "Shrimp", "Bacon", "Deli Meats", "Cheese"],
+        "other": "Other",
+        "otherPlaceholder": "Tell us more..."
+      },
+      "snacks": {
+        "heading": "10. Snacks",
+        "question": "Would you like snacks for:",
+        "forOptions": ["Adults", "Children"],
+        "preferredLabel": "Preferred snacks",
+        "placeholder": "e.g. chips, cookies, fruit snacks..."
+      },
+      "budget": {
+        "heading": "11. Budget",
+        "question": "Do you have a preferred grocery budget?",
+        "placeholder": "e.g. $300"
+      },
+      "submit": "Send my preferences",
+      "messageIntro": "Hi! I'd like to arrange Full Fridge service with these preferences:",
+      "labels": {
+        "group": "Group",
+        "dietary": "Dietary restrictions",
+        "cooking": "Cooking plans",
+        "groceries": "Grocery preferences",
+        "beverages": "Beverages",
+        "fruits": "Tropical fruits",
+        "breakfastItems": "Breakfast essentials",
+        "pantryItems": "Pantry essentials",
+        "proteins": "Proteins",
+        "snacksFor": "Snacks for",
+        "preferredSnacks": "Preferred snacks",
+        "budget": "Budget",
+        "adults": "adults",
+        "children": "children",
+        "ages": "ages",
+        "none": "Not specified"
+      }
     }
   },
   "tours": {

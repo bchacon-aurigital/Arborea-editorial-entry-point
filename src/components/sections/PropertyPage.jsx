@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
@@ -10,14 +11,12 @@ import GoodToKnowSection from "@/components/sections/GoodToKnowSection";
 import Footer from "@/components/layout/Footer";
 import { useI18n } from "@/app/context/I18nContext";
 import { HIGHLIGHT_ICONS } from "@/data/properties";
-import { useRouter } from "next/navigation";
 import {
   TbWifi, TbKey, TbMapPin, TbCopy, TbCheck, TbShare, TbChevronRight, TbArrowLeft,
 } from "react-icons/tb";
 
 export default function PropertyPage({ property }) {
   const { t } = useI18n();
-  const router = useRouter();
   const { i18nKey, images, wifi, directionsUrl, highlights } = property;
 
   const name  = t(`properties.${i18nKey}.name`);
@@ -41,13 +40,13 @@ export default function PropertyPage({ property }) {
         {/* ── Header ── */}
         <div className="px-8 md:px-16 pt-8 pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="flex flex-col gap-1" data-aos="fade-up">
-            <button
-              onClick={() => router.back()}
+            <Link
+              href="/"
               className="flex items-center gap-1.5 w-fit mb-3 text-sm font-sans font-medium text-[#222E2C]/50 hover:text-[#222E2C] transition-colors duration-200"
             >
               <TbArrowLeft size={16} />
               {t("common.back")}
-            </button>
+            </Link>
             <p className="font-sans text-sm text-[#222E2C]/50 tracking-tight">
               {t("propertyPage.subtitle")}
             </p>

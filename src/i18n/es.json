@@ -760,35 +760,71 @@
       "subheading": "Todo lo que necesitas para desayuno, almuerzo y cena durante tu estadía.",
       "categories": [
         {
-          "title": "Vegetales y Frutas del Huerto",
+          "title": "Frutas y Verduras Frescas",
           "items": [
-            "Vegetales de temporada para desayuno, almuerzo y cena",
-            "Aguacate, brotes tiernos y hierbas frescas del huerto",
-            "Fruta tropical de temporada para desayuno y snacks"
+            "Frutas tropicales",
+            "Vegetales frescos",
+            "Ingredientes para ensalada",
+            "Hierbas frescas"
           ]
         },
         {
-          "title": "Despensa Básica",
+          "title": "Desayuno",
           "items": [
-            "Pan y repostería de la Panadería Seguras Farm Shop",
-            "Café de altura, leche cruda, yogur y queso de finca",
-            "Arroz, frijoles, tortillas de maíz criollo, aceite de oliva y especias"
+            "Huevos",
+            "Pan",
+            "Mantequilla",
+            "Yogur",
+            "Granola",
+            "Cereal"
           ]
         },
         {
-          "title": "Carnes y Proteínas",
+          "title": "Despensa",
           "items": [
-            "Pollo de libre pastoreo",
-            "Res de pastoreo",
-            "Cerdo de pastoreo",
-            "Huevos de gallinas felices"
+            "Arroz",
+            "Pasta",
+            "Aceite de oliva",
+            "Sal y pimienta",
+            "Azúcar",
+            "Harina",
+            "Especias básicas"
           ]
         },
         {
-          "title": "Pescado y Mariscos",
+          "title": "Lácteos",
           "items": [
-            "Captura del día, sujeto a disponibilidad",
-            "Camarones frescos (opcional, según el paquete)"
+            "Leche",
+            "Queso",
+            "Mantequilla"
+          ]
+        },
+        {
+          "title": "Bebidas",
+          "items": [
+            "Agua embotellada",
+            "Agua con gas",
+            "Jugo",
+            "Café",
+            "Té"
+          ]
+        },
+        {
+          "title": "Proteínas",
+          "items": [
+            "Pollo",
+            "Res",
+            "Pescado o mariscos (bajo pedido)"
+          ]
+        },
+        {
+          "title": "Snacks",
+          "items": [
+            "Galletas saladas",
+            "Papas fritas",
+            "Galletas dulces",
+            "Fruta fresca",
+            "Snacks para niños"
           ]
         }
       ]
@@ -891,6 +927,97 @@
     "farm": {
       "heading": "Sobre Seguras Farm Shop",
       "body": "Seguras Farm Shop nació de una idea simple: en lugar de depender de una sola finca, construir una red de productores de distintas regiones de Costa Rica, cada uno experto en lo que mejor sabe dar su tierra.\n\nCafé de altura de Tarrazú, pesca fresca del Pacífico, vegetales de las faldas volcánicas, miel de la zona norte. Cada ingrediente lleva nombre y apellido de región. Cada bocado cuenta una historia de paciencia, cuidado y profundo respeto por la tierra costarricense."
+    },
+    "questionnaire": {
+      "pill": "Cuestionario para huéspedes",
+      "heading": "Cuéntanos tus preferencias",
+      "subheading": "Responde algunas preguntas rápidas para que podamos personalizar tu pedido de Nevera Llena antes de que llegues. Todo es personalizable — esto solo nos ayuda a acertar desde la primera vez.",
+      "group": {
+        "heading": "1. Información del Grupo",
+        "adults": "Número de adultos",
+        "children": "Número de niños",
+        "childrenAges": "Edades de los niños (opcional)"
+      },
+      "dietary": {
+        "heading": "2. Preferencias Dietéticas y Alergias",
+        "question": "¿Alguien en tu grupo tiene restricciones alimenticias o alergias?",
+        "options": ["Vegetariano", "Vegano", "Sin Gluten", "Sin Lácteos", "Alergia a Nueces"],
+        "other": "Otro (especificar)",
+        "otherPlaceholder": "Cuéntanos más..."
+      },
+      "cooking": {
+        "heading": "3. Planes de Cocina",
+        "question": "¿Cuánto planeas cocinar durante tu estadía?",
+        "options": ["Solo desayuno", "Desayuno y Almuerzo", "Desayuno y Cena", "La mayoría de las comidas", "No planeamos cocinar"]
+      },
+      "groceries": {
+        "heading": "4. Preferencias de Compras",
+        "question": "¿Hay productos, marcas o alimentos específicos que te gustaría que compremos?",
+        "placeholder": "Cuéntanos qué te gustaría..."
+      },
+      "beverages": {
+        "heading": "5. Bebidas",
+        "question": "¿Qué bebidas te gustaría que surtamos?",
+        "options": ["Agua Embotellada", "Agua con Gas", "Agua de Coco", "Jugo", "Leche", "Leche de Almendras", "Leche de Avena", "Refrescos", "Café", "Té", "Cerveza", "Vino", "Licores"],
+        "other": "Otro",
+        "otherPlaceholder": "Cuéntanos más..."
+      },
+      "fruits": {
+        "heading": "6. Frutas Tropicales Frescas",
+        "question": "¿Te gustaría que incluyamos una selección de frutas tropicales locales y frescas?",
+        "examples": "Ejemplos: sandía, papaya, piña, banano, mango (de temporada), mangostán (de temporada) y otras frutas de temporada.",
+        "yes": "Sí",
+        "no": "No"
+      },
+      "breakfastItems": {
+        "heading": "7. Esenciales de Desayuno",
+        "question": "¿Te gustaría incluir productos de desayuno?",
+        "options": ["Huevos", "Pan", "Mantequilla", "Yogur", "Granola", "Cereal", "Mermelada", "Miel"]
+      },
+      "pantryItems": {
+        "heading": "8. Esenciales de Despensa",
+        "question": "¿Te gustaría incluir ingredientes básicos de cocina?",
+        "options": ["Arroz", "Pasta", "Aceite de Oliva", "Sal", "Pimienta", "Azúcar", "Harina", "Aceite de Cocina", "Especias Básicas"]
+      },
+      "proteins": {
+        "heading": "9. Proteínas",
+        "question": "¿Qué proteínas te gustaría incluir?",
+        "options": ["Pollo", "Res", "Cerdo", "Pescado", "Camarones", "Tocino", "Embutidos", "Queso"],
+        "other": "Otro",
+        "otherPlaceholder": "Cuéntanos más..."
+      },
+      "snacks": {
+        "heading": "10. Snacks",
+        "question": "¿Te gustaría incluir snacks para:",
+        "forOptions": ["Adultos", "Niños"],
+        "preferredLabel": "Snacks preferidos",
+        "placeholder": "ej. papas, galletas, snacks de fruta..."
+      },
+      "budget": {
+        "heading": "11. Presupuesto",
+        "question": "¿Tienes un presupuesto de compras preferido?",
+        "placeholder": "ej. $300"
+      },
+      "submit": "Enviar mis preferencias",
+      "messageIntro": "¡Hola! Me gustaría organizar el servicio de Nevera Llena con estas preferencias:",
+      "labels": {
+        "group": "Grupo",
+        "dietary": "Restricciones dietéticas",
+        "cooking": "Planes de cocina",
+        "groceries": "Preferencias de compras",
+        "beverages": "Bebidas",
+        "fruits": "Frutas tropicales",
+        "breakfastItems": "Esenciales de desayuno",
+        "pantryItems": "Esenciales de despensa",
+        "proteins": "Proteínas",
+        "snacksFor": "Snacks para",
+        "preferredSnacks": "Snacks preferidos",
+        "budget": "Presupuesto",
+        "adults": "adultos",
+        "children": "niños",
+        "ages": "edades",
+        "none": "No especificado"
+      }
     }
   },
   "tours": {

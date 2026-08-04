@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useI18n } from "@/app/context/I18nContext";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/Footer";
@@ -13,7 +13,6 @@ const WHATSAPP = "50685011042";
 
 export default function PrivateChefPage() {
   const { t } = useI18n();
-  const router = useRouter();
 
   const breakfastItems  = t("privateChef.breakfast.items");
   const breakfastExtras = t("privateChef.breakfast.extras");
@@ -34,13 +33,13 @@ export default function PrivateChefPage() {
         {/* Header */}
         <div className="px-8 md:px-16 pt-8 pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="flex flex-col gap-1" data-aos="fade-up">
-            <button
-              onClick={() => router.back()}
+            <Link
+              href="/"
               className="flex items-center gap-1.5 w-fit mb-3 text-sm font-sans font-medium text-[#222E2C]/50 hover:text-[#222E2C] transition-colors duration-200"
             >
               <TbArrowLeft size={16} />
               {t("common.back")}
-            </button>
+            </Link>
             <div className="flex items-center gap-2 w-fit border border-[#222E2C]/20 rounded-full px-4 py-2 mb-3">
               <TbLeaf size={15} className="text-[#222E2C]" />
               <span className="font-sans text-sm text-[#222E2C]">{t("privateChef.pill")}</span>
