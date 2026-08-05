@@ -7,7 +7,7 @@ import { submitOrder } from "@/lib/orderApi";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { TbCheck, TbLoader2, TbUser, TbHome2, TbCalendarEvent, TbNotes, TbAlertCircle } from "react-icons/tb";
 
-export default function OrderCheckoutForm({ service, lines, infoLines = [], total, notes, onNotesChange }) {
+export default function OrderCheckoutForm({ service, lines, infoLines = [], total, notes, onNotesChange, compact = false, extra = null }) {
   const { t, locale } = useI18n();
 
   const [name, setName] = useState("");
@@ -53,17 +53,23 @@ export default function OrderCheckoutForm({ service, lines, infoLines = [], tota
 
   return (
     <div id="checkout" className="flex flex-col gap-6 scroll-mt-24" data-aos="fade-up">
-      <div className="border-b border-[#222E2C]/15 pb-4">
-        <div className="flex items-center gap-2 w-fit border border-[#222E2C]/20 rounded-full px-4 py-1.5 mb-3">
-          <span className="font-sans text-xs text-[#222E2C]">{t("orderForm.pill")}</span>
+      {!compact && (
+        <div className="border-b border-[#222E2C]/15 pb-4">
+          <div className="flex items-center gap-2 w-fit border border-[#222E2C]/20 rounded-full px-4 py-1.5 mb-3">
+            <span className="font-sans text-xs text-[#222E2C]">{t("orderForm.pill")}</span>
+          </div>
+          <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
+            {t("orderForm.heading")}
+          </h2>
+          <p className="font-sans text-sm text-[#222E2C]/50 mt-1 max-w-2xl">{t("orderForm.subheading")}</p>
         </div>
-        <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
-          {t("orderForm.heading")}
-        </h2>
-        <p className="font-sans text-sm text-[#222E2C]/50 mt-1 max-w-2xl">{t("orderForm.subheading")}</p>
-      </div>
+      )}
 
-      <div className="bg-[#213B2F] rounded-2xl px-6 md:px-10 py-8 md:py-10 flex flex-col gap-8">
+      <div className={`bg-[#213B2F] rounded-2xl flex flex-col gap-8 ${compact ? "px-6 py-6" : "px-6 md:px-10 py-8 md:py-10"}`}>
+
+        {extra && (
+          <div className="pb-8 border-b border-white/10">{extra}</div>
+        )}
 
         {/* Summary */}
         <div className="flex flex-col gap-3">
@@ -93,7 +99,7 @@ export default function OrderCheckoutForm({ service, lines, infoLines = [], tota
         </div>
 
         {/* Fields */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className={`grid grid-cols-1 gap-4 ${compact ? "" : "sm:grid-cols-3"}`}>
           <FieldInput
             icon={TbUser}
             label={t("orderForm.name")}

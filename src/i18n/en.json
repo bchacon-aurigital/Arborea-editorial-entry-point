@@ -208,6 +208,20 @@
       }
     ]
   },
+  "mulaRental": {
+    "pill": "Adventure add-on",
+    "title": "Mula Rental",
+    "subtitle": "Explore the property and beyond on your own Yamaha Side-by-Side — ideal for beach runs, trail exploring, or just getting around in style.",
+    "vehicle": "Yamaha Side-by-Side 700",
+    "priceTag": "$200 / day",
+    "terms": "Rent by the day or for the full week.",
+    "specs": ["Seats up to 5", "Automatic transmission", "Full tank included", "Available daily or weekly"],
+    "daysLabel": "Number of days",
+    "totalLabel": "Total",
+    "dayLabel": "day",
+    "daysLabelPlural": "days",
+    "footerLabel": "Questions about the ride?"
+  },
   "inhouse": {
     "pill": "All you need",
     "title": "In-house Services",

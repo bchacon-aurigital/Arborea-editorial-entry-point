@@ -278,6 +278,20 @@
       }
     ]
   },
+  "mulaRental": {
+    "pill": "Aventura adicional",
+    "title": "Renta de Mula",
+    "subtitle": "Explora la propiedad y sus alrededores en tu propia Mula Yamaha Side-by-Side — ideal para ir a la playa, explorar senderos o simplemente moverte con estilo.",
+    "vehicle": "Yamaha Side-by-Side 700",
+    "priceTag": "$200 / día",
+    "terms": "Se renta por día o por semana completa.",
+    "specs": ["Capacidad para 5 personas", "Transmisión automática", "Tanque lleno incluido", "Disponible por día o por semana"],
+    "daysLabel": "Número de días",
+    "totalLabel": "Total",
+    "dayLabel": "día",
+    "daysLabelPlural": "días",
+    "footerLabel": "¿Dudas sobre la Mula?"
+  },
   "inhouse": {
     "pill": "Todo lo que necesitas",
     "title": "Servicios In-house",

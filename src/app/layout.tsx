@@ -3,6 +3,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { I18nProvider } from "./context/I18nContext";
 import LenisProvider from "@/components/LenisProvider";
+import { GoogleTagManager } from '@next/third-parties/google';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -10,7 +11,6 @@ const inter = Inter({
 });
 
 
-import Script from "next/script";
 import AOSInit from "@/components/AOSInit";
 import JsonLd from "@/components/JsonLd";
 import SplashScreen from "@/components/SplashScreen";
@@ -77,21 +77,13 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body className={`${inter.variable} antialiased`}>
+        <GoogleTagManager gtmId="GTM-W7KC623M" />
         <I18nProvider>
             <SplashScreen />
             <LenisProvider />
             <AOSInit />
             {children}
         </I18nProvider>
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-" strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-');
-          `}
-        </Script>
       </body>
     </html>
   );

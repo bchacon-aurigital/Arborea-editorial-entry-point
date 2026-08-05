@@ -3,6 +3,7 @@
 import Navbar from "@/components/layout/navbar";
 import HeroSection from "@/components/sections/HeroSection";
 import ToursActivitiesSection from "@/components/sections/ToursActivitiesSection";
+import MulaRentalSection from "@/components/sections/MulaRentalSection";
 import InHouseServicesSection from "@/components/sections/InHouseServicesSection";
 import EmergencyContactsSection from "@/components/sections/EmergencyContactsSection";
 import GoodToKnowSection from "@/components/sections/GoodToKnowSection";
@@ -15,6 +16,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <ToursActivitiesSection />
+        <MulaRentalSection />
         <InHouseServicesSection />
         <EmergencyContactsSection />
         <GoodToKnowSection />
