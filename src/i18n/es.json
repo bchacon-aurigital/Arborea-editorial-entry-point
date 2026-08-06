@@ -350,12 +350,29 @@
     "ctaSubheading": "Escríbenos por WhatsApp y nosotros nos encargamos del resto.",
     "orderBuilder": {
       "heading": "Arma tu experiencia",
-      "standardTab": "Menú Estándar",
+      "standardHeading": "Menú Estándar",
+      "standardDescription": "Elige un servicio y el número de invitados — el precio se actualiza al instante. Luego selecciona los platillos que quieres que prepare el chef.",
       "themedTab": "Noche Temática",
       "guestsLabel": "Número de invitados",
+      "servicePickHint": "Selecciona un servicio para ver su menú. Haz clic de nuevo para quitarlo.",
       "dishesHint": "Selecciona los platillos que quieras — esto no cambia el precio, solo le indica al chef qué preparar.",
       "bartenderHeading": "Añadir Bartender",
       "bartenderNone": "Ninguno"
+    },
+    "dietaryForm": {
+      "heading": "Restricciones Alimentarias y Preferencias",
+      "description": "Cuéntale al chef sobre alergias, restricciones o cualquier cosa que prefieras evitar.",
+      "restrictionsLabel": "Restricciones",
+      "options": ["Vegetariano", "Vegano", "Sin Gluten", "Sin Lácteos", "Alergia a Nueces", "Alergia a Mariscos"],
+      "allergiesLabel": "Alergias — sé específico por favor",
+      "allergiesPlaceholder": "ej. alergia severa al maní, intolerancia leve a la lactosa...",
+      "preferencesLabel": "Preferencias y cosas que no te gustan",
+      "preferencesPlaceholder": "ej. sin culantro, poco picante, porciones para niños..."
+    },
+    "summaryLabels": {
+      "restrictions": "Restricciones alimentarias",
+      "allergies": "Alergias",
+      "preferences": "Preferencias"
     },
     "story": {
       "heading": "Nuestra Historia",
@@ -1441,6 +1458,7 @@
     "barLabel": "seleccionados",
     "barCta": "Ver mi pedido",
     "summaryHeading": "Resumen del pedido",
+    "detailsHeading": "Tus selecciones y preferencias",
     "emptyCart": "Selecciona al menos un producto o servicio arriba para armar tu pedido.",
     "total": "Total",
     "name": "Nombre completo",
@@ -1612,6 +1630,7 @@
         "duration": "20 min",
         "price": "$40 c/u",
         "priceValue": 40,
+        "requiresMain": "Selecciona la Limpieza Facial Profunda de arriba para agregar extras.",
         "items": [
           "Mini Facial",
           "Exfoliación de Espalda",

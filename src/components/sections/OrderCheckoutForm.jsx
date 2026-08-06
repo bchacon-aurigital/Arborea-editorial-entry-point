@@ -71,20 +71,20 @@ export default function OrderCheckoutForm({ service, lines, infoLines = [], tota
           <div className="pb-8 border-b border-white/10">{extra}</div>
         )}
 
-        {/* Summary */}
+        {/* Summary — priced items only */}
         <div className="flex flex-col gap-3">
           <h3 className="font-sans font-semibold text-sm text-[#D8DDB8]">{t("orderForm.summaryHeading")}</h3>
-          {summaryLines.length === 0 ? (
+          {lines.length === 0 ? (
             <div className="rounded-xl border border-dashed border-[#D8DDB8]/25 px-4 py-5 text-center">
               <p className="font-sans text-sm text-[#D8DDB8]/50 italic">{t("orderForm.emptyCart")}</p>
             </div>
           ) : (
             <div className="rounded-xl bg-white/8 divide-y divide-[#D8DDB8]/10 overflow-hidden">
-              {summaryLines.map((line, i) => (
+              {lines.map((line, i) => (
                 <div key={i} className="flex items-center justify-between gap-4 px-4 py-2.5">
                   <span className="font-sans text-sm text-[#D8DDB8]/85">{line.label}</span>
                   <span className="font-sans font-medium text-sm text-[#D8DDB8] whitespace-nowrap">
-                    {line.price ? `$${line.price.toLocaleString("en-US")}` : "—"}
+                    ${(line.price || 0).toLocaleString("en-US")}
                   </span>
                 </div>
               ))}
@@ -97,6 +97,21 @@ export default function OrderCheckoutForm({ service, lines, infoLines = [], tota
             </div>
           )}
         </div>
+
+        {/* Selections & preferences — no price, not part of the total */}
+        {infoLines.length > 0 && (
+          <div className="flex flex-col gap-3">
+            <h3 className="font-sans font-semibold text-sm text-[#D8DDB8]">{t("orderForm.detailsHeading")}</h3>
+            <div className="rounded-xl border border-[#D8DDB8]/15 px-4 py-3 flex flex-col gap-2">
+              {infoLines.map((line, i) => (
+                <div key={i} className="flex items-start gap-2">
+                  <TbCheck size={14} className="text-[#D8DDB8]/45 shrink-0 mt-0.5" />
+                  <span className="font-sans text-sm text-[#D8DDB8]/75 leading-relaxed">{line.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Fields */}
         <div className={`grid grid-cols-1 gap-4 ${compact ? "" : "sm:grid-cols-3"}`}>

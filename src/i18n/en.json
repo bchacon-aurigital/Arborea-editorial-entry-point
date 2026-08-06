@@ -282,12 +282,29 @@
     "ctaSubheading": "Reach out on WhatsApp and we'll take care of the rest.",
     "orderBuilder": {
       "heading": "Build your experience",
-      "standardTab": "Standard Menu",
+      "standardHeading": "Standard Menu",
+      "standardDescription": "Pick a service and the number of guests — the price updates as you go. Then choose the dishes you'd like the chef to prepare.",
       "themedTab": "Themed Night",
       "guestsLabel": "Number of guests",
+      "servicePickHint": "Select a service to see its menu. Click it again to deselect.",
       "dishesHint": "Select the dishes you'd like — this doesn't change the price, it just tells the chef what to prepare.",
       "bartenderHeading": "Add a Bartender",
       "bartenderNone": "None"
+    },
+    "dietaryForm": {
+      "heading": "Dietary Restrictions & Preferences",
+      "description": "Let the chef know about allergies, restrictions, or anything you'd rather avoid.",
+      "restrictionsLabel": "Restrictions",
+      "options": ["Vegetarian", "Vegan", "Gluten-Free", "Dairy-Free", "Nut Allergy", "Shellfish Allergy"],
+      "allergiesLabel": "Allergies — please be specific",
+      "allergiesPlaceholder": "e.g. severe peanut allergy, mild lactose intolerance...",
+      "preferencesLabel": "Preferences & dislikes",
+      "preferencesPlaceholder": "e.g. no cilantro, mild spice only, kids' portions..."
+    },
+    "summaryLabels": {
+      "restrictions": "Dietary restrictions",
+      "allergies": "Allergies",
+      "preferences": "Preferences"
     },
     "story": {
       "heading": "Our Story",
@@ -1373,6 +1390,7 @@
     "barLabel": "selected",
     "barCta": "View my order",
     "summaryHeading": "Order summary",
+    "detailsHeading": "Your selections & preferences",
     "emptyCart": "Select at least one item above to build your order.",
     "total": "Total",
     "name": "Full name",
@@ -1614,6 +1632,7 @@
         "duration": "20 min",
         "price": "$40 each",
         "priceValue": 40,
+        "requiresMain": "Select the Deep Facial Cleansing above to add extras.",
         "items": [
           "Mini Facial",
           "Back Exfoliation",

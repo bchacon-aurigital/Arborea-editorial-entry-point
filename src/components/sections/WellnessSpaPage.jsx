@@ -129,7 +129,15 @@ export default function WellnessSpaPage() {
                 <SelectableTile
                   wide
                   selected={cart.isSelected("facial-main")}
-                  onClick={() => cart.toggleItem("facial-main", { label: facialMain.name, price: facialMain.priceValue })}
+                  onClick={() => {
+                    const willSelect = !cart.isSelected("facial-main");
+                    cart.toggleItem("facial-main", { label: facialMain.name, price: facialMain.priceValue });
+                    if (!willSelect) {
+                      addonItems.forEach((_, i) => {
+                        if (cart.isSelected(`addon-${i}`)) cart.removeItem(`addon-${i}`);
+                      });
+                    }
+                  }}
                   title={facialMain.name}
                   price={facialMain.priceValue}
                 />
@@ -138,7 +146,9 @@ export default function WellnessSpaPage() {
                 <div>
                   <p className="font-sans font-semibold text-sm text-[#222E2C]">{t("wellnessSpa.facials.addons.heading")}</p>
                   <p className="font-sans text-xs text-[#222E2C]/50 mt-0.5">
-                    {t("wellnessSpa.facials.addons.duration")}
+                    {cart.isSelected("facial-main")
+                      ? t("wellnessSpa.facials.addons.duration")
+                      : t("wellnessSpa.facials.addons.requiresMain")}
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -147,6 +157,7 @@ export default function WellnessSpaPage() {
                       key={i}
                       label={`${name} · $${addonPrice}`}
                       selected={cart.isSelected(`addon-${i}`)}
+                      disabled={!cart.isSelected("facial-main")}
                       onClick={() => cart.toggleItem(`addon-${i}`, { label: name, price: addonPrice })}
                     />
                   ))}
@@ -288,18 +299,22 @@ function SelectableTile({ selected, onClick, icon: Icon, title, subtitle, price,
   );
 }
 
-function PriceChip({ label, selected, onClick }) {
+function PriceChip({ label, selected, onClick, disabled = false }) {
   return (
     <button
       type="button"
+      disabled={disabled}
       onClick={onClick}
+      aria-disabled={disabled}
       className={`flex items-center gap-1.5 px-4 py-2 rounded-full border font-sans text-sm transition-colors duration-200 ${
-        selected
-          ? "bg-[#213B2F] border-[#213B2F] text-[#D8DDB8]"
-          : "border-[#222E2C]/10 text-[#222E2C]/70 hover:border-[#222E2C]/30"
+        disabled
+          ? "border-[#222E2C]/8 text-[#222E2C]/30 cursor-not-allowed"
+          : selected
+            ? "bg-[#213B2F] border-[#213B2F] text-[#D8DDB8]"
+            : "border-[#222E2C]/10 text-[#222E2C]/70 hover:border-[#222E2C]/30"
       }`}
     >
-      {selected && <TbCheck size={13} />}
+      {selected && !disabled && <TbCheck size={13} />}
       {label}
     </button>
   );

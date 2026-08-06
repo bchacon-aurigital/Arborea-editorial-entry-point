@@ -22,6 +22,9 @@ function findThemedTier(tiers, guests) {
   return tiers.find((tier) => guests >= tier.minGuests && guests <= tier.maxGuests) || tiers[tiers.length - 1];
 }
 
+// Which meal menus a given per-service option unlocks (Full Day unlocks all three).
+const SERVICE_MEALS = [["breakfast"], ["lunch"], ["dinner"], ["breakfast", "lunch", "dinner"]];
+
 export default function PrivateChefPage() {
   const { t } = useI18n();
   const cart = useOrderCart();
@@ -39,31 +42,57 @@ export default function PrivateChefPage() {
   const oceanDinner     = t("privateChef.pricing.themedNights.oceanDinner");
   const pricingBar      = t("privateChef.pricing.bartender.items");
   const ob              = t("privateChef.orderBuilder");
+  const df              = t("privateChef.dietaryForm");
+  const sl              = t("privateChef.summaryLabels");
 
-  const [orderType, setOrderType] = useState("standard");
   const [selectedServiceIdx, setSelectedServiceIdx] = useState(null);
   const [guests, setGuests] = useState(2);
   const [selectedNightIdx, setSelectedNightIdx] = useState(null);
   const [themedGuests, setThemedGuests] = useState(2);
   const [bartenderIdx, setBartenderIdx] = useState(null);
 
-  const switchTab = (tab) => {
-    if (tab === orderType) return;
-    setOrderType(tab);
-    if (tab === "standard") {
-      setSelectedNightIdx(null);
-      cart.removeItem("themed-night");
-      cart.removeItem("ocean-dinner");
-    } else {
-      setSelectedServiceIdx(null);
-      cart.removeItem("service");
-    }
+  // Dish picks are preferences for the chef, not priced line items.
+  const [dishes, setDishes] = useState({});
+  const [restrictions, setRestrictions] = useState([]);
+  const [allergies, setAllergies] = useState("");
+  const [preferences, setPreferences] = useState("");
+
+  const toggleDish = (id, label, group) => {
+    setDishes((prev) => {
+      if (prev[id]) {
+        const next = { ...prev };
+        delete next[id];
+        return next;
+      }
+      return { ...prev, [id]: { label, group } };
+    });
   };
 
+  const toggleRestriction = (opt) => {
+    setRestrictions((prev) => (prev.includes(opt) ? prev.filter((v) => v !== opt) : [...prev, opt]));
+  };
+
+  const visibleMeals = selectedServiceIdx === null ? [] : SERVICE_MEALS[selectedServiceIdx];
+
   const pickService = (i) => {
-    setSelectedServiceIdx(i);
-    const item = pricingPS[i];
-    cart.setItem("service", { label: `${item.label} · ${guests} guests`, price: computeServicePrice(item, guests) });
+    const deselecting = selectedServiceIdx === i;
+    const nextIdx = deselecting ? null : i;
+    setSelectedServiceIdx(nextIdx);
+
+    if (deselecting) {
+      cart.removeItem("service");
+    } else {
+      const item = pricingPS[i];
+      cart.setItem("service", { label: `${item.label} · ${guests} guests`, price: computeServicePrice(item, guests) });
+    }
+
+    // Drop dish picks whose menu is no longer on screen.
+    const stillVisible = nextIdx === null ? [] : SERVICE_MEALS[nextIdx];
+    setDishes((prev) =>
+      Object.fromEntries(
+        Object.entries(prev).filter(([, d]) => !["breakfast", "lunch", "dinner"].includes(d.group) || stillVisible.includes(d.group))
+      )
+    );
   };
 
   const changeGuests = (val) => {
@@ -76,6 +105,12 @@ export default function PrivateChefPage() {
   };
 
   const pickNight = (i) => {
+    if (selectedNightIdx === i) {
+      setSelectedNightIdx(null);
+      cart.removeItem("themed-night");
+      cart.removeItem("ocean-dinner");
+      return;
+    }
     setSelectedNightIdx(i);
     const tier = findThemedTier(themedTiers, themedGuests);
     cart.setItem("themed-night", { label: `${themedNights[i].title} · ${themedGuests} guests`, price: tier.priceValue });
@@ -109,9 +144,29 @@ export default function PrivateChefPage() {
     cart.removeItem("bartender");
   };
 
-  const showBreakfast = orderType === "standard" && (selectedServiceIdx === 0 || selectedServiceIdx === 3);
-  const showLunch      = orderType === "standard" && (selectedServiceIdx === 1 || selectedServiceIdx === 3);
-  const showDinner     = orderType === "standard" && (selectedServiceIdx === 2 || selectedServiceIdx === 3);
+  const buildInfoLines = () => {
+    const groups = [
+      { key: "breakfast", label: t("privateChef.breakfast.heading") },
+      { key: "lunch", label: t("privateChef.lunch.heading") },
+      { key: "dinner", label: t("privateChef.dinner.heading") },
+      { key: "dessert", label: t("privateChef.desserts.heading") },
+      { key: "bakery", label: t("privateChef.bakery.heading") },
+    ];
+
+    const picked = Object.values(dishes);
+    const lines = groups
+      .map(({ key, label }) => {
+        const names = picked.filter((d) => d.group === key).map((d) => d.label);
+        return names.length ? { label: `${label}: ${names.join(", ")}`, price: 0 } : null;
+      })
+      .filter(Boolean);
+
+    if (restrictions.length) lines.push({ label: `${sl.restrictions}: ${restrictions.join(", ")}`, price: 0 });
+    if (allergies.trim()) lines.push({ label: `${sl.allergies}: ${allergies.trim()}`, price: 0 });
+    if (preferences.trim()) lines.push({ label: `${sl.preferences}: ${preferences.trim()}`, price: 0 });
+
+    return lines;
+  };
 
   return (
     <>
@@ -164,103 +219,56 @@ export default function PrivateChefPage() {
             </p>
           </div>
 
+          {/* Standard Menu */}
           <div className="flex flex-col gap-6" data-aos="fade-up">
             <div className="border-b border-[#222E2C]/15 pb-4">
-              <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
+              <p className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest mb-1">
                 {ob.heading}
+              </p>
+              <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
+                {ob.standardHeading}
               </h2>
+              <p className="font-sans text-sm text-[#222E2C]/50 mt-2 max-w-2xl">{ob.standardDescription}</p>
             </div>
 
-            <div className="flex gap-2 w-fit bg-[#E0D4C4] rounded-full p-1">
-              {[["standard", ob.standardTab], ["themed", ob.themedTab]].map(([key, label]) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              {Array.isArray(pricingPS) && pricingPS.map((item, i) => (
                 <button
-                  key={key}
+                  key={i}
                   type="button"
-                  onClick={() => switchTab(key)}
-                  className={`px-5 py-2 rounded-full font-sans text-sm font-medium transition-colors duration-200 ${
-                    orderType === key ? "bg-[#213B2F] text-[#D8DDB8]" : "text-[#222E2C]/60 hover:text-[#222E2C]"
+                  aria-pressed={selectedServiceIdx === i}
+                  onClick={() => pickService(i)}
+                  className={`text-left rounded-xl px-5 py-4 flex flex-col gap-1 border-2 transition-colors duration-200 ${
+                    selectedServiceIdx === i ? "bg-[#213B2F] border-[#213B2F]" : "bg-[#E0D4C4] border-transparent hover:border-[#222E2C]/15"
                   }`}
                 >
-                  {label}
+                  <div className="flex items-start justify-between gap-2">
+                    <span className={`font-sans font-semibold text-sm ${selectedServiceIdx === i ? "text-[#D8DDB8]" : "text-[#222E2C]"}`}>
+                      {item.label}
+                    </span>
+                    {selectedServiceIdx === i && <TbCheck size={16} className="text-[#D8DDB8] shrink-0" />}
+                  </div>
+                  <span className={`font-sans text-xs ${selectedServiceIdx === i ? "text-[#D8DDB8]/70" : "text-[#222E2C]/50"}`}>
+                    ${item.basePrice} for {item.baseGuests} · +${item.extraPersonPrice}/extra
+                  </span>
+                  {selectedServiceIdx === i && (
+                    <span className="font-sans font-semibold text-sm text-[#D8DDB8] mt-1">
+                      ${computeServicePrice(item, guests)}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
 
-            {orderType === "standard" ? (
-              <div className="flex flex-col gap-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                  {Array.isArray(pricingPS) && pricingPS.map((item, i) => (
-                    <button
-                      key={i}
-                      type="button"
-                      onClick={() => pickService(i)}
-                      className={`text-left rounded-xl px-5 py-4 flex flex-col gap-1 border-2 transition-colors duration-200 ${
-                        selectedServiceIdx === i ? "bg-[#213B2F] border-[#213B2F]" : "bg-[#E0D4C4] border-transparent"
-                      }`}
-                    >
-                      <span className={`font-sans font-semibold text-sm ${selectedServiceIdx === i ? "text-[#D8DDB8]" : "text-[#222E2C]"}`}>
-                        {item.label}
-                      </span>
-                      <span className={`font-sans text-xs ${selectedServiceIdx === i ? "text-[#D8DDB8]/70" : "text-[#222E2C]/50"}`}>
-                        ${item.basePrice} for {item.baseGuests} · +${item.extraPersonPrice}/extra
-                      </span>
-                      {selectedServiceIdx === i && (
-                        <span className="font-sans font-semibold text-sm text-[#D8DDB8] mt-1">
-                          ${computeServicePrice(item, guests)}
-                        </span>
-                      )}
-                    </button>
-                  ))}
-                </div>
-                {selectedServiceIdx !== null && (
-                  <Stepper label={ob.guestsLabel} value={guests} onChange={changeGuests} min={2} />
-                )}
-              </div>
+            {selectedServiceIdx === null ? (
+              <p className="font-sans text-xs text-[#222E2C]/40 italic">{ob.servicePickHint}</p>
             ) : (
-              <div className="flex flex-col gap-4">
-                <div>
-                  <p className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest mb-1">
-                    {t("privateChef.themedNights.subheading")}
-                  </p>
-                  <h3 className="font-sans font-semibold text-base text-[#222E2C]">
-                    {t("privateChef.themedNights.heading")}
-                  </h3>
-                  <p className="font-sans text-sm text-[#222E2C]/50 mt-1 max-w-2xl">
-                    {t("privateChef.themedNights.description")}
-                  </p>
-                </div>
-                <div className="flex flex-col gap-3">
-                  {Array.isArray(themedNights) && themedNights.map((night, i) => (
-                    <ThemedNightCard
-                      key={i}
-                      night={night}
-                      colorIndex={i}
-                      selected={selectedNightIdx === i}
-                      onClick={() => pickNight(i)}
-                    />
-                  ))}
-                </div>
-                <div className="flex flex-wrap items-end gap-4">
-                  <Stepper label={ob.guestsLabel} value={themedGuests} onChange={changeThemedGuests} min={2} max={15} />
-                  {selectedNightIdx !== null && (
-                    <span className="font-sans font-semibold text-sm text-[#222E2C]">
-                      ${findThemedTier(themedTiers, themedGuests).priceValue}
-                    </span>
-                  )}
-                  {oceanDinner && (
-                    <PriceChip
-                      label={`${oceanDinner.label} · +$${oceanDinner.priceValue}`}
-                      selected={cart.isSelected("ocean-dinner")}
-                      onClick={toggleOceanDinner}
-                    />
-                  )}
-                </div>
-              </div>
+              <Stepper label={ob.guestsLabel} value={guests} onChange={changeGuests} min={2} />
             )}
           </div>
 
-          {/* Breakfast */}
-          {showBreakfast && (
+          {/* Meal menus for the selected service */}
+          {visibleMeals.includes("breakfast") && (
             <MenuSection
               heading={t("privateChef.breakfast.heading")}
               subheading={t("privateChef.breakfast.subheading")}
@@ -269,32 +277,33 @@ export default function PrivateChefPage() {
               extras={Array.isArray(breakfastExtras) ? breakfastExtras : []}
               extrasHeading={t("privateChef.breakfast.extrasHeading")}
               extrasSubheading={t("privateChef.breakfast.extrasSubheading")}
-              idPrefix="breakfast"
-              cart={cart}
+              group="breakfast"
+              dishes={dishes}
+              onToggle={toggleDish}
               hint={ob.dishesHint}
             />
           )}
 
-          {/* Lunch */}
-          {showLunch && (
+          {visibleMeals.includes("lunch") && (
             <MenuSection
               heading={t("privateChef.lunch.heading")}
               subheading={t("privateChef.lunch.subheading")}
               items={Array.isArray(lunchItems) ? lunchItems : []}
-              idPrefix="lunch"
-              cart={cart}
+              group="lunch"
+              dishes={dishes}
+              onToggle={toggleDish}
               hint={ob.dishesHint}
             />
           )}
 
-          {/* Dinner */}
-          {showDinner && (
+          {visibleMeals.includes("dinner") && (
             <MenuSection
               heading={t("privateChef.dinner.heading")}
               subheading={t("privateChef.dinner.subheading")}
               items={Array.isArray(dinnerItems) ? dinnerItems : []}
-              idPrefix="dinner"
-              cart={cart}
+              group="dinner"
+              dishes={dishes}
+              onToggle={toggleDish}
               hint={ob.dishesHint}
             />
           )}
@@ -305,18 +314,67 @@ export default function PrivateChefPage() {
               heading={t("privateChef.desserts.heading")}
               subheading={t("privateChef.desserts.subheading")}
               items={Array.isArray(dessertsItems) ? dessertsItems : []}
-              idPrefix="dessert"
-              cart={cart}
+              group="dessert"
+              dishes={dishes}
+              onToggle={toggleDish}
             />
             <SimpleMenuSection
               heading={t("privateChef.bakery.heading")}
               subheading={t("privateChef.bakery.subheading")}
               items={Array.isArray(bakeryItems) ? bakeryItems : []}
-              idPrefix="bakery"
-              cart={cart}
+              group="bakery"
+              dishes={dishes}
+              onToggle={toggleDish}
             />
           </div>
 
+          {/* Themed Nights — its own offering */}
+          <div className="flex flex-col gap-6" data-aos="fade-up">
+            <div className="border-b border-[#222E2C]/15 pb-4">
+              <p className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest mb-1">
+                {t("privateChef.themedNights.subheading")}
+              </p>
+              <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
+                {t("privateChef.themedNights.heading")}
+              </h2>
+              <p className="font-sans text-sm text-[#222E2C]/50 mt-2 max-w-2xl">
+                {t("privateChef.themedNights.description")}
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              {Array.isArray(themedNights) && themedNights.map((night, i) => (
+                <ThemedNightCard
+                  key={i}
+                  night={night}
+                  colorIndex={i}
+                  selected={selectedNightIdx === i}
+                  onClick={() => pickNight(i)}
+                />
+              ))}
+            </div>
+
+            <div className="flex flex-wrap items-end gap-4">
+              <Stepper label={ob.guestsLabel} value={themedGuests} onChange={changeThemedGuests} min={2} max={15} />
+              {selectedNightIdx !== null && (
+                <span className="font-sans font-semibold text-sm text-[#222E2C] pb-3">
+                  ${findThemedTier(themedTiers, themedGuests).priceValue}
+                </span>
+              )}
+              {oceanDinner && (
+                <div className="pb-2">
+                  <PriceChip
+                    label={`${oceanDinner.label} · +$${oceanDinner.priceValue}`}
+                    selected={cart.isSelected("ocean-dinner")}
+                    disabled={selectedNightIdx === null}
+                    onClick={toggleOceanDinner}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Bartender */}
           <div className="flex flex-col gap-4" data-aos="fade-up">
             <h3 className="font-sans font-semibold text-base text-[#222E2C]">{ob.bartenderHeading}</h3>
             <div className="flex flex-wrap gap-2" role="radiogroup">
@@ -332,9 +390,53 @@ export default function PrivateChefPage() {
             </div>
           </div>
 
+          {/* Dietary restrictions & preferences */}
+          <div className="flex flex-col gap-6" data-aos="fade-up">
+            <div className="border-b border-[#222E2C]/15 pb-4">
+              <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
+                {df.heading}
+              </h2>
+              <p className="font-sans text-sm text-[#222E2C]/50 mt-2 max-w-2xl">{df.description}</p>
+            </div>
+
+            <div className="bg-[#E0D4C4] rounded-2xl px-6 md:px-8 py-7 flex flex-col gap-6">
+              <div className="flex flex-col gap-3">
+                <span className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest">
+                  {df.restrictionsLabel}
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {Array.isArray(df.options) && df.options.map((opt) => (
+                    <PriceChip
+                      key={opt}
+                      label={opt}
+                      selected={restrictions.includes(opt)}
+                      onClick={() => toggleRestriction(opt)}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ChefField
+                  label={df.allergiesLabel}
+                  placeholder={df.allergiesPlaceholder}
+                  value={allergies}
+                  onChange={(e) => setAllergies(e.target.value)}
+                />
+                <ChefField
+                  label={df.preferencesLabel}
+                  placeholder={df.preferencesPlaceholder}
+                  value={preferences}
+                  onChange={(e) => setPreferences(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+
           <OrderCheckoutForm
             service="Private Chef"
             lines={cart.lines}
+            infoLines={buildInfoLines()}
             total={cart.total}
             notes={notes}
             onNotesChange={setNotes}
@@ -371,7 +473,20 @@ export default function PrivateChefPage() {
   );
 }
 
-function MenuSection({ heading, subheading, items, note, extras, extrasHeading, extrasSubheading, idPrefix, cart, hint }) {
+function ChefField({ label, ...props }) {
+  return (
+    <label className="flex flex-col gap-1.5">
+      <span className="font-sans text-xs text-[#222E2C]/50">{label}</span>
+      <input
+        type="text"
+        {...props}
+        className="w-full px-4 py-3 rounded-xl bg-white border border-[#222E2C]/12 shadow-sm font-sans text-sm text-[#222E2C] placeholder:text-[#222E2C]/35 focus:outline-none focus:ring-2 focus:ring-[#213B2F]/15 focus:border-[#213B2F]/40 transition-all duration-200"
+      />
+    </label>
+  );
+}
+
+function MenuSection({ heading, subheading, items, note, extras, extrasHeading, extrasSubheading, group, dishes, onToggle, hint }) {
   return (
     <div className="flex flex-col gap-5" data-aos="fade-up">
       <div className="border-b border-[#222E2C]/15 pb-4">
@@ -385,13 +500,14 @@ function MenuSection({ heading, subheading, items, note, extras, extrasHeading, 
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {items.map((item, i) => {
-          const id = `dish-${idPrefix}-${i}`;
-          const selected = cart.isSelected(id);
+          const id = `dish-${group}-${i}`;
+          const selected = Boolean(dishes[id]);
           return (
             <button
               key={i}
               type="button"
-              onClick={() => cart.toggleItem(id, { label: item.title, price: 0 })}
+              aria-pressed={selected}
+              onClick={() => onToggle(id, item.title, group)}
               className={`text-left rounded-xl px-5 py-5 flex flex-col gap-2 border-2 transition-colors duration-200 ${
                 selected ? "bg-[#213B2F] border-[#213B2F]" : "bg-[#E0D4C4] border-transparent"
               }`}
@@ -402,7 +518,7 @@ function MenuSection({ heading, subheading, items, note, extras, extrasHeading, 
                     🇨🇷 {item.tag}
                   </span>
                 )}
-                {selected && <TbCheck size={16} className="text-[#D8DDB8] shrink-0" />}
+                {selected && <TbCheck size={16} className="text-[#D8DDB8] shrink-0 ml-auto" />}
               </div>
               <h3 className={`font-sans font-semibold text-sm ${selected ? "text-[#D8DDB8]" : "text-[#222E2C]"}`}>{item.title}</h3>
               <p className={`font-sans text-sm leading-relaxed ${selected ? "text-[#D8DDB8]/70" : "text-[#222E2C]/60"}`}>{item.description}</p>
@@ -423,13 +539,14 @@ function MenuSection({ heading, subheading, items, note, extras, extrasHeading, 
           </div>
           <div className="flex flex-col sm:flex-row gap-2">
             {extras.map((extra, i) => {
-              const id = `dish-${idPrefix}-extra-${i}`;
-              const selected = cart.isSelected(id);
+              const id = `dish-${group}-extra-${i}`;
+              const selected = Boolean(dishes[id]);
               return (
                 <button
                   key={i}
                   type="button"
-                  onClick={() => cart.toggleItem(id, { label: extra.title, price: 0 })}
+                  aria-pressed={selected}
+                  onClick={() => onToggle(id, extra.title, group)}
                   className={`text-left border-2 rounded-xl px-4 py-3.5 flex flex-col gap-1 flex-1 transition-colors duration-200 ${
                     selected ? "bg-[#213B2F] border-[#213B2F]" : "border-[#222E2C]/10"
                   }`}
@@ -446,7 +563,7 @@ function MenuSection({ heading, subheading, items, note, extras, extrasHeading, 
   );
 }
 
-function SimpleMenuSection({ heading, subheading, items, idPrefix, cart }) {
+function SimpleMenuSection({ heading, subheading, items, group, dishes, onToggle }) {
   return (
     <div className="flex flex-col gap-4">
       <div className="border-b border-[#222E2C]/15 pb-3">
@@ -457,13 +574,14 @@ function SimpleMenuSection({ heading, subheading, items, idPrefix, cart }) {
       </div>
       <div className="flex flex-col gap-2">
         {items.map((item, i) => {
-          const id = `dish-${idPrefix}-${i}`;
-          const selected = cart.isSelected(id);
+          const id = `dish-${group}-${i}`;
+          const selected = Boolean(dishes[id]);
           return (
             <button
               key={i}
               type="button"
-              onClick={() => cart.toggleItem(id, { label: item.title, price: 0 })}
+              aria-pressed={selected}
+              onClick={() => onToggle(id, item.title, group)}
               className={`text-left flex items-start gap-2 rounded-lg px-3 py-2.5 border-2 transition-colors duration-200 ${
                 selected ? "bg-[#213B2F] border-[#213B2F]" : "border-transparent hover:bg-[#E0D4C4]/50"
               }`}
@@ -481,18 +599,22 @@ function SimpleMenuSection({ heading, subheading, items, idPrefix, cart }) {
   );
 }
 
-function PriceChip({ label, selected, onClick }) {
+function PriceChip({ label, selected, onClick, disabled = false }) {
   return (
     <button
       type="button"
+      disabled={disabled}
+      aria-disabled={disabled}
       onClick={onClick}
       className={`flex items-center gap-1.5 px-4 py-2 rounded-full border font-sans text-sm transition-colors duration-200 ${
-        selected
-          ? "bg-[#213B2F] border-[#213B2F] text-[#D8DDB8]"
-          : "border-[#222E2C]/20 text-[#222E2C]/70 hover:border-[#222E2C]/40"
+        disabled
+          ? "border-[#222E2C]/8 text-[#222E2C]/30 cursor-not-allowed"
+          : selected
+            ? "bg-[#213B2F] border-[#213B2F] text-[#D8DDB8]"
+            : "border-[#222E2C]/20 text-[#222E2C]/70 hover:border-[#222E2C]/40"
       }`}
     >
-      {selected && <TbCheck size={13} />}
+      {selected && !disabled && <TbCheck size={13} />}
       {label}
     </button>
   );
@@ -560,6 +682,7 @@ function ThemedNightCard({ night, colorIndex = 0, selected, onClick }) {
   return (
     <button
       type="button"
+      aria-pressed={selected}
       onClick={onClick}
       style={{ backgroundColor: theme.bg }}
       className={`text-left rounded-2xl px-6 py-7 flex flex-col md:flex-row gap-6 transition-all duration-200 ${selected ? "ring-2 ring-[#213B2F] ring-offset-2 ring-offset-[#EDE5D8]" : ""}`}
