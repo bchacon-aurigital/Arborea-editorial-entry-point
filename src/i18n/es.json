@@ -338,6 +338,21 @@
         ],
         "href": "/full-fridge",
         "cta": "Ver más"
+      },
+      {
+        "category": "En el Mar",
+        "title": "Tours de Pesca",
+        "description": "Sal al mar en el bote propio de Arborea para pesca mar afuera, costera o en el río — además de avistamiento de ballenas y combos de manglar. Cada tour lo lleva nuestro capitán, de principio a fin.",
+        "features": [
+          "Pesca mar afuera y costera",
+          "Isla del Caño",
+          "Combo ballenas, pesca y playa",
+          "Pesca en el río, todo incluido",
+          "Manglar y avistamiento de aves",
+          "Capitán y tripulación incluidos"
+        ],
+        "href": "/fishing-tours",
+        "cta": "Ver paquetes"
       }
     ]
   },
@@ -1769,5 +1784,83 @@
       "website": "www.gvmassagecr.com",
       "instagram": "@gvcostarica"
     }
+  },
+  "fishingTours": {
+    "pill": "Arborea Experiences",
+    "title": "Tours de Pesca y Experiencias Marinas",
+    "subtitle": "Tours mar afuera, costeros, de río y combinados a bordo del bote propio de Arborea",
+    "whatsapp": "Reservar por WhatsApp",
+    "story": {
+      "heading": "Al mar con Arborea",
+      "body": "Desde salidas mar afuera en busca de Atún y Marlin hasta tranquilas mañanas de río tras Róbalo y Pargo de Manglar, cada tour lo opera directamente Arborea Experiences — nuestro bote, nuestro capitán, nuestras rutas.\n\nElige el tour que se ajuste a tu día, desde una aventura completa mar afuera hasta un combo relajado de avistamiento de ballenas, pesca y playa. Los precios a continuación son estimados; tu capitán confirmará la tarifa final según las condiciones y el tamaño del grupo."
+    },
+    "packages": {
+      "subheading": "Elige tu tour",
+      "heading": "Paquetes y Experiencias de Pesca",
+      "description": "Selecciona el tour que deseas reservar. Cada paquete incluye capitán y tripulación — revisa las condiciones completas más abajo.",
+      "durationNote": "Los tours de medio día tienen un costo aproximado de $650 a $700, en comparación con $1,200 del día completo offshore. Los tours más cortos no incluyen almuerzo completo; únicamente se brindan bebidas y frutas. La duración mostrada es nuestro estimado por tour y puede ser ajustada por la tripulación.",
+      "items": [
+        {
+          "name": "Pesca Mar Afuera (Offshore)",
+          "species": "Atún, Marlin, Pez Vela, Dorado",
+          "priceLabel": "$1,200 – $1,300",
+          "priceValue": 1200,
+          "duration": "Día completo",
+          "description": "Se realiza en mar abierto. La tarifa más habitual que están cobrando es de $1,200."
+        },
+        {
+          "name": "Pesca Isla del Caño",
+          "species": "Pargo, Atún, Guajo, Macarela, Pez Gallo",
+          "priceLabel": "$900 – $1,000",
+          "priceValue": 900,
+          "duration": "Día completo",
+          "description": "Se pesca a 3 km de la orilla de la isla (fuera de los límites del parque nacional). Tarifa habitual de $950."
+        },
+        {
+          "name": "Combinado: Ballenas, Pesca y Playa",
+          "species": "Variado",
+          "priceLabel": "$700 – $800",
+          "priceValue": 700,
+          "duration": "Medio día",
+          "description": "Incluye avistamiento de ballenas, pesca breve y almuerzo con tarde libre en la playa San Josecito."
+        },
+        {
+          "name": "Pesca Costera (Inshore)",
+          "species": "Pez Gallo, Macarela, Barracuda, Pargo, Jurel, Corvina, Róbalo",
+          "priceLabel": "$600 – $700",
+          "priceValue": 600,
+          "duration": "Medio día",
+          "description": "Se realiza cerca de la costa, justo después de salir de la desembocadura."
+        },
+        {
+          "name": "Pesca en el Río",
+          "species": "Pargo de Manglar, Corvina, Róbalo",
+          "priceLabel": "$500",
+          "priceValue": 500,
+          "duration": "Medio día",
+          "description": "Modalidad todo incluido. Se realiza en las cercanías y canales del río."
+        },
+        {
+          "name": "Manglar, Avistamiento y Playa",
+          "species": "Aves y fauna de manglar",
+          "priceLabel": "Variable",
+          "priceValue": 0,
+          "duration": "Día completo",
+          "description": "Salida temprano en la mañana para ver aves, con regreso por la tarde después de ir a la playa."
+        }
+      ]
+    },
+    "conditions": {
+      "heading": "Bueno Saber",
+      "items": [
+        "Tours de medio día: aproximadamente $650–$700, frente a $1,200 del día completo offshore.",
+        "Alimentación en medio día: solo bebidas y frutas — no incluye almuerzo completo en los tours más cortos.",
+        "Frutas a bordo: solo se ofrece piña y sandía. Se evita el banano y la papaya, ya que se dañan rápidamente y dejan mal olor a bordo.",
+        "Equipo de snorkel: no se ofrece en el tour de la Isla del Caño — requiere reservas especiales, pagos al parque nacional y equipo certificado del cual el bote no dispone actualmente."
+      ]
+    },
+    "ctaHeading": "¿Listo para salir al mar?",
+    "ctaSubheading": "Escríbenos por WhatsApp y te ayudamos a elegir el tour ideal.",
+    "note": "Los precios son estimados por bote/grupo y pueden variar según condiciones, tamaño del grupo y temporada. Tu capitán confirmará el precio final antes de zarpar."
   }
 }

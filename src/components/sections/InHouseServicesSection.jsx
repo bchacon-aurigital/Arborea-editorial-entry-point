@@ -6,11 +6,11 @@ import Link from "next/link";
 
 function ServiceCard({ category, title, description, features = [], href, cta }) {
   const content = (
-    <div className={`bg-[#E0D4C4] rounded-2xl px-8 py-11 flex flex-col gap-0 h-full${href ? " hover:bg-[#D8CCBB] transition-colors duration-200" : ""}`}>
-      <div className="border-b border-[#222E2C]/10 pb-5 flex flex-col gap-4">
+    <div className={`bg-[#E0D4C4] rounded-2xl px-6 py-8 flex flex-col gap-0 h-full${href ? " hover:bg-[#D8CCBB] transition-colors duration-200" : ""}`}>
+      <div className="border-b border-[#222E2C]/10 pb-5 flex flex-col gap-3">
         <div className="flex flex-col gap-1.5">
-          <p className="font-sans font-semibold text-base text-[#222E2C]/60">{category}</p>
-          <p className="font-sans font-medium text-xl text-[#222E2C]">{title}</p>
+          <p className="font-sans font-semibold text-sm text-[#222E2C]/60">{category}</p>
+          <p className="font-sans font-medium text-lg text-[#222E2C]">{title}</p>
         </div>
         <p className="font-sans text-sm text-[#222E2C]/50 leading-relaxed">{description}</p>
       </div>
@@ -18,10 +18,10 @@ function ServiceCard({ category, title, description, features = [], href, cta })
         {features.map((feat, i) => (
           <div
             key={i}
-            className="flex items-center gap-2 border border-[#222E2C]/10 rounded-full px-3 py-2"
+            className="flex items-center gap-1.5 border border-[#222E2C]/10 rounded-full px-2.5 py-1.5"
           >
-            <TbCircleCheck size={18} className="text-[#222E2C]/50 shrink-0" />
-            <span className="font-sans font-medium text-base text-[#222E2C]/50 whitespace-nowrap">{feat}</span>
+            <TbCircleCheck size={14} className="text-[#222E2C]/50 shrink-0" />
+            <span className="font-sans font-medium text-xs text-[#222E2C]/50">{feat}</span>
           </div>
         ))}
       </div>
@@ -63,7 +63,7 @@ export default function InHouseServicesSection() {
       </div>
 
       {Array.isArray(services) && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
           {services.map((svc, i) => (
             <ServiceCard key={i} {...svc} />
           ))}

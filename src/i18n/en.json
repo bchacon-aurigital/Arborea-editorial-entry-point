@@ -270,6 +270,21 @@
         ],
         "href": "/full-fridge",
         "cta": "See more"
+      },
+      {
+        "category": "On the Water",
+        "title": "Fishing Tours",
+        "description": "Head out on Arborea's own boat for offshore, inshore, or river fishing — plus whale watching and mangrove wildlife combos. Every trip is run by our captain, from the dock to the catch.",
+        "features": [
+          "Offshore & inshore fishing",
+          "Isla del Caño day trips",
+          "Whales, fishing & beach combo",
+          "River fishing, all-inclusive",
+          "Mangrove & birdwatching",
+          "Captain & crew included"
+        ],
+        "href": "/fishing-tours",
+        "cta": "See packages"
       }
     ]
   },
@@ -1771,5 +1786,83 @@
       "website": "www.gvmassagecr.com",
       "instagram": "@gvcostarica"
     }
+  },
+  "fishingTours": {
+    "pill": "Arborea Experiences",
+    "title": "Fishing Tours & Marine Experiences",
+    "subtitle": "Offshore, inshore, river and combo tours aboard Arborea's own boat",
+    "whatsapp": "Book via WhatsApp",
+    "story": {
+      "heading": "Out on the water with Arborea",
+      "body": "From mar afuera runs chasing Tuna and Marlin to quiet river mornings after Snook and Mangrove Snapper, every trip is operated directly by Arborea Experiences — our boat, our captain, our routes.\n\nChoose the tour that fits your day, from a full offshore adventure to a relaxed combo of whale watching, fishing, and beach time. Prices below are estimates; your captain will confirm the final rate based on conditions and group size."
+    },
+    "packages": {
+      "subheading": "Choose your tour",
+      "heading": "Fishing Packages & Experiences",
+      "description": "Select the tour you'd like to book. Each package includes captain and crew — see full conditions below.",
+      "durationNote": "Half-day tours run approximately $650 to $700, compared to $1,200 for a full-day offshore trip. Shorter tours don't include a full lunch — only drinks and fruit are provided. Duration shown is our best estimate per tour and may be adjusted by the crew.",
+      "items": [
+        {
+          "name": "Offshore Fishing",
+          "species": "Tuna, Marlin, Sailfish, Dorado",
+          "priceLabel": "$1,200 – $1,300",
+          "priceValue": 1200,
+          "duration": "Full day",
+          "description": "Runs in open water. The most common rate currently charged is $1,200."
+        },
+        {
+          "name": "Isla del Caño Fishing",
+          "species": "Snapper, Tuna, Guaho, Mackerel, Roosterfish",
+          "priceLabel": "$900 – $1,000",
+          "priceValue": 900,
+          "duration": "Full day",
+          "description": "Fished 3 km from the island's shore (outside national park limits). Typical rate is $950."
+        },
+        {
+          "name": "Whales, Fishing & Beach Combo",
+          "species": "Varied",
+          "priceLabel": "$700 – $800",
+          "priceValue": 700,
+          "duration": "Half day",
+          "description": "Includes whale watching, a short fishing session, and lunch with free time at San Josecito beach."
+        },
+        {
+          "name": "Inshore Fishing",
+          "species": "Roosterfish, Mackerel, Barracuda, Snapper, Jack, Corvina, Snook",
+          "priceLabel": "$600 – $700",
+          "priceValue": 600,
+          "duration": "Half day",
+          "description": "Fished close to shore, just past the river mouth."
+        },
+        {
+          "name": "River Fishing",
+          "species": "Mangrove Snapper, Corvina, Snook",
+          "priceLabel": "$500",
+          "priceValue": 500,
+          "duration": "Half day",
+          "description": "All-inclusive. Fished along the nearby river and its channels."
+        },
+        {
+          "name": "Mangrove, Wildlife & Beach",
+          "species": "Birds & mangrove wildlife",
+          "priceLabel": "Variable",
+          "priceValue": 0,
+          "duration": "Full day",
+          "description": "Early morning departure for birdwatching, returning in the afternoon after time at the beach."
+        }
+      ]
+    },
+    "conditions": {
+      "heading": "Good to Know",
+      "items": [
+        "Half-day tours: approx. $650–$700, versus $1,200 for a full-day offshore trip.",
+        "Half-day meals: drinks and fruit only — no full lunch on shorter tours.",
+        "Fruit on board: only pineapple and watermelon are offered. Banana and papaya are avoided — they spoil quickly and leave an odor on board.",
+        "Snorkel gear: not offered on the Isla del Caño tour — it requires special park permits, national park fees, and certified equipment the boat doesn't currently carry."
+      ]
+    },
+    "ctaHeading": "Ready to head out on the water?",
+    "ctaSubheading": "Reach out on WhatsApp and we'll help you pick the right tour.",
+    "note": "Prices are estimates per boat/group and may vary with conditions, group size, and season. Your captain will confirm final pricing before departure."
   }
 }
