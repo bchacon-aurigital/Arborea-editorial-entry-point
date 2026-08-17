@@ -40,7 +40,7 @@ export const properties = {
     wifi: { name: "Tormenta", password: "CASATORMENTA" },
     directionsUrl: "https://maps.google.com/?q=9.049920,-83.570427",
     guests: 10, bedrooms: 5, baths: 6,
-    highlights: ["pool", "jacuzzi", "yogaDeck", "views", "privacy", "selfCheckin"],
+    highlights: ["pool", "jacuzzi", "yogaDeck", "views", "privacy", "selfCheckin", "petsAllowed"],
   },
   "casa-ron-ron": {
     slug: "casa-ron-ron",
@@ -54,8 +54,8 @@ export const properties = {
     ],
     wifi: { name: "Casa Monkey Mike", password: "CasaMonkeyMike" },
     directionsUrl: "https://www.google.com/maps/place/9%C2%B003'01.4%22N+83%C2%B034'11.5%22W/@9.0490021,-83.5750775,16.19z/data=!4m4!3m3!8m2!3d9.0503939!4d-83.5698713!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D",
-    guests: 8, bedrooms: 4, baths: 1.5,
-    highlights: ["pool", "jungleVibes", "privacy"],
+    guests: 8, bedrooms: 4, baths: 4,
+    highlights: ["pool", "jungleVibes", "privacy", "petsAllowed"],
   },
   "casa-ceiba": {
     slug: "casa-ceiba",
@@ -72,21 +72,6 @@ export const properties = {
     guests: 2, bedrooms: 1, baths: 1,
     highlights: ["pool", "oceanViews", "soakingTub", "outdoorKitchen", "privacy", "petsAllowed"],
   },
-  "casa-corteza-amarilla": {
-    slug: "casa-corteza-amarilla",
-    i18nKey: "casaCorteza",
-    images: [
-      "/assets/CasaCortezaAmarilla/13.avif",
-      "/assets/CasaCortezaAmarilla/14.avif",
-      "/assets/CasaCortezaAmarilla/15.avif",
-      "/assets/CasaCortezaAmarilla/16.avif",
-      "/assets/CasaCortezaAmarilla/DSC00769-HDR 1.avif",
-    ],
-    wifi: { name: "Cortez Amarillo", password: "CORTEZAMARILLO" },
-    directionsUrl: "https://maps.google.com/?q=9.044592,-83.579613",
-    guests: 8, bedrooms: 5, baths: 2,
-    highlights: ["pool", "sunsets", "oceanBreeze", "privacy"],
-  },
   "casa-palmera": {
     slug: "casa-palmera",
     i18nKey: "casaPalmera",
@@ -99,7 +84,7 @@ export const properties = {
     ],
     wifi: { name: "Otra Vida", password: "PALMERAAZUL" },
     directionsUrl: "https://maps.google.com/?q=9.044904,-83.577560",
-    guests: 8, bedrooms: 4, baths: 2,
-    highlights: ["pool", "yogaArea", "sunsets", "views", "privacy"],
+    guests: 8, bedrooms: 4, baths: 5,
+    highlights: ["pool", "yogaArea", "sunsets", "views", "privacy", "petsAllowed"],
   },
 };

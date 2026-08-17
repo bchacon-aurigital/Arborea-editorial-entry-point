@@ -13,7 +13,6 @@ const propertyKeys = [
   { key: "casaMango",   images: ["/assets/CasaMango/CasaMango3.avif", "/assets/CasaMango/CasaMango1.avif", "/assets/CasaMango/CasaMango2.avif", "/assets/CasaMango/CasaMango6.avif"], guests: 10, bedrooms: 5, baths: 6,   href: "/casa-mango",            slug: "casa-mango" },
   { key: "casaRonRon",  images: ["/assets/CasaRonRon/5.avif", "/assets/CasaRonRon/6.avif", "/assets/CasaRonRon/7.avif", "/assets/CasaRonRon/8.avif"],                               guests: 8,  bedrooms: 4, baths: 1.5, href: "/casa-ron-ron",          slug: "casa-ron-ron" },
   { key: "casaCeiba",   images: ["/assets/CasaCeiba/9.avif", "/assets/CasaCeiba/10.avif", "/assets/CasaCeiba/11.avif", "/assets/CasaCeiba/12.avif"],                                guests: 2,  bedrooms: 1, baths: 1,   href: "/casa-ceiba",            slug: "casa-ceiba" },
-  { key: "casaCorteza", images: ["/assets/CasaCortezaAmarilla/13.avif", "/assets/CasaCortezaAmarilla/14.avif", "/assets/CasaCortezaAmarilla/15.avif", "/assets/CasaCortezaAmarilla/16.avif"], guests: 8,  bedrooms: 5, baths: 2,   href: "/casa-corteza-amarilla", slug: "casa-corteza-amarilla" },
   { key: "casaPalmera", images: ["/assets/CasaPalmera/17.avif", "/assets/CasaPalmera/18.avif", "/assets/CasaPalmera/19.avif", "/assets/CasaPalmera/20.avif"],                       guests: 8,  bedrooms: 4, baths: 2,   href: "/casa-palmera",          slug: "casa-palmera" },
 ];
 

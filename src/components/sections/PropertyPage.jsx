@@ -12,7 +12,7 @@ import Footer from "@/components/layout/Footer";
 import { useI18n } from "@/app/context/I18nContext";
 import { HIGHLIGHT_ICONS } from "@/data/properties";
 import {
-  TbWifi, TbKey, TbMapPin, TbCopy, TbCheck, TbShare, TbChevronRight, TbArrowLeft,
+  TbWifi, TbKey, TbMapPin, TbCopy, TbCheck, TbShare, TbChevronRight, TbArrowLeft, TbInfoCircle,
 } from "react-icons/tb";
 
 export default function PropertyPage({ property }) {
@@ -177,8 +177,15 @@ export default function PropertyPage({ property }) {
                       <Icon size={20} className="text-[#222E2C]/70" />
                     </div>
                     <div className="flex flex-col gap-0.5">
-                      <p className="font-sans font-semibold text-sm text-[#222E2C]">
+                      <p className="font-sans font-semibold text-sm text-[#222E2C] flex items-center gap-1.5">
                         {t(`propertyPage.highlights.${key}.title`)}
+                        {key === "petsAllowed" && (
+                          <TbInfoCircle
+                            size={15}
+                            className="text-[#222E2C]/40 shrink-0"
+                            title={t("propertyPage.highlights.petsAllowed.restrictionsNote")}
+                          />
+                        )}
                       </p>
                       <p className="font-sans text-sm text-[#222E2C]/60">
                         {t(`propertyPage.highlights.${key}.description`)}

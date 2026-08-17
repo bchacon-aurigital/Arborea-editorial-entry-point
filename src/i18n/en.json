@@ -1475,7 +1475,8 @@
       },
       "petsAllowed": {
         "title": "Pets allowed",
-        "description": "The only casa that welcomes pets"
+        "description": "Pets welcome — refundable damage deposit applies",
+        "restrictionsNote": "Restrictions apply"
       },
       "sunsets": {
         "title": "Sunsets",
@@ -1517,13 +1518,8 @@
       "description": "Set apart as a private studio, Casa Ceiba is designed for couples seeking intimacy and relaxation. Its private pool, design, and serene atmosphere create a retreat in the heart of the Osa Peninsula.",
       "about": "Set apart as a private studio, Casa Ceiba is designed for couples seeking intimacy and relaxation. Its private pool, thoughtful design, and serene atmosphere create an intimate retreat in the heart of the Osa Peninsula.\n\nEvery detail has been curated to ensure comfort and tranquility in a truly unique natural setting."
     },
-    "casaCorteza": {
-      "name": "Casa Corteza Amarilla",
-      "description": "Casa Corteza Amarilla is named after the iconic Cortez Amarillo tree (Handroanthus guayacan), whose vibrant yellow blossoms transform the landscape into a golden paradise every April.",
-      "about": "Casa Corteza Amarilla is named after the iconic Cortez Amarillo tree (Handroanthus guayacan), whose vibrant yellow blossoms transform the landscape into a golden paradise every April.\n\nThis casa combines natural beauty with refined comfort, offering spacious areas for groups to gather, relax, and connect with the extraordinary surroundings."
-    },
     "casaPalmera": {
-      "name": "Casa Palmera",
+      "name": "Casa Palmera Azul",
       "description": "The casa's design mirrors the elegance of its namesake tree, with spacious interiors, refined decor, and modern amenities. A perfect choice for families or friends seeking a peaceful escape in nature.",
       "about": "Casa Palmera's design mirrors the elegance of its namesake tree, with spacious interiors, refined decor, and modern amenities.\n\nA perfect choice for families or friends seeking a peaceful escape in nature, the casa offers a harmonious blend of comfort and the wild beauty of Costa Rica's landscape."
     }
