@@ -299,6 +299,20 @@
     "whatsapp": "Book your experience",
     "ctaHeading": "Ready to taste Costa Rica?",
     "ctaSubheading": "Reach out on WhatsApp and we'll take care of the rest.",
+    "heroNote": "Harvested the same morning, cooked at your casa.",
+    "sweetsSection": {
+      "kicker": "Something Sweet",
+      "heading": "Desserts & Bakery",
+      "description": "Fresh-baked and made to order, using the same farm ingredients as the rest of your menu."
+    },
+    "nav": {
+      "overview": "Overview",
+      "menu": "Menu Builder",
+      "sweets": "Desserts & Bakery",
+      "themedNights": "Themed Nights",
+      "bar": "Bar & Preferences",
+      "book": "Book Now"
+    },
     "orderBuilder": {
       "heading": "Build your experience",
       "standardHeading": "Standard Menu",

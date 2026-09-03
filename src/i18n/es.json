@@ -370,6 +370,20 @@
     "whatsapp": "Reservar experiencia",
     "ctaHeading": "¿Listo para saborear Costa Rica?",
     "ctaSubheading": "Escríbenos por WhatsApp y nosotros nos encargamos del resto.",
+    "heroNote": "Cosechado la misma mañana, cocinado en tu casa.",
+    "sweetsSection": {
+      "kicker": "Algo Dulce",
+      "heading": "Postres y Panadería",
+      "description": "Recién horneados y preparados al momento, con los mismos ingredientes de finca del resto de tu menú."
+    },
+    "nav": {
+      "overview": "Resumen",
+      "menu": "Arma tu Menú",
+      "sweets": "Postres y Panadería",
+      "themedNights": "Noches Temáticas",
+      "bar": "Bar y Preferencias",
+      "book": "Reservar"
+    },
     "orderBuilder": {
       "heading": "Arma tu experiencia",
       "standardHeading": "Menú Estándar",

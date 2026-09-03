@@ -22,7 +22,7 @@ const THEMES = {
     fieldLabel: "text-[#D8DDB8]/70",
     inputBase: "w-full pl-10 pr-4 py-3 rounded-xl bg-white/10 border border-white/10 shadow-sm font-sans text-sm text-[#D8DDB8] placeholder:text-[#D8DDB8]/40 data-[placeholder]:text-[#D8DDB8]/40 focus:outline-none focus:ring-2 focus:ring-[#D8DDB8]/40 focus:border-transparent transition-all duration-200",
     inputIcon: "text-[#D8DDB8]/40",
-    selectContent: "rounded-xl border-[#222E2C]/10 bg-white shadow-lg",
+    selectContent: "rounded-xl border-[#222E2C]/10 bg-[#EDE5D8] shadow-lg",
     selectItem: "font-sans text-sm text-[#222E2C] rounded-lg cursor-pointer focus:bg-[#213B2F]/8 focus:text-[#213B2F] data-[state=checked]:font-medium",
     successBg: "bg-[#D8DDB8]/15 border-[#D8DDB8]/30",
     successText: "text-[#D8DDB8]",
