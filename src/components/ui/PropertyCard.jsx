@@ -96,19 +96,19 @@ export default function PropertyCard({
         </div>
 
         {/* Amenities */}
-        <div className="flex flex-wrap mb-4 justify-center items-center border-t border-[#222E2C]/15 pt-4">
+        <div className="flex flex-wrap gap-2 sm:flex-nowrap sm:gap-0 sm:justify-between mb-4 items-center border-t border-[#222E2C]/15 pt-4">
           {amenities.map((item, index) => {
             const Icon = item.icon;
             const isLast = index === amenities.length - 1;
             return (
               <div
                 key={item.key}
-                className={`text-sm flex gap-2 items-center justify-center px-3 py-2 shrink-0 ${!isLast ? "border-r border-[#222E2C]/10" : ""}`}
+                className={`flex items-center gap-1.5 justify-center shrink-0 text-sm rounded-full border border-[#222E2C]/15 px-3 py-1.5 sm:gap-2 sm:rounded-none sm:border-0 sm:px-0 sm:py-2 ${!isLast ? "sm:pr-4 sm:border-r sm:border-[#222E2C]/10" : ""}`}
               >
                 <Icon size={item.iconSize} className="text-[#222E2C]/50 shrink-0" />
                 <span className="font-sans font-medium text-[#222E2C]/50 whitespace-nowrap">
                   {item.value == null ? item.label : (
-                    <>{item.label}: <span className="text-[#222E2C]">{item.value}</span></>
+                    <>{item.label}: <span className="font-semibold text-[#222E2C]">{item.value}</span></>
                   )}
                 </span>
               </div>
@@ -117,14 +117,14 @@ export default function PropertyCard({
         </div>
 
         {/* Botones */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           {directionsUrl && (
             <a
               href={directionsUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center justify-center gap-2 h-12 px-5 rounded-full bg-[#213B2F] font-sans font-medium text-sm text-[#D8DDB8] hover:bg-[#213B2F]/90 transition-colors duration-300"
+              className="flex sm:flex-1 items-center justify-center gap-2 h-12 px-5 rounded-full bg-[#213B2F] font-sans font-medium text-sm text-[#D8DDB8] hover:bg-[#213B2F]/90 transition-colors duration-300"
             >
               <TbMapPin size={15} />
               {t("common.getDirections")}
@@ -134,7 +134,7 @@ export default function PropertyCard({
           <Link
             href={href}
             onClick={(e) => e.stopPropagation()}
-            className="flex items-center justify-center h-12 px-5 rounded-full border-2 border-[#222E2C]/20 font-sans font-medium text-sm text-[#222E2C] hover:border-[#222E2C]/50 hover:bg-[#222E2C]/5 transition-all duration-300"
+            className="flex sm:flex-1 items-center justify-center h-12 px-5 rounded-full border-2 border-[#222E2C]/20 font-sans font-medium text-sm text-[#222E2C] hover:border-[#222E2C]/50 hover:bg-[#222E2C]/5 transition-all duration-300"
           >
             {t("common.seeMore")}
           </Link>
