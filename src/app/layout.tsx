@@ -11,9 +11,7 @@ const inter = Inter({
 });
 
 
-import AOSInit from "@/components/AOSInit";
 import JsonLd from "@/components/JsonLd";
-import SplashScreen from "@/components/SplashScreen";
 
 export const metadata: Metadata = {
   title: {
@@ -79,9 +77,7 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         <GoogleTagManager gtmId="GTM-W7KC623M" />
         <I18nProvider>
-            <SplashScreen />
             <LenisProvider />
-            <AOSInit />
             {children}
         </I18nProvider>
       </body>

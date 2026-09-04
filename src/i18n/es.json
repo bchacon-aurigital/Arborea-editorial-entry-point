@@ -300,6 +300,7 @@
       {
         "category": "Bienestar en casa",
         "title": "Experiencia Spa",
+        "image": "/assets/InHouseServices/AromatherapyMassage.avif",
         "description": "Vive una experiencia de bienestar de lujo en tu casa con nuestros terapeutas certificados. Disfruta de tratamientos personalizados diseñados para restaurar tu cuerpo y mente.",
         "features": [
           "Aromaterapia",
@@ -308,11 +309,14 @@
           "Masajes a cuatro manos",
           "Faciales revitalizantes",
           "Tratamientos de limpieza profunda"
-        ]
+        ],
+        "href": "/wellness-spa",
+        "cta": "Ver tratamientos"
       },
       {
         "category": "Gastronomía en casa",
         "title": "Experiencia Chef Privado",
+        "image": "/assets/InHouseServices/PrivateChefExperience.avif",
         "description": "Disfruta de una experiencia culinaria privada creada por nuestros talentosos chefs. Desde cenas íntimas hasta banquetes familiares, cada comida se elabora con ingredientes frescos y de origen local.",
         "features": [
           "Cenas de cuatro tiempos",
@@ -328,6 +332,7 @@
       {
         "category": "De la Finca al Refrigerador",
         "title": "Nevera Llena",
+        "image": "/assets/InHouseServices/FullFridge.avif",
         "description": "Llega a tu casa con el refrigerador lleno de productos frescos directamente de la finca de Arborea. Si quieres cocinar en casa o simplemente disfrutar de lo que sabes que es seguro, todo es orgánico, rico en nutrientes y cultivado con cuidado — sin adivinar, sin ir al supermercado.",
         "features": [
           "Productos frescos de la finca",
@@ -343,6 +348,7 @@
       {
         "category": "En el Mar",
         "title": "Tours de Pesca",
+        "image": "/assets/InHouseServices/fishingTours.avif",
         "description": "Sal al mar en el bote propio de Arborea para pesca mar afuera, costera o en el río — además de avistamiento de ballenas y combos de manglar. Cada tour lo lleva nuestro capitán, de principio a fin.",
         "features": [
           "Pesca mar afuera y costera",
@@ -364,6 +370,20 @@
     "whatsapp": "Reservar experiencia",
     "ctaHeading": "¿Listo para saborear Costa Rica?",
     "ctaSubheading": "Escríbenos por WhatsApp y nosotros nos encargamos del resto.",
+    "heroNote": "Cosechado la misma mañana, cocinado en tu casa.",
+    "sweetsSection": {
+      "kicker": "Algo Dulce",
+      "heading": "Postres y Panadería",
+      "description": "Recién horneados y preparados al momento, con los mismos ingredientes de finca del resto de tu menú."
+    },
+    "nav": {
+      "overview": "Resumen",
+      "menu": "Arma tu Menú",
+      "sweets": "Postres y Panadería",
+      "themedNights": "Noches Temáticas",
+      "bar": "Bar y Preferencias",
+      "book": "Reservar"
+    },
     "orderBuilder": {
       "heading": "Arma tu experiencia",
       "standardHeading": "Menú Estándar",
@@ -1111,6 +1131,7 @@
     "activities": [
       {
         "title": "Parapente en Tándem — Zion",
+        "image": "/assets/ToursActivities/TandemParaglidingZion.avif",
         "description": "Vuelo en tándem de 15–20 minutos con 15 años de experiencia operativa. Pilotos licenciados y completamente asegurados. Sale desde Dominical.",
         "features": [
           "Vuelo de 15–20 min",
@@ -1139,6 +1160,7 @@
       },
       {
         "title": "Corcovado + Experiencia Marina",
+        "image": "/assets/ToursActivities/CorcovadoMarineExperience.avif",
         "description": "Operador premium de Corcovado y marina con un tour de ballenas único guiado por un biólogo marino con hidrofón. Incluye reserva privada Tapir Trail.",
         "features": [
           "Tour de día a Sirena + opciones de pernocta",
@@ -1179,6 +1201,7 @@
       },
       {
         "title": "Naturaleza y Vida Silvestre en la Selva",
+        "image": "/assets/ToursActivities/NatureWildlifeJungleExperiences.avif",
         "description": "Reserva natural con tours de vida silvestre, avistamiento de aves, tours nocturnos y la experiencia premium Chilamate. Reserva privada de 330 hectáreas.",
         "features": [
           "Tour de vida silvestre (2.5–3 hrs)",
@@ -1207,6 +1230,7 @@
       },
       {
         "title": "ATV en la Jungla con Experiencia Cultural",
+        "image": "/assets/ToursActivities/JungleATVCulturalExperience.avif",
         "description": "Experiencia de 5 horas en ATV o side-by-side combinando paseo por la selva con visita a una familia costarricense, cosecha de café, buffet de bocadillos y guía bilingüe.",
         "features": [
           "Ríos, cascadas y manejo en selva",
@@ -1240,6 +1264,7 @@
       },
       {
         "title": "Parque Nacional Corcovado — Sirena & San Pedrillo",
+        "image": "/assets/ToursActivities/CorcovadoNational ParkSirenaSanPedrillo.avif",
         "description": "Operador integral con acceso a las mejores estaciones de guardaparques de Corcovado. Alta probabilidad de avistamiento: monos, perezosos, tapires, aves. Expediciones con pernocta disponibles.",
         "features": [
           "Acceso a estaciones Sirena + San Pedrillo",
@@ -1280,6 +1305,7 @@
       },
       {
         "title": "ATV y Side-by-Side en la Selva",
+        "image": "/assets/ToursActivities/ATVSidebySideJungleAdventure.avif",
         "description": "Experiencia en instalación privada a través de bosques, ríos y colinas con visita a una finca cafetalera. Ideal para riders con experiencia que buscan un ambiente premium.",
         "features": [
           "Manejo en selva: bosques, ríos y colinas",
@@ -1312,6 +1338,7 @@
       },
       {
         "title": "Parapente en Tándem — Dominical y Rivas",
+        "image": "/assets/ToursActivities/TandemParaglidingDominicalRivas.avif",
         "description": "Vuelo en tándem de 20–30 minutos (más largo que la competencia) con instructor certificado. Empresa familiar, 14 años de experiencia. Se habla inglés. Pago después de la actividad.",
         "features": [
           "Vuelo de 20–30 min (el más largo disponible)",
@@ -1340,6 +1367,7 @@
       },
       {
         "title": "Tour de Cascadas — Día Completo",
+        "image": "/assets/ToursActivities/FullDayWaterfallTour.avif",
         "description": "Tour guiado de día completo visitando 3 cascadas diferentes, parada en playa y almuerzo en restaurante con vista al mar. Transporte desde la oficina incluido.",
         "features": [
           "Visita a 3 cascadas diferentes",
@@ -1359,6 +1387,7 @@
       },
       {
         "title": "Canopy Vuelo del Tucán",
+        "image": "/assets/ToursActivities/VueloTucanCanopy.avif",
         "description": "7 tirolesas a través de una reserva natural privada de 330 hectáreas. Grupos pequeños de 2–8 personas, con caminata ecológica y alta probabilidad de avistamiento de fauna.",
         "features": [
           "7 tirolesas + caminata ecológica (45 min)",
@@ -1378,6 +1407,7 @@
       },
       {
         "title": "Rapel en Cascadas y Cañonismo",
+        "image": "/assets/ToursActivities/CanyoningWatefallRappelling.avif",
         "description": "Múltiples rapeles en cascadas con caminata por la selva e interacción con pozas naturales. Un paquete completo para aventureros — principiantes bienvenidos.",
         "features": [
           "Rapeles en cascadas (experiencia principal)",
@@ -1410,6 +1440,7 @@
       },
       {
         "title": "Tour de Canopy Osa",
+        "image": "/assets/ToursActivities/OsaCanopyTour.avif",
         "description": "7 tirolesas incluyendo la más larga de 1.1 km, 2–3 rapeles y 2 puentes colgantes. Grupos pequeños a medianos, entorno montañoso con vistas panorámicas.",
         "features": [
           "7 tirolesas (1.1 km la más larga)",
@@ -1433,6 +1464,7 @@
       },
       {
         "title": "Combo Tirolesas + Cascadas",
+        "image": "/assets/ToursActivities/ZiplineWaterfallsAdventureCombo.avif",
         "description": "Aventura multideporte con 5 tirolesas, rapel en árbol, monkey drop al agua, poza natural y tobogán en cascada. Almuerzo local incluido al final.",
         "features": [
           "5 tirolesas",
@@ -1464,6 +1496,8 @@
     "guests": "Huéspedes",
     "bedrooms": "Habitaciones",
     "baths": "Baños",
+    "addService": "Agregar servicio",
+    "added": "Agregado",
     "email": "info@arboreaexperiences.com",
     "website": "arboreaexperiences.com"
   },
@@ -1611,14 +1645,36 @@
       "heading": "Masajes",
       "description": "Todos los estilos de masaje están disponibles en sesiones de 60 o 90 minutos. Elige la técnica que mejor se adapte a tu cuerpo y estado de ánimo.",
       "items": [
-        "Masaje Relajante",
-        "Masaje de Tejido Profundo",
-        "Masaje de Piedras Calientes",
-        "Masaje de Aromaterapia",
-        "Masaje Lomi Lomi"
+        {
+          "name": "Masaje Relajante",
+          "image": "/assets/Massages/RelaxingMassage.avif",
+          "description": "Una técnica suave y fluida que alivia el estrés acumulado, mejora la circulación y restaura el equilibrio natural del cuerpo. La opción perfecta para una primera experiencia o un día completo de descanso."
+        },
+        {
+          "name": "Masaje de Tejido Profundo",
+          "image": "/assets/Massages/DeepTissueMassage.avif",
+          "description": "Técnica de presión profunda dirigida a las capas musculares más tensas. Ideal para liberar contracturas crónicas, dolor de espalda y tensión acumulada por el deporte o el trabajo de oficina."
+        },
+        {
+          "name": "Masaje de Piedras Calientes",
+          "image": "/assets/Massages/HotStoneMassage.avif",
+          "description": "Piedras calientes y suaves se combinan con movimientos envolventes para disolver la tensión muscular y favorecer una relajación profunda. Una experiencia cálida y meditativa para el cuerpo y la mente."
+        },
+        {
+          "name": "Masaje de Aromaterapia",
+          "image": "/assets/Massages/AromatherapyMassage.avif",
+          "description": "Una poderosa combinación de masaje relajante con aceites esenciales 100% naturales seleccionados según tus necesidades. Despierta los sentidos, equilibra el sistema nervioso y profundiza el estado de relajación."
+        },
+        {
+          "name": "Masaje Lomi Lomi",
+          "image": "/assets/Massages/LomiLomiMassage.avif",
+          "description": "Un masaje hawaiano tradicional que utiliza movimientos largos y rítmicos con los antebrazos para liberar la tensión de forma continua y envolvente. Profundamente restaurador para el cuerpo y el espíritu."
+        }
       ],
       "fourHands": {
         "label": "Masaje a Cuatro Manos",
+        "image": "/assets/Massages/FourHandsMassage.avif",
+        "description": "Dos terapeutas trabajando en perfecta sincronía, duplicando la sensación de relajación. Una experiencia inmersiva y profundamente restauradora como ninguna otra.",
         "duration": "60 min",
         "price": "$190",
         "priceValue": 190
@@ -1633,6 +1689,7 @@
       "heading": "Tratamientos Faciales",
       "main": {
         "name": "Limpieza Facial Profunda",
+        "description": "Un ritual de limpieza profunda que elimina impurezas, destapa los poros y deja tu piel renovada y equilibrada. El primer paso esencial para una piel sana y radiante.",
         "price": "$80",
         "priceValue": 80
       },

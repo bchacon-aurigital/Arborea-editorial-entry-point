@@ -229,6 +229,7 @@
       {
         "category": "In-casa Wellness",
         "title": "Spa Experience",
+        "image": "/assets/InHouseServices/AromatherapyMassage.avif",
         "description": "Experience a luxury in-casa wellness experience designed to relax, restore, and rejuvenate. Couples experiences, bridal and bachelorette spa packages, and wellness-focused treatments can all be enjoyed in the comfort and privacy of your casa. Each experience is thoughtfully curated to bring relaxation, balance, and indulgence directly to you.",
         "features": [
           "Aromatherapy",
@@ -244,6 +245,7 @@
       {
         "category": "In-casa Dining",
         "title": "Private Chef Experience",
+        "image": "/assets/InHouseServices/PrivateChefExperience.avif",
         "description": "Enjoy a private culinary experience designed around elevated dining, exceptional service, and memorable shared moments. Inspired by global cuisine and Costa Rican flavors, every dish is carefully prepared and beautifully presented for an unforgettable dining experience in the comfort and privacy of your casa.",
         "features": [
           "Four-course Dinners",
@@ -259,6 +261,7 @@
       {
         "category": "Farm to Fridge",
         "title": "Full Fridge",
+        "image": "/assets/InHouseServices/FullFridge.avif",
         "description": "Arrive to a fully stocked fridge filled with fresh produce straight from Arborea's own farm. Whether you want to cook at home or simply snack on what you know is safe, everything is organic, nutrient-rich, and grown with care — no guessing, no grocery runs.",
         "features": [
           "Farm-fresh produce",
@@ -274,6 +277,7 @@
       {
         "category": "On the Water",
         "title": "Fishing Tours",
+        "image": "/assets/InHouseServices/fishingTours.avif",
         "description": "Head out on Arborea's own boat for offshore, inshore, or river fishing — plus whale watching and mangrove wildlife combos. Every trip is run by our captain, from the dock to the catch.",
         "features": [
           "Offshore & inshore fishing",
@@ -295,6 +299,20 @@
     "whatsapp": "Book your experience",
     "ctaHeading": "Ready to taste Costa Rica?",
     "ctaSubheading": "Reach out on WhatsApp and we'll take care of the rest.",
+    "heroNote": "Harvested the same morning, cooked at your casa.",
+    "sweetsSection": {
+      "kicker": "Something Sweet",
+      "heading": "Desserts & Bakery",
+      "description": "Fresh-baked and made to order, using the same farm ingredients as the rest of your menu."
+    },
+    "nav": {
+      "overview": "Overview",
+      "menu": "Menu Builder",
+      "sweets": "Desserts & Bakery",
+      "themedNights": "Themed Nights",
+      "bar": "Bar & Preferences",
+      "book": "Book Now"
+    },
     "orderBuilder": {
       "heading": "Build your experience",
       "standardHeading": "Standard Menu",
@@ -1042,6 +1060,7 @@
     "activities": [
       {
         "title": "Tandem Paragliding — Zion",
+        "image": "/assets/ToursActivities/TandemParaglidingZion.avif",
         "description": "15–20 minute tandem flight with 15 years of operating experience. Licensed and fully insured pilots. Departs from Dominical.",
         "features": [
           "15–20 min flight",
@@ -1070,6 +1089,7 @@
       },
       {
         "title": "Corcovado + Marine Experience",
+        "image": "/assets/ToursActivities/CorcovadoMarineExperience.avif",
         "description": "Premium Corcovado and marine operator with a unique whale tour led by a marine biologist using hydrophone listening. Includes Tapir Trail private reserve.",
         "features": [
           "Sirena day tour + overnight options",
@@ -1110,6 +1130,7 @@
       },
       {
         "title": "Nature & Wildlife Jungle Experiences",
+        "image": "/assets/ToursActivities/NatureWildlifeJungleExperiences.avif",
         "description": "Multi-category nature reserve with wildlife tours, birdwatching, night tours, and the premium Chilamate experience. 330-hectare private reserve.",
         "features": [
           "Wildlife tour (2.5–3 hrs)",
@@ -1138,6 +1159,7 @@
       },
       {
         "title": "Jungle ATV with Cultural Experience",
+        "image": "/assets/ToursActivities/JungleATVCulturalExperience.avif",
         "description": "5-hour ATV or side-by-side experience combining jungle riding with a visit to a local Costa Rican family, coffee harvesting, snacks buffet, and bilingual guide.",
         "features": [
           "Rivers, waterfalls, jungle riding",
@@ -1171,6 +1193,7 @@
       },
       {
         "title": "Corcovado National Park — Sirena & San Pedrillo",
+        "image": "/assets/ToursActivities/CorcovadoNational ParkSirenaSanPedrillo.avif",
         "description": "Full-service nature operator with access to the top ranger stations in Corcovado. High wildlife probability: monkeys, sloths, tapirs, birds. Overnight expeditions available.",
         "features": [
           "Sirena + San Pedrillo ranger station access",
@@ -1211,6 +1234,7 @@
       },
       {
         "title": "ATV & Side-by-Side Jungle Adventure",
+        "image": "/assets/ToursActivities/ATVSidebySideJungleAdventure.avif",
         "description": "Private facility ATV experience through forests, rivers, and hills with a coffee farm visit. Best for experienced riders seeking a premium feel.",
         "features": [
           "Jungle riding: forests, rivers, hills",
@@ -1243,6 +1267,7 @@
       },
       {
         "title": "Tandem Paragliding — Dominical & Rivas",
+        "image": "/assets/ToursActivities/TandemParaglidingDominicalRivas.avif",
         "description": "20–30 minute tandem flight (longer than competitors) with certified instructor. Family-run, 14 years experience. English spoken. Payment collected after the activity.",
         "features": [
           "20–30 min flight (longest available)",
@@ -1271,6 +1296,7 @@
       },
       {
         "title": "Full-Day Waterfall Tour",
+        "image": "/assets/ToursActivities/FullDayWaterfallTour.avif",
         "description": "Full-day guided tour visiting 3 different waterfalls, beach stop, and lunch at a restaurant with ocean view. Transportation from office included.",
         "features": [
           "Visit to 3 different waterfalls",
@@ -1290,6 +1316,7 @@
       },
       {
         "title": "Vuelo del Tucán Canopy",
+        "image": "/assets/ToursActivities/VueloTucanCanopy.avif",
         "description": "7 zip lines through a 330-hectare private nature reserve. Small groups of 2–8 people, with ecological walk and high wildlife spotting potential.",
         "features": [
           "7 zip lines + ecological walk (45 min)",
@@ -1309,6 +1336,7 @@
       },
       {
         "title": "Canyoning & Waterfall Rappelling",
+        "image": "/assets/ToursActivities/CanyoningWatefallRappelling.avif",
         "description": "Multiple waterfall rappels with jungle hiking and natural pool interaction. A complete package for adventure-seekers — beginners welcome.",
         "features": [
           "Waterfall rappels (main highlight)",
@@ -1341,6 +1369,7 @@
       },
       {
         "title": "Osa Canopy Tour",
+        "image": "/assets/ToursActivities/OsaCanopyTour.avif",
         "description": "7 zip lines including a 1.1 km longest line, 2–3 rappels, and 2 hanging bridges. Small to medium groups, scenic mountain setting.",
         "features": [
           "7 zip lines (1.1 km longest)",
@@ -1364,6 +1393,7 @@
       },
       {
         "title": "Zipline + Waterfalls Adventure Combo",
+        "image": "/assets/ToursActivities/ZiplineWaterfallsAdventureCombo.avif",
         "description": "Multi-activity adventure combining 5 zip lines, tree rappelling, monkey drop into water, natural pool, and waterfall slide. Local lunch included.",
         "features": [
           "5 zip lines",
@@ -1395,6 +1425,8 @@
     "guests": "Guests",
     "bedrooms": "Bedrooms",
     "baths": "Baths",
+    "addService": "Add service",
+    "added": "Added",
     "email": "info@arboreaexperiences.com",
     "website": "arboreaexperiences.com"
   },
@@ -1613,14 +1645,36 @@
       "heading": "Massages",
       "description": "All massage styles are available in 60 or 90 minute sessions. Choose the technique that best suits your body and mood.",
       "items": [
-        "Relaxing Massage",
-        "Deep Tissue Massage",
-        "Hot Stone Massage",
-        "Aromatherapy Massage",
-        "Lomi Lomi Massage"
+        {
+          "name": "Relaxing Massage",
+          "image": "/assets/Massages/RelaxingMassage.avif",
+          "description": "A gentle, flowing technique that relieves accumulated stress, improves circulation, and restores the body's natural balance. The perfect choice for a first experience or a full day of rest."
+        },
+        {
+          "name": "Deep Tissue Massage",
+          "image": "/assets/Massages/DeepTissueMassage.avif",
+          "description": "Deep-pressure technique targeting the most tense muscle layers. Ideal for releasing chronic contractures, back pain, and tension built up from sports or desk work."
+        },
+        {
+          "name": "Hot Stone Massage",
+          "image": "/assets/Massages/HotStoneMassage.avif",
+          "description": "Smooth heated stones are combined with flowing strokes to melt away muscle tension and promote deep relaxation. A warming, meditative experience for body and mind."
+        },
+        {
+          "name": "Aromatherapy Massage",
+          "image": "/assets/Massages/AromatherapyMassage.avif",
+          "description": "A powerful combination of relaxing massage with 100% natural essential oils selected for your specific needs. Awakens the senses, balances the nervous system, and deepens the state of relaxation."
+        },
+        {
+          "name": "Lomi Lomi Massage",
+          "image": "/assets/Massages/LomiLomiMassage.avif",
+          "description": "A traditional Hawaiian massage using long, rhythmic strokes with the forearms to release tension in a continuous, flowing motion. Deeply restorative for both body and spirit."
+        }
       ],
       "fourHands": {
         "label": "Four Hands Massage",
+        "image": "/assets/Massages/FourHandsMassage.avif",
+        "description": "Two therapists working in perfect synchrony, doubling the sensation of relaxation. An immersive, deeply restorative experience unlike any other.",
         "duration": "60 min",
         "price": "$190",
         "priceValue": 190
@@ -1635,6 +1689,7 @@
       "heading": "Facial Treatments",
       "main": {
         "name": "Deep Facial Cleansing",
+        "description": "A thorough cleansing ritual that removes impurities, unclogs pores, and leaves your skin refreshed and balanced. The essential first step for healthy, radiant skin.",
         "price": "$80",
         "priceValue": 80
       },

@@ -87,29 +87,25 @@ export default function PropertyCard({
       </div>
 
       {/* Contenido */}
-      <div className="flex flex-col flex-1 pt-6 pb-5 px-3">
+      <div className="flex flex-col flex-1 pt-5 pb-5 px-3">
 
-        {/* Nombre + descripción */}
-        <div className="flex flex-col flex-1 gap-3 mb-5">
-          <p className="font-sans font-medium text-xl text-[#222E2C]">{name}</p>
-          <p className="font-sans text-sm text-[#222E2C]/50">{description}</p>
-        </div>
+        {/* Nombre */}
+        <p className="font-sans font-medium text-xl text-[#222E2C] mb-5">{name}</p>
 
         {/* Amenities */}
-        <div className="flex flex-wrap mb-4 justify-center items-center border-t border-[#222E2C]/15 pt-4">
-          {amenities.map((item, index) => {
+        <div className="flex flex-wrap gap-2 mb-4">
+          {amenities.map((item) => {
             const Icon = item.icon;
-            const isLast = index === amenities.length - 1;
             return (
               <div
                 key={item.key}
-                className={`text-sm flex gap-2 items-center justify-center px-3 py-2 shrink-0 ${!isLast ? "border-r border-[#222E2C]/10" : ""}`}
+                className="flex items-center gap-2 bg-[#222E2C]/6 rounded-full px-3.5 py-2"
               >
                 <Icon size={item.iconSize} className="text-[#222E2C]/50 shrink-0" />
-                <span className="font-sans font-medium text-[#222E2C]/50 whitespace-nowrap">
-                  {item.value == null ? item.label : (
-                    <>{item.label}: <span className="text-[#222E2C]">{item.value}</span></>
-                  )}
+                <span className="font-sans text-sm text-[#222E2C]/70">
+                  {item.value == null
+                    ? item.label
+                    : <><span className="font-semibold text-[#222E2C]">{item.value}</span> {item.label}</>}
                 </span>
               </div>
             );
@@ -117,14 +113,14 @@ export default function PropertyCard({
         </div>
 
         {/* Botones */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           {directionsUrl && (
             <a
               href={directionsUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="flex items-center justify-center gap-2 h-12 px-5 rounded-full bg-[#213B2F] font-sans font-medium text-sm text-[#D8DDB8] hover:bg-[#213B2F]/90 transition-colors duration-300"
+              className="flex sm:flex-1 items-center justify-center gap-2 h-12 px-5 rounded-full bg-[#213B2F] font-sans font-medium text-sm text-[#D8DDB8] hover:bg-[#213B2F]/90 transition-colors duration-300"
             >
               <TbMapPin size={15} />
               {t("common.getDirections")}
@@ -134,7 +130,7 @@ export default function PropertyCard({
           <Link
             href={href}
             onClick={(e) => e.stopPropagation()}
-            className="flex items-center justify-center h-12 px-5 rounded-full border-2 border-[#222E2C]/20 font-sans font-medium text-sm text-[#222E2C] hover:border-[#222E2C]/50 hover:bg-[#222E2C]/5 transition-all duration-300"
+            className="flex sm:flex-1 items-center justify-center h-12 px-5 rounded-full border-2 border-[#222E2C]/20 font-sans font-medium text-sm text-[#222E2C] hover:border-[#222E2C]/50 hover:bg-[#222E2C]/5 transition-all duration-300"
           >
             {t("common.seeMore")}
           </Link>

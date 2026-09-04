@@ -20,6 +20,14 @@ html, body {
   overflow-x: hidden;
 }
 
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* ── Property image swiper pagination ── */
 .property-swiper .swiper-pagination-bullet {
   background: #fff;

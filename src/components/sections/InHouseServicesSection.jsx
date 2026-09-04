@@ -1,38 +1,34 @@
 "use client";
 
-import { TbSparkles, TbCircleCheck, TbArrowRight } from "react-icons/tb";
+import { TbSparkles, TbPhoto, TbArrowRight } from "react-icons/tb";
 import { useI18n } from "@/app/context/I18nContext";
 import Link from "next/link";
 
-function ServiceCard({ category, title, description, features = [], href, cta }) {
+function ServiceCard({ category, title, description, image, href, cta }) {
   const content = (
-    <div className={`bg-[#E0D4C4] rounded-2xl px-6 py-8 flex flex-col gap-0 h-full${href ? " hover:bg-[#D8CCBB] transition-colors duration-200" : ""}`}>
-      <div className="border-b border-[#222E2C]/10 pb-5 flex flex-col gap-3">
+    <div className={`bg-[#E0D4C4] rounded-2xl overflow-hidden flex flex-col h-full${href ? " hover:bg-[#D8CCBB] transition-colors duration-200" : ""}`}>
+      <div className="h-56 bg-[#222E2C]/5 flex items-center justify-center shrink-0 overflow-hidden">
+        {image ? (
+          <img src={image} alt={title} className="w-full h-full object-cover" />
+        ) : (
+          <TbPhoto size={26} className="text-[#222E2C]/20" />
+        )}
+      </div>
+      <div className="px-6 py-6 flex flex-col gap-3 flex-1">
         <div className="flex flex-col gap-1.5">
           <p className="font-sans font-semibold text-sm text-[#222E2C]/60">{category}</p>
           <p className="font-sans font-medium text-lg text-[#222E2C]">{title}</p>
         </div>
         <p className="font-sans text-sm text-[#222E2C]/50 leading-relaxed">{description}</p>
-      </div>
-      <div className="pt-5 flex flex-wrap gap-2 flex-1">
-        {features.map((feat, i) => (
-          <div
-            key={i}
-            className="flex items-center gap-1.5 border border-[#222E2C]/10 rounded-full px-2.5 py-1.5"
-          >
-            <TbCircleCheck size={14} className="text-[#222E2C]/50 shrink-0" />
-            <span className="font-sans font-medium text-xs text-[#222E2C]/50">{feat}</span>
+        {href && cta && (
+          <div className="pt-2 mt-auto">
+            <span className="inline-flex items-center gap-1.5 font-sans font-semibold text-sm text-[#222E2C]">
+              {cta}
+              <TbArrowRight size={15} />
+            </span>
           </div>
-        ))}
+        )}
       </div>
-      {href && cta && (
-        <div className="pt-6 mt-auto">
-          <span className="inline-flex items-center gap-1.5 font-sans font-semibold text-sm text-[#222E2C]">
-            {cta}
-            <TbArrowRight size={15} />
-          </span>
-        </div>
-      )}
     </div>
   );
 
