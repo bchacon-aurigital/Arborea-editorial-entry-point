@@ -15,9 +15,9 @@ export default function Home() {
       <Navbar />
       <main>
         <HeroSection />
+        <InHouseServicesSection />
         <ToursActivitiesSection />
         <MulaRentalSection />
-        <InHouseServicesSection />
         <EmergencyContactsSection />
         <GoodToKnowSection />
       </main>

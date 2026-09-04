@@ -18,7 +18,7 @@ export default function ActivityCard({ activity }) {
       {/* Photo */}
       <div className="h-52 bg-white/10 flex items-center justify-center shrink-0 overflow-hidden">
         {image ? (
-          <img src={image} alt={title} className="w-full h-full object-cover" />
+          <img src={image} alt={title} className="w-full h-full object-cover" loading="lazy" decoding="async" />
         ) : (
           <TbPhoto size={28} className="text-white/30" />
         )}

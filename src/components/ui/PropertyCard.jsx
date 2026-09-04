@@ -87,29 +87,25 @@ export default function PropertyCard({
       </div>
 
       {/* Contenido */}
-      <div className="flex flex-col flex-1 pt-6 pb-5 px-3">
+      <div className="flex flex-col flex-1 pt-5 pb-5 px-3">
 
-        {/* Nombre + descripción */}
-        <div className="flex flex-col flex-1 gap-3 mb-5">
-          <p className="font-sans font-medium text-xl text-[#222E2C]">{name}</p>
-          <p className="font-sans text-sm text-[#222E2C]/50">{description}</p>
-        </div>
+        {/* Nombre */}
+        <p className="font-sans font-medium text-xl text-[#222E2C] mb-5">{name}</p>
 
         {/* Amenities */}
-        <div className="flex flex-wrap gap-2 sm:flex-nowrap sm:gap-0 sm:justify-between mb-4 items-center border-t border-[#222E2C]/15 pt-4">
-          {amenities.map((item, index) => {
+        <div className="flex flex-wrap gap-2 mb-4">
+          {amenities.map((item) => {
             const Icon = item.icon;
-            const isLast = index === amenities.length - 1;
             return (
               <div
                 key={item.key}
-                className={`flex items-center gap-1.5 justify-center shrink-0 text-sm rounded-full border border-[#222E2C]/15 px-3 py-1.5 sm:gap-2 sm:rounded-none sm:border-0 sm:px-0 sm:py-2 ${!isLast ? "sm:pr-4 sm:border-r sm:border-[#222E2C]/10" : ""}`}
+                className="flex items-center gap-2 bg-[#222E2C]/6 rounded-full px-3.5 py-2"
               >
                 <Icon size={item.iconSize} className="text-[#222E2C]/50 shrink-0" />
-                <span className="font-sans font-medium text-[#222E2C]/50 whitespace-nowrap">
-                  {item.value == null ? item.label : (
-                    <>{item.label}: <span className="font-semibold text-[#222E2C]">{item.value}</span></>
-                  )}
+                <span className="font-sans text-sm text-[#222E2C]/70">
+                  {item.value == null
+                    ? item.label
+                    : <><span className="font-semibold text-[#222E2C]">{item.value}</span> {item.label}</>}
                 </span>
               </div>
             );
