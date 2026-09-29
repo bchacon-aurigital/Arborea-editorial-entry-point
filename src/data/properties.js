@@ -37,7 +37,7 @@ export const properties = {
       "/assets/CasaMango/CasaMango6.avif",
       "/assets/CasaMango/1.avif",
     ],
-    wifi: { name: "Tormenta", password: "CASATORMENTA" },
+    wifi: { name: "Tormenta", password: "TORMENTA" },
     directionsUrl: "https://maps.google.com/?q=9.049920,-83.570427",
     guests: 10, bedrooms: 5, baths: 6,
     highlights: ["pool", "jacuzzi", "yogaDeck", "views", "privacy", "selfCheckin", "petsAllowed"],

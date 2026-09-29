@@ -1,29 +1,21 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useI18n } from "@/app/context/I18nContext";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/Footer";
-import OrderCheckoutForm from "@/components/sections/OrderCheckoutForm";
 import { useOrderCart } from "@/hooks/useOrderCart";
+import { submitOrder } from "@/lib/orderApi";
 import {
   TbArrowLeft, TbLeaf, TbCircleCheck, TbBrandWhatsapp, TbCheck,
-  TbPlant2, TbFlame, TbSoup, TbSeedling, TbFish,
-  TbChevronLeft, TbChevronRight, TbGlassCocktail, TbCoffee, TbSalad, TbToolsKitchen2,
+  TbGlassCocktail, TbCoffee, TbSalad, TbToolsKitchen2,
+  TbHandClick, TbAdjustments, TbSend, TbListCheck, TbCalendarEvent, TbPlus,
+  TbNotes, TbAlertCircle, TbLoader2,
 } from "react-icons/tb";
 
 const WHATSAPP = "50685011042";
-const HERO_IMAGE = "/assets/InHouseServices/PrivateChefExperience.avif";
-
-const SECTIONS = [
-  { id: "overview", num: "01" },
-  { id: "menu", num: "02" },
-  { id: "sweets", num: "03" },
-  { id: "themed-nights", num: "04" },
-  { id: "bar", num: "05" },
-  { id: "book", num: "06" },
-];
+const STORY_IMAGE = "/assets/InHouseServices/PrivateChefExperience.avif";
 
 const MEAL_META = {
   breakfast: { icon: TbCoffee },
@@ -57,94 +49,62 @@ export default function PrivateChefPage() {
   const themedNights    = t("privateChef.themedNights.nights");
   const pricingPS       = t("privateChef.pricing.perService.items");
   const themedTiers     = t("privateChef.pricing.themedNights.items");
-  const oceanDinner     = t("privateChef.pricing.themedNights.oceanDinner");
   const pricingBar      = t("privateChef.pricing.bartender.items");
   const ob              = t("privateChef.orderBuilder");
-  const df              = t("privateChef.dietaryForm");
-  const sl              = t("privateChef.summaryLabels");
   const sweets          = t("privateChef.sweetsSection");
+  const fridgeBeverages = t("fullFridge.beverages");
 
   const [selectedServiceIdx, setSelectedServiceIdx] = useState(null);
   const [guests, setGuests] = useState(2);
+  const [serviceDate, setServiceDate] = useState("");
   const [selectedNightIdx, setSelectedNightIdx] = useState(null);
   const [themedGuests, setThemedGuests] = useState(2);
+  const [themedDate, setThemedDate] = useState("");
+  const [bevQty, setBevQty] = useState({});
   const [bartenderIdx, setBartenderIdx] = useState(null);
   const [activeMeal, setActiveMeal] = useState(null);
 
   // Dish picks are preferences for the chef, not priced line items.
   const [dishes, setDishes] = useState({});
-  const [restrictions, setRestrictions] = useState([]);
-  const [allergies, setAllergies] = useState("");
-  const [preferences, setPreferences] = useState("");
-
-  // Scrollspy for the sticky section nav.
-  const sectionEls = useRef({});
-  const [activeSection, setActiveSection] = useState("overview");
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
-      },
-      { rootMargin: "-35% 0px -55% 0px", threshold: 0 }
-    );
-    Object.values(sectionEls.current).forEach((el) => el && observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  const registerSection = useCallback((id) => (el) => {
-    sectionEls.current[id] = el;
-  }, []);
-
-  const goToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
-  // Themed nights carousel.
-  const nightsScrollerRef = useRef(null);
-  const [nightSlide, setNightSlide] = useState(0);
-
-  const scrollNights = (dir) => {
-    const el = nightsScrollerRef.current;
-    if (!el) return;
-    const card = el.querySelector("[data-night-card]");
-    const step = card ? card.offsetWidth + 16 : el.clientWidth * 0.85;
-    el.scrollBy({ left: dir * step, behavior: "smooth" });
-  };
-
-  const handleNightsScroll = () => {
-    const el = nightsScrollerRef.current;
-    if (!el) return;
-    const cards = Array.from(el.querySelectorAll("[data-night-card]"));
-    if (!cards.length) return;
-    const center = el.scrollLeft + el.clientWidth / 2;
-    let closest = 0;
-    let minDist = Infinity;
-    cards.forEach((c, i) => {
-      const dist = Math.abs(c.offsetLeft + c.offsetWidth / 2 - center);
-      if (dist < minDist) { minDist = dist; closest = i; }
-    });
-    setNightSlide(closest);
-  };
+  const [dishQty, setDishQty] = useState({});
 
   const toggleDish = (id, label, group) => {
+    const limit = guests >= 5 ? 2 : 1;
     setDishes((prev) => {
       if (prev[id]) {
         const next = { ...prev };
         delete next[id];
         return next;
       }
+      const groupEntries = Object.entries(prev).filter(([, d]) => d.group === group);
+      if (groupEntries.length >= limit) {
+        // Auto-replace the oldest pick in this group
+        const [oldestId] = groupEntries[0];
+        const next = { ...prev };
+        delete next[oldestId];
+        return { ...next, [id]: { label, group } };
+      }
       return { ...prev, [id]: { label, group } };
     });
   };
 
-  const toggleRestriction = (opt) => {
-    setRestrictions((prev) => (prev.includes(opt) ? prev.filter((v) => v !== opt) : [...prev, opt]));
+  const DISH_PRICE = 15;
+
+  const changeDishQty = (id, label, group, qty) => {
+    const next = Math.max(0, qty);
+    setDishQty((prev) => ({ ...prev, [id]: next }));
+    const displayLabel = next > 1 ? `${label} ×${next}` : label;
+    if (next === 0) {
+      setDishes((prev) => { const n = { ...prev }; delete n[id]; return n; });
+      cart.removeItem(id);
+    } else {
+      setDishes((prev) => ({ ...prev, [id]: { label: displayLabel, group } }));
+      cart.setItem(id, { label: displayLabel, price: DISH_PRICE * next });
+    }
   };
 
   const visibleMeals = selectedServiceIdx === null ? [] : SERVICE_MEALS[selectedServiceIdx];
+  const maxDishes = guests >= 5 ? 2 : 1;
 
   useEffect(() => {
     const meals = selectedServiceIdx === null ? [] : SERVICE_MEALS[selectedServiceIdx];
@@ -184,8 +144,8 @@ export default function PrivateChefPage() {
   const pickNight = (i) => {
     if (selectedNightIdx === i) {
       setSelectedNightIdx(null);
+      setThemedDate("");
       cart.removeItem("themed-night");
-      cart.removeItem("ocean-dinner");
       return;
     }
     setSelectedNightIdx(i);
@@ -193,17 +153,34 @@ export default function PrivateChefPage() {
     cart.setItem("themed-night", { label: `${themedNights[i].title} · ${themedGuests} guests`, price: tier.priceValue });
   };
 
-  const changeThemedGuests = (val) => {
-    const g = Math.max(2, Number(val) || 2);
-    setThemedGuests(g);
+  const changeThemedGuests = (g) => {
+    const clamped = Math.max(2, Math.min(15, g));
+    setThemedGuests(clamped);
     if (selectedNightIdx !== null) {
-      const tier = findThemedTier(themedTiers, g);
-      cart.setItem("themed-night", { label: `${themedNights[selectedNightIdx].title} · ${g} guests`, price: tier.priceValue });
+      const tier = findThemedTier(themedTiers, clamped);
+      cart.setItem("themed-night", { label: `${themedNights[selectedNightIdx].title} · ${clamped} guests`, price: tier.priceValue });
     }
   };
 
-  const toggleOceanDinner = () => {
-    cart.toggleItem("ocean-dinner", { label: oceanDinner.label, price: oceanDinner.priceValue });
+  const handleThemedDate = (d) => {
+    setThemedDate(d);
+    if (selectedNightIdx !== null) {
+      const tier = findThemedTier(themedTiers, themedGuests);
+      cart.setItem("themed-night", { label: `${themedNights[selectedNightIdx].title} · ${themedGuests} guests`, price: tier.priceValue, date: d });
+    }
+  };
+
+  const changeBevQty = (i, qty) => {
+    const next = Math.max(0, qty);
+    setBevQty((prev) => ({ ...prev, [i]: next }));
+    const id = `themed-bev-${i}`;
+    if (!Array.isArray(fridgeBeverages?.items)) return;
+    const item = fridgeBeverages.items[i];
+    if (next === 0) {
+      cart.removeItem(id);
+    } else {
+      cart.setItem(id, { label: `${item.title} × ${next}`, price: item.priceValue * next });
+    }
   };
 
   const pickBartender = (i) => {
@@ -226,8 +203,6 @@ export default function PrivateChefPage() {
       { key: "breakfast", label: t("privateChef.breakfast.heading") },
       { key: "lunch", label: t("privateChef.lunch.heading") },
       { key: "dinner", label: t("privateChef.dinner.heading") },
-      { key: "dessert", label: t("privateChef.desserts.heading") },
-      { key: "bakery", label: t("privateChef.bakery.heading") },
     ];
 
     const picked = Object.values(dishes);
@@ -238,14 +213,10 @@ export default function PrivateChefPage() {
       })
       .filter(Boolean);
 
-    if (restrictions.length) lines.push({ label: `${sl.restrictions}: ${restrictions.join(", ")}`, price: 0 });
-    if (allergies.trim()) lines.push({ label: `${sl.allergies}: ${allergies.trim()}`, price: 0 });
-    if (preferences.trim()) lines.push({ label: `${sl.preferences}: ${preferences.trim()}`, price: 0 });
+    if (serviceDate) lines.push({ label: `Preferred date: ${serviceDate}`, price: 0 });
 
     return lines;
   };
-
-  const activeMealLabel = activeMeal ? t(`privateChef.${activeMeal}.heading`) : "";
 
   return (
     <>
@@ -253,7 +224,7 @@ export default function PrivateChefPage() {
       <main className="pt-24">
 
         {/* Hero */}
-        <div className="px-8 md:px-16 pt-8 pb-10 grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-8 lg:gap-12 items-center">
+        <div className="px-8 md:px-16 pt-8 pb-10">
           <div className="flex flex-col gap-1" data-aos="fade-up">
             <Link
               href="/"
@@ -283,93 +254,97 @@ export default function PrivateChefPage() {
               {t("privateChef.whatsapp")}
             </a>
           </div>
-
-          <div className="relative rounded-2xl overflow-hidden min-h-[260px] sm:min-h-[340px] lg:h-[380px]" data-aos="fade-up">
-            <img
-              src={HERO_IMAGE}
-              alt={t("privateChef.title")}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#161f19]/60 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4 sm:right-auto sm:max-w-xs bg-[#EDE5D8]/95 backdrop-blur rounded-xl px-4 py-3 flex items-center gap-3 shadow-sm">
-              <TbLeaf size={18} className="text-[#213B2F] shrink-0" />
-              <p className="font-sans text-xs font-medium text-[#222E2C] leading-snug">{t("privateChef.heroNote")}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Sticky section nav */}
-        <div className="sticky top-24 z-30 px-8 md:px-16 mb-4">
-          <nav
-            aria-label="Section navigation"
-            className="flex items-center gap-1 w-full max-w-full overflow-x-auto no-scrollbar bg-[#EDE5D8]/95 backdrop-blur border border-[#222E2C]/10 rounded-full p-1.5 shadow-sm"
-          >
-            {SECTIONS.map((s) => (
-              <button
-                key={s.id}
-                type="button"
-                onClick={() => goToSection(s.id)}
-                aria-current={activeSection === s.id ? "true" : undefined}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-full font-sans text-xs font-medium whitespace-nowrap transition-colors duration-200 shrink-0 ${
-                  activeSection === s.id ? "bg-[#213B2F] text-[#D8DDB8]" : "text-[#222E2C]/55 hover:text-[#222E2C]"
-                }`}
-              >
-                <span className="tabular-nums opacity-60">{s.num}</span>
-                {nav[s.id === "themed-nights" ? "themedNights" : s.id]}
-              </button>
-            ))}
-          </nav>
         </div>
 
         <div className="flex flex-col pb-8">
 
           {/* 01 — Overview / Story */}
-          <div id="overview" ref={registerSection("overview")} className="flex flex-col gap-5 scroll-mt-40 px-8 md:px-16 pt-2 pb-14 md:pb-20" data-aos="fade-up">
-            <Eyebrow num="01" label={nav.overview} />
-            <div className="bg-[#213B2F] rounded-2xl px-8 md:px-12 py-10 flex flex-col gap-4">
-              <TbLeaf size={22} className="text-[#D8DDB8]/50" />
-              <h2 className="font-sans font-semibold text-lg text-[#D8DDB8]">
-                {t("privateChef.story.heading")}
-              </h2>
-              <p className="font-sans text-sm text-[#D8DDB8]/70 leading-relaxed whitespace-pre-line max-w-3xl">
-                {t("privateChef.story.body")}
-              </p>
+          <div id="overview" className="flex flex-col gap-8 scroll-mt-40 px-8 md:px-16 pt-2 pb-14 md:pb-20">
+
+            {/* Story — photo + text */}
+            <div className="bg-[#213B2F] rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 lg:h-[440px]" data-aos="fade-up">
+              <div className="flex flex-col justify-center gap-5 px-8 md:px-12 py-12 lg:py-0 order-2 lg:order-1">
+                <TbLeaf size={22} className="text-[#D8DDB8]/60" />
+                <h2 className="text-3xl md:text-4xl text-[#EDE5D8] tracking-tight leading-tight" style={{ fontFamily: "var(--font-alpina)" }}>
+                  {t("privateChef.story.heading")}
+                </h2>
+                <div className="w-12 h-px bg-[#D8DDB8]/40" />
+                <p className="font-sans text-sm text-[#D8DDB8]/65 leading-relaxed whitespace-pre-line max-w-md">
+                  {t("privateChef.story.body")}
+                </p>
+              </div>
+              <div className="h-56 lg:h-full order-1 lg:order-2 overflow-hidden">
+                <img src={STORY_IMAGE} alt={t("privateChef.story.heading")} className="w-full h-full object-cover" />
+              </div>
             </div>
+
+            {/* How it works — steps */}
+            <div className="flex flex-col gap-6" data-aos="fade-up">
+              <div className="flex flex-col gap-2 max-w-xl">
+                <h2 className="text-3xl md:text-4xl text-[#213B2F] tracking-tight leading-tight" style={{ fontFamily: "var(--font-alpina)" }}>
+                  How to build your experience
+                </h2>
+                <p className="font-sans text-sm text-[#222E2C]/50 leading-relaxed">
+                  Browse the menus, pick your dishes, and submit — your chef handles the rest.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3">
+                {[
+                  { Icon: TbHandClick,     step: "Pick a service",      body: "Choose between Breakfast, Lunch, Dinner, or a Full Day — then set your guest count." },
+                  { Icon: TbListCheck,     step: "Browse the menus",    body: "Explore each meal and select the dishes you'd like the chef to prepare." },
+                  { Icon: TbAdjustments,   step: "Add preferences",     body: "Let the chef know about dietary restrictions, allergies, or anything you'd rather avoid." },
+                  { Icon: TbSend,          step: "Review & submit",     body: "Scroll to the order summary at the bottom, add any final notes for the chef, and submit — we'll confirm everything before your stay." },
+                ].map(({ Icon, step, body }, i) => (
+                  <div key={i} className="flex-1 flex flex-col gap-3 bg-white rounded-2xl px-5 py-5 border border-[#222E2C]/8">
+                    <div className="flex items-center gap-3">
+                      <div className="size-8 rounded-full bg-[#213B2F] flex items-center justify-center shrink-0">
+                        <Icon size={15} className="text-[#D8DDB8]" />
+                      </div>
+                      <span className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest">Step {i + 1}</span>
+                    </div>
+                    <p className="font-sans text-base font-medium text-[#222E2C] leading-snug">{step}</p>
+                    <p className="font-sans text-sm text-[#222E2C]/55 leading-relaxed">{body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
 
           {/* 02 — Menu Builder */}
-          <div id="menu" ref={registerSection("menu")} className="flex flex-col gap-6 scroll-mt-40 border-t border-[#222E2C]/8 bg-[#E0D4C4]/35 px-8 md:px-16 py-14 md:py-20">
-            <div className="flex flex-col gap-6" data-aos="fade-up">
-              <Eyebrow num="02" label={nav.menu} />
-              <div className="border-b border-[#222E2C]/15 pb-4">
-                <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
+          <div id="menu" className="flex flex-col gap-10 scroll-mt-40 border-t border-[#222E2C]/10 px-8 md:px-16 py-14 md:py-20">
+
+            <div className="flex flex-col gap-8" data-aos="fade-up">
+
+              {/* Heading */}
+              <div className="flex flex-col gap-1.5">
+                <p className="font-sans text-xs font-semibold text-[#222E2C]/50 uppercase tracking-widest">02 — Menu Builder</p>
+                <h2 className="font-sans font-semibold text-2xl md:text-3xl text-[#222E2C] tracking-tight">
                   {ob.standardHeading}
                 </h2>
-                <p className="font-sans text-sm text-[#222E2C]/50 mt-2 max-w-2xl">{ob.standardDescription}</p>
               </div>
 
+              {/* Service type selector */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {Array.isArray(pricingPS) && pricingPS.map((item, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    aria-pressed={selectedServiceIdx === i}
-                    onClick={() => pickService(i)}
-                    className={`text-left rounded-xl px-5 py-4 flex flex-col gap-1 border-2 transition-colors duration-200 ${
-                      selectedServiceIdx === i ? "bg-[#213B2F] border-[#213B2F]" : "bg-[#E0D4C4] border-transparent hover:border-[#222E2C]/15"
+                  <button key={i} type="button" aria-pressed={selectedServiceIdx === i} onClick={() => pickService(i)}
+                    className={`text-left rounded-xl px-5 py-5 flex flex-col gap-2 border-2 transition-all duration-200 ${
+                      selectedServiceIdx === i
+                        ? "bg-[#213B2F] border-[#213B2F]"
+                        : "bg-white border-[#222E2C]/10 hover:border-[#222E2C]/30"
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2">
-                      <span className={`font-sans font-semibold text-sm ${selectedServiceIdx === i ? "text-[#D8DDB8]" : "text-[#222E2C]"}`}>
+                      <span className={`font-sans font-semibold text-base ${selectedServiceIdx === i ? "text-[#D8DDB8]" : "text-[#222E2C]"}`}>
                         {item.label}
                       </span>
-                      {selectedServiceIdx === i && <TbCheck size={16} className="text-[#D8DDB8] shrink-0" />}
+                      {selectedServiceIdx === i && <TbCheck size={16} className="text-[#D8DDB8] shrink-0 mt-0.5" />}
                     </div>
-                    <span className={`font-sans text-xs ${selectedServiceIdx === i ? "text-[#D8DDB8]/70" : "text-[#222E2C]/50"}`}>
-                      ${item.basePrice} for {item.baseGuests} · +${item.extraPersonPrice}/extra
+                    <span className={`font-sans text-sm ${selectedServiceIdx === i ? "text-[#D8DDB8]/70" : "text-[#222E2C]/65"}`}>
+                      ${item.basePrice} for up to {item.baseGuests} guests
                     </span>
                     {selectedServiceIdx === i && (
-                      <span className="font-sans font-semibold text-sm text-[#D8DDB8] mt-1">
+                      <span className="font-sans font-bold text-xl text-[#D8DDB8] mt-1">
                         ${computeServicePrice(item, guests)}
                       </span>
                     )}
@@ -377,34 +352,102 @@ export default function PrivateChefPage() {
                 ))}
               </div>
 
-              {selectedServiceIdx === null ? (
-                <p className="font-sans text-xs text-[#222E2C]/40 italic">{ob.servicePickHint}</p>
-              ) : (
-                <Stepper label={ob.guestsLabel} value={guests} onChange={changeGuests} min={2} />
+              {/* Hint when no service selected yet */}
+              {selectedServiceIdx === null && (
+                <p className="font-sans text-sm text-[#222E2C]/40 italic text-center py-2">
+                  Select a service above — Breakfast, Lunch, Dinner, or Full Day — to start building your menu.
+                </p>
               )}
+
+              {/* Guest count + preferred date */}
+              {selectedServiceIdx !== null && (() => {
+                const todayIso = new Date().toISOString().slice(0, 10);
+                return (
+                  <div className="flex flex-wrap items-end gap-6 bg-[#213B2F]/5 rounded-2xl px-6 py-5 border border-[#213B2F]/10">
+                    <div className="flex flex-col gap-1.5">
+                      <span className="font-sans text-xs font-semibold uppercase tracking-widest text-[#222E2C]/40">{ob.guestsLabel}</span>
+                      <div className="flex items-center gap-2">
+                        <button type="button" onClick={() => changeGuests(String(Math.max(2, guests - 1)))}
+                          className="size-9 flex items-center justify-center rounded-full border-2 border-[#213B2F]/25 text-[#213B2F] font-sans text-lg hover:bg-[#213B2F]/8 transition-colors select-none">−</button>
+                        <div className="flex items-center justify-center px-5 py-2 rounded-full bg-[#213B2F] min-w-[3.5rem]">
+                          <span className="font-sans font-bold text-lg text-[#EDE5D8]">{guests}</span>
+                        </div>
+                        <button type="button" onClick={() => changeGuests(String(guests + 1))}
+                          className="size-9 flex items-center justify-center rounded-full border-2 border-[#213B2F]/25 text-[#213B2F] font-sans text-lg hover:bg-[#213B2F]/8 transition-colors select-none">+</button>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <label className="flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-widest text-[#222E2C]/40 cursor-default">
+                        <TbCalendarEvent size={11} />
+                        Preferred date
+                        <span className="font-normal normal-case tracking-normal text-[#222E2C]/30">(optional)</span>
+                      </label>
+                      <input
+                        type="date"
+                        min={todayIso}
+                        value={serviceDate}
+                        onChange={(e) => setServiceDate(e.target.value)}
+                        className="font-sans text-sm rounded-xl px-4 py-2.5 bg-white border border-[#222E2C]/12 text-[#222E2C] focus:outline-none focus:ring-2 focus:ring-[#213B2F]/30 focus:border-transparent transition-all shadow-sm"
+                      />
+                    </div>
+
+                    <div className="ml-auto flex flex-col items-end gap-0.5 shrink-0">
+                      <span className="font-sans text-xs text-[#222E2C]/40 uppercase tracking-widest">Total</span>
+                      <span className="font-sans font-bold text-3xl text-[#222E2C]">
+                        ${computeServicePrice(pricingPS[selectedServiceIdx], guests).toLocaleString("en-US")}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
 
-            {/* Meal menus for the selected service — tabbed when more than one is unlocked */}
+            {/* Dish selection */}
             {visibleMeals.length > 0 && (
-              <div className="flex flex-col gap-5 mt-4" data-aos="fade-up">
+              <div className="flex flex-col gap-6" data-aos="fade-up">
+
+                {/* Dish limit banner */}
+                <div className={`rounded-2xl px-6 py-5 flex flex-col sm:flex-row sm:items-center gap-4 ${maxDishes === 2 ? "bg-[#213B2F]" : "bg-[#222E2C]/6 border border-[#222E2C]/12"}`}>
+                  <div className="flex-1">
+                    {maxDishes === 2 ? (
+                      <>
+                        <p className="font-sans font-semibold text-base text-[#D8DDB8]">With {guests} guests, choose up to 2 dishes per meal</p>
+                        <p className="font-sans text-sm text-[#D8DDB8]/70 mt-0.5">The chef will prepare both options for your group. Selecting a third dish replaces the first.</p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="font-sans font-semibold text-base text-[#222E2C]">Choose 1 dish per meal</p>
+                        <p className="font-sans text-sm text-[#222E2C]/65 mt-0.5">Select the dish you'd like the chef to prepare. Picking another automatically replaces the current one.</p>
+                      </>
+                    )}
+                  </div>
+                  <div className={`flex items-center gap-2 px-4 py-2 rounded-full shrink-0 font-sans text-sm font-semibold ${maxDishes === 2 ? "bg-[#D8DDB8]/15 text-[#D8DDB8]" : "bg-[#222E2C]/10 text-[#222E2C]"}`}>
+                    {maxDishes === 2 ? "Up to 2 dishes" : "1 dish per meal"}
+                  </div>
+                </div>
+
+                {/* Meal tabs for Full Day */}
                 {visibleMeals.length > 1 && (
                   <div className="flex flex-wrap gap-2">
                     {visibleMeals.map((meal) => {
                       const Icon = MEAL_META[meal]?.icon;
+                      const mealPicked = Object.values(dishes).filter(d => d.group === meal).length;
                       return (
-                        <button
-                          key={meal}
-                          type="button"
-                          aria-pressed={activeMeal === meal}
-                          onClick={() => setActiveMeal(meal)}
+                        <button key={meal} type="button" aria-pressed={activeMeal === meal} onClick={() => setActiveMeal(meal)}
                           className={`flex items-center gap-2 px-4 py-2.5 rounded-full border font-sans text-sm font-medium transition-colors duration-200 ${
                             activeMeal === meal
                               ? "bg-[#213B2F] border-[#213B2F] text-[#D8DDB8]"
-                              : "border-[#222E2C]/20 text-[#222E2C]/70 hover:border-[#222E2C]/40"
+                              : "border-[#222E2C]/20 text-[#222E2C] hover:border-[#222E2C]/40"
                           }`}
                         >
                           {Icon && <Icon size={15} />}
                           {t(`privateChef.${meal}.heading`)}
+                          {mealPicked > 0 && (
+                            <span className={`size-5 flex items-center justify-center rounded-full text-xs font-bold ${activeMeal === meal ? "bg-[#D8DDB8]/20 text-[#D8DDB8]" : "bg-[#213B2F] text-[#D8DDB8]"}`}>
+                              {mealPicked}
+                            </span>
+                          )}
                         </button>
                       );
                     })}
@@ -414,52 +457,152 @@ export default function PrivateChefPage() {
                 {activeMeal === "breakfast" && (
                   <MenuSection
                     heading={t("privateChef.breakfast.heading")}
-                    subheading={t("privateChef.breakfast.subheading")}
                     items={Array.isArray(breakfastItems) ? breakfastItems : []}
                     note={t("privateChef.breakfast.note")}
                     extras={Array.isArray(breakfastExtras) ? breakfastExtras : []}
                     extrasHeading={t("privateChef.breakfast.extrasHeading")}
-                    extrasSubheading={t("privateChef.breakfast.extrasSubheading")}
-                    group="breakfast"
-                    dishes={dishes}
-                    onToggle={toggleDish}
-                    hint={ob.dishesHint}
-                    hideHeading={visibleMeals.length > 1}
+                    group="breakfast" dishes={dishes} onToggle={toggleDish}
+                    maxDishes={maxDishes} hideHeading={visibleMeals.length > 1}
                   />
                 )}
-
                 {activeMeal === "lunch" && (
                   <MenuSection
                     heading={t("privateChef.lunch.heading")}
-                    subheading={t("privateChef.lunch.subheading")}
                     items={Array.isArray(lunchItems) ? lunchItems : []}
-                    group="lunch"
-                    dishes={dishes}
-                    onToggle={toggleDish}
-                    hint={ob.dishesHint}
-                    hideHeading={visibleMeals.length > 1}
+                    group="lunch" dishes={dishes} onToggle={toggleDish}
+                    maxDishes={maxDishes} hideHeading={visibleMeals.length > 1}
                   />
                 )}
-
                 {activeMeal === "dinner" && (
                   <MenuSection
                     heading={t("privateChef.dinner.heading")}
-                    subheading={t("privateChef.dinner.subheading")}
                     items={Array.isArray(dinnerItems) ? dinnerItems : []}
-                    group="dinner"
-                    dishes={dishes}
-                    onToggle={toggleDish}
-                    hint={ob.dishesHint}
-                    hideHeading={visibleMeals.length > 1}
+                    group="dinner" dishes={dishes} onToggle={toggleDish}
+                    maxDishes={maxDishes} hideHeading={visibleMeals.length > 1}
                   />
                 )}
+
               </div>
             )}
           </div>
 
-          {/* 03 — Desserts + Bakery */}
-          <div id="sweets" ref={registerSection("sweets")} className="flex flex-col gap-6 scroll-mt-40 border-t border-[#222E2C]/8 px-8 md:px-16 py-14 md:py-20" data-aos="fade-up">
-            <Eyebrow num="03" label={nav.sweets} />
+          {/* 03 — Themed Nights */}
+          <div id="themed-nights" className="flex flex-col gap-6 scroll-mt-40 border-t border-[#222E2C]/8 px-8 md:px-16 py-14 md:py-20" data-aos="fade-up">
+            <Eyebrow num="03" label={nav.themedNights} />
+            <div className="border-b border-[#222E2C]/15 pb-4">
+              <p className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest mb-1">
+                {t("privateChef.themedNights.subheading")}
+              </p>
+              <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
+                {t("privateChef.themedNights.heading")}
+              </h2>
+              <p className="font-sans text-sm text-[#222E2C]/50 mt-2 max-w-2xl">
+                {t("privateChef.themedNights.description")}
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              {Array.isArray(themedNights) && themedNights.map((night, i) => (
+                <ThemedNightPanel
+                  key={i}
+                  night={night}
+                  image={NIGHT_IMAGES[i]}
+                  selected={selectedNightIdx === i}
+                  onClick={() => pickNight(i)}
+                  guests={themedGuests}
+                  onGuestsChange={changeThemedGuests}
+                  date={themedDate}
+                  onDateChange={handleThemedDate}
+                  price={findThemedTier(themedTiers, themedGuests)?.priceValue}
+                />
+              ))}
+            </div>
+
+            {/* Beverage add-ons */}
+            <div className="flex flex-col gap-4 pt-2">
+              <div className="border-b border-[#222E2C]/15 pb-3">
+                <h3 className="font-sans font-semibold text-base text-[#222E2C]">
+                  {fridgeBeverages.heading}
+                </h3>
+                <p className="font-sans text-sm text-[#222E2C]/50 mt-0.5">{fridgeBeverages.subheading}</p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {Array.isArray(fridgeBeverages.items) && fridgeBeverages.items.map((item, i) => {
+                  const qty = bevQty[i] || 0;
+                  const active = qty > 0;
+                  return (
+                    <div
+                      key={i}
+                      className={`rounded-2xl p-5 flex flex-col gap-4 border-2 transition-all duration-200 ${
+                        active
+                          ? "bg-[#213B2F] border-[#213B2F] shadow-md"
+                          : "bg-white border-transparent shadow-sm hover:border-[#213B2F]/15"
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex flex-col gap-0.5 min-w-0">
+                          <p className={`font-sans font-semibold text-sm ${active ? "text-[#D8DDB8]" : "text-[#222E2C]"}`}>{item.title}</p>
+                          {item.description && (
+                            <p className={`font-sans text-xs leading-snug ${active ? "text-[#D8DDB8]/60" : "text-[#222E2C]/55"}`}>{item.description}</p>
+                          )}
+                        </div>
+                        <span className={`font-sans font-semibold text-sm whitespace-nowrap shrink-0 ${active ? "text-[#D8DDB8]" : "text-[#222E2C]"}`}>{item.price}</span>
+                      </div>
+
+                      <div className="flex items-center justify-between gap-2">
+                        {active ? (
+                          <div className="flex items-center rounded-xl overflow-hidden border border-white/15 bg-white/10 w-fit">
+                            <button type="button" onClick={() => changeBevQty(i, qty - 1)}
+                              className="w-9 h-9 flex items-center justify-center font-sans text-lg leading-none text-[#D8DDB8]/70 hover:bg-white/10 transition-colors select-none">−</button>
+                            <span className="w-8 text-center font-sans text-sm font-bold text-[#EDE5D8]">{qty}</span>
+                            <button type="button" onClick={() => changeBevQty(i, qty + 1)}
+                              className="w-9 h-9 flex items-center justify-center font-sans text-lg leading-none text-[#D8DDB8]/70 hover:bg-white/10 transition-colors select-none">+</button>
+                          </div>
+                        ) : (
+                          <button type="button" onClick={() => changeBevQty(i, 1)}
+                            className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#213B2F] text-[#D8DDB8] font-sans text-xs font-semibold hover:bg-[#213B2F]/85 transition-colors">
+                            <TbPlus size={11} />
+                            Add
+                          </button>
+                        )}
+                        {active && (
+                          <span className="font-sans text-sm font-semibold text-[#D8DDB8]">
+                            ${(item.priceValue * qty).toLocaleString("en-US")}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="font-sans text-xs text-[#222E2C]/45 italic">{fridgeBeverages.note}</p>
+            </div>
+
+            {/* Bartender add-on */}
+            <div className="flex flex-col gap-4 pt-2 border-t border-[#222E2C]/8">
+              <div className="flex flex-col gap-1">
+                <h3 className="flex items-center gap-2 font-sans font-semibold text-base text-[#222E2C]">
+                  <TbGlassCocktail size={17} className="text-[#222E2C]/45" />
+                  {ob.bartenderHeading}
+                </h3>
+              </div>
+              <div className="flex flex-wrap gap-2" role="radiogroup">
+                <RadioPill label={ob.bartenderNone} selected={bartenderIdx === null} onClick={clearBartender} />
+                {Array.isArray(pricingBar) && pricingBar.map((item, i) => (
+                  <RadioPill
+                    key={i}
+                    label={`${item.label} · $${item.priceValue}`}
+                    selected={bartenderIdx === i}
+                    onClick={() => pickBartender(i)}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* 04 — Desserts + Bakery */}
+          <div id="sweets" className="flex flex-col gap-6 scroll-mt-40 border-t border-[#222E2C]/8 px-8 md:px-16 py-14 md:py-20" data-aos="fade-up">
+            <Eyebrow num="04" label={nav.sweets} />
             <div className="border-b border-[#222E2C]/15 pb-4">
               <p className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest mb-1">
                 {sweets.kicker}
@@ -475,199 +618,41 @@ export default function PrivateChefPage() {
                 subheading={t("privateChef.desserts.subheading")}
                 items={Array.isArray(dessertsItems) ? dessertsItems : []}
                 group="dessert"
-                dishes={dishes}
-                onToggle={toggleDish}
+                dishQty={dishQty}
+                onQtyChange={changeDishQty}
               />
               <SimpleMenuSection
                 heading={t("privateChef.bakery.heading")}
                 subheading={t("privateChef.bakery.subheading")}
                 items={Array.isArray(bakeryItems) ? bakeryItems : []}
                 group="bakery"
-                dishes={dishes}
-                onToggle={toggleDish}
+                dishQty={dishQty}
+                onQtyChange={changeDishQty}
               />
             </div>
           </div>
 
-          {/* 04 — Themed Nights */}
-          <div id="themed-nights" ref={registerSection("themed-nights")} className="flex flex-col gap-6 scroll-mt-40 border-t border-[#222E2C]/8 bg-[#E0D4C4]/35 px-8 md:px-16 py-14 md:py-20" data-aos="fade-up">
-            <Eyebrow num="04" label={nav.themedNights} />
-            <div className="border-b border-[#222E2C]/15 pb-4 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-              <div>
-                <p className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest mb-1">
-                  {t("privateChef.themedNights.subheading")}
-                </p>
-                <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
-                  {t("privateChef.themedNights.heading")}
-                </h2>
-                <p className="font-sans text-sm text-[#222E2C]/50 mt-2 max-w-2xl">
-                  {t("privateChef.themedNights.description")}
-                </p>
-              </div>
-              {Array.isArray(themedNights) && themedNights.length > 1 && (
-                <div className="flex items-center gap-3 shrink-0">
-                  <span className="font-sans text-xs text-[#222E2C]/40 tabular-nums">
-                    {String(nightSlide + 1).padStart(2, "0")} / {String(themedNights.length).padStart(2, "0")}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => scrollNights(-1)}
-                      aria-label="Previous"
-                      className="size-9 flex items-center justify-center rounded-full border border-[#222E2C]/20 text-[#222E2C]/60 hover:bg-[#222E2C]/6 transition-colors duration-150"
-                    >
-                      <TbChevronLeft size={16} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => scrollNights(1)}
-                      aria-label="Next"
-                      className="size-9 flex items-center justify-center rounded-full border border-[#222E2C]/20 text-[#222E2C]/60 hover:bg-[#222E2C]/6 transition-colors duration-150"
-                    >
-                      <TbChevronRight size={16} />
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div
-              ref={nightsScrollerRef}
-              onScroll={handleNightsScroll}
-              className="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-2 -mx-8 px-8 md:-mx-16 md:px-16"
-            >
-              {Array.isArray(themedNights) && themedNights.map((night, i) => (
-                <div key={i} data-night-card className="snap-start shrink-0 w-[88%] sm:w-[440px] lg:w-[500px]">
-                  <ThemedNightCard
-                    night={night}
-                    colorIndex={i}
-                    selected={selectedNightIdx === i}
-                    onClick={() => pickNight(i)}
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-wrap items-end gap-4">
-              <Stepper label={ob.guestsLabel} value={themedGuests} onChange={changeThemedGuests} min={2} max={15} />
-              {selectedNightIdx !== null && (
-                <span className="font-sans font-semibold text-sm text-[#222E2C] pb-3">
-                  ${findThemedTier(themedTiers, themedGuests).priceValue}
-                </span>
-              )}
-              {oceanDinner && (
-                <div className="pb-2">
-                  <PriceChip
-                    label={`${oceanDinner.label} · +$${oceanDinner.priceValue}`}
-                    selected={cart.isSelected("ocean-dinner")}
-                    disabled={selectedNightIdx === null}
-                    onClick={toggleOceanDinner}
-                  />
-                </div>
-              )}
-            </div>
+          {/* Quote */}
+          <div className="flex flex-col items-center text-center gap-5 py-8 border-t border-[#222E2C]/8 px-8 md:px-16" data-aos="fade-up">
+            <div className="w-10 h-px bg-[#222E2C]/25" />
+            <blockquote className="text-2xl md:text-3xl text-[#213B2F]/80 leading-relaxed max-w-2xl italic" style={{ fontFamily: "var(--font-alpina)" }}>
+              "Tell me what you eat, and I will tell you what you are."
+            </blockquote>
+            <p className="font-sans text-sm text-[#222E2C]/45">— Jean Anthelme Brillat-Savarin</p>
+            <div className="w-10 h-px bg-[#222E2C]/25" />
           </div>
 
-          {/* 05 — Bar & Preferences */}
-          <div id="bar" ref={registerSection("bar")} className="flex flex-col gap-10 scroll-mt-40 border-t border-[#222E2C]/8 px-8 md:px-16 py-14 md:py-20">
-            <Eyebrow num="05" label={nav.bar} />
+          {/* 05 — Review & Submit */}
+          <div id="book" className="flex flex-col gap-6 scroll-mt-40 border-t border-[#222E2C]/8 bg-[#E0D4C4]/35 px-8 md:px-16 py-14 md:py-20">
+            <Eyebrow num="05" label={nav.book} standalone />
 
-            <div className="flex flex-col gap-4" data-aos="fade-up">
-              <h3 className="flex items-center gap-2 font-sans font-semibold text-base text-[#222E2C]">
-                <TbGlassCocktail size={18} className="text-[#222E2C]/50" />
-                {ob.bartenderHeading}
-              </h3>
-              <div className="flex flex-wrap gap-2" role="radiogroup">
-                <RadioPill label={ob.bartenderNone} selected={bartenderIdx === null} onClick={clearBartender} />
-                {Array.isArray(pricingBar) && pricingBar.map((item, i) => (
-                  <RadioPill
-                    key={i}
-                    label={`${item.label} · $${item.priceValue}`}
-                    selected={bartenderIdx === i}
-                    onClick={() => pickBartender(i)}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-6" data-aos="fade-up">
-              <div className="border-b border-[#222E2C]/15 pb-4">
-                <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
-                  {df.heading}
-                </h2>
-                <p className="font-sans text-sm text-[#222E2C]/50 mt-2 max-w-2xl">{df.description}</p>
-              </div>
-
-              <div className="bg-[#E0D4C4] rounded-2xl px-6 md:px-8 py-7 flex flex-col gap-6">
-                <div className="flex flex-col gap-3">
-                  <span className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest">
-                    {df.restrictionsLabel}
-                  </span>
-                  <div className="flex flex-wrap gap-2">
-                    {Array.isArray(df.options) && df.options.map((opt) => (
-                      <PriceChip
-                        key={opt}
-                        label={opt}
-                        selected={restrictions.includes(opt)}
-                        onClick={() => toggleRestriction(opt)}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <ChefField
-                    label={df.allergiesLabel}
-                    placeholder={df.allergiesPlaceholder}
-                    value={allergies}
-                    onChange={(e) => setAllergies(e.target.value)}
-                  />
-                  <ChefField
-                    label={df.preferencesLabel}
-                    placeholder={df.preferencesPlaceholder}
-                    value={preferences}
-                    onChange={(e) => setPreferences(e.target.value)}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 06 — Book Now */}
-          <div id="book" ref={registerSection("book")} className="flex flex-col gap-6 scroll-mt-40 border-t border-[#222E2C]/8 bg-[#E0D4C4]/35 px-8 md:px-16 py-14 md:py-20">
-            <Eyebrow num="06" label={nav.book} standalone />
-
-            <OrderCheckoutForm
-              service="Private Chef"
+            <ChefCheckout
               lines={cart.lines}
               infoLines={buildInfoLines()}
               total={cart.total}
               notes={notes}
               onNotesChange={setNotes}
             />
-
-            <div
-              className="bg-[#213B2F] rounded-2xl px-8 md:px-12 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
-              data-aos="fade-up"
-            >
-              <div className="flex flex-col gap-1.5">
-                <h2 className="font-sans font-semibold text-xl text-[#D8DDB8]">
-                  {t("privateChef.ctaHeading")}
-                </h2>
-                <p className="font-sans text-sm text-[#D8DDB8]/60">
-                  {t("privateChef.ctaSubheading")}
-                </p>
-              </div>
-              <a
-                href={`https://wa.me/${WHATSAPP}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 rounded-full bg-[#D8DDB8] font-sans font-medium text-sm text-[#213B2F] hover:bg-[#D8DDB8]/90 transition-colors duration-200 shrink-0"
-              >
-                <TbBrandWhatsapp size={16} />
-                {t("privateChef.whatsapp")}
-              </a>
-            </div>
           </div>
 
         </div>
@@ -689,95 +674,72 @@ function Eyebrow({ num, label, standalone = false }) {
   );
 }
 
-function ChefField({ label, ...props }) {
-  return (
-    <label className="flex flex-col gap-1.5">
-      <span className="font-sans text-xs text-[#222E2C]/50">{label}</span>
-      <input
-        type="text"
-        {...props}
-        className="w-full px-4 py-3 rounded-xl bg-[#EDE5D8] border border-[#222E2C]/12 shadow-sm font-sans text-sm text-[#222E2C] placeholder:text-[#222E2C]/35 focus:outline-none focus:ring-2 focus:ring-[#213B2F]/15 focus:border-[#213B2F]/40 transition-all duration-200"
-      />
-    </label>
-  );
-}
 
-function MenuSection({ heading, subheading, items, note, extras, extrasHeading, extrasSubheading, group, dishes, onToggle, hint, hideHeading = false }) {
+function MenuSection({ heading, items, note, extras, extrasHeading, group, dishes, onToggle, maxDishes = 1, hideHeading = false }) {
+  const selectedCount = Object.values(dishes).filter(d => d.group === group).length;
+
   return (
     <div className="flex flex-col gap-5" data-aos="fade-up">
       {!hideHeading && (
-        <div className="border-b border-[#222E2C]/15 pb-4">
-          <p className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest mb-1">
-            {subheading}
-          </p>
-          <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
-            {heading}
-          </h2>
-          {hint && <p className="font-sans text-xs text-[#222E2C]/40 mt-1">{hint}</p>}
-        </div>
+        <h2 className="font-sans font-semibold text-xl text-[#222E2C] tracking-tight">{heading}</h2>
       )}
-      {hideHeading && hint && (
-        <p className="font-sans text-xs text-[#222E2C]/40">{hint}</p>
-      )}
+
+      {/* Progress indicator */}
+      <div className="flex items-center gap-2.5">
+        {Array.from({ length: maxDishes }).map((_, i) => (
+          <div key={i} className={`h-1.5 w-8 rounded-full transition-colors duration-300 ${i < selectedCount ? "bg-[#213B2F]" : "bg-[#222E2C]/15"}`} />
+        ))}
+        <span className="font-sans text-sm text-[#222E2C]/65 ml-1">
+          {selectedCount === 0
+            ? maxDishes === 1 ? "Pick a dish" : "Pick up to 2 dishes"
+            : `${selectedCount} of ${maxDishes} selected`}
+        </span>
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {items.map((item, i) => {
           const id = `dish-${group}-${i}`;
           const selected = Boolean(dishes[id]);
           return (
-            <button
-              key={i}
-              type="button"
-              aria-pressed={selected}
-              onClick={() => onToggle(id, item.title, group)}
-              className={`text-left rounded-xl px-5 py-5 flex flex-col gap-2 border-2 transition-colors duration-200 ${
-                selected ? "bg-[#213B2F] border-[#213B2F]" : "bg-[#E0D4C4] border-transparent"
+            <button key={i} type="button" aria-pressed={selected} onClick={() => onToggle(id, item.title, group)}
+              className={`text-left rounded-xl px-5 py-5 flex flex-col gap-2.5 border-2 transition-all duration-200 ${
+                selected ? "bg-[#213B2F] border-[#213B2F]" : "bg-white border-[#222E2C]/10 hover:border-[#222E2C]/25"
               }`}
             >
               <div className="flex items-start justify-between gap-2">
                 {item.tag && (
-                  <span
-                    className={`inline-flex w-fit items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full ${
-                      selected ? "bg-[#D8DDB8]/20 text-[#D8DDB8]" : "bg-[#213B2F]/10 text-[#213B2F]"
-                    }`}
-                  >
+                  <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full ${
+                    selected ? "bg-[#D8DDB8]/20 text-[#D8DDB8]" : "bg-[#213B2F]/10 text-[#213B2F]"
+                  }`}>
                     🇨🇷 {item.tag}
                   </span>
                 )}
                 {selected && <TbCheck size={16} className="text-[#D8DDB8] shrink-0 ml-auto" />}
               </div>
-              <h3 className={`font-sans font-semibold text-sm ${selected ? "text-[#D8DDB8]" : "text-[#222E2C]"}`}>{item.title}</h3>
-              <p className={`font-sans text-sm leading-relaxed ${selected ? "text-[#D8DDB8]/70" : "text-[#222E2C]/60"}`}>{item.description}</p>
+              <h3 className={`font-sans font-semibold text-sm leading-snug ${selected ? "text-[#D8DDB8]" : "text-[#222E2C]"}`}>{item.title}</h3>
+              <p className={`font-sans text-sm leading-relaxed ${selected ? "text-[#D8DDB8]/70" : "text-[#222E2C]/65"}`}>{item.description}</p>
             </button>
           );
         })}
       </div>
-      {note && (
-        <p className="font-sans text-sm text-[#222E2C]/50 italic">{note}</p>
-      )}
+
+      {note && <p className="font-sans text-sm text-[#222E2C]/65">{note}</p>}
+
       {extras && extras.length > 0 && (
-        <div className="flex flex-col gap-3 pt-2">
-          <div>
-            <p className="font-sans font-semibold text-sm text-[#222E2C]">{extrasHeading}</p>
-            {extrasSubheading && (
-              <p className="font-sans text-xs text-[#222E2C]/50 mt-0.5">{extrasSubheading}</p>
-            )}
-          </div>
+        <div className="flex flex-col gap-3 pt-2 border-t border-[#222E2C]/10">
+          <p className="font-sans font-semibold text-sm text-[#222E2C]">{extrasHeading}</p>
           <div className="flex flex-col sm:flex-row gap-2">
             {extras.map((extra, i) => {
               const id = `dish-${group}-extra-${i}`;
               const selected = Boolean(dishes[id]);
               return (
-                <button
-                  key={i}
-                  type="button"
-                  aria-pressed={selected}
-                  onClick={() => onToggle(id, extra.title, group)}
-                  className={`text-left border-2 rounded-xl px-4 py-3.5 flex flex-col gap-1 flex-1 transition-colors duration-200 ${
-                    selected ? "bg-[#213B2F] border-[#213B2F]" : "border-[#222E2C]/10"
+                <button key={i} type="button" aria-pressed={selected} onClick={() => onToggle(id, extra.title, group)}
+                  className={`text-left border-2 rounded-xl px-4 py-4 flex flex-col gap-1.5 flex-1 transition-all duration-200 ${
+                    selected ? "bg-[#213B2F] border-[#213B2F]" : "bg-white border-[#222E2C]/10 hover:border-[#222E2C]/25"
                   }`}
                 >
                   <p className={`font-sans font-semibold text-sm ${selected ? "text-[#D8DDB8]" : "text-[#222E2C]"}`}>{extra.title}</p>
-                  <p className={`font-sans text-xs leading-relaxed ${selected ? "text-[#D8DDB8]/70" : "text-[#222E2C]/55"}`}>{extra.description}</p>
+                  <p className={`font-sans text-sm leading-relaxed ${selected ? "text-[#D8DDB8]/70" : "text-[#222E2C]/65"}`}>{extra.description}</p>
                 </button>
               );
             })}
@@ -788,7 +750,7 @@ function MenuSection({ heading, subheading, items, note, extras, extrasHeading, 
   );
 }
 
-function SimpleMenuSection({ heading, subheading, items, group, dishes, onToggle }) {
+function SimpleMenuSection({ heading, subheading, items, group, dishQty, onQtyChange }) {
   return (
     <div className="flex flex-col gap-4">
       <div className="border-b border-[#222E2C]/15 pb-3">
@@ -797,26 +759,42 @@ function SimpleMenuSection({ heading, subheading, items, group, dishes, onToggle
         </p>
         <h2 className="font-sans font-semibold text-lg text-[#222E2C] tracking-tight">{heading}</h2>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2.5">
         {items.map((item, i) => {
           const id = `dish-${group}-${i}`;
-          const selected = Boolean(dishes[id]);
+          const qty = dishQty?.[id] || 0;
+          const active = qty > 0;
           return (
-            <button
+            <div
               key={i}
-              type="button"
-              aria-pressed={selected}
-              onClick={() => onToggle(id, item.title, group)}
-              className={`text-left flex items-start gap-2 rounded-xl px-3 py-2.5 border-2 transition-colors duration-200 ${
-                selected ? "bg-[#213B2F] border-[#213B2F]" : "border-transparent hover:bg-[#E0D4C4]/50"
+              className={`rounded-2xl px-4 py-3.5 flex items-center justify-between gap-4 border-2 transition-all duration-200 ${
+                active
+                  ? "bg-[#213B2F] border-[#213B2F] shadow-md"
+                  : "bg-white border-transparent shadow-sm hover:border-[#213B2F]/15"
               }`}
             >
-              {selected && <TbCheck size={15} className="text-[#D8DDB8] shrink-0 mt-0.5" />}
-              <div className="flex flex-col gap-0.5">
-                <h3 className={`font-sans font-semibold text-sm ${selected ? "text-[#D8DDB8]" : "text-[#222E2C]"}`}>{item.title}</h3>
-                <p className={`font-sans text-sm leading-relaxed ${selected ? "text-[#D8DDB8]/70" : "text-[#222E2C]/60"}`}>{item.description}</p>
+              <div className="min-w-0">
+                <h3 className={`font-sans font-semibold text-sm ${active ? "text-[#D8DDB8]" : "text-[#222E2C]"}`}>{item.title}</h3>
+                <p className={`font-sans text-xs leading-relaxed mt-0.5 ${active ? "text-[#D8DDB8]/65" : "text-[#222E2C]/55"}`}>{item.description}</p>
               </div>
-            </button>
+              <div className="shrink-0">
+                {active ? (
+                  <div className="flex items-center rounded-xl overflow-hidden border border-white/15 bg-white/10">
+                    <button type="button" onClick={() => onQtyChange(id, item.title, group, qty - 1)}
+                      className="w-8 h-8 flex items-center justify-center font-sans text-lg leading-none text-[#D8DDB8]/70 hover:bg-white/10 transition-colors select-none">−</button>
+                    <span className="w-7 text-center font-sans text-sm font-bold text-[#EDE5D8]">{qty}</span>
+                    <button type="button" onClick={() => onQtyChange(id, item.title, group, qty + 1)}
+                      className="w-8 h-8 flex items-center justify-center font-sans text-lg leading-none text-[#D8DDB8]/70 hover:bg-white/10 transition-colors select-none">+</button>
+                  </div>
+                ) : (
+                  <button type="button" onClick={() => onQtyChange(id, item.title, group, 1)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#213B2F] text-[#D8DDB8] font-sans text-xs font-semibold hover:bg-[#213B2F]/85 transition-colors">
+                    <TbPlus size={11} />
+                    Add
+                  </button>
+                )}
+              </div>
+            </div>
           );
         })}
       </div>
@@ -824,24 +802,197 @@ function SimpleMenuSection({ heading, subheading, items, group, dishes, onToggle
   );
 }
 
-function PriceChip({ label, selected, onClick, disabled = false }) {
+function DarkField({ label, placeholder, value, onChange }) {
   return (
-    <button
-      type="button"
-      disabled={disabled}
-      aria-disabled={disabled}
-      onClick={onClick}
-      className={`flex items-center gap-1.5 px-4 py-2 rounded-full border font-sans text-sm transition-colors duration-200 ${
-        disabled
-          ? "border-[#222E2C]/8 text-[#222E2C]/30 cursor-not-allowed"
-          : selected
-            ? "bg-[#213B2F] border-[#213B2F] text-[#D8DDB8]"
-            : "border-[#222E2C]/20 text-[#222E2C]/70 hover:border-[#222E2C]/40"
-      }`}
-    >
-      {selected && !disabled && <TbCheck size={13} />}
-      {label}
-    </button>
+    <label className="flex flex-col gap-1.5">
+      <span className="font-sans text-xs font-medium text-[#D8DDB8]/55">{label}</span>
+      <input
+        type="text"
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className="w-full px-4 py-2.5 rounded-xl bg-white/10 border border-white/10 font-sans text-sm text-[#D8DDB8] placeholder:text-[#D8DDB8]/35 focus:outline-none focus:ring-2 focus:ring-[#D8DDB8]/30 focus:border-transparent transition-all duration-200"
+      />
+    </label>
+  );
+}
+
+function ChefCheckout({ lines, infoLines = [], total, notes, onNotesChange }) {
+  const { t, locale } = useI18n();
+  const [status, setStatus] = useState("idle");
+
+  const df  = t("privateChef.dietaryForm");
+  const sl  = t("privateChef.summaryLabels");
+
+  const [restrictionCounts, setRestrictionCounts] = useState({});
+  const [restrictionOther, setRestrictionOther]   = useState("");
+  const [allergies, setAllergies]                 = useState("");
+  const [preferences, setPreferences]             = useState("");
+
+  const changeRestrictionCount = (opt, count) => {
+    const next = Math.max(0, count);
+    setRestrictionCounts((prev) => {
+      if (next === 0) { const n = { ...prev }; delete n[opt]; return n; }
+      return { ...prev, [opt]: next };
+    });
+  };
+
+  const buildDietaryLines = () => {
+    const out = [];
+    const parts = Object.entries(restrictionCounts).map(([opt, n]) => `${opt} (${n})`);
+    if (restrictionOther.trim()) parts.push(`Other: ${restrictionOther.trim()}`);
+    if (parts.length) out.push({ label: `${sl.restrictions}: ${parts.join(", ")}`, price: 0 });
+    if (allergies.trim())   out.push({ label: `${sl.allergies}: ${allergies.trim()}`,     price: 0 });
+    if (preferences.trim()) out.push({ label: `${sl.preferences}: ${preferences.trim()}`, price: 0 });
+    return out;
+  };
+
+  const handleSubmit = async () => {
+    if (lines.length === 0) return;
+    setStatus("submitting");
+    const allInfo = [...infoLines, ...buildDietaryLines()];
+    const result = await submitOrder({
+      submissionId: crypto.randomUUID(),
+      service: "Private Chef",
+      name: "",
+      casa: "",
+      dateNeeded: "",
+      items: [...lines, ...allInfo].map(({ label, price }) => ({ label, price })),
+      total,
+      currency: "USD",
+      notes: notes || "",
+      locale,
+    });
+    setStatus(result?.ok ? "success" : "error");
+  };
+
+  return (
+    <div className="flex flex-col gap-6" data-aos="fade-up">
+      <div className="bg-[#213B2F] rounded-2xl px-6 md:px-10 py-8 flex flex-col gap-8">
+
+        {/* Priced summary */}
+        <div className="flex flex-col gap-3">
+          <h3 className="font-sans font-semibold text-sm text-[#D8DDB8]">Order Summary</h3>
+          {lines.length === 0 ? (
+            <div className="rounded-xl border border-dashed border-[#D8DDB8]/25 px-4 py-5 text-center">
+              <p className="font-sans text-sm italic text-[#D8DDB8]/45">No items selected yet — browse the sections above.</p>
+            </div>
+          ) : (
+            <div className="rounded-xl bg-white/8 divide-y divide-[#D8DDB8]/10 overflow-hidden">
+              {lines.map((line, i) => (
+                <div key={i} className="flex items-center justify-between gap-4 px-4 py-2.5">
+                  <span className="font-sans text-sm text-[#D8DDB8]/85">{line.label}</span>
+                  <span className="font-sans font-medium text-sm whitespace-nowrap text-[#D8DDB8]">
+                    ${(line.price || 0).toLocaleString("en-US")}
+                  </span>
+                </div>
+              ))}
+              <div className="flex items-center justify-between gap-4 px-4 py-3 bg-white/10">
+                <span className="font-sans font-semibold text-sm text-[#D8DDB8]">Total</span>
+                <span className="font-sans font-semibold text-base text-[#D8DDB8]">${total.toLocaleString("en-US")}</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Preferences & dish picks */}
+        {infoLines.length > 0 && (
+          <div className="flex flex-col gap-3">
+            <h3 className="font-sans font-semibold text-sm text-[#D8DDB8]">Preferences & Details</h3>
+            <div className="rounded-xl border border-[#D8DDB8]/15 px-4 py-3 flex flex-col gap-2">
+              {infoLines.map((line, i) => (
+                <div key={i} className="flex items-start gap-2">
+                  <TbCheck size={14} className="shrink-0 mt-0.5 text-[#D8DDB8]/45" />
+                  <span className="font-sans text-sm leading-relaxed text-[#D8DDB8]/75">{line.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Dietary restrictions — inline */}
+        <div className="flex flex-col gap-4 pt-2 border-t border-white/10">
+          <div>
+            <h3 className="font-sans font-semibold text-sm text-[#D8DDB8]">{df.heading}</h3>
+            <p className="font-sans text-xs text-[#D8DDB8]/55 mt-1">{df.description}</p>
+          </div>
+
+          {/* Restriction option chips */}
+          <div className="flex flex-col gap-2">
+            <span className="font-sans text-xs font-semibold text-[#D8DDB8]/45 uppercase tracking-widest">{df.restrictionsLabel}</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+              {Array.isArray(df.options) && df.options.map((opt) => {
+                const count = restrictionCounts[opt] || 0;
+                const active = count > 0;
+                return (
+                  <div key={opt} className={`rounded-xl px-3 py-2.5 flex items-center justify-between gap-2 border transition-all duration-200 ${active ? "bg-white/15 border-white/25" : "bg-white/6 border-white/10 hover:border-white/20"}`}>
+                    <span className="font-sans text-sm text-[#D8DDB8]/85">{opt}</span>
+                    {active ? (
+                      <div className="flex items-center rounded-lg overflow-hidden border border-white/15 bg-white/10 shrink-0">
+                        <button type="button" onClick={() => changeRestrictionCount(opt, count - 1)} className="w-7 h-7 flex items-center justify-center font-sans text-base leading-none text-[#D8DDB8]/70 hover:bg-white/10 transition-colors select-none">−</button>
+                        <span className="w-6 text-center font-sans text-xs font-bold text-[#EDE5D8]">{count}</span>
+                        <button type="button" onClick={() => changeRestrictionCount(opt, count + 1)} className="w-7 h-7 flex items-center justify-center font-sans text-base leading-none text-[#D8DDB8]/70 hover:bg-white/10 transition-colors select-none">+</button>
+                      </div>
+                    ) : (
+                      <button type="button" onClick={() => changeRestrictionCount(opt, 1)} className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/10 text-[#D8DDB8]/70 font-sans text-xs font-semibold hover:bg-white/15 transition-colors shrink-0">
+                        <TbPlus size={10} />
+                        Add
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Other / allergies / preferences */}
+          <DarkField label={df.otherLabel} placeholder={df.otherPlaceholder} value={restrictionOther} onChange={(e) => setRestrictionOther(e.target.value)} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <DarkField label={df.allergiesLabel}   placeholder={df.allergiesPlaceholder}   value={allergies}   onChange={(e) => setAllergies(e.target.value)} />
+            <DarkField label={df.preferencesLabel} placeholder={df.preferencesPlaceholder} value={preferences} onChange={(e) => setPreferences(e.target.value)} />
+          </div>
+        </div>
+
+        {/* Notes */}
+        <label className="flex flex-col gap-1.5">
+          <span className="font-sans text-xs font-medium text-[#D8DDB8]/60">Notes for the chef</span>
+          <div className="relative">
+            <TbNotes size={16} className="absolute left-3.5 top-3.5 pointer-events-none text-[#D8DDB8]/35" />
+            <textarea
+              rows={3}
+              value={notes}
+              onChange={(e) => onNotesChange(e.target.value)}
+              placeholder="Anything else you'd like the chef to know..."
+              className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/10 border border-white/10 shadow-sm font-sans text-sm text-[#D8DDB8] placeholder:text-[#D8DDB8]/40 focus:outline-none focus:ring-2 focus:ring-[#D8DDB8]/40 focus:border-transparent transition-all duration-200 resize-none"
+            />
+          </div>
+        </label>
+
+        {status === "success" && (
+          <div className="flex items-center gap-2 rounded-xl border px-4 py-3 bg-[#D8DDB8]/15 border-[#D8DDB8]/30">
+            <TbCheck size={16} className="shrink-0 text-[#D8DDB8]" />
+            <p className="font-sans text-sm font-medium text-[#D8DDB8]">Order received — we'll be in touch to confirm before your stay.</p>
+          </div>
+        )}
+        {status === "error" && (
+          <div className="flex items-center gap-2 rounded-xl bg-red-500/15 border border-red-400/30 px-4 py-3">
+            <TbAlertCircle size={16} className="text-red-300 shrink-0" />
+            <p className="font-sans text-sm text-red-200">Something went wrong — please try again or reach out on WhatsApp.</p>
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={handleSubmit}
+          disabled={status === "submitting" || lines.length === 0}
+          className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-sans font-medium text-sm shadow-sm hover:shadow transition-all duration-200 w-fit disabled:opacity-50 bg-[#D8DDB8] text-[#213B2F] hover:bg-[#D8DDB8]/90"
+        >
+          {status === "submitting" && <TbLoader2 size={16} className="animate-spin" />}
+          {status === "submitting" ? "Sending…" : "Add to cart"}
+        </button>
+
+      </div>
+    </div>
   );
 }
 
@@ -866,97 +1017,191 @@ function RadioPill({ label, selected, onClick }) {
   );
 }
 
-function Stepper({ label, value, onChange, min = 2, max }) {
-  const clamp = (n) => Math.max(min, max ? Math.min(max, n) : n);
-  return (
-    <label className="flex flex-col gap-1.5 w-fit">
-      <span className="font-sans text-xs text-[#222E2C]/50">{label}</span>
-      <div className="flex items-center justify-between gap-2 pl-2 pr-1.5 py-1.5 rounded-xl bg-[#EDE5D8] border border-[#222E2C]/12 shadow-sm w-32">
-        <button
-          type="button"
-          onClick={() => onChange(String(clamp(value - 1)))}
-          className="size-8 flex items-center justify-center rounded-lg text-[#222E2C]/60 hover:bg-[#222E2C]/6 transition-colors duration-150 font-sans text-base"
-        >
-          −
-        </button>
-        <span className="font-sans text-sm text-[#222E2C] font-medium w-8 text-center">{value}</span>
-        <button
-          type="button"
-          onClick={() => onChange(String(clamp(value + 1)))}
-          className="size-8 flex items-center justify-center rounded-lg text-[#222E2C]/60 hover:bg-[#222E2C]/6 transition-colors duration-150 font-sans text-base"
-        >
-          +
-        </button>
-      </div>
-    </label>
-  );
-}
 
-// Each night: bg color + two text tiers (title solid, body readable) + border + icon
-const NIGHT_THEMES = [
-  { bg: "#4B4D40", title: "#EDE5D8", body: "rgba(237,229,216,0.88)", subtle: "rgba(237,229,216,0.72)", border: "rgba(237,229,216,0.25)", icon: TbPlant2 },
-  { bg: "#59493B", title: "#FFEAD8", body: "rgba(255,234,216,0.88)", subtle: "rgba(255,234,216,0.72)", border: "rgba(255,234,216,0.25)", icon: TbFlame },
-  { bg: "#A5886D", title: "#3D1A08", body: "rgba(61,26,8,0.82)", subtle: "rgba(61,26,8,0.65)", border: "rgba(61,26,8,0.20)", icon: TbSoup },
-  { bg: "#345B49", title: "#EDEFDF", body: "rgba(237,239,223,0.88)", subtle: "rgba(237,239,223,0.72)", border: "rgba(237,239,223,0.25)", icon: TbSeedling },
-  { bg: "#8C8F77", title: "#1E2312", body: "rgba(30,35,18,0.82)", subtle: "rgba(30,35,18,0.65)", border: "rgba(30,35,18,0.20)", icon: TbFish },
+// Order must match the themedNights array order in i18n
+const NIGHT_IMAGES = [
+  "/assets/Chef/taco.avif",
+  "/assets/Chef/smokehouse.avif",
+  "/assets/Chef/tico.avif",
+  "/assets/Chef/vegan.avif",
+  "/assets/Chef/ocean.avif",
+  "/assets/Chef/pasta.avif",
+  "/assets/Chef/sushi.avif",
+  "/assets/Chef/pizza.avif",
 ];
 
-function ThemedNightCard({ night, colorIndex = 0, selected, onClick }) {
-  const theme = NIGHT_THEMES[colorIndex] ?? NIGHT_THEMES[0];
-  const Icon = theme.icon;
+function ThemedNightPanel({ night, image, selected, onClick, guests, onGuestsChange, date, onDateChange, price }) {
+  const todayIso = new Date().toISOString().slice(0, 10);
+
+  // Extract the choice count for a menu section by scanning the includes summary
+  const getChoiceCount = (sectionHeading) => {
+    const key = sectionHeading.toLowerCase().replace(/s$/, "");
+    const match = night.includes?.find((inc) => inc.toLowerCase().includes(key));
+    const num = match?.match(/\d+/)?.[0];
+    return num ? `Choose ${num}` : null;
+  };
+
   return (
-    <button
-      type="button"
-      aria-pressed={selected}
-      onClick={onClick}
-      style={{ backgroundColor: theme.bg }}
-      className={`text-left rounded-2xl px-6 py-7 flex flex-col gap-6 h-full w-full transition-all duration-200 ${selected ? "ring-2 ring-[#213B2F] ring-offset-2 ring-offset-[#EDE5D8]" : ""}`}
-    >
-      {/* Icon + title block */}
-      <div className="flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <Icon size={26} style={{ color: theme.subtle }} />
-          {selected && (
-            <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/20">
-              <TbCheck size={12} style={{ color: theme.title }} />
-            </span>
-          )}
-        </div>
-        <div>
-          <h3 className="font-sans font-semibold text-lg" style={{ color: theme.title }}>{night.title}</h3>
-          <p className="font-sans text-sm mt-1" style={{ color: theme.body }}>{night.subtitle}</p>
-          {night.description && (
-            <p className="font-sans text-sm mt-2" style={{ color: theme.body }}>{night.description}</p>
-          )}
-        </div>
-      </div>
+    <div className={`rounded-2xl overflow-hidden border transition-all duration-500 ${
+      selected
+        ? "border-[#213B2F] shadow-xl ring-2 ring-[#213B2F]/20"
+        : "border-[#222E2C]/12 hover:border-[#213B2F]/30"
+    }`}>
 
-      {/* Divider */}
-      <div style={{ backgroundColor: theme.border }} className="w-full h-px" />
-
-      {/* Includes + dessert */}
-      <div className="flex-1 flex flex-col gap-3">
-        <div className="flex flex-wrap gap-1.5">
-          {night.includes.map((item, i) => (
-            <div
-              key={i}
-              style={{ borderColor: theme.border }}
-              className="flex items-center gap-1.5 border rounded-full px-2.5 py-1"
-            >
-              <TbCircleCheck size={12} style={{ color: theme.subtle }} className="shrink-0" />
-              <span className="font-sans text-xs font-medium" style={{ color: theme.body }}>{item}</span>
+      {/* ── Collapsed row — slides out when selected ── */}
+      <div className={`grid transition-all duration-500 ease-in-out ${selected ? "grid-rows-[0fr]" : "grid-rows-[1fr]"}`}>
+        <div className="overflow-hidden">
+          <button
+            type="button"
+            onClick={onClick}
+            className="w-full flex items-stretch text-left bg-white hover:bg-[#213B2F]/4 transition-colors duration-200"
+          >
+            <div className="w-44 shrink-0 overflow-hidden">
+              <img src={image} alt={night.title} className="w-full h-full object-cover" />
             </div>
-          ))}
+            <div className="flex-1 px-6 py-5 flex flex-col justify-center gap-1 min-w-0">
+              <h3 className="font-sans font-semibold text-base text-[#222E2C]">{night.title}</h3>
+              <p className="font-sans text-sm text-[#222E2C]/55">{night.subtitle}</p>
+              <p className="font-sans text-xs text-[#222E2C]/40 mt-0.5 truncate">{night.description}</p>
+            </div>
+            <div className="px-6 py-5 flex flex-col items-end justify-center gap-2 shrink-0">
+              <span className="font-sans text-xs text-[#222E2C]/40">from $530</span>
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-[#213B2F]/20 text-[#213B2F] font-sans text-sm font-medium">
+                Select night
+              </span>
+            </div>
+          </button>
         </div>
-        {night.dessert && (
-          <div style={{ borderTopColor: theme.border }} className="border-t pt-3 mt-auto">
-            <p className="font-sans text-sm" style={{ color: theme.body }}>
-              <span className="font-semibold" style={{ color: theme.title }}>Dessert: </span>
-              {night.dessert}
-            </p>
-          </div>
-        )}
       </div>
-    </button>
+
+      {/* ── Expanded panel — slides in when selected ── */}
+      <div className={`grid transition-all duration-500 ease-in-out ${selected ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+        <div className="overflow-hidden">
+          <div className={`transition-opacity duration-300 ${selected ? "opacity-100 delay-200" : "opacity-0"}`}>
+
+            {/* Photo header with gradient overlay — click to deselect */}
+            <div
+              className="relative h-72 overflow-hidden cursor-pointer"
+              onClick={onClick}
+            >
+              <img src={image} alt={night.title} className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#213B2F] via-[#213B2F]/40 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 px-8 py-6 flex items-end justify-between gap-4">
+                <div>
+                  <h3 className="font-sans font-bold text-2xl text-[#EDE5D8] leading-tight">{night.title}</h3>
+                  <p className="font-sans text-sm text-[#D8DDB8]/70 mt-1">{night.subtitle}</p>
+                </div>
+                <span className="shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#D8DDB8] text-[#213B2F] font-sans text-sm font-bold shadow-lg">
+                  <TbCheck size={15} />
+                  Selected
+                </span>
+              </div>
+            </div>
+
+            {/* Controls bar: guests + date + price */}
+            <div
+              className="bg-[#213B2F] px-8 py-6 flex flex-wrap items-end gap-6 border-t border-white/10"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex flex-col gap-1.5">
+                <span className="font-sans text-xs font-semibold uppercase tracking-widest text-[#D8DDB8]/50">Guests</span>
+                <div className="flex items-center bg-white/12 rounded-xl overflow-hidden w-fit border border-white/10">
+                  <button type="button" onClick={() => onGuestsChange(guests - 1)}
+                    className="size-10 flex items-center justify-center font-sans text-xl leading-none text-[#D8DDB8]/70 hover:bg-white/10 transition-colors select-none">−</button>
+                  <span className="w-10 text-center font-sans text-sm font-bold text-[#EDE5D8]">{guests}</span>
+                  <button type="button" onClick={() => onGuestsChange(guests + 1)}
+                    className="size-10 flex items-center justify-center font-sans text-xl leading-none text-[#D8DDB8]/70 hover:bg-white/10 transition-colors select-none">+</button>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="flex items-center gap-1.5 font-sans text-xs font-semibold uppercase tracking-widest text-[#D8DDB8]/50 cursor-default">
+                  <TbCalendarEvent size={11} />
+                  Preferred date
+                  <span className="font-normal normal-case tracking-normal text-[#D8DDB8]/35">(optional)</span>
+                </label>
+                <input
+                  type="date"
+                  min={todayIso}
+                  value={date}
+                  onClick={(e) => e.stopPropagation()}
+                  onChange={(e) => { e.stopPropagation(); onDateChange(e.target.value); }}
+                  className="font-sans text-sm rounded-xl px-4 py-2.5 bg-white/12 border border-white/15 text-[#D8DDB8] focus:outline-none focus:ring-2 focus:ring-white/25 [color-scheme:dark] transition-all"
+                />
+              </div>
+
+              {price && (
+                <div className="flex flex-col gap-0.5 ml-auto text-right">
+                  <span className="font-sans text-xs text-[#D8DDB8]/50 uppercase tracking-widest">Total · {guests} guests</span>
+                  <span className="font-sans font-bold text-3xl text-[#EDE5D8]">${price.toLocaleString("en-US")}</span>
+                </div>
+              )}
+            </div>
+
+            {/* Menu content */}
+            <div className="bg-[#EDE5D8] px-8 py-8">
+              {night.menu ? (
+                /* Nights with selectable menus: show sections + "Choose N" badge */
+                <div className="flex flex-col gap-8">
+                  <p className="font-sans text-xs font-semibold uppercase tracking-widest text-[#213B2F]/50">
+                    Menu — select your preferences below and mention them in the notes
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {night.menu.map((section, si) => {
+                      const choiceLabel = getChoiceCount(section.heading);
+                      return (
+                        <div key={si} className="flex flex-col gap-3">
+                          <div className="flex items-center justify-between gap-3 pb-3 border-b-2 border-[#213B2F]/15">
+                            <span className="font-sans font-bold text-sm text-[#213B2F] uppercase tracking-wider">
+                              {section.heading}
+                            </span>
+                            {choiceLabel && (
+                              <span className="font-sans text-xs font-bold px-3 py-1.5 rounded-full bg-[#213B2F] text-[#D8DDB8] shrink-0">
+                                {choiceLabel}
+                              </span>
+                            )}
+                          </div>
+                          <div className="flex flex-col gap-1.5">
+                            {section.items.map((item, ii) => (
+                              <div key={ii} className="flex items-start gap-2">
+                                <TbCircleCheck size={12} className="text-[#213B2F]/35 shrink-0 mt-0.5" />
+                                <span className="font-sans text-xs text-[#222E2C]/70 leading-snug">{item}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : (
+                /* All-inclusive nights: just show what's included */
+                <div className="flex flex-col gap-4">
+                  <p className="font-sans text-xs font-semibold uppercase tracking-widest text-[#213B2F]/50 pb-3 border-b-2 border-[#213B2F]/15">
+                    Everything included
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-1.5 gap-x-8">
+                    {night.includes.map((item, i) => (
+                      <div key={i} className="flex items-start gap-2">
+                        <TbCircleCheck size={13} className="text-[#213B2F]/40 shrink-0 mt-0.5" />
+                        <span className="font-sans text-sm text-[#222E2C]/70">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                  {night.dessert && (
+                    <div className="pt-4 border-t border-[#213B2F]/12 flex items-center gap-2">
+                      <span className="font-sans font-semibold text-sm text-[#222E2C]">Dessert:</span>
+                      <span className="font-sans text-sm text-[#222E2C]/65">{night.dessert}</span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
   );
 }

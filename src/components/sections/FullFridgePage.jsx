@@ -5,14 +5,11 @@ import Link from "next/link";
 import { useI18n } from "@/app/context/I18nContext";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/Footer";
-import OrderCheckoutForm from "@/components/sections/OrderCheckoutForm";
 import { useOrderCart } from "@/hooks/useOrderCart";
 import {
-  TbArrowLeft, TbLeaf, TbCheck, TbBrandWhatsapp,
-  TbUsers, TbSalad, TbToolsKitchen2, TbApple, TbShoppingCart, TbGlassFull, TbEgg, TbBasket, TbMeat, TbCookie, TbCoin,
+  TbArrowLeft, TbLeaf, TbCheck,
+  TbSalad, TbToolsKitchen2, TbShoppingCart, TbCookie,
 } from "react-icons/tb";
-
-const WHATSAPP = "50685011042";
 
 function toggleInArray(arr, value) {
   return arr.includes(value) ? arr.filter((v) => v !== value) : [...arr, value];
@@ -96,7 +93,7 @@ function QuestionCard({ icon: Icon, heading, question, answered = false, childre
             <Icon size={15} className={answered ? "text-[#213B2F]" : "text-[#D8DDB8]"} />
           </div>
           {answered && (
-            <div className="absolute -bottom-1 -right-1 size-4 rounded-full bg-[#213B2F] border-2 border-[#213B2F] flex items-center justify-center">
+            <div className="absolute -bottom-1 -right-1 size-4 rounded-full bg-[#5C3324] border-2 border-[#5C3324] flex items-center justify-center">
               <TbCheck size={9} className="text-[#D8DDB8]" strokeWidth={3} />
             </div>
           )}
@@ -109,45 +106,17 @@ function QuestionCard({ icon: Icon, heading, question, answered = false, childre
   );
 }
 
-function SectionLabel({ children }) {
-  return (
-    <div className="flex items-center gap-3 pt-2">
-      <span
-        className="text-sm text-[#D8DDB8]/70 whitespace-nowrap"
-        style={{ fontFamily: "var(--font-alpina)" }}
-      >
-        {children}
-      </span>
-      <div className="flex-1 h-px bg-[#D8DDB8]/15" />
-    </div>
-  );
-}
-
-function Stepper({ label, value, onChange, min = 0 }) {
-  const num = Number(value) || 0;
-  return (
-    <label className="flex flex-col gap-1.5">
-      <span className="font-sans text-xs text-[#D8DDB8]/70">{label}</span>
-      <div className="flex items-center justify-between gap-2 pl-2 pr-1.5 py-1.5 rounded-xl bg-white border border-[#222E2C]/12 shadow-sm">
-        <button
-          type="button"
-          onClick={() => onChange(String(Math.max(min, num - 1)))}
-          className="size-8 flex items-center justify-center rounded-lg text-[#222E2C]/60 hover:bg-[#222E2C]/6 transition-colors duration-150 font-sans text-base"
-        >
-          −
-        </button>
-        <span className="font-sans text-sm text-[#222E2C] font-medium w-6 text-center">{num}</span>
-        <button
-          type="button"
-          onClick={() => onChange(String(num + 1))}
-          className="size-8 flex items-center justify-center rounded-lg text-[#222E2C]/60 hover:bg-[#222E2C]/6 transition-colors duration-150 font-sans text-base"
-        >
-          +
-        </button>
-      </div>
-    </label>
-  );
-}
+const CATEGORY_IMAGES = [
+  "/assets/Fridge/dairy.avif",
+  "/assets/Fridge/eggs.avif",
+  "/assets/Fridge/pork.avif",
+  "/assets/Fridge/beef.avif",
+  "/assets/Fridge/vegetables.avif",
+  "/assets/Fridge/fruits.avif",
+  "/assets/Fridge/herbs.avif",
+  "/assets/Fridge/grains.avif",
+  "/assets/Fridge/beverages.avif",
+];
 
 export default function FullFridgePage() {
   const { t } = useI18n();
@@ -156,108 +125,63 @@ export default function FullFridgePage() {
 
   const produceCategories = t("fullFridge.produce.categories");
   const steps              = t("fullFridge.howItWorks.steps");
+
+  const [selectedProduce, setSelectedProduce] = useState([]);
+  const allProduceKeys = Array.isArray(produceCategories)
+    ? produceCategories.flatMap(cat => cat.items.map(item => `${cat.title}::${item}`))
+    : [];
+  const isAllSelected = allProduceKeys.length > 0 && allProduceKeys.every(k => selectedProduce.includes(k));
+  const toggleProduce = (key) => setSelectedProduce(prev => toggleInArray(prev, key));
+  const handleSelectAll = () => setSelectedProduce(isAllSelected ? [] : allProduceKeys);
   const beverages          = t("fullFridge.beverages.items");
   const pricingColumns     = t("fullFridge.pricing.columns");
   const pricingRows        = t("fullFridge.pricing.rows");
 
   const q = t("fullFridge.questionnaire");
 
-  const [dayIdx, setDayIdx] = useState(null);
-  const [groupIdx, setGroupIdx] = useState(null);
+  const [adults, setAdults] = useState(2);
+  const [children, setChildren] = useState(0);
+  const [days, setDays] = useState(3);
 
-  const pickDay = (i) => {
-    setDayIdx(i);
-    if (groupIdx !== null && Array.isArray(pricingRows)) {
-      cart.setItem("package", {
-        label: `${pricingRows[i].label} · ${pricingColumns[groupIdx].label}`,
-        price: pricingRows[i].priceValues[groupIdx],
-      });
-    }
-  };
+  const totalGuests = adults + children;
+  const nearestRow = Array.isArray(pricingRows)
+    ? pricingRows.reduce((best, _, i) => Math.abs(pricingRows[i].days - days) < Math.abs(pricingRows[best].days - days) ? i : best, 0)
+    : null;
+  const nearestCol = Array.isArray(pricingColumns)
+    ? pricingColumns.reduce((best, _, i) => Math.abs(pricingColumns[i].guests - totalGuests) < Math.abs(pricingColumns[best].guests - totalGuests) ? i : best, 0)
+    : null;
 
-  const pickGroup = (j) => {
-    setGroupIdx(j);
-    if (dayIdx !== null && Array.isArray(pricingRows)) {
-      cart.setItem("package", {
-        label: `${pricingRows[dayIdx].label} · ${pricingColumns[j].label}`,
-        price: pricingRows[dayIdx].priceValues[j],
-      });
-    }
+  const updatePackageCart = (total, d) => {
+    if (!Array.isArray(pricingRows) || !Array.isArray(pricingColumns)) return;
+    const rIdx = pricingRows.reduce((best, _, i) => Math.abs(pricingRows[i].days - d) < Math.abs(pricingRows[best].days - d) ? i : best, 0);
+    const cIdx = pricingColumns.reduce((best, _, i) => Math.abs(pricingColumns[i].guests - total) < Math.abs(pricingColumns[best].guests - total) ? i : best, 0);
+    cart.setItem("package", {
+      label: `${pricingRows[rIdx].label} · ${pricingColumns[cIdx].label}`,
+      price: pricingRows[rIdx].priceValues[cIdx],
+    });
   };
 
   const [form, setForm] = useState({
-    adults: "",
-    children: "",
-    childrenAges: "",
     dietary: [],
     dietaryOther: "",
+    dietaryPreferences: "",
     cooking: "",
     groceries: "",
-    beverageChoices: [],
-    beveragesOther: "",
-    fruits: "",
-    breakfastItems: [],
-    pantryItems: [],
-    proteins: [],
-    proteinsOther: "",
     snacksFor: [],
     preferredSnacks: "",
-    budget: "",
   });
 
   const update = (field, value) => setForm((prev) => ({ ...prev, [field]: value }));
   const updateList = (field, value) => setForm((prev) => ({ ...prev, [field]: toggleInArray(prev[field], value) }));
 
   const answered = {
-    group: Boolean(form.adults || form.children || form.childrenAges),
-    dietary: Boolean(form.dietary.length || form.dietaryOther),
+    dietary: Boolean(form.dietary.length || form.dietaryOther || form.dietaryPreferences),
     cooking: Boolean(form.cooking),
     groceries: Boolean(form.groceries),
-    beverages: Boolean(form.beverageChoices.length || form.beveragesOther),
-    fruits: Boolean(form.fruits),
-    breakfastItems: Boolean(form.breakfastItems.length),
-    pantryItems: Boolean(form.pantryItems.length),
-    proteins: Boolean(form.proteins.length || form.proteinsOther),
     snacks: Boolean(form.snacksFor.length || form.preferredSnacks),
-    budget: Boolean(form.budget),
   };
   const answeredCount = Object.values(answered).filter(Boolean).length;
   const totalQuestions = Object.keys(answered).length;
-
-  const buildInfoLines = () => {
-    const lines = [];
-
-    const groupBits = [];
-    if (form.adults) groupBits.push(`${form.adults} ${q.labels.adults}`);
-    if (form.children) groupBits.push(`${form.children} ${q.labels.children}`);
-    if (form.childrenAges) groupBits.push(`${q.labels.ages}: ${form.childrenAges}`);
-    if (groupBits.length) lines.push({ label: `${q.labels.group}: ${groupBits.join(", ")}`, price: 0 });
-
-    const dietary = [...form.dietary, form.dietaryOther].filter(Boolean);
-    if (dietary.length) lines.push({ label: `${q.labels.dietary}: ${dietary.join(", ")}`, price: 0 });
-
-    if (form.cooking) lines.push({ label: `${q.labels.cooking}: ${form.cooking}`, price: 0 });
-    if (form.groceries) lines.push({ label: `${q.labels.groceries}: ${form.groceries}`, price: 0 });
-
-    const bev = [...form.beverageChoices, form.beveragesOther].filter(Boolean);
-    if (bev.length) lines.push({ label: `${q.labels.beverages}: ${bev.join(", ")}`, price: 0 });
-
-    if (form.fruits) lines.push({ label: `${q.labels.fruits}: ${form.fruits}`, price: 0 });
-    if (form.breakfastItems.length) lines.push({ label: `${q.labels.breakfastItems}: ${form.breakfastItems.join(", ")}`, price: 0 });
-    if (form.pantryItems.length) lines.push({ label: `${q.labels.pantryItems}: ${form.pantryItems.join(", ")}`, price: 0 });
-
-    const proteins = [...form.proteins, form.proteinsOther].filter(Boolean);
-    if (proteins.length) lines.push({ label: `${q.labels.proteins}: ${proteins.join(", ")}`, price: 0 });
-
-    if (form.snacksFor.length || form.preferredSnacks) {
-      const bits = [...form.snacksFor];
-      if (form.preferredSnacks) bits.push(form.preferredSnacks);
-      lines.push({ label: `${q.labels.snacksFor}: ${bits.join(", ")}`, price: 0 });
-    }
-    if (form.budget) lines.push({ label: `${q.labels.budget}: ${form.budget}`, price: 0 });
-
-    return lines;
-  };
 
   return (
     <>
@@ -265,49 +189,44 @@ export default function FullFridgePage() {
       <main className="pt-24">
 
         {/* Header */}
-        <div className="px-8 md:px-16 pt-8 pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div className="flex flex-col gap-1" data-aos="fade-up">
-            <Link
-              href="/"
-              className="flex items-center gap-1.5 w-fit mb-3 text-sm font-sans font-medium text-[#222E2C]/50 hover:text-[#222E2C] transition-colors duration-200"
-            >
-              <TbArrowLeft size={16} />
-              {t("common.back")}
-            </Link>
-            <div className="flex items-center gap-2 w-fit border border-[#222E2C]/20 rounded-full px-4 py-2 mb-3">
-              <TbLeaf size={15} className="text-[#222E2C]" />
-              <span className="font-sans text-sm text-[#222E2C]">{t("fullFridge.pill")}</span>
-            </div>
-            <h1
-              className="text-4xl md:text-5xl text-[#213B2F] tracking-tight leading-tight"
-              style={{ fontFamily: "var(--font-alpina)" }}
-            >
-              {t("fullFridge.title")}
-            </h1>
-            <p className="font-sans text-sm text-[#222E2C]/50 mt-1">{t("fullFridge.subtitle")}</p>
-          </div>
-          <a
-            href={`https://wa.me/${WHATSAPP}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-5 py-3 rounded-full bg-[#213B2F] font-sans font-medium text-sm text-[#D8DDB8] hover:bg-[#213B2F]/90 transition-colors duration-200 shrink-0 w-fit"
+        <div className="px-8 md:px-16 pt-8 pb-6" data-aos="fade-up">
+          <Link
+            href="/"
+            className="flex items-center gap-1.5 w-fit mb-3 text-sm font-sans font-medium text-[#222E2C]/50 hover:text-[#222E2C] transition-colors duration-200"
           >
-            <TbBrandWhatsapp size={16} />
-            {t("fullFridge.whatsapp")}
-          </a>
+            <TbArrowLeft size={16} />
+            {t("common.back")}
+          </Link>
+          <div className="flex items-center gap-2 w-fit border border-[#222E2C]/20 rounded-full px-4 py-2 mb-3">
+            <TbLeaf size={15} className="text-[#222E2C]" />
+            <span className="font-sans text-sm text-[#222E2C]">{t("fullFridge.pill")}</span>
+          </div>
+          <h1
+            className="text-4xl md:text-5xl text-[#213B2F] tracking-tight leading-tight"
+            style={{ fontFamily: "var(--font-alpina)" }}
+          >
+            {t("fullFridge.title")}
+          </h1>
+          <p className="font-sans text-sm text-[#222E2C]/50 mt-1">{t("fullFridge.subtitle")}</p>
         </div>
 
         <div className="px-8 md:px-16 flex flex-col gap-16 pb-24">
 
           {/* Concept */}
-          <div className="bg-[#213B2F] rounded-2xl px-8 md:px-12 py-10 flex flex-col gap-4" data-aos="fade-up">
-            <TbLeaf size={22} className="text-[#D8DDB8]/50" />
-            <h2 className="font-sans font-semibold text-lg text-[#D8DDB8]">
-              {t("fullFridge.concept.heading")}
-            </h2>
-            <p className="font-sans text-sm text-[#D8DDB8]/70 leading-relaxed whitespace-pre-line max-w-3xl">
-              {t("fullFridge.concept.body")}
-            </p>
+          <div className="rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 lg:h-[440px]" style={{ backgroundColor: "#5C3324" }} data-aos="fade-up">
+            <div className="flex flex-col justify-center gap-5 px-8 md:px-12 py-12 lg:py-0 order-2 lg:order-1">
+              <TbLeaf size={22} className="text-[#D8DDB8]/50" />
+              <h2 className="text-3xl md:text-4xl text-[#EDE5D8] tracking-tight leading-tight" style={{ fontFamily: "var(--font-alpina)" }}>
+                {t("fullFridge.concept.heading")}
+              </h2>
+              <div className="w-12 h-px bg-[#D8DDB8]/40" />
+              <p className="font-sans text-sm text-[#D8DDB8]/65 leading-relaxed whitespace-pre-line max-w-md">
+                {t("fullFridge.concept.body")}
+              </p>
+            </div>
+            <div className="h-56 lg:h-full order-1 lg:order-2 overflow-hidden">
+              <img src="/assets/InHouseServices/fullfridge.avif" alt={t("fullFridge.concept.heading")} className="w-full h-full object-cover" />
+            </div>
           </div>
 
           {/* How it works */}
@@ -317,41 +236,14 @@ export default function FullFridgePage() {
                 {t("fullFridge.howItWorks.heading")}
               </h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {Array.isArray(steps) && steps.map((step, i) => (
                 <div key={i} className="bg-[#E0D4C4] rounded-2xl px-6 py-7 flex flex-col gap-4">
-                  <div className="size-9 rounded-full bg-[#213B2F] flex items-center justify-center shrink-0">
+                  <div className="size-9 rounded-full bg-[#5C3324] flex items-center justify-center shrink-0">
                     <span className="font-sans font-semibold text-sm text-[#D8DDB8]">{i + 1}</span>
                   </div>
                   <h3 className="font-sans font-semibold text-base text-[#222E2C]">{step.title}</h3>
                   <p className="font-sans text-sm text-[#222E2C]/60 leading-relaxed">{step.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* What's in the fridge */}
-          <div className="flex flex-col gap-6" data-aos="fade-up">
-            <div className="border-b border-[#222E2C]/15 pb-4">
-              <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
-                {t("fullFridge.produce.heading")}
-              </h2>
-              <p className="font-sans text-sm text-[#222E2C]/50 mt-1">
-                {t("fullFridge.produce.subheading")}
-              </p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {Array.isArray(produceCategories) && produceCategories.map((cat, i) => (
-                <div key={i} className="bg-[#E0D4C4] rounded-2xl px-6 py-6 flex flex-col gap-3">
-                  <h3 className="font-sans font-semibold text-base text-[#222E2C]">{cat.title}</h3>
-                  <div className="flex flex-col gap-2">
-                    {cat.items.map((item, j) => (
-                      <div key={j} className="flex items-start gap-2">
-                        <TbCheck size={14} className="text-[#222E2C]/40 shrink-0 mt-0.5" />
-                        <span className="font-sans text-sm text-[#222E2C]/60">{item}</span>
-                      </div>
-                    ))}
-                  </div>
                 </div>
               ))}
             </div>
@@ -370,39 +262,183 @@ export default function FullFridgePage() {
                 {t("fullFridge.pricing.description")}
               </p>
             </div>
-            <div className="flex flex-col gap-4">
-              <label className="flex flex-col gap-2">
+            <div className="flex flex-wrap gap-10">
+              <div className="flex flex-col gap-2">
+                <span className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest">Adults</span>
+                <div className="flex items-center gap-3">
+                  <button type="button"
+                    onClick={() => { const v = Math.max(1, adults - 1); setAdults(v); updatePackageCart(v + children, days); }}
+                    className="size-10 rounded-xl border border-[#222E2C]/15 bg-white font-sans text-lg text-[#222E2C]/60 hover:bg-[#222E2C]/5 transition-colors flex items-center justify-center select-none"
+                  >−</button>
+                  <span className="font-sans text-2xl font-semibold text-[#5C3324] w-10 text-center">{adults}</span>
+                  <button type="button"
+                    disabled={totalGuests >= 10}
+                    onClick={() => { const v = adults + 1; setAdults(v); updatePackageCart(v + children, days); }}
+                    className="size-10 rounded-xl border border-[#222E2C]/15 bg-white font-sans text-lg text-[#222E2C]/60 hover:bg-[#222E2C]/5 transition-colors flex items-center justify-center select-none disabled:opacity-30 disabled:cursor-not-allowed"
+                  >+</button>
+                  <span className="font-sans text-sm text-[#222E2C]/45">adults</span>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest">Children <span className="normal-case tracking-normal font-normal">(under 12)</span></span>
+                <div className="flex items-center gap-3">
+                  <button type="button"
+                    onClick={() => { const v = Math.max(0, children - 1); setChildren(v); updatePackageCart(adults + v, days); }}
+                    className="size-10 rounded-xl border border-[#222E2C]/15 bg-white font-sans text-lg text-[#222E2C]/60 hover:bg-[#222E2C]/5 transition-colors flex items-center justify-center select-none"
+                  >−</button>
+                  <span className="font-sans text-2xl font-semibold text-[#5C3324] w-10 text-center">{children}</span>
+                  <button type="button"
+                    disabled={totalGuests >= 10}
+                    onClick={() => { const v = children + 1; setChildren(v); updatePackageCart(adults + v, days); }}
+                    className="size-10 rounded-xl border border-[#222E2C]/15 bg-white font-sans text-lg text-[#222E2C]/60 hover:bg-[#222E2C]/5 transition-colors flex items-center justify-center select-none disabled:opacity-30 disabled:cursor-not-allowed"
+                  >+</button>
+                  <span className="font-sans text-sm text-[#222E2C]/45">children</span>
+                </div>
+              </div>
+              <div className="self-end pb-1 flex flex-col gap-0.5">
+                <span className="font-sans text-xs text-[#222E2C]/35">{totalGuests} / 10 guests total</span>
+                {totalGuests >= 10 && (
+                  <span className="font-sans text-xs text-[#5C3324]/70">Max reached — contact us for larger groups</span>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
                 <span className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest">
                   {t("fullFridge.pricing.daysLabel")}
                 </span>
-                <div className="flex flex-wrap gap-2" role="radiogroup">
-                  {Array.isArray(pricingRows) && pricingRows.map((row, i) => (
-                    <RadioPill
-                      key={i}
-                      label={groupIdx !== null ? `${row.label} · $${row.priceValues[groupIdx]}` : row.label}
-                      checked={dayIdx === i}
-                      onChange={() => pickDay(i)}
-                    />
-                  ))}
+                <div className="flex items-center gap-3">
+                  <button type="button"
+                    onClick={() => { const v = Math.max(1, days - 1); setDays(v); updatePackageCart(totalGuests, v); }}
+                    className="size-10 rounded-xl border border-[#222E2C]/15 bg-white font-sans text-lg text-[#222E2C]/60 hover:bg-[#222E2C]/5 transition-colors flex items-center justify-center select-none"
+                  >−</button>
+                  <span className="font-sans text-2xl font-semibold text-[#5C3324] w-10 text-center">{days}</span>
+                  <button type="button"
+                    onClick={() => { const v = days + 1; setDays(v); updatePackageCart(totalGuests, v); }}
+                    className="size-10 rounded-xl border border-[#222E2C]/15 bg-white font-sans text-lg text-[#222E2C]/60 hover:bg-[#222E2C]/5 transition-colors flex items-center justify-center select-none"
+                  >+</button>
+                  <span className="font-sans text-sm text-[#222E2C]/45">days</span>
                 </div>
-              </label>
-              <label className="flex flex-col gap-2">
-                <span className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest">
-                  {t("fullFridge.pricing.groupLabel")}
-                </span>
-                <div className="flex flex-wrap gap-2" role="radiogroup">
-                  {Array.isArray(pricingColumns) && pricingColumns.map((col, j) => (
-                    <RadioPill
-                      key={j}
-                      label={dayIdx !== null ? `${col.label} · $${pricingRows[dayIdx].priceValues[j]}` : col.label}
-                      checked={groupIdx === j}
-                      onChange={() => pickGroup(j)}
-                    />
-                  ))}
-                </div>
-              </label>
+              </div>
             </div>
-            <p className="font-sans text-xs text-[#222E2C]/40 italic">{t("fullFridge.pricing.note")}</p>
+            {nearestRow !== null && nearestCol !== null && (
+              <div className="bg-[#E0D4C4] rounded-xl px-5 py-4 flex items-center justify-between gap-4">
+                <div>
+                  <p className="font-sans font-medium text-sm text-[#222E2C]">
+                    {pricingColumns[nearestCol].label} · {pricingRows[nearestRow].label}
+                  </p>
+                  <p className="font-sans text-xs text-[#222E2C]/45 mt-0.5">{t("fullFridge.pricing.note")}</p>
+                </div>
+                <span className="font-sans font-bold text-xl text-[#222E2C] shrink-0">
+                  ${pricingRows[nearestRow].priceValues[nearestCol].toLocaleString("en-US")}
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Build your fridge */}
+          <div className="flex flex-col gap-6" data-aos="fade-up">
+            <div className="border-b border-[#222E2C]/15 pb-4 flex items-end justify-between gap-4">
+              <div>
+                <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
+                  {t("fullFridge.produce.heading")}
+                </h2>
+                <p className="font-sans text-sm text-[#222E2C]/50 mt-1 max-w-2xl">
+                  {t("fullFridge.produce.subheading")}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={handleSelectAll}
+                className="shrink-0 font-sans text-sm font-medium text-[#5C3324] border border-[#5C3324]/30 rounded-full px-4 py-2 hover:bg-[#5C3324]/6 transition-colors duration-200"
+              >
+                {isAllSelected ? "Deselect all" : "Select all"}
+              </button>
+            </div>
+
+            {/* Welcome pack */}
+            {(() => {
+              const wp = t("fullFridge.produce.welcomePack");
+              if (!wp) return null;
+              return (
+                <div className="rounded-xl border border-[#222E2C]/10 px-5 py-4 flex flex-col gap-3 bg-white/50">
+                  <div className="flex items-center gap-2">
+                    <TbLeaf size={13} className="text-[#5C3324]/60 shrink-0" />
+                    <p className="font-sans text-xs font-semibold text-[#5C3324]/70 uppercase tracking-widest">{wp.label}</p>
+                  </div>
+                  <p className="font-sans text-xs text-[#222E2C]/50">{wp.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {wp.items.map((item, i) => (
+                      <span key={i} className="flex items-center gap-1.5 font-sans text-xs text-[#222E2C]/65 bg-[#E0D4C4] rounded-full px-3 py-1.5">
+                        <TbCheck size={11} className="text-[#5C3324]/60 shrink-0" />
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Category grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {Array.isArray(produceCategories) && produceCategories.map((cat, i) => {
+                const selectedCount = cat.items.filter(item => selectedProduce.includes(`${cat.title}::${item}`)).length;
+                return (
+                  <div
+                    key={i}
+                    className={`rounded-2xl overflow-hidden flex flex-col transition-all duration-200 ${
+                      selectedCount > 0 ? "shadow-md ring-1 ring-[#5C3324]/20" : ""
+                    }`}
+                    style={{ backgroundColor: "#E0D4C4" }}
+                  >
+                    {/* Panoramic image header */}
+                    <div className="relative h-28 shrink-0 bg-[#C4B4A0]">
+                      <img
+                        src={CATEGORY_IMAGES[i]}
+                        alt={cat.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 px-4 py-3 flex items-end justify-between gap-2">
+                        <h3 className="font-sans font-semibold text-sm text-white leading-tight">{cat.title}</h3>
+                        {selectedCount > 0 && (
+                          <span className="font-sans text-xs font-semibold text-white bg-[#5C3324] rounded-full px-2.5 py-0.5 shrink-0">
+                            {selectedCount} ✓
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Items */}
+                    <div className="px-2 py-2 flex flex-col gap-0.5">
+                      {cat.items.map((item, j) => {
+                        const key = `${cat.title}::${item}`;
+                        const checked = selectedProduce.includes(key);
+                        return (
+                          <button
+                            key={j}
+                            type="button"
+                            onClick={() => toggleProduce(key)}
+                            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl w-full text-left transition-colors duration-150 group ${
+                              checked ? "bg-[#5C3324]/10" : "hover:bg-[#222E2C]/6"
+                            }`}
+                          >
+                            <span className={`shrink-0 size-4 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
+                              checked
+                                ? "border-[#5C3324] bg-[#5C3324]"
+                                : "border-[#222E2C]/25 bg-white/60 group-hover:border-[#5C3324]/50"
+                            }`}>
+                              {checked && <span className="size-1.5 rounded-full bg-white" />}
+                            </span>
+                            <span className={`font-sans text-sm leading-snug transition-colors duration-150 ${
+                              checked ? "text-[#5C3324] font-medium" : "text-[#222E2C]/65 group-hover:text-[#222E2C]"
+                            }`}>{item}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/* Optional Beverages */}
@@ -425,7 +461,7 @@ export default function FullFridgePage() {
                     type="button"
                     onClick={() => cart.toggleItem(id, { label: item.title, price: item.priceValue })}
                     className={`text-left rounded-xl px-5 py-5 flex items-center justify-between gap-4 border-2 transition-colors duration-200 ${
-                      selected ? "bg-[#213B2F] border-[#213B2F]" : "bg-[#E0D4C4] border-transparent"
+                      selected ? "bg-[#5C3324] border-[#5C3324]" : "bg-[#E0D4C4] border-transparent"
                     }`}
                   >
                     <div className="flex flex-col gap-0.5">
@@ -460,14 +496,12 @@ export default function FullFridgePage() {
               </p>
             </div>
 
-            <div className="bg-[#213B2F] rounded-2xl px-6 md:px-10 py-8 md:py-10 flex flex-col gap-4">
+            <div className="rounded-2xl px-6 md:px-10 py-8 md:py-10 flex flex-col gap-4" style={{ backgroundColor: "#5C3324" }}>
 
               <div className="flex flex-col gap-2 pb-2">
-                <div className="flex items-center justify-between gap-4">
-                  <span className="font-sans text-xs font-medium text-[#D8DDB8]/70">
-                    {answeredCount} / {totalQuestions} {q.progressLabel}
-                  </span>
-                </div>
+                <span className="font-sans text-xs font-medium text-[#D8DDB8]/70">
+                  {answeredCount} / {totalQuestions} {q.progressLabel}
+                </span>
                 <div className="h-1.5 w-full rounded-full bg-white/10 overflow-hidden">
                   <div
                     className="h-full rounded-full bg-[#D8DDB8] transition-all duration-500 ease-out"
@@ -476,41 +510,24 @@ export default function FullFridgePage() {
                 </div>
               </div>
 
-              <SectionLabel>{q.sections.basics}</SectionLabel>
-
-              <QuestionCard icon={TbUsers} heading={q.group.heading} answered={answered.group}>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <Stepper label={q.group.adults} value={form.adults} onChange={(v) => update("adults", v)} min={0} />
-                  <Stepper label={q.group.children} value={form.children} onChange={(v) => update("children", v)} min={0} />
-                  <TextField
-                    label={q.group.childrenAges}
-                    type="text"
-                    value={form.childrenAges}
-                    onChange={(e) => update("childrenAges", e.target.value)}
-                  />
-                </div>
-              </QuestionCard>
-
               <QuestionCard icon={TbSalad} heading={q.dietary.heading} question={q.dietary.question} answered={answered.dietary}>
                 <div className="flex flex-wrap gap-2">
-                  {q.dietary.options.map((opt) => (
+                  {Array.isArray(q.dietary.options) && q.dietary.options.map((opt) => (
                     <CheckboxChip key={opt} label={opt} checked={form.dietary.includes(opt)} onChange={() => updateList("dietary", opt)} />
                   ))}
                 </div>
-                <TextField
-                  type="text"
-                  placeholder={`${q.dietary.other}`}
+                <TextAreaField
+                  label={q.dietary.allergiesLabel}
+                  rows={2}
+                  placeholder={q.dietary.allergiesPlaceholder}
                   value={form.dietaryOther}
                   onChange={(e) => update("dietaryOther", e.target.value)}
-                  wrapClassName="sm:w-1/2"
                 />
               </QuestionCard>
 
-              <SectionLabel>{q.sections.menu}</SectionLabel>
-
               <QuestionCard icon={TbToolsKitchen2} heading={q.cooking.heading} question={q.cooking.question} answered={answered.cooking}>
                 <div className="flex flex-wrap gap-2" role="radiogroup">
-                  {q.cooking.options.map((opt) => (
+                  {Array.isArray(q.cooking.options) && q.cooking.options.map((opt) => (
                     <RadioPill key={opt} dark label={opt} checked={form.cooking === opt} onChange={() => update("cooking", form.cooking === opt ? "" : opt)} />
                   ))}
                 </div>
@@ -525,65 +542,9 @@ export default function FullFridgePage() {
                 />
               </QuestionCard>
 
-              <QuestionCard icon={TbGlassFull} heading={q.beverages.heading} question={q.beverages.question} answered={answered.beverages}>
-                <div className="flex flex-wrap gap-2">
-                  {q.beverages.options.map((opt) => (
-                    <CheckboxChip key={opt} label={opt} checked={form.beverageChoices.includes(opt)} onChange={() => updateList("beverageChoices", opt)} />
-                  ))}
-                </div>
-                <TextField
-                  type="text"
-                  placeholder={q.beverages.other}
-                  value={form.beveragesOther}
-                  onChange={(e) => update("beveragesOther", e.target.value)}
-                  wrapClassName="sm:w-1/2"
-                />
-              </QuestionCard>
-
-              <QuestionCard icon={TbApple} heading={q.fruits.heading} question={q.fruits.question} answered={answered.fruits}>
-                <p className="font-sans text-xs text-[#D8DDB8]/45 italic">{q.fruits.examples}</p>
-                <div className="flex gap-2" role="radiogroup">
-                  <RadioPill dark label={q.fruits.yes} checked={form.fruits === q.fruits.yes} onChange={() => update("fruits", q.fruits.yes)} />
-                  <RadioPill dark label={q.fruits.no} checked={form.fruits === q.fruits.no} onChange={() => update("fruits", q.fruits.no)} />
-                </div>
-              </QuestionCard>
-
-              <QuestionCard icon={TbEgg} heading={q.breakfastItems.heading} question={q.breakfastItems.question} answered={answered.breakfastItems}>
-                <div className="flex flex-wrap gap-2">
-                  {q.breakfastItems.options.map((opt) => (
-                    <CheckboxChip key={opt} label={opt} checked={form.breakfastItems.includes(opt)} onChange={() => updateList("breakfastItems", opt)} />
-                  ))}
-                </div>
-              </QuestionCard>
-
-              <QuestionCard icon={TbBasket} heading={q.pantryItems.heading} question={q.pantryItems.question} answered={answered.pantryItems}>
-                <div className="flex flex-wrap gap-2">
-                  {q.pantryItems.options.map((opt) => (
-                    <CheckboxChip key={opt} label={opt} checked={form.pantryItems.includes(opt)} onChange={() => updateList("pantryItems", opt)} />
-                  ))}
-                </div>
-              </QuestionCard>
-
-              <QuestionCard icon={TbMeat} heading={q.proteins.heading} question={q.proteins.question} answered={answered.proteins}>
-                <div className="flex flex-wrap gap-2">
-                  {q.proteins.options.map((opt) => (
-                    <CheckboxChip key={opt} label={opt} checked={form.proteins.includes(opt)} onChange={() => updateList("proteins", opt)} />
-                  ))}
-                </div>
-                <TextField
-                  type="text"
-                  placeholder={q.proteins.other}
-                  value={form.proteinsOther}
-                  onChange={(e) => update("proteinsOther", e.target.value)}
-                  wrapClassName="sm:w-1/2"
-                />
-              </QuestionCard>
-
-              <SectionLabel>{q.sections.extras}</SectionLabel>
-
               <QuestionCard icon={TbCookie} heading={q.snacks.heading} question={q.snacks.question} answered={answered.snacks}>
                 <div className="flex flex-wrap gap-2">
-                  {q.snacks.forOptions.map((opt) => (
+                  {Array.isArray(q.snacks.forOptions) && q.snacks.forOptions.map((opt) => (
                     <CheckboxChip key={opt} label={opt} checked={form.snacksFor.includes(opt)} onChange={() => updateList("snacksFor", opt)} />
                   ))}
                 </div>
@@ -597,62 +558,58 @@ export default function FullFridgePage() {
                 />
               </QuestionCard>
 
-              <QuestionCard icon={TbCoin} heading={q.budget.heading} question={q.budget.question} answered={answered.budget}>
-                <TextField
-                  type="text"
-                  placeholder={q.budget.placeholder}
-                  value={form.budget}
-                  onChange={(e) => update("budget", e.target.value)}
-                  wrapClassName="sm:w-1/2"
+              {/* Notes */}
+              <div className="flex flex-col gap-1.5 mt-2">
+                <span className="font-sans text-xs text-[#D8DDB8]/70">Additional notes</span>
+                <textarea
+                  rows={3}
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                  placeholder="Anything else we should know about your stay..."
+                  className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/10 text-[#D8DDB8] placeholder:text-[#D8DDB8]/30 font-sans text-sm focus:outline-none focus:ring-2 focus:ring-[#D8DDB8]/20 resize-none"
                 />
-              </QuestionCard>
+              </div>
+
+              {/* Order summary */}
+              <div className="rounded-xl bg-white/8 border border-white/10 px-5 py-4 flex flex-col gap-2 mt-2">
+                <p className="font-sans text-xs font-semibold text-[#D8DDB8]/60 uppercase tracking-widest mb-1">Order summary</p>
+                {cart.lines.length === 0 ? (
+                  <p className="font-sans text-sm italic text-[#D8DDB8]/40">Select your package and any add-ons above to see your total here.</p>
+                ) : (
+                  <>
+                    {cart.lines.map((line, i) => (
+                      <div key={i} className="flex items-center justify-between gap-4">
+                        <span className="font-sans text-sm text-[#D8DDB8]/80">{line.label}</span>
+                        <span className="font-sans text-sm font-medium text-[#D8DDB8] shrink-0">${line.price.toLocaleString("en-US")}</span>
+                      </div>
+                    ))}
+                    <div className="border-t border-white/15 mt-1 pt-2 flex items-center justify-between">
+                      <span className="font-sans text-sm font-semibold text-[#D8DDB8]">Total</span>
+                      <span className="font-sans text-base font-bold text-[#D8DDB8]">${cart.total.toLocaleString("en-US")}</span>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              <button
+                type="button"
+                className="mt-2 self-start flex items-center gap-2.5 bg-[#D8DDB8] text-[#5C3324] font-sans font-semibold text-sm px-6 py-3.5 rounded-full hover:bg-[#EDE5D8] transition-colors duration-200"
+              >
+                <TbShoppingCart size={16} />
+                Add to cart
+              </button>
 
             </div>
           </div>
 
-          {/* About Seguras Farm Shop */}
-          <div className="flex flex-col gap-5" data-aos="fade-up">
-            <div className="border-b border-[#222E2C]/15 pb-4">
-              <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
-                {t("fullFridge.farm.heading")}
-              </h2>
-            </div>
-            <p className="font-sans text-base text-[#222E2C]/60 leading-relaxed whitespace-pre-line max-w-3xl">
-              {t("fullFridge.farm.body")}
-            </p>
-          </div>
-
-          <OrderCheckoutForm
-            service="Full Fridge"
-            lines={cart.lines}
-            infoLines={buildInfoLines()}
-            total={cart.total}
-            notes={notes}
-            onNotesChange={setNotes}
-          />
-
-          {/* Bottom CTA */}
-          <div
-            className="bg-[#213B2F] rounded-2xl px-8 md:px-12 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
-            data-aos="fade-up"
-          >
-            <div className="flex flex-col gap-1.5">
-              <h2 className="font-sans font-semibold text-xl text-[#D8DDB8]">
-                {t("fullFridge.ctaHeading")}
-              </h2>
-              <p className="font-sans text-sm text-[#D8DDB8]/60">
-                {t("fullFridge.ctaSubheading")}
-              </p>
-            </div>
-            <a
-              href={`https://wa.me/${WHATSAPP}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-3 rounded-full bg-[#D8DDB8] font-sans font-medium text-sm text-[#213B2F] hover:bg-[#D8DDB8]/90 transition-colors duration-200 shrink-0"
-            >
-              <TbBrandWhatsapp size={16} />
-              {t("fullFridge.whatsapp")}
-            </a>
+          {/* Quote */}
+          <div className="flex flex-col items-center text-center gap-5 py-8" data-aos="fade-up">
+            <div className="w-10 h-px bg-[#222E2C]/25" />
+            <blockquote className="text-2xl md:text-3xl text-[#213B2F]/80 leading-relaxed max-w-2xl italic" style={{ fontFamily: "var(--font-alpina)" }}>
+              "Eating is an agricultural act."
+            </blockquote>
+            <p className="font-sans text-sm text-[#222E2C]/45">— Wendell Berry</p>
+            <div className="w-10 h-px bg-[#222E2C]/25" />
           </div>
 
         </div>

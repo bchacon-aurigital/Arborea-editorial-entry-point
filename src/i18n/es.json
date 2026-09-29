@@ -3,6 +3,7 @@
     "subtitle": "Diseñado para el confort",
     "share": "Compartir",
     "seeDirections": "Ver indicaciones",
+    "wifiAndMore": "Wifi y más",
     "wifiSection": "WiFi e Indicaciones",
     "wifiName": "Nombre WiFi",
     "password": "Contraseña",
@@ -294,14 +295,23 @@
     "footerLabel": "¿Dudas sobre la Mula?"
   },
   "inhouse": {
-    "pill": "Todo lo que necesitas",
-    "title": "Servicios In-house",
+    "pill": "Experiencias Signature",
+    "title": "Experiencias Signature",
+    "craftTitle": "Crea tu experiencia personalizada",
+    "craftDescription": "Todo lo que ves a continuación puede combinarse en una sola solicitud. Explora las experiencias, personaliza cada una según tu grupo y preferencias, y envíalo todo de una vez — confirmamos disponibilidad y coordinamos los detalles antes de tu llegada.",
+    "craftSteps": [
+      "Selecciona la experiencia",
+      "Personaliza tus preferencias",
+      "Agrégala a tu carrito",
+      "Agrega todas las experiencias que quieras",
+      "Llena tu información y envía tu solicitud"
+    ],
     "services": [
       {
         "category": "Bienestar en casa",
         "title": "Experiencia Spa",
         "image": "/assets/InHouseServices/AromatherapyMassage.avif",
-        "description": "Vive una experiencia de bienestar de lujo en tu casa con nuestros terapeutas certificados. Disfruta de tratamientos personalizados diseñados para restaurar tu cuerpo y mente.",
+        "description": "Terapeutas certificados de GV Massage llegan a tu casa. Masajes de 60 o 90 min, tratamientos faciales y paquetes completos para una persona, parejas o grupos.",
         "features": [
           "Aromaterapia",
           "Tejido profundo",
@@ -317,7 +327,7 @@
         "category": "Gastronomía en casa",
         "title": "Experiencia Chef Privado",
         "image": "/assets/InHouseServices/PrivateChefExperience.avif",
-        "description": "Disfruta de una experiencia culinaria privada creada por nuestros talentosos chefs. Desde cenas íntimas hasta banquetes familiares, cada comida se elabora con ingredientes frescos y de origen local.",
+        "description": "Un chef privado cocina en tu casa con ingredientes de Hacienda Arbórea. Desayuno, almuerzo, cena o noches temáticas — incluye chef, mesero y limpieza.",
         "features": [
           "Cenas de cuatro tiempos",
           "Comidas familiares",
@@ -333,7 +343,7 @@
         "category": "De la Finca al Refrigerador",
         "title": "Nevera Llena",
         "image": "/assets/InHouseServices/FullFridge.avif",
-        "description": "Llega a tu casa con el refrigerador lleno de productos frescos directamente de la finca de Arborea. Si quieres cocinar en casa o simplemente disfrutar de lo que sabes que es seguro, todo es orgánico, rico en nutrientes y cultivado con cuidado — sin adivinar, sin ir al supermercado.",
+        "description": "Surtimos tu nevera antes de tu llegada con productos orgánicos, proteínas y despensa de Hacienda Arbórea. Paquetes para 2 a 8 personas en estadías de 3, 5 u 8 días.",
         "features": [
           "Productos frescos de la finca",
           "Orgánico y nutritivo",
@@ -349,7 +359,7 @@
         "category": "En el Mar",
         "title": "Tours de Pesca",
         "image": "/assets/InHouseServices/fishingTours.avif",
-        "description": "Sal al mar en el bote propio de Arborea para pesca mar afuera, costera o en el río — además de avistamiento de ballenas y combos de manglar. Cada tour lo lleva nuestro capitán, de principio a fin.",
+        "description": "Pesca mar afuera, costera y en el río en el bote propio de Arborea, con capitán y tripulación. Opciones de medio día y día completo, más combos de ballenas y playa.",
         "features": [
           "Pesca mar afuera y costera",
           "Isla del Caño",
@@ -366,7 +376,7 @@
   "privateChef": {
     "pill": "Gastronomía en casa",
     "title": "Experiencia Chef Privado",
-    "subtitle": "Cocina de finca a mesa en asociación con Seguras Farm Shop",
+    "subtitle": "Cosechado la misma mañana, cocinado en tu casa.",
     "whatsapp": "Reservar experiencia",
     "ctaHeading": "¿Listo para saborear Costa Rica?",
     "ctaSubheading": "Escríbenos por WhatsApp y nosotros nos encargamos del resto.",
@@ -398,8 +408,10 @@
     "dietaryForm": {
       "heading": "Restricciones Alimentarias y Preferencias",
       "description": "Cuéntale al chef sobre alergias, restricciones o cualquier cosa que prefieras evitar.",
-      "restrictionsLabel": "Restricciones",
+      "restrictionsLabel": "Restricciones — indica cuántos huéspedes",
       "options": ["Vegetariano", "Vegano", "Sin Gluten", "Sin Lácteos", "Alergia a Nueces", "Alergia a Mariscos"],
+      "otherLabel": "Otra restricción",
+      "otherPlaceholder": "ej. bajo en FODMAP, bajo en sodio, kosher...",
       "allergiesLabel": "Alergias — sé específico por favor",
       "allergiesPlaceholder": "ej. alergia severa al maní, intolerancia leve a la lactosa...",
       "preferencesLabel": "Preferencias y cosas que no te gustan",
@@ -411,17 +423,17 @@
       "preferences": "Preferencias"
     },
     "story": {
-      "heading": "Nuestra Historia",
-      "body": "Todo comienza con un brote.\n\nSeguras Farm Shop nació de una idea simple: en lugar de depender de una sola finca, construir una red de productores de distintas regiones de Costa Rica, cada uno experto en lo que mejor sabe dar su tierra. Café de altura de Tarrazú, pesca fresca del Pacífico, vegetales de las faldas volcánicas, miel de la zona norte.\n\nEn Arbórea llevamos esa selección curada de fincas asociadas directamente a tu mesa el mismo día. Cada plato lleva el nombre de la región que lo cultivó, cada brote cuenta una historia de paciencia, y cada bocado es nuestra manera de agradecer a la tierra costarricense que nos alimenta.\n\nCocina de finca a mesa. Ingredientes con nombre y apellido de región. Una experiencia que realmente sabe a Costa Rica."
+      "heading": "La finca está a pocos pasos.",
+      "body": "Hacienda Arborea es una finca en producción a pocos kilómetros de donde te estás quedando. La misma tierra que da forma al paisaje alrededor de tu casa también cultiva gran parte de lo que termina en tu plato.\n\nLa soberanía alimentaria es el corazón de cómo operamos. Los vegetales, hierbas y productos con los que trabaja tu chef fueron cosechados esa mañana — no provienen de un centro de distribución a días de distancia. Comes lo que creció más cerca de ti, cultivado con cuidado, recogido en su punto exacto.\n\nAsí es como se ve y se saborea el verdadero farm-to-table."
     },
     "breakfast": {
       "heading": "Desayuno de Finca",
       "subheading": "Recién cosechado, cada mañana",
-      "note": "Todos los desayunos incluyen fruta de temporada, café de altura y jugo recién exprimido de Seguras Farm Shop.",
+      "note": "Todos los desayunos incluyen fruta de temporada, café de altura y jugo recién exprimido de Hacienda Arborea.",
       "items": [
         {
           "title": "Brotes con Huevo Pochado",
-          "description": "Pan de masa madre horneado en casa, brotes tiernos de Seguras Farm Shop, aguacate y un huevo pochado con salsa holandesa de mantequilla de finca."
+          "description": "Pan de masa madre horneado en casa, brotes tiernos de Hacienda Arborea, aguacate y un huevo pochado con salsa holandesa de mantequilla de finca."
         },
         {
           "title": "Omelet de Brotes y Queso de Cabra",
@@ -437,7 +449,7 @@
         },
         {
           "title": "Pancakes de Plátano de Finca",
-          "description": "Plátano maduro de Seguras Farm Shop, canela y nuez moscada, servido con miel de nuestras colmenas y mantequilla de finca.",
+          "description": "Plátano maduro de Hacienda Arborea, canela y nuez moscada, servido con miel de nuestras colmenas y mantequilla de finca.",
           "tag": "Clásico Costarricense"
         },
         {
@@ -466,7 +478,7 @@
       "extrasSubheading": "Añade tu proteína favorita a cualquier desayuno.",
       "extras": [
         {
-          "title": "Tocino Seguras Farm Shop",
+          "title": "Tocino Hacienda Arborea",
           "description": "Tocino de cerdo de pastoreo, curado y ahumado artesanalmente."
         },
         {
@@ -664,7 +676,7 @@
     "themedNights": {
       "heading": "Noches Temáticas",
       "subheading": "Una experiencia diferente cada vez",
-      "description": "Cada noche temática incluye 1 botella de vino de nuestra selección natural, pan de la casa y la cosecha del día de Seguras Farm Shop. Elige tu experiencia y deja que el chef se encargue del resto.",
+      "description": "Cada noche temática es una experiencia culinaria completa construida alrededor de un solo concepto — ingredientes frescos de Hacienda Arborea, curados por tu chef.",
       "nights": [
         {
           "title": "Noche de Tacos del Huerto",
@@ -725,7 +737,7 @@
         {
           "title": "Noche Vegana",
           "subtitle": "100% del huerto, sin excepciones",
-          "description": "Una experiencia completamente vegetal, con lo mejor de la cosecha de Seguras Farm Shop.",
+          "description": "Una experiencia completamente vegetal, con lo mejor de la cosecha de Hacienda Arborea.",
           "includes": [
             "Hummus de garbanzo del huerto con pan de masa madre",
             "Ensalada de brotes, quinua y semillas tostadas",
@@ -753,6 +765,159 @@
             "Pan de masa madre con aioli de finca"
           ],
           "dessert": "Sorbete de fruta de temporada con menta del huerto"
+        },
+        {
+          "title": "Noche de Pasta Artesanal",
+          "subtitle": "Hecha a mano, fresca, al dente",
+          "description": "Nuestros chefs te guían por texturas únicas y sabores auténticos, transformando la pasta en una obra maestra culinaria.",
+          "includes": [
+            "3 entradas a elegir",
+            "3 opciones de pasta",
+            "2 postres"
+          ],
+          "dessert": "Tiramisu o Panna Cotta",
+          "menu": [
+            {
+              "heading": "Entradas",
+              "items": [
+                "Bruschetta de Salmón",
+                "Camote con Tocino",
+                "Ensalada Verde",
+                "Fiambres y Queso",
+                "Ensalada Caprese",
+                "Antipasto"
+              ]
+            },
+            {
+              "heading": "Pastas",
+              "items": [
+                "Alfredo (crema, leche, parmesano, jamón, tocino, champiñones)",
+                "Bolognese (res, tocino, zanahoria, cebolla, apio, tomate, perejil, nuez moscada, queso)",
+                "Fettuccine Carbonara (huevo, tocino, parmesano o pecorino)",
+                "Pasta al Pesto con Camarón o Pollo (pesto, mozzarella fresca, tomates cherry, cebolla morada, aceitunas, albahaca, parmesano)",
+                "Fettuccine con Camarón (camarón local fresco en salsa alfredo, parmesano, albahaca, ensalada verde)",
+                "Spaghetti con Almejas y Anchoas (perejil, aceite de oliva, tomate, ajo, limón)",
+                "Orecchiette alla Pugliese (anchoas, ajo, tomate, brócoli, aceite de oliva, pecorino)",
+                "Fettuccine de Mariscos (camarón, mejillones, pulpo, calamar, ajo, orégano, tomate, cebollín, parmesano)",
+                "Fettuccine con Langosta (tomate deshidratado, aceitunas negras, ajo, vino blanco, albahaca, mantequilla, aceite de oliva, pecorino)",
+                "Fettuccine con Salmón (ajo, eneldo, aceitunas verdes, parmesano, crema)",
+                "Fettuccine Primavera (cebolla, apio, zanahoria, chile, zucchini, perejil, brócoli, mantequilla, aceite de oliva, parmesano)"
+              ]
+            },
+            {
+              "heading": "Postres",
+              "items": [
+                "Tiramisu",
+                "Panna Cotta"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Noche de Sushi",
+          "subtitle": "El arte del roll, a tu manera",
+          "description": "Elige tus rolls de nuestro menú completo de sushi elaborado al momento, con entradas para comenzar y postre para cerrar.",
+          "includes": [
+            "3 entradas a elegir",
+            "4 rolls a elegir",
+            "2 postres a elegir"
+          ],
+          "dessert": "2 postres a elegir",
+          "menu": [
+            {
+              "heading": "Entradas",
+              "items": [
+                "Tempura de Camarón",
+                "Tempura de Vegetales",
+                "Tuna Tataki",
+                "Tofu Picante",
+                "Camarón Sriracha",
+                "Edamame",
+                "Tuna Tartare",
+                "Ensalada Uvita",
+                "Poke Tower",
+                "Sopa Miso",
+                "Tuk Tuk Tacos",
+                "Tom Kha Gai"
+              ]
+            },
+            {
+              "heading": "Rolls",
+              "items": [
+                "California (Kanikama, aguacate, queso crema, pepino, ajonjolí)",
+                "Sake (Aguacate, salmón, ajonjolí)",
+                "California Deluxe (Kanikama, aguacate, queso crema, pepino, Tobiko)",
+                "Spicy Tuna (Atún, cebollín, sriracha, pepino, aguacate)",
+                "Emperor (Cangrejo, dynamite mix, aguacate, queso crema, salmón, zanahoria, furikake, salsa de miel naranja, salsa eel)",
+                "Philadelphia (Salmón ahumado, pepino, queso crema, aguacate)",
+                "Rainbow Roll (Kanikama, aguacate, queso crema, pepino, 3 pescados)",
+                "Spider Roll (Cangrejo, espárragos, cebollín, aguacate, ajonjolí, salsa de miel naranja, eel, zanahoria)",
+                "Caterpillar (Eel, queso crema, pepino, cebolla verde, aguacate, tobiko)",
+                "OMG Roll (Camarón panko, aguacate, cebollín, salmón, mayo picante, ensalada de alga, masago)",
+                "Lua Roll (Atún, aguacate, cebollín, furikake, mayo wasabi, atún fresco, alfalfa, salsa chipotle)",
+                "Samurai Roll (Salmón, atún, aguacate, cebollín, chile rojo, salsa chipotle, zanahoria, salsa eel)",
+                "Dragon Roll (Cangrejo, pepino, queso crema, zanahoria, eel, aguacate, masago, salsa eel)",
+                "Tiger Roll (Atún, aguacate, espárrago frito, salmón, tatemado, mayo picante)",
+                "Kommodo (Camarón frito, cebollín, queso crema, chipotle, aguacate, zanahoria, salsa Kommodo)",
+                "Crunchy Shitake Roll (Roll frito, hongos shitake, espárragos, panko, sriracha, cebollín)",
+                "Spicy Lobster Roll (Roll frito, langosta, cebollín, aguacate, salsa eel, mayo picante, crunch de salmón)",
+                "Mango Shrimp Roll (Camarón al vapor, mango, queso crema, cebollín, aguacate, zanahoria, atún, furikake, salsa eel, salsa de miel naranja)",
+                "Veggie Tico Roll (Vegetales cocidos, queso crema de girasol, aguacate, plátano)",
+                "Primavera Roll (Tofu panko, espárragos cocidos, sriracha, aguacate y otros vegetales)",
+                "Juicy (Aguacate, piña empanizada, mango, salsa de maní picante)"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Noche de Pizza",
+          "subtitle": "Al horno de leña, con los mejores ingredientes",
+          "description": "Una sinfonía de sabores con extraordinarias creaciones de pizza. Cada rebanada es un lienzo pintado con una paleta de los mejores ingredientes.",
+          "includes": [
+            "3 entradas a elegir",
+            "4 pizzas a elegir",
+            "2 postres"
+          ],
+          "dessert": "Sorbete de Mango o Tiramisu",
+          "menu": [
+            {
+              "heading": "Entradas",
+              "items": [
+                "Ensalada Verde",
+                "Mini Pizzas de Berenjena y Zucchini",
+                "Ensalada Caprese",
+                "Antipasto",
+                "Ensalada César",
+                "Pan de Ajo con Queso",
+                "Palitos de Mozzarella",
+                "Jalapeño Poppers"
+              ]
+            },
+            {
+              "heading": "Pizzas",
+              "items": [
+                "Margherita (tomate, mozzarella, salsa, albahaca)",
+                "Pizza de Tocino (pesto, mozzarella, tocino, cebolla, tomates cherry, parmesano, arúgula)",
+                "Cuatro Quesos (mozzarella, gorgonzola, parmesano, ricotta, fontina, salsa de tomate)",
+                "Pepperoni (salsa de tomate, pepperoni, mozzarella)",
+                "Prosciutto (salsa de tomate, mozzarella, prosciutto, arúgula, parmesano)",
+                "Pizza de Camarón (salsa, mozzarella, camarón, chile, cebolla, champiñones, arúgula, parmesano)",
+                "Vegetariana (salsa, mozzarella, zucchini, brócoli, champiñones, chile, cebolla, berenjena, zanahoria)",
+                "Meat Lover (salsa, mozzarella, res, pollo, pepperoni, salami, tocino, chile, cebolla)",
+                "Jamón y Champiñones (salsa, mozzarella, jamón, champiñones)",
+                "BBQ Chicken (salsa, mozzarella, BBQ, champiñones, pollo, tocino)",
+                "Hawaiana (salsa, mozzarella, piña, jamón, tocino)",
+                "Cheesesteak (salsa, mozzarella, filete, cebolla, chile, cheddar, arúgula)"
+              ]
+            },
+            {
+              "heading": "Postres",
+              "items": [
+                "Sorbete de Mango",
+                "Tiramisu"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -797,7 +962,7 @@
       },
       "themedNights": {
         "heading": "Noches Temáticas",
-        "subheading": "Taco Night · Ahumados · Cena Tica · Noche Vegana",
+        "subheading": "Taco Night · Ahumados · Pasta · Sushi · Pizza",
         "items": [
           {
             "label": "2–5 personas",
@@ -820,12 +985,7 @@
             "minGuests": 11,
             "maxGuests": 15
           }
-        ],
-        "oceanDinner": {
-          "label": "Cena del Océano",
-          "price": "+$100 sobre cualquier tarifa de noche temática",
-          "priceValue": 100
-        }
+        ]
       },
       "bartender": {
         "heading": "Añadir Bartender",
@@ -853,78 +1013,127 @@
     "ctaSubheading": "Dinos tu fecha de llegada y lo tenemos listo cuando entres.",
     "concept": {
       "heading": "Tu cocina, lista antes de que llegues",
-      "body": "Llegamos antes que tú y surtimos tu nevera y despensa con lo mejor de Seguras Farm Shop: vegetales, carnes, pescado y fruta de temporada para que puedas preparar tu propio desayuno, almuerzo y cena durante toda tu estadía.\n\nTodo proviene de nuestra red curada de productores costarricenses — orgánico, trazable y entregado fresco la mañana de tu llegada. Sin carreras al supermercado, sin adivinar, sin compromisos."
+      "body": "Llegamos antes que tú y surtimos tu nevera y despensa con lo que crece más cerca de ti — vegetales, lácteos, carnes, pescado y fruta de temporada, para que puedas preparar tu propio desayuno, almuerzo y cena durante toda tu estadía.\n\nCada ingrediente proviene de nuestra red curada de productores costarricenses: café de altura de Tarrazú, pesca fresca del Pacífico, vegetales de las faldas volcánicas, lácteos crudos de nuestra propia finca, miel de la zona norte. Orgánico, trazable y entregado la mañana de tu llegada — sin carreras al supermercado, sin adivinar, sin compromisos."
     },
     "produce": {
-      "heading": "Qué incluye",
-      "subheading": "Todo lo que necesitas para desayuno, almuerzo y cena durante tu estadía.",
+      "heading": "¿Qué te gustaría tener en tu nevera?",
+      "subheading": "Elige con libertad — sin límites. Selecciona lo que quieres que incluyamos y lo conseguimos fresco de nuestra red de productores.",
+      "welcomePack": {
+        "label": "Incluido en toda estadía",
+        "description": "Estos básicos de despensa están listos en tu casa al llegar — los tendrás independientemente de si contratas el Full Fridge.",
+        "items": [
+          "Sal y pimienta",
+          "Aceite de oliva",
+          "Miel",
+          "Leche",
+          "Café",
+          "Ghee"
+        ]
+      },
       "categories": [
         {
-          "title": "Frutas y Verduras Frescas",
+          "title": "Lácteos Frescos",
           "items": [
-            "Frutas tropicales",
-            "Vegetales frescos",
-            "Ingredientes para ensalada",
-            "Hierbas frescas"
+            "Leche entera cruda",
+            "Mantequilla de finca",
+            "Natilla de finca",
+            "Yogur natural",
+            "Queso blanco fresco",
+            "Queso de cabra",
+            "Queso de oveja"
           ]
         },
         {
-          "title": "Desayuno",
+          "title": "Aves & Huevos",
           "items": [
-            "Huevos",
-            "Pan",
-            "Mantequilla",
-            "Yogur",
-            "Granola",
-            "Cereal"
+            "Huevos de gallina de libre pastoreo",
+            "Huevos de pato",
+            "Pollo entero",
+            "Pechuga de pollo",
+            "Muslos y piernas de pollo",
+            "Pato entero",
+            "Pechuga de pato"
           ]
         },
         {
-          "title": "Despensa",
+          "title": "Cerdo",
           "items": [
-            "Arroz",
-            "Pasta",
-            "Aceite de oliva",
-            "Sal y pimienta",
-            "Azúcar",
-            "Harina",
-            "Especias básicas"
+            "Tocino de finca",
+            "Chorizo de cerdo",
+            "Costillas de cerdo",
+            "Paleta de cerdo",
+            "Embutidos artesanales"
           ]
         },
         {
-          "title": "Lácteos",
+          "title": "Res y Cordero",
           "items": [
-            "Leche",
-            "Queso",
-            "Mantequilla"
+            "Carne molida de res",
+            "Bistec de res",
+            "Costilla corta de res",
+            "Pierna de cordero",
+            "Chuletas de cordero",
+            "Cabrito"
+          ]
+        },
+        {
+          "title": "Vegetales",
+          "items": [
+            "Yuca",
+            "Chayote",
+            "Camote",
+            "Ayote pipián",
+            "Plátanos verdes",
+            "Plátanos maduros",
+            "Elote",
+            "Tomates",
+            "Chiltomas"
+          ]
+        },
+        {
+          "title": "Frutas Tropicales",
+          "items": [
+            "Aguacate",
+            "Bananos",
+            "Papayas",
+            "Maracuyá",
+            "Guayabas",
+            "Cas",
+            "Piña",
+            "Mamones chinos"
+          ]
+        },
+        {
+          "title": "Hierbas Frescas",
+          "items": [
+            "Culantro coyote",
+            "Hierba buena",
+            "Tomillo fresco",
+            "Romero fresco",
+            "Albahaca fresca"
+          ]
+        },
+        {
+          "title": "Despensa y Granos",
+          "items": [
+            "Arroz blanco",
+            "Frijoles negros",
+            "Harina de maíz criollo",
+            "Avena",
+            "Pan de masa madre",
+            "Granola orgánica"
           ]
         },
         {
           "title": "Bebidas",
           "items": [
-            "Agua embotellada",
+            "Agua purificada",
             "Agua con gas",
-            "Jugo",
-            "Café",
-            "Té"
-          ]
-        },
-        {
-          "title": "Proteínas",
-          "items": [
-            "Pollo",
-            "Res",
-            "Pescado o mariscos (bajo pedido)"
-          ]
-        },
-        {
-          "title": "Snacks",
-          "items": [
-            "Galletas saladas",
-            "Papas fritas",
-            "Galletas dulces",
-            "Fruta fresca",
-            "Snacks para niños"
+            "Agua de coco",
+            "Jugo de naranja natural",
+            "Jugo de piña natural",
+            "Selección de tés de hierbas",
+            "Limonada natural"
           ]
         }
       ]
@@ -980,29 +1189,41 @@
       "daysLabel": "Duración de la estadía",
       "groupLabel": "Tamaño del grupo",
       "columns": [
-        { "label": "Pareja (2)", "guests": 2 },
-        { "label": "Familia de 4", "guests": 4 },
-        { "label": "Familia de 6", "guests": 6 },
-        { "label": "Familia de 8", "guests": 8 }
+        {
+          "label": "Pareja (2)",
+          "guests": 2
+        },
+        {
+          "label": "Familia de 4",
+          "guests": 4
+        },
+        {
+          "label": "Familia de 6",
+          "guests": 6
+        },
+        {
+          "label": "Familia de 8",
+          "guests": 8
+        }
       ],
       "rows": [
         {
           "label": "3 Días",
           "days": 3,
-          "prices": ["$230", "$410", "$560", "$670"],
-          "priceValues": [230, 410, 560, 670]
+          "prices": ["$299", "$533", "$728", "$871"],
+          "priceValues": [299, 533, 728, 871]
         },
         {
           "label": "5 Días",
           "days": 5,
-          "prices": ["$380", "$680", "$930", "$1,120"],
-          "priceValues": [380, 680, 930, 1120]
+          "prices": ["$494", "$884", "$1,209", "$1,456"],
+          "priceValues": [494, 884, 1209, 1456]
         },
         {
           "label": "8 Días",
           "days": 8,
-          "prices": ["$610", "$1,090", "$1,490", "$1,790"],
-          "priceValues": [610, 1090, 1490, 1790]
+          "prices": ["$793", "$1,417", "$1,937", "$2,327"],
+          "priceValues": [793, 1417, 1937, 2327]
         }
       ]
     },
@@ -1010,22 +1231,26 @@
       "heading": "Cómo funciona",
       "steps": [
         {
-          "title": "Dinos tu fecha de llegada",
-          "description": "Envíanos un WhatsApp con tu fecha de llegada y la cantidad de huéspedes para los que preparamos."
+          "title": "Elige personas y días",
+          "description": "Indica cuántos huéspedes van a comer y cuántos días quieres que te surtamos la nevera."
         },
         {
-          "title": "Lo conseguimos fresco para ti",
-          "description": "Seguras Farm Shop prepara tu pedido la mañana de tu llegada — obtenido de los mejores productores regionales de Costa Rica."
+          "title": "Arma tu propia nevera",
+          "description": "Elige los vegetales, proteínas, despensa y snacks que quieras — sin límites. Conseguimos todo fresco de nuestra red de productores."
         },
         {
-          "title": "Encuéntralo listo al llegar",
-          "description": "Entra a tu casa y tu nevera ya está surtida. Sin paradas, sin estrés — solo cocina."
+          "title": "Nosotros la llenamos",
+          "description": "Conseguimos todo de los mejores productores regionales de Costa Rica y tenemos tu nevera y despensa completamente surtidas antes de que llegues."
+        },
+        {
+          "title": "Encuéntralo todo al llegar",
+          "description": "Entra a tu casa y tu cocina ya está lista. Sin carreras al supermercado, sin paradas — solo desempaca y cocina."
         }
       ]
     },
     "farm": {
-      "heading": "Sobre Seguras Farm Shop",
-      "body": "Seguras Farm Shop nació de una idea simple: en lugar de depender de una sola finca, construir una red de productores de distintas regiones de Costa Rica, cada uno experto en lo que mejor sabe dar su tierra.\n\nCafé de altura de Tarrazú, pesca fresca del Pacífico, vegetales de las faldas volcánicas, miel de la zona norte. Cada ingrediente lleva nombre y apellido de región. Cada bocado cuenta una historia de paciencia, cuidado y profundo respeto por la tierra costarricense."
+      "heading": "Sobre Hacienda Arborea",
+      "body": "Hacienda Arborea nació de una idea simple: en lugar de depender de una sola finca, construir una red de productores de distintas regiones de Costa Rica, cada uno experto en lo que mejor sabe dar su tierra.\n\nCafé de altura de Tarrazú, pesca fresca del Pacífico, vegetales de las faldas volcánicas, miel de la zona norte. Cada ingrediente lleva nombre y apellido de región. Cada bocado cuenta una historia de paciencia, cuidado y profundo respeto por la tierra costarricense."
     },
     "questionnaire": {
       "pill": "Cuestionario para huéspedes",
@@ -1038,11 +1263,13 @@
         "childrenAges": "Edades de los niños (opcional)"
       },
       "dietary": {
-        "heading": "Preferencias Dietéticas y Alergias",
+        "heading": "Restricciones Dietéticas y Alergias",
         "question": "¿Alguien en tu grupo tiene restricciones alimenticias o alergias?",
         "options": ["Vegetariano", "Vegano", "Sin Gluten", "Sin Lácteos", "Alergia a Nueces"],
-        "other": "Otro (especificar)",
-        "otherPlaceholder": "Cuéntanos más..."
+        "allergiesLabel": "Alergias o intolerancias específicas",
+        "allergiesPlaceholder": "p. ej. nueces, mariscos, lactosa...",
+        "preferencesLabel": "Otras preferencias alimenticias",
+        "preferencesPlaceholder": "p. ej. bajo en carbohidratos, sin carne roja, prefiero orgánico..."
       },
       "cooking": {
         "heading": "Planes de Cocina",
@@ -1050,9 +1277,9 @@
         "options": ["Solo desayuno", "Desayuno y Almuerzo", "Desayuno y Cena", "La mayoría de las comidas", "No planeamos cocinar"]
       },
       "groceries": {
-        "heading": "Preferencias de Compras",
-        "question": "¿Hay productos, marcas o alimentos específicos que te gustaría que compremos?",
-        "placeholder": "Cuéntanos qué te gustaría..."
+        "heading": "¿Algo más?",
+        "question": "¿Hay algo que te gustaría y no viste en la lista de productos arriba?",
+        "placeholder": "Cuéntanos qué te gustaría agregar..."
       },
       "beverages": {
         "heading": "Bebidas",
@@ -1131,6 +1358,8 @@
     "activities": [
       {
         "title": "Parapente en Tándem — Zion",
+        "price": "$170 / persona",
+        "priceValue": 170,
         "image": "/assets/ToursActivities/TandemParaglidingZion.avif",
         "description": "Vuelo en tándem de 15–20 minutos con 15 años de experiencia operativa. Pilotos licenciados y completamente asegurados. Sale desde Dominical.",
         "features": [
@@ -1160,6 +1389,8 @@
       },
       {
         "title": "Corcovado + Experiencia Marina",
+        "price": "Desde $110 / persona",
+        "priceValue": 110,
         "image": "/assets/ToursActivities/CorcovadoMarineExperience.avif",
         "description": "Operador premium de Corcovado y marina con un tour de ballenas único guiado por un biólogo marino con hidrofón. Incluye reserva privada Tapir Trail.",
         "features": [
@@ -1201,6 +1432,8 @@
       },
       {
         "title": "Naturaleza y Vida Silvestre en la Selva",
+        "price": "Desde $65 / persona",
+        "priceValue": 65,
         "image": "/assets/ToursActivities/NatureWildlifeJungleExperiences.avif",
         "description": "Reserva natural con tours de vida silvestre, avistamiento de aves, tours nocturnos y la experiencia premium Chilamate. Reserva privada de 330 hectáreas.",
         "features": [
@@ -1230,6 +1463,8 @@
       },
       {
         "title": "ATV en la Jungla con Experiencia Cultural",
+        "price": "Desde $150",
+        "priceValue": 150,
         "image": "/assets/ToursActivities/JungleATVCulturalExperience.avif",
         "description": "Experiencia de 5 horas en ATV o side-by-side combinando paseo por la selva con visita a una familia costarricense, cosecha de café, buffet de bocadillos y guía bilingüe.",
         "features": [
@@ -1264,6 +1499,8 @@
       },
       {
         "title": "Parque Nacional Corcovado — Sirena & San Pedrillo",
+        "price": "Desde $100 / persona",
+        "priceValue": 100,
         "image": "/assets/ToursActivities/CorcovadoNational ParkSirenaSanPedrillo.avif",
         "description": "Operador integral con acceso a las mejores estaciones de guardaparques de Corcovado. Alta probabilidad de avistamiento: monos, perezosos, tapires, aves. Expediciones con pernocta disponibles.",
         "features": [
@@ -1305,6 +1542,8 @@
       },
       {
         "title": "ATV y Side-by-Side en la Selva",
+        "price": "Desde $150",
+        "priceValue": 150,
         "image": "/assets/ToursActivities/ATVSidebySideJungleAdventure.avif",
         "description": "Experiencia en instalación privada a través de bosques, ríos y colinas con visita a una finca cafetalera. Ideal para riders con experiencia que buscan un ambiente premium.",
         "features": [
@@ -1338,6 +1577,8 @@
       },
       {
         "title": "Parapente en Tándem — Dominical y Rivas",
+        "price": "$155 / persona",
+        "priceValue": 155,
         "image": "/assets/ToursActivities/TandemParaglidingDominicalRivas.avif",
         "description": "Vuelo en tándem de 20–30 minutos (más largo que la competencia) con instructor certificado. Empresa familiar, 14 años de experiencia. Se habla inglés. Pago después de la actividad.",
         "features": [
@@ -1367,6 +1608,8 @@
       },
       {
         "title": "Tour de Cascadas — Día Completo",
+        "price": "$130 / persona",
+        "priceValue": 130,
         "image": "/assets/ToursActivities/FullDayWaterfallTour.avif",
         "description": "Tour guiado de día completo visitando 3 cascadas diferentes, parada en playa y almuerzo en restaurante con vista al mar. Transporte desde la oficina incluido.",
         "features": [
@@ -1387,6 +1630,8 @@
       },
       {
         "title": "Canopy Vuelo del Tucán",
+        "price": "$86 / persona",
+        "priceValue": 86,
         "image": "/assets/ToursActivities/VueloTucanCanopy.avif",
         "description": "7 tirolesas a través de una reserva natural privada de 330 hectáreas. Grupos pequeños de 2–8 personas, con caminata ecológica y alta probabilidad de avistamiento de fauna.",
         "features": [
@@ -1407,6 +1652,8 @@
       },
       {
         "title": "Rapel en Cascadas y Cañonismo",
+        "price": "$150 / persona",
+        "priceValue": 150,
         "image": "/assets/ToursActivities/CanyoningWatefallRappelling.avif",
         "description": "Múltiples rapeles en cascadas con caminata por la selva e interacción con pozas naturales. Un paquete completo para aventureros — principiantes bienvenidos.",
         "features": [
@@ -1440,6 +1687,8 @@
       },
       {
         "title": "Tour de Canopy Osa",
+        "price": "$91 / persona",
+        "priceValue": 91,
         "image": "/assets/ToursActivities/OsaCanopyTour.avif",
         "description": "7 tirolesas incluyendo la más larga de 1.1 km, 2–3 rapeles y 2 puentes colgantes. Grupos pequeños a medianos, entorno montañoso con vistas panorámicas.",
         "features": [
@@ -1464,6 +1713,8 @@
       },
       {
         "title": "Combo Tirolesas + Cascadas",
+        "price": "$90 / persona",
+        "priceValue": 90,
         "image": "/assets/ToursActivities/ZiplineWaterfallsAdventureCombo.avif",
         "description": "Aventura multideporte con 5 tirolesas, rapel en árbol, monkey drop al agua, poza natural y tobogán en cascada. Almuerzo local incluido al final.",
         "features": [
@@ -1675,30 +1926,56 @@
         "label": "Masaje a Cuatro Manos",
         "image": "/assets/Massages/FourHandsMassage.avif",
         "description": "Dos terapeutas trabajando en perfecta sincronía, duplicando la sensación de relajación. Una experiencia inmersiva y profundamente restauradora como ninguna otra.",
-        "duration": "60 min",
-        "price": "$190",
-        "priceValue": 190
+        "durationPricing": [
+          {
+            "label": "60 min",
+            "priceValue": 180
+          },
+          {
+            "label": "90 min",
+            "priceValue": 220
+          }
+        ]
       },
       "durationPricing": [
-        { "label": "60 min", "priceValue": 95 },
-        { "label": "90 min", "priceValue": 120 }
+        {
+          "label": "60 min",
+          "priceValue": 95
+        },
+        {
+          "label": "90 min",
+          "priceValue": 120
+        }
       ]
     },
     "facials": {
       "subheading": "Tratamientos",
       "heading": "Tratamientos Faciales",
-      "main": {
-        "name": "Limpieza Facial Profunda",
-        "description": "Un ritual de limpieza profunda que elimina impurezas, destapa los poros y deja tu piel renovada y equilibrada. El primer paso esencial para una piel sana y radiante.",
-        "price": "$80",
-        "priceValue": 80
-      },
+      "items": [
+        {
+          "name": "Facial Natural",
+          "description": "Tratamiento formulado con té blanco como ingrediente base. Nutre y protege la piel con antioxidantes naturales mientras la revitaliza desde adentro. Ideal para todo tipo de piel, especialmente sensible o deshidratada.",
+          "duration": "60 min",
+          "priceValue": 80
+        },
+        {
+          "name": "Limpieza Facial Profunda",
+          "description": "Un tratamiento completo de 60 minutos que incluye limpieza, exfoliación, vapor, extracción, tónico, peeling ultrasónico y una máscara especializada según tu tipo de piel. El reset que tu rostro necesita.",
+          "duration": "60 min",
+          "priceValue": 80,
+          "features": [
+            "Limpieza · Exfoliación · Vapor",
+            "Extracción · Tónico",
+            "Peeling Ultrasónico · Máscara Especializada"
+          ]
+        }
+      ],
       "addons": {
         "heading": "Complementos",
+        "tagline": "Agrega 20 minutos de tratamiento extra a cualquier servicio y personaliza tu experiencia por solo $40.",
         "duration": "20 min",
         "price": "$40 c/u",
         "priceValue": 40,
-        "requiresMain": "Selecciona la Limpieza Facial Profunda de arriba para agregar extras.",
         "items": [
           "Mini Facial",
           "Exfoliación de Espalda",
@@ -1714,6 +1991,28 @@
       "heading": "Rituales y Paquetes de Spa",
       "description": "Experiencias de múltiples tratamientos diseñadas para una restauración profunda. Cada paquete combina terapias complementarias para un viaje de bienestar completo.",
       "items": [
+        {
+          "name": "Masaje en Pareja",
+          "duration": "90 min",
+          "priceValue": 240,
+          "description": "Dos terapeutas, dos camillas, un momento compartido de paz total. Ideal para parejas, amigos o familiares que quieren relajarse juntos en perfecta armonía.",
+          "includes": [
+            "Dos terapeutas trabajando simultáneamente",
+            "Camillas lado a lado",
+            "A elegir: Relajante, Tejido Profundo o Aromaterapia"
+          ]
+        },
+        {
+          "name": "Paquete de Luna de Miel",
+          "duration": "90 min",
+          "priceValue": 235,
+          "description": "La experiencia definitiva para una luna de miel perfecta en el Pacífico Sur de Costa Rica.",
+          "includes": [
+            "Masaje Relajante en Pareja",
+            "Exfoliación con Miel, Leche y Chocolate Blanco",
+            "Masaje Indio de Cabeza"
+          ]
+        },
         {
           "name": "Romantic Escape",
           "duration": "80 min",
@@ -1915,5 +2214,25 @@
     "ctaHeading": "¿Listo para salir al mar?",
     "ctaSubheading": "Escríbenos por WhatsApp y te ayudamos a elegir el tour ideal.",
     "note": "Los precios son estimados por bote/grupo y pueden variar según condiciones, tamaño del grupo y temporada. Tu capitán confirmará el precio final antes de zarpar."
+  },
+  "services": {
+    "privateChef": {
+      "label": "Chef Privado"
+    },
+    "fullFridge": {
+      "label": "Refrigerador Lleno"
+    },
+    "wellnessSpa": {
+      "label": "Bienestar y Spa"
+    },
+    "fishingTours": {
+      "label": "Tours de Pesca"
+    },
+    "transport": {
+      "label": "Transporte"
+    },
+    "tours": {
+      "label": "Tours y Actividades"
+    }
   }
 }

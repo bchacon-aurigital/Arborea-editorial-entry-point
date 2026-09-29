@@ -12,7 +12,7 @@ import Footer from "@/components/layout/Footer";
 import { useI18n } from "@/app/context/I18nContext";
 import { HIGHLIGHT_ICONS } from "@/data/properties";
 import {
-  TbWifi, TbKey, TbMapPin, TbCopy, TbCheck, TbShare, TbChevronRight, TbArrowLeft, TbInfoCircle,
+  TbWifi, TbKey, TbMapPin, TbCopy, TbCheck, TbChevronRight, TbArrowLeft, TbInfoCircle,
 } from "react-icons/tb";
 
 export default function PropertyPage({ property }) {
@@ -22,60 +22,46 @@ export default function PropertyPage({ property }) {
   const name  = t(`properties.${i18nKey}.name`);
   const about = t(`properties.${i18nKey}.about`);
 
-  const handleShare = async () => {
-    const url  = window.location.href;
-    const data = { title: name, text: name, url };
-    if (navigator.share && navigator.canShare?.(data)) {
-      await navigator.share(data).catch(() => {});
-    } else {
-      await navigator.clipboard.writeText(url);
-    }
-  };
-
   return (
     <>
       <Navbar />
       <main className="pt-24">
 
         {/* ── Header ── */}
-        <div className="px-8 md:px-16 pt-8 pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div className="flex flex-col gap-1" data-aos="fade-up">
-            <Link
-              href="/"
-              className="flex items-center gap-1.5 w-fit mb-3 text-sm font-sans font-medium text-[#222E2C]/50 hover:text-[#222E2C] transition-colors duration-200"
-            >
-              <TbArrowLeft size={16} />
-              {t("common.back")}
-            </Link>
-            <p className="font-sans text-sm text-[#222E2C]/50 tracking-tight">
-              {t("propertyPage.subtitle")}
-            </p>
-            <h1
-              className="text-3xl md:text-4xl text-[#213B2F] tracking-tight"
-              style={{ fontFamily: "var(--font-alpina)" }}
-            >
-              {name}
-            </h1>
-          </div>
-          <div className="flex items-center gap-3 shrink-0" data-aos="fade-up" data-aos-delay="100">
-            <button
-              onClick={handleShare}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#222E2C] font-sans font-medium text-sm text-[#222E2C] hover:bg-[#222E2C]/5 transition-colors duration-200"
-            >
-              {t("propertyPage.share")}
-              <TbShare size={14} />
-            </button>
+        <div className="px-8 md:px-16 pt-8 pb-6 flex flex-col gap-6">
+          <Link
+            href="/"
+            className="flex items-center gap-1.5 w-fit text-sm font-sans font-medium text-[#222E2C]/50 hover:text-[#222E2C] transition-colors duration-200"
+          >
+            <TbArrowLeft size={16} />
+            {t("common.back")}
+          </Link>
+          <h1
+            className="text-5xl md:text-6xl text-[#213B2F] tracking-tight"
+            style={{ fontFamily: "var(--font-alpina)" }}
+            data-aos="fade-up"
+          >
+            {name}
+          </h1>
+          <div className="flex items-center gap-3 flex-wrap" data-aos="fade-up" data-aos-delay="80">
             {directionsUrl && (
               <a
                 href={directionsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#213B2F] font-sans font-medium text-sm text-[#D8DDB8] hover:bg-[#213B2F]/90 transition-colors duration-200"
+                className="flex items-center gap-2 px-5 py-3 rounded-full bg-[#213B2F] font-sans font-medium text-sm text-[#D8DDB8] hover:bg-[#213B2F]/90 transition-colors duration-200"
               >
-                <TbMapPin size={14} />
-                <span className="hidden sm:inline">{t("propertyPage.seeDirections")}</span>
+                <TbMapPin size={16} />
+                {t("common.getDirections")}
               </a>
             )}
+            <a
+              href="#wifi-section"
+              className="flex items-center gap-2 px-5 py-3 rounded-full border border-[#222E2C] font-sans font-medium text-sm text-[#222E2C] hover:bg-[#222E2C]/5 transition-colors duration-200"
+            >
+              <TbWifi size={16} />
+              {t("propertyPage.wifiAndMore")}
+            </a>
           </div>
         </div>
 
@@ -112,7 +98,7 @@ export default function PropertyPage({ property }) {
         <div className="px-8 md:px-16 flex flex-col gap-12 md:gap-16 pb-24">
 
           {/* WiFi & Directions */}
-          <div className="flex flex-col gap-5" data-aos="fade-up">
+          <div id="wifi-section" className="flex flex-col gap-5" data-aos="fade-up">
             <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#222E2C] tracking-tight">
               {t("propertyPage.wifiSection")}
             </h2>

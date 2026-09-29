@@ -50,7 +50,7 @@ const THEMES = {
   },
 };
 
-export default function OrderCheckoutForm({ service, lines, infoLines = [], total, notes, onNotesChange, compact = false, extra = null, dark = false }) {
+export default function OrderCheckoutForm({ service, lines, infoLines = [], total, notes, onNotesChange, compact = false, extra = null, dark = false, hideDate = false, hideNotes = false }) {
   const { t, locale } = useI18n();
   const c = dark ? THEMES.dark : THEMES.light;
 
@@ -71,7 +71,7 @@ export default function OrderCheckoutForm({ service, lines, infoLines = [], tota
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name.trim() || !casa || !date || lines.length === 0) {
+    if (!name.trim() || !casa || (!hideDate && !date) || lines.length === 0) {
       setValidationError(true);
       setStatus("idle");
       return;
@@ -84,7 +84,7 @@ export default function OrderCheckoutForm({ service, lines, infoLines = [], tota
       service,
       name: name.trim(),
       casa,
-      dateNeeded: date,
+      dateNeeded: hideDate ? "" : date,
       items: summaryLines.map(({ label, price }) => ({ label, price })),
       total,
       currency: "USD",
@@ -192,26 +192,30 @@ export default function OrderCheckoutForm({ service, lines, infoLines = [], tota
             </Select>
           </label>
 
-          <FieldInput
-            icon={TbCalendarEvent}
-            label={t("orderForm.date")}
-            type="date"
-            min={todayIso}
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            c={c}
-          />
+          {!hideDate && (
+            <FieldInput
+              icon={TbCalendarEvent}
+              label={t("orderForm.date")}
+              type="date"
+              min={todayIso}
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              c={c}
+            />
+          )}
         </div>
 
-        <FieldTextarea
-          icon={TbNotes}
-          label={t("orderForm.notes")}
-          rows={3}
-          value={notes}
-          onChange={(e) => onNotesChange(e.target.value)}
-          placeholder={t("orderForm.notesPlaceholder")}
-          c={c}
-        />
+        {!hideNotes && (
+          <FieldTextarea
+            icon={TbNotes}
+            label={t("orderForm.notes")}
+            rows={3}
+            value={notes}
+            onChange={(e) => onNotesChange(e.target.value)}
+            placeholder={t("orderForm.notesPlaceholder")}
+            c={c}
+          />
+        )}
 
         {validationError && (
           <div className="flex items-center gap-2 rounded-xl bg-red-500/15 border border-red-400/30 px-4 py-3">
