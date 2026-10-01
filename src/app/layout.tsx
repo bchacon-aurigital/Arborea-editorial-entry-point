@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { I18nProvider } from "./context/I18nContext";
+import { CartProvider } from "./context/CartContext";
 import LenisProvider from "@/components/LenisProvider";
+import CartButton from "@/components/cart/CartButton";
+import CartDrawer from "@/components/cart/CartDrawer";
 import { GoogleTagManager } from '@next/third-parties/google';
 
 const inter = Inter({
@@ -77,8 +80,12 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         <GoogleTagManager gtmId="GTM-W7KC623M" />
         <I18nProvider>
+          <CartProvider>
             <LenisProvider />
             {children}
+            <CartButton />
+            <CartDrawer />
+          </CartProvider>
         </I18nProvider>
       </body>
     </html>

@@ -12,7 +12,9 @@ export default function ActivitiesGrid() {
   return (
     <div className="flex flex-col gap-3">
       {activities.map((activity, i) => (
-        <ActivityCard key={i} activity={activity} />
+        /* `index` feeds skuOf() so the cart id comes from the English title
+           rather than this position — see src/lib/sku.js */
+        <ActivityCard key={i} activity={activity} index={i} />
       ))}
     </div>
   );

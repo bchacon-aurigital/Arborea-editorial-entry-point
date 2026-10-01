@@ -1,106 +1,50 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import { useI18n } from "@/app/context/I18nContext";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/Footer";
-import { useOrderCart } from "@/hooks/useOrderCart";
-import { submitOrder } from "@/lib/orderApi";
+import { useDraft, useSeedDraftFromCart } from "@/hooks/useDraft";
+import { useCart } from "@/app/context/CartContext";
+import { skuOf, lineIdOf } from "@/lib/sku";
+import { money } from "@/lib/format";
+import QtyStepper from "@/components/ui/QtyStepper";
+import DateField from "@/components/ui/DateField";
 import {
   TbArrowLeft, TbCircleCheck, TbBrandWhatsapp, TbPhoto,
-  TbSparkles, TbDroplet, TbFlame, TbLeaf, TbWind, TbSun, TbCalendarEvent,
+  TbSparkles, TbDroplet, TbFlame, TbLeaf, TbWind, TbSun,
   TbHandClick, TbAdjustments, TbCirclePlus, TbSend,
-  TbCheck, TbAlertCircle, TbLoader2, TbNotes, TbAlertTriangle,
+  TbCheck, TbNotes, TbAlertTriangle, TbShoppingBag,
 } from "react-icons/tb";
 
 const WHATSAPP = "50685011042";
 const SPA_COLOR = "#8B5A3C";
 
-/* ── helpers ─────────────────────────────────────────────── */
-
-function buildLabel(name, qty, date) {
-  const qtyStr = qty > 1 ? ` × ${qty}` : "";
-  const dateStr = date ? ` · ${date}` : "";
-  return `${name}${qtyStr}${dateStr}`;
-}
-
-function DateInput({ value, onChange, disabled, dark = false }) {
-  const labelCls = dark ? "text-[#D8DDB8]/55" : "text-[#222E2C]/45";
-  const inputCls = dark
-    ? "text-[#D8DDB8] bg-white/8 border border-white/15 focus:ring-white/20 [color-scheme:dark]"
-    : "text-[#222E2C] bg-[#222E2C]/6 border border-[#222E2C]/12 focus:ring-[#C9974F]/30 [color-scheme:light]";
-
-  return (
-    <div className="flex flex-col gap-1.5">
-      <label className={`flex items-center gap-1.5 font-sans text-[10px] font-semibold uppercase tracking-widest ${labelCls}`}>
-        <TbCalendarEvent size={11} />
-        Preferred date (optional)
-      </label>
-      <input
-        type="date"
-        value={value}
-        disabled={disabled}
-        onChange={(e) => onChange(e.target.value)}
-        className={`font-sans text-sm rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:border-transparent transition-all disabled:opacity-0 ${inputCls}`}
-      />
-    </div>
-  );
-}
-
-function Stepper({ value, onChange, dark = false }) {
-  const bg   = dark ? "bg-white/10"      : "bg-[#222E2C]/8";
-  const btn  = dark ? "text-[#EDE5D8]/70 hover:bg-white/10" : "text-[#222E2C]/65 hover:bg-[#222E2C]/10";
-  const num  = dark ? "text-[#EDE5D8]"   : "text-[#222E2C]";
-  return (
-    <div className={`flex items-center gap-0.5 ${bg} rounded-xl p-0.5`}>
-      <button type="button" onClick={() => onChange(Math.max(0, value - 1))} className={`size-8 flex items-center justify-center rounded-lg font-sans text-lg leading-none transition-colors select-none ${btn}`}>−</button>
-      <span className={`w-8 text-center font-sans text-sm font-semibold ${num}`}>{value}</span>
-      <button type="button" onClick={() => onChange(value + 1)} className={`size-8 flex items-center justify-center rounded-lg font-sans text-lg leading-none transition-colors select-none ${btn}`}>+</button>
-    </div>
-  );
-}
-
 /* ── sub-components ───────────────────────────────────────── */
 
-function MassageCard({ name, description, image, groupId, durations, cart }) {
-  const selected = cart.items[groupId];
+function MassageCard({ name, description, image, groupId, durations, draft }) {
+  const selected = draft.get(groupId);
   const qty = selected?.qty ?? 1;
   const date = selected?.date ?? "";
 
+  /* Picking the already-selected duration clears the card. */
   const pick = (d) => {
     if (selected && selected.duration === d.label) {
-      cart.removeItem(groupId);
+      draft.remove(groupId);
     } else {
-      cart.setItem(groupId, {
-        label: buildLabel(`${name} (${d.label})`, qty, ""),
-        price: d.priceValue * qty,
-        priceValue: d.priceValue,
-        duration: d.label,
-        qty,
-        date: "",
-      });
+      draft.replace(groupId, { qty, date, duration: d.label, unitPrice: d.priceValue });
     }
   };
 
   const changeQty = (newQty) => {
-    if (!selected) return;
-    if (newQty < 1) return;
-    cart.setItem(groupId, {
-      ...selected,
-      label: buildLabel(`${name} (${selected.duration})`, newQty, selected.date ?? ""),
-      price: selected.priceValue * newQty,
-      qty: newQty,
-    });
+    if (!selected || newQty < 1) return;
+    draft.set(groupId, { qty: newQty });
   };
 
   const changeDate = (newDate) => {
     if (!selected) return;
-    cart.setItem(groupId, {
-      ...selected,
-      label: buildLabel(`${name} (${selected.duration})`, qty, newDate),
-      date: newDate,
-    });
+    draft.set(groupId, { date: newDate });
   };
 
   return (
@@ -140,9 +84,9 @@ function MassageCard({ name, description, image, groupId, durations, cart }) {
           <div className="flex flex-col gap-3 pt-3 border-t border-white/10">
             <div className="flex items-center justify-between">
               <span className="font-sans text-xs text-[#EDE5D8]/55">Quantity</span>
-              <Stepper value={qty} onChange={changeQty} dark />
+              <QtyStepper value={qty} onChange={changeQty} min={1} size="sm" tone="dark" label="Quantity" />
             </div>
-            <DateInput value={date} onChange={changeDate} dark />
+            <DateField value={date} onChange={changeDate} optional tone="dark" />
           </div>
         )}
       </div>
@@ -152,20 +96,15 @@ function MassageCard({ name, description, image, groupId, durations, cart }) {
 
 const ADDON_ICONS = [TbSparkles, TbDroplet, TbFlame, TbLeaf, TbWind, TbSun];
 
-function AddonCard({ name, id, Icon, cart, addonPrice, disabled = false }) {
-  const cartItem = cart.items[id];
-  const qty = cartItem?.qty ?? 0;
+function AddonCard({ name, id, Icon, draft, addonPrice, disabled = false }) {
+  const entry = draft.get(id);
+  const qty = entry?.qty ?? 0;
   const active = qty > 0;
 
   const changeQty = (newQty) => {
     if (disabled) return;
-    if (newQty <= 0) { cart.removeItem(id); return; }
-    cart.setItem(id, {
-      label: buildLabel(name, newQty, ""),
-      price: addonPrice * newQty,
-      priceValue: addonPrice,
-      qty: newQty,
-    });
+    if (newQty <= 0) { draft.remove(id); return; }
+    draft.replace(id, { qty: newQty, unitPrice: addonPrice, date: "" });
   };
 
   return (
@@ -186,35 +125,28 @@ function AddonCard({ name, id, Icon, cart, addonPrice, disabled = false }) {
         <span className={`font-sans font-medium text-sm ${active ? "text-[#EDE5D8]" : "text-[#222E2C]"}`}>{name}</span>
         <span className={`font-sans text-xs ${active ? "text-[#EDE5D8]/55" : "text-[#222E2C]/50"}`}>20 min · $40</span>
       </span>
-      <div className={`flex items-center gap-0 rounded-lg overflow-hidden shrink-0 ${active ? "bg-white/10" : "bg-[#222E2C]/8"}`}>
-        <button type="button" onClick={() => changeQty(qty - 1)} disabled={disabled} className={`size-7 flex items-center justify-center font-sans text-base leading-none hover:bg-black/10 transition-colors ${active ? "text-[#EDE5D8]/70" : "text-[#222E2C]/65"}`}>−</button>
-        <span className={`w-6 text-center font-sans text-sm font-semibold ${active ? "text-[#EDE5D8]" : "text-[#222E2C]"}`}>{qty}</span>
-        <button type="button" onClick={() => changeQty(qty + 1)} disabled={disabled} className={`size-7 flex items-center justify-center font-sans text-base leading-none hover:bg-black/10 transition-colors ${active ? "text-[#EDE5D8]/70" : "text-[#222E2C]/65"}`}>+</button>
+      <div className="shrink-0">
+        <QtyStepper value={qty} onChange={changeQty} min={0} size="sm"
+          tone={active ? "dark" : "light"} disabled={disabled} label={name} />
       </div>
     </div>
   );
 }
 
-function FacialItemCard({ item, id, cart }) {
-  const cartItem = cart.items[id];
-  const qty = cartItem?.qty ?? 0;
-  const date = cartItem?.date ?? "";
+function FacialItemCard({ item, id, draft }) {
+  const entry = draft.get(id);
+  const qty = entry?.qty ?? 0;
+  const date = entry?.date ?? "";
   const selected = qty > 0;
 
   const changeQty = (newQty) => {
-    if (newQty <= 0) { cart.removeItem(id); return; }
-    cart.setItem(id, {
-      label: buildLabel(item.name, newQty, cartItem?.date ?? ""),
-      price: item.priceValue * newQty,
-      priceValue: item.priceValue,
-      qty: newQty,
-      date: cartItem?.date ?? "",
-    });
+    if (newQty <= 0) { draft.remove(id); return; }
+    draft.set(id, { qty: newQty, unitPrice: item.priceValue });
   };
 
   const changeDate = (newDate) => {
-    if (!cartItem) return;
-    cart.setItem(id, { ...cartItem, label: buildLabel(item.name, qty, newDate), date: newDate });
+    if (!entry) return;
+    draft.set(id, { date: newDate });
   };
 
   return (
@@ -246,18 +178,18 @@ function FacialItemCard({ item, id, cart }) {
               <span className={`font-sans font-bold text-2xl ${selected ? "text-[#EDE5D8]" : "text-[#C9974F]"}`}>${item.priceValue}</span>
               <p className={`font-sans text-xs uppercase tracking-wide ${selected ? "text-[#EDE5D8]/50" : "text-[#222E2C]/45"}`}>{item.duration}</p>
             </div>
-            <Stepper value={qty} onChange={changeQty} dark={selected} />
+            <QtyStepper value={qty} onChange={changeQty} min={0} size="sm" tone={selected ? "dark" : "light"} label="Quantity" />
           </div>
-          {selected && <DateInput value={date} onChange={changeDate} dark />}
+          {selected && <DateField value={date} onChange={changeDate} optional tone="dark" />}
         </div>
       </div>
     </div>
   );
 }
 
-function PackageCard({ pkg, qty, onQtyChange, cartItem, onDateChange }) {
+function PackageCard({ pkg, qty, onQtyChange, entry, onDateChange }) {
   const selected = qty > 0;
-  const date = cartItem?.date ?? "";
+  const date = entry?.date ?? "";
 
   return (
     <div
@@ -273,10 +205,8 @@ function PackageCard({ pkg, qty, onQtyChange, cartItem, onDateChange }) {
           <p className={`font-sans text-xs mb-0.5 ${selected ? "text-[#EDE5D8]/55" : "text-[#222E2C]/50"}`}>{pkg.duration} · ${pkg.priceValue} each</p>
           <h3 className={`font-sans font-semibold text-lg leading-snug ${selected ? "text-[#EDE5D8]" : "text-[#222E2C]"}`}>{pkg.name}</h3>
         </div>
-        <div className={`flex items-center gap-0 rounded-xl overflow-hidden shrink-0 ${selected ? "bg-white/10" : "bg-[#222E2C]/8"}`}>
-          <button type="button" onClick={() => onQtyChange(qty - 1)} className={`size-9 flex items-center justify-center font-sans text-xl leading-none hover:bg-black/10 transition-colors select-none ${selected ? "text-[#EDE5D8]/70" : "text-[#222E2C]/65"}`}>−</button>
-          <span className={`w-8 text-center font-sans text-sm font-semibold ${selected ? "text-[#EDE5D8]" : "text-[#222E2C]"}`}>{qty}</span>
-          <button type="button" onClick={() => onQtyChange(qty + 1)} className={`size-9 flex items-center justify-center font-sans text-xl leading-none hover:bg-black/10 transition-colors select-none ${selected ? "text-[#EDE5D8]/70" : "text-[#222E2C]/65"}`}>+</button>
+        <div className="shrink-0">
+          <QtyStepper value={qty} onChange={onQtyChange} min={0} size="md" tone={selected ? "dark" : "light"} label="Quantity" />
         </div>
       </div>
 
@@ -295,45 +225,28 @@ function PackageCard({ pkg, qty, onQtyChange, cartItem, onDateChange }) {
 
       {selected && (
         <div className="pt-4 border-t border-white/10">
-          <DateInput value={date} onChange={onDateChange} dark />
+          <DateField value={date} onChange={onDateChange} optional tone="dark" />
         </div>
       )}
     </div>
   );
 }
 
-function SpaCheckout({ lines, total, allergies, onAllergiesChange, notes, onNotesChange }) {
-  const { locale } = useI18n();
-  const [status, setStatus] = useState("idle");
-
-  const handleSubmit = async () => {
-    if (lines.length === 0) return;
-    setStatus("submitting");
-    const infoLines = allergies.trim()
-      ? [{ label: `Allergies / considerations: ${allergies.trim()}`, price: 0 }]
-      : [];
-    const result = await submitOrder({
-      submissionId: crypto.randomUUID(),
-      service: "Wellness Spa & Massages",
-      name: "",
-      casa: "",
-      dateNeeded: "",
-      items: [...lines, ...infoLines].map(({ label, price }) => ({ label, price })),
-      total,
-      currency: "USD",
-      notes: notes || "",
-      locale,
-    });
-    setStatus(result?.ok ? "success" : "error");
-  };
+/*
+ * End-of-page summary. This is the whole page's draft rendered back, and the single
+ * "Add to cart" is the only thing that writes to the global cart — nothing above
+ * touches it. Submitting the order happens on /checkout/, never here.
+ */
+function SpaSummary({ lines, total, allergies, onAllergiesChange, notes, onNotesChange, onAddToCart, inCart }) {
+  const { t } = useI18n();
 
   return (
-    <div id="checkout" className="scroll-mt-24 flex flex-col gap-6" data-aos="fade-up">
+    <div id="checkout" className="scroll-mt-24 flex flex-col gap-6">
       <div className="border-b border-[#213B2F]/15 pb-4">
         <p className="font-sans text-xs font-semibold text-[#213B2F]/50 uppercase tracking-widest mb-1">Order Summary</p>
-        <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#213B2F] tracking-tight">Review & Submit</h2>
+        <h2 className="font-sans font-semibold text-xl md:text-2xl text-[#213B2F] tracking-tight">Review your selection</h2>
         <p className="font-sans text-sm text-[#213B2F]/55 mt-2 max-w-2xl">
-          Review your selected treatments, add any allergies or notes, then submit — we'll confirm everything before your stay.
+          Review your selected treatments and add any allergies or notes, then add it all to your order. You'll fill in your details at checkout.
         </p>
       </div>
 
@@ -351,14 +264,14 @@ function SpaCheckout({ lines, total, allergies, onAllergiesChange, notes, onNote
               {lines.map((line, i) => (
                 <div key={i} className="flex items-center justify-between gap-4 px-4 py-2.5">
                   <span className="font-sans text-sm text-[#EDE5D8]/85">{line.label}</span>
-                  <span className="font-sans font-medium text-sm whitespace-nowrap text-[#EDE5D8]">
-                    ${(line.price || 0).toLocaleString("en-US")}
+                  <span className="font-sans font-medium text-sm whitespace-nowrap text-[#EDE5D8] tabular-nums">
+                    {money(line.price)}
                   </span>
                 </div>
               ))}
               <div className="flex items-center justify-between gap-4 px-4 py-3 bg-white/10">
                 <span className="font-sans font-semibold text-sm text-[#EDE5D8]">Total</span>
-                <span className="font-sans font-semibold text-base text-[#EDE5D8]">${total.toLocaleString("en-US")}</span>
+                <span className="font-sans font-semibold text-base text-[#EDE5D8] tabular-nums">{money(total)}</span>
               </div>
             </div>
           )}
@@ -394,29 +307,22 @@ function SpaCheckout({ lines, total, allergies, onAllergiesChange, notes, onNote
           />
         </label>
 
-        {status === "success" && (
-          <div className="flex items-center gap-2 rounded-xl border px-4 py-3 bg-white/15 border-white/25">
-            <TbCheck size={16} className="shrink-0 text-[#EDE5D8]" />
-            <p className="font-sans text-sm font-medium text-[#EDE5D8]">Order received — we'll be in touch to confirm before your stay.</p>
-          </div>
-        )}
-        {status === "error" && (
-          <div className="flex items-center gap-2 rounded-xl bg-red-500/15 border border-red-400/30 px-4 py-3">
-            <TbAlertCircle size={16} className="text-red-300 shrink-0" />
-            <p className="font-sans text-sm text-red-200">Something went wrong — please try again or reach out on WhatsApp.</p>
-          </div>
-        )}
-
         <button
           type="button"
-          onClick={handleSubmit}
-          disabled={status === "submitting" || lines.length === 0}
+          onClick={onAddToCart}
+          disabled={lines.length === 0}
           style={{ color: SPA_COLOR }}
-          className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#EDE5D8] hover:bg-[#EDE5D8]/90 font-sans font-medium text-sm shadow-sm transition-all duration-200 w-fit disabled:opacity-50"
+          className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#EDE5D8] hover:bg-[#EDE5D8]/90 font-sans font-semibold text-sm shadow-sm transition-all duration-200 w-fit disabled:opacity-50"
         >
-          {status === "submitting" && <TbLoader2 size={16} className="animate-spin" />}
-          {status === "submitting" ? "Sending…" : "Add to cart"}
+          {inCart ? <TbCheck size={16} /> : <TbShoppingBag size={16} />}
+          {inCart ? t("cart.update") : t("cart.addToCart")}
         </button>
+
+        {inCart && (
+          <p className="font-sans text-xs text-[#EDE5D8]/60 -mt-4">
+            {t("cart.inOrder")} — {t("cart.estimateNote")}
+          </p>
+        )}
       </div>
     </div>
   );
@@ -424,13 +330,18 @@ function SpaCheckout({ lines, total, allergies, onAllergiesChange, notes, onNote
 
 /* ── main page ────────────────────────────────────────────── */
 
+const SERVICE = "wellness-spa";
+
 export default function WellnessSpaPage() {
   const { t } = useI18n();
-  const cart = useOrderCart();
+  const draft = useDraft();
+  const { setLine, clearService, setServiceForm, openCart, linesByService, lines, serviceForms, hydrated } = useCart();
   const [allergies, setAllergies] = useState("");
   const [notes, setNotes] = useState("");
 
-  const hasOtherService = Object.keys(cart.items).some((k) => !k.startsWith("addon-"));
+  /* Enhancements only make sense alongside a real treatment. Scoped to this page's
+   * draft — checking the global cart instead would let a rental car unlock them. */
+  const hasOtherService = draft.ids.some((k) => !k.startsWith("addon-"));
 
   const massageItems    = t("wellnessSpa.massages.items");
   const durationPricing = t("wellnessSpa.massages.durationPricing");
@@ -439,6 +350,118 @@ export default function WellnessSpaPage() {
   const addonItems      = t("wellnessSpa.facials.addons.items");
   const addonPrice      = t("wellnessSpa.facials.addons.priceValue");
   const packages        = t("wellnessSpa.packages.items");
+
+  const inCart = linesByService.some((g) => g.service.id === SERVICE);
+
+  /* sku -> draft key, the inverse of what buildLines() produces. Used to restore
+   * this page when the guest arrives via the cart's "Edit" link. */
+  const skuToDraftId = useMemo(() => {
+    const map = {};
+    if (Array.isArray(massageItems)) {
+      massageItems.forEach((_, i) => { map[skuOf("wellnessSpa.massages.items", i, "name")] = `massage-${i}`; });
+    }
+    map["four-hands-massage"] = "four-hands";
+    if (Array.isArray(facialItems)) {
+      facialItems.forEach((_, i) => { map[skuOf("wellnessSpa.facials.items", i, "name")] = `facial-${i}`; });
+    }
+    if (Array.isArray(addonItems)) {
+      addonItems.forEach((_, i) => { map[skuOf("wellnessSpa.facials.addons.items", i)] = `addon-${i}`; });
+    }
+    if (Array.isArray(packages)) {
+      packages.forEach((_, i) => { map[skuOf("wellnessSpa.packages.items", i, "name")] = `package-${i}`; });
+    }
+    return map;
+  }, [massageItems, facialItems, addonItems, packages]);
+
+  useSeedDraftFromCart({
+    hydrated,
+    lines,
+    service: SERVICE,
+    skuToId: (line) => skuToDraftId[line.sku],
+    setItems: draft.setItems,
+    onSeed: () => {
+      const form = serviceForms[SERVICE];
+      if (form?.allergies) setAllergies(form.allergies);
+      if (form?.notes) setNotes(form.notes);
+    },
+  });
+
+  /*
+   * Turns each draft entry into a cart line. `title` and `sku` come from the i18n
+   * arrays; the draft only ever held quantity, date, duration and unit price.
+   * Duration goes in `options` as a label, never concatenated into the title —
+   * see describeLine() in lib/format.js.
+   */
+  const buildLines = () => {
+    const out = [];
+    const push = (id, sku, title, options = {}) => {
+      const entry = draft.get(id);
+      if (!entry?.qty) return;
+      out.push({
+        lineId: lineIdOf(SERVICE, sku, entry.duration),
+        service: SERVICE,
+        sku,
+        title,
+        qty: entry.qty,
+        unitPrice: entry.unitPrice ?? 0,
+        date: entry.date ?? "",
+        options: { ...options, ...(entry.duration ? { duration: entry.duration } : {}) },
+      });
+    };
+
+    if (Array.isArray(massageItems)) {
+      massageItems.forEach((item, i) =>
+        push(`massage-${i}`, skuOf("wellnessSpa.massages.items", i, "name"), item.name)
+      );
+    }
+    if (fourHands) push("four-hands", "four-hands-massage", fourHands.label);
+
+    if (Array.isArray(facialItems)) {
+      facialItems.forEach((item, i) =>
+        push(`facial-${i}`, skuOf("wellnessSpa.facials.items", i, "name"), item.name, {
+          duration: item.duration,
+        })
+      );
+    }
+    if (Array.isArray(addonItems)) {
+      addonItems.forEach((name, i) =>
+        push(`addon-${i}`, skuOf("wellnessSpa.facials.addons.items", i), name)
+      );
+    }
+    if (Array.isArray(packages)) {
+      packages.forEach((pkg, i) =>
+        push(`package-${i}`, skuOf("wellnessSpa.packages.items", i, "name"), pkg.name, {
+          duration: pkg.duration,
+        })
+      );
+    }
+    return out;
+  };
+
+  /* Summary rows: same data the cart will get, shaped for the existing markup. */
+  const summaryLines = buildLines().map((l) => ({
+    label: l.options.duration ? `${l.title} (${l.options.duration})` : l.title,
+    price: l.qty * l.unitPrice,
+    qty: l.qty,
+  }));
+  const summaryTotal = summaryLines.reduce((sum, l) => sum + l.price, 0);
+
+  const addToCart = () => {
+    const lines = buildLines();
+    if (!lines.length) return;
+
+    /* Replace rather than append: re-submitting after deselecting something must
+     * not leave the removed line behind. */
+    clearService(SERVICE);
+    lines.forEach(setLine);
+
+    const form = {};
+    if (allergies.trim()) form.allergies = allergies.trim();
+    if (notes.trim()) form.notes = notes.trim();
+    if (Object.keys(form).length) setServiceForm(SERVICE, form);
+
+    openCart();
+  };
 
   return (
     <>
@@ -526,11 +549,11 @@ export default function WellnessSpaPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {Array.isArray(massageItems) && massageItems.map((item, i) => (
                 <MassageCard key={i} name={item.name} description={item.description} image={item.image}
-                  groupId={`massage-${i}`} durations={Array.isArray(durationPricing) ? durationPricing : []} cart={cart} />
+                  groupId={`massage-${i}`} durations={Array.isArray(durationPricing) ? durationPricing : []} draft={draft} />
               ))}
               {fourHands && (
                 <MassageCard name={fourHands.label} description={fourHands.description} image={fourHands.image}
-                  groupId="four-hands" durations={Array.isArray(fourHands.durationPricing) ? fourHands.durationPricing : []} cart={cart} />
+                  groupId="four-hands" durations={Array.isArray(fourHands.durationPricing) ? fourHands.durationPricing : []} draft={draft} />
               )}
             </div>
           </div>
@@ -543,7 +566,7 @@ export default function WellnessSpaPage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {Array.isArray(facialItems) && facialItems.map((item, i) => (
-                <FacialItemCard key={i} item={item} id={`facial-${i}`} cart={cart} />
+                <FacialItemCard key={i} item={item} id={`facial-${i}`} draft={draft} />
               ))}
             </div>
           </div>
@@ -570,7 +593,7 @@ export default function WellnessSpaPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
               {Array.isArray(addonItems) && addonItems.map((name, i) => (
                 <AddonCard key={i} name={name} id={`addon-${i}`} Icon={ADDON_ICONS[i % ADDON_ICONS.length]}
-                  cart={cart} addonPrice={addonPrice} disabled={!hasOtherService} />
+                  draft={draft} addonPrice={addonPrice} disabled={!hasOtherService} />
               ))}
             </div>
           </div>
@@ -584,32 +607,23 @@ export default function WellnessSpaPage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {Array.isArray(packages) && packages.map((pkg, i) => {
-                const pkgItem = cart.items[`package-${i}`];
+                const pkgId = `package-${i}`;
+                const pkgItem = draft.get(pkgId);
                 const pkgQty = pkgItem?.qty ?? 0;
 
                 const handleQtyChange = (newQty) => {
-                  if (newQty <= 0) { cart.removeItem(`package-${i}`); return; }
-                  cart.setItem(`package-${i}`, {
-                    label: buildLabel(`${pkg.name} (${pkg.duration})`, newQty, pkgItem?.date ?? ""),
-                    price: pkg.priceValue * newQty,
-                    priceValue: pkg.priceValue,
-                    qty: newQty,
-                    date: pkgItem?.date ?? "",
-                  });
+                  if (newQty <= 0) { draft.remove(pkgId); return; }
+                  draft.set(pkgId, { qty: newQty, unitPrice: pkg.priceValue });
                 };
 
                 const handleDateChange = (newDate) => {
                   if (!pkgItem) return;
-                  cart.setItem(`package-${i}`, {
-                    ...pkgItem,
-                    label: buildLabel(`${pkg.name} (${pkg.duration})`, pkgQty, newDate),
-                    date: newDate,
-                  });
+                  draft.set(pkgId, { date: newDate });
                 };
 
                 return (
                   <PackageCard key={i} pkg={pkg} qty={pkgQty} onQtyChange={handleQtyChange}
-                    cartItem={pkgItem} onDateChange={handleDateChange} />
+                    entry={pkgItem} onDateChange={handleDateChange} />
                 );
               })}
             </div>
@@ -626,13 +640,15 @@ export default function WellnessSpaPage() {
           </div>
 
           {/* Order Summary & Submit */}
-          <SpaCheckout
-            lines={cart.lines}
-            total={cart.total}
+          <SpaSummary
+            lines={summaryLines}
+            total={summaryTotal}
             allergies={allergies}
             onAllergiesChange={setAllergies}
             notes={notes}
             onNotesChange={setNotes}
+            onAddToCart={addToCart}
+            inCart={inCart}
           />
 
         </div>

@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useI18n } from "@/app/context/I18nContext";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/Footer";
-import { useOrderCart } from "@/hooks/useOrderCart";
+import { useCart } from "@/app/context/CartContext";
+import { skuOf, lineIdOf } from "@/lib/sku";
+import { money } from "@/lib/format";
+import QtyStepper from "@/components/ui/QtyStepper";
 import {
   TbArrowLeft, TbLeaf, TbCheck,
   TbSalad, TbToolsKitchen2, TbShoppingCart, TbCookie,
@@ -118,17 +121,30 @@ const CATEGORY_IMAGES = [
   "/assets/Fridge/beverages.avif",
 ];
 
+const SERVICE = "full-fridge";
+
 export default function FullFridgePage() {
   const { t } = useI18n();
-  const cart = useOrderCart();
+  const { setLine, clearService, setServiceForm, openCart, linesByService, lines, serviceForms, hydrated } = useCart();
   const [notes, setNotes] = useState("");
+  /* Beverage quantities, keyed by index: { [i]: qty }. Page-local draft only. */
+  const [bevQty, setBevQty] = useState({});
 
   const produceCategories = t("fullFridge.produce.categories");
   const steps              = t("fullFridge.howItWorks.steps");
 
+  /*
+   * Produce selections are stored as stable `category:item` ids derived from the
+   * ENGLISH labels, not the translated strings they used to use. Otherwise
+   * switching language mid-page orphaned every tick, and the payload carried
+   * localised text where the contract expects keys (see docs/ORDERS-BACKEND.md).
+   */
+  const produceKey = (catIdx, itemIdx) =>
+    `${skuOf("fullFridge.produce.categories", catIdx, "title")}:${skuOf(`fullFridge.produce.categories.${catIdx}.items`, itemIdx)}`;
+
   const [selectedProduce, setSelectedProduce] = useState([]);
   const allProduceKeys = Array.isArray(produceCategories)
-    ? produceCategories.flatMap(cat => cat.items.map(item => `${cat.title}::${item}`))
+    ? produceCategories.flatMap((cat, ci) => cat.items.map((_, ii) => produceKey(ci, ii)))
     : [];
   const isAllSelected = allProduceKeys.length > 0 && allProduceKeys.every(k => selectedProduce.includes(k));
   const toggleProduce = (key) => setSelectedProduce(prev => toggleInArray(prev, key));
@@ -151,15 +167,6 @@ export default function FullFridgePage() {
     ? pricingColumns.reduce((best, _, i) => Math.abs(pricingColumns[i].guests - totalGuests) < Math.abs(pricingColumns[best].guests - totalGuests) ? i : best, 0)
     : null;
 
-  const updatePackageCart = (total, d) => {
-    if (!Array.isArray(pricingRows) || !Array.isArray(pricingColumns)) return;
-    const rIdx = pricingRows.reduce((best, _, i) => Math.abs(pricingRows[i].days - d) < Math.abs(pricingRows[best].days - d) ? i : best, 0);
-    const cIdx = pricingColumns.reduce((best, _, i) => Math.abs(pricingColumns[i].guests - total) < Math.abs(pricingColumns[best].guests - total) ? i : best, 0);
-    cart.setItem("package", {
-      label: `${pricingRows[rIdx].label} · ${pricingColumns[cIdx].label}`,
-      price: pricingRows[rIdx].priceValues[cIdx],
-    });
-  };
 
   const [form, setForm] = useState({
     dietary: [],
@@ -182,6 +189,126 @@ export default function FullFridgePage() {
   };
   const answeredCount = Object.values(answered).filter(Boolean).length;
   const totalQuestions = Object.keys(answered).length;
+
+  const inCart = linesByService.some((g) => g.service.id === SERVICE);
+
+  /*
+   * Restore the page when the guest returns via the cart's "Edit" link. Almost
+   * everything comes back from `serviceForms` (which already holds the counts, the
+   * produce ids and every questionnaire answer); only beverage quantities have to be
+   * read back off the committed lines.
+   *
+   * Without this, re-committing from a blank page would wipe the previous selection,
+   * because every commit calls clearService() first.
+   */
+  const seeded = useRef(false);
+  useEffect(() => {
+    if (seeded.current || !hydrated) return;
+    seeded.current = true;
+
+    const saved = serviceForms[SERVICE];
+    if (saved) {
+      if (typeof saved.adults === "number") setAdults(saved.adults);
+      if (typeof saved.children === "number") setChildren(saved.children);
+      if (typeof saved.days === "number") setDays(saved.days);
+      if (Array.isArray(saved.produce)) setSelectedProduce(saved.produce);
+      if (saved.notes) setNotes(saved.notes);
+      setForm((prev) => ({
+        ...prev,
+        dietary: Array.isArray(saved.dietary) ? saved.dietary : prev.dietary,
+        dietaryOther: saved.dietaryAllergies ?? prev.dietaryOther,
+        cooking: saved.cooking ?? prev.cooking,
+        groceries: saved.groceries ?? prev.groceries,
+        snacksFor: Array.isArray(saved.snacksFor) ? saved.snacksFor : prev.snacksFor,
+        preferredSnacks: saved.preferredSnacks ?? prev.preferredSnacks,
+      }));
+    }
+
+    if (Array.isArray(beverages)) {
+      const bySku = new Map(lines.filter((l) => l.service === SERVICE).map((l) => [l.sku, l.qty]));
+      const restored = {};
+      beverages.forEach((_, i) => {
+        const qty = bySku.get(skuOf("fullFridge.beverages.items", i, "title"));
+        if (qty) restored[i] = qty;
+      });
+      if (Object.keys(restored).length) setBevQty(restored);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hydrated]);
+
+  /*
+   * The stocking package plus any beverages. The package tier is the NEAREST match
+   * to the requested guests/days, so the exact numbers the guest asked for are kept
+   * in `options` — otherwise "5 Days · Family of 4" would be all operations sees for
+   * a request of 6 days and 5 people.
+   */
+  const buildLines = () => {
+    const out = [];
+
+    if (nearestRow !== null && nearestCol !== null) {
+      out.push({
+        lineId: lineIdOf(SERVICE, "stocking-package"),
+        service: SERVICE,
+        sku: "stocking-package",
+        title: `${pricingRows[nearestRow].label} · ${pricingColumns[nearestCol].label}`,
+        qty: 1,
+        unitPrice: pricingRows[nearestRow].priceValues[nearestCol],
+        date: "",
+        options: {
+          requested: `${days} ${days === 1 ? "day" : "days"} · ${adults} ${adults === 1 ? "adult" : "adults"}${
+            children ? ` · ${children} ${children === 1 ? "child" : "children"}` : ""
+          }`,
+        },
+      });
+    }
+
+    if (Array.isArray(beverages)) {
+      beverages.forEach((item, i) => {
+        const qty = bevQty[i] || 0;
+        if (!qty) return;
+        const sku = skuOf("fullFridge.beverages.items", i, "title");
+        out.push({
+          lineId: lineIdOf(SERVICE, sku),
+          service: SERVICE,
+          sku,
+          title: item.title,
+          qty,
+          unitPrice: item.priceValue,
+          date: "",
+          options: {},
+        });
+      });
+    }
+    return out;
+  };
+
+  const draftLines = buildLines();
+  const draftTotal = draftLines.reduce((sum, l) => sum + l.qty * l.unitPrice, 0);
+
+  const addToCart = () => {
+    if (!draftLines.length) return;
+
+    /* Replace, don't append — deselecting a beverage then re-adding must not leave
+     * the old line behind. */
+    clearService(SERVICE);
+    draftLines.forEach(setLine);
+
+    setServiceForm(SERVICE, {
+      adults,
+      children,
+      days,
+      produce: selectedProduce,
+      dietary: form.dietary,
+      dietaryAllergies: form.dietaryOther.trim(),
+      cooking: form.cooking,
+      groceries: form.groceries.trim(),
+      snacksFor: form.snacksFor,
+      preferredSnacks: form.preferredSnacks.trim(),
+      notes: notes.trim(),
+    });
+
+    openCart();
+  };
 
   return (
     <>
@@ -266,33 +393,15 @@ export default function FullFridgePage() {
               <div className="flex flex-col gap-2">
                 <span className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest">Adults</span>
                 <div className="flex items-center gap-3">
-                  <button type="button"
-                    onClick={() => { const v = Math.max(1, adults - 1); setAdults(v); updatePackageCart(v + children, days); }}
-                    className="size-10 rounded-xl border border-[#222E2C]/15 bg-white font-sans text-lg text-[#222E2C]/60 hover:bg-[#222E2C]/5 transition-colors flex items-center justify-center select-none"
-                  >−</button>
-                  <span className="font-sans text-2xl font-semibold text-[#5C3324] w-10 text-center">{adults}</span>
-                  <button type="button"
-                    disabled={totalGuests >= 10}
-                    onClick={() => { const v = adults + 1; setAdults(v); updatePackageCart(v + children, days); }}
-                    className="size-10 rounded-xl border border-[#222E2C]/15 bg-white font-sans text-lg text-[#222E2C]/60 hover:bg-[#222E2C]/5 transition-colors flex items-center justify-center select-none disabled:opacity-30 disabled:cursor-not-allowed"
-                  >+</button>
-                  <span className="font-sans text-sm text-[#222E2C]/45">adults</span>
+                  <QtyStepper value={adults} onChange={setAdults} min={1} max={10 - children}
+                    size="lg" variant="detached" accent="#5C3324" suffix="adults" label="Adults" />
                 </div>
               </div>
               <div className="flex flex-col gap-2">
                 <span className="font-sans text-xs font-semibold text-[#222E2C]/40 uppercase tracking-widest">Children <span className="normal-case tracking-normal font-normal">(under 12)</span></span>
                 <div className="flex items-center gap-3">
-                  <button type="button"
-                    onClick={() => { const v = Math.max(0, children - 1); setChildren(v); updatePackageCart(adults + v, days); }}
-                    className="size-10 rounded-xl border border-[#222E2C]/15 bg-white font-sans text-lg text-[#222E2C]/60 hover:bg-[#222E2C]/5 transition-colors flex items-center justify-center select-none"
-                  >−</button>
-                  <span className="font-sans text-2xl font-semibold text-[#5C3324] w-10 text-center">{children}</span>
-                  <button type="button"
-                    disabled={totalGuests >= 10}
-                    onClick={() => { const v = children + 1; setChildren(v); updatePackageCart(adults + v, days); }}
-                    className="size-10 rounded-xl border border-[#222E2C]/15 bg-white font-sans text-lg text-[#222E2C]/60 hover:bg-[#222E2C]/5 transition-colors flex items-center justify-center select-none disabled:opacity-30 disabled:cursor-not-allowed"
-                  >+</button>
-                  <span className="font-sans text-sm text-[#222E2C]/45">children</span>
+                  <QtyStepper value={children} onChange={setChildren} min={0} max={10 - adults}
+                    size="lg" variant="detached" accent="#5C3324" suffix="children" label="Children" />
                 </div>
               </div>
               <div className="self-end pb-1 flex flex-col gap-0.5">
@@ -306,16 +415,8 @@ export default function FullFridgePage() {
                   {t("fullFridge.pricing.daysLabel")}
                 </span>
                 <div className="flex items-center gap-3">
-                  <button type="button"
-                    onClick={() => { const v = Math.max(1, days - 1); setDays(v); updatePackageCart(totalGuests, v); }}
-                    className="size-10 rounded-xl border border-[#222E2C]/15 bg-white font-sans text-lg text-[#222E2C]/60 hover:bg-[#222E2C]/5 transition-colors flex items-center justify-center select-none"
-                  >−</button>
-                  <span className="font-sans text-2xl font-semibold text-[#5C3324] w-10 text-center">{days}</span>
-                  <button type="button"
-                    onClick={() => { const v = days + 1; setDays(v); updatePackageCart(totalGuests, v); }}
-                    className="size-10 rounded-xl border border-[#222E2C]/15 bg-white font-sans text-lg text-[#222E2C]/60 hover:bg-[#222E2C]/5 transition-colors flex items-center justify-center select-none"
-                  >+</button>
-                  <span className="font-sans text-sm text-[#222E2C]/45">days</span>
+                  <QtyStepper value={days} onChange={setDays} min={1} max={30}
+                    size="lg" variant="detached" accent="#5C3324" suffix="days" label={t("fullFridge.pricing.daysLabel")} />
                 </div>
               </div>
             </div>
@@ -380,7 +481,7 @@ export default function FullFridgePage() {
             {/* Category grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {Array.isArray(produceCategories) && produceCategories.map((cat, i) => {
-                const selectedCount = cat.items.filter(item => selectedProduce.includes(`${cat.title}::${item}`)).length;
+                const selectedCount = cat.items.filter((_, j) => selectedProduce.includes(produceKey(i, j))).length;
                 return (
                   <div
                     key={i}
@@ -410,7 +511,7 @@ export default function FullFridgePage() {
                     {/* Items */}
                     <div className="px-2 py-2 flex flex-col gap-0.5">
                       {cat.items.map((item, j) => {
-                        const key = `${cat.title}::${item}`;
+                        const key = produceKey(i, j);
                         const checked = selectedProduce.includes(key);
                         return (
                           <button
@@ -453,28 +554,35 @@ export default function FullFridgePage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {Array.isArray(beverages) && beverages.map((item, i) => {
-                const id = `beverage-${i}`;
-                const selected = cart.isSelected(id);
+                const qty = bevQty[i] || 0;
+                const selected = qty > 0;
                 return (
-                  <button
+                  <div
                     key={i}
-                    type="button"
-                    onClick={() => cart.toggleItem(id, { label: item.title, price: item.priceValue })}
-                    className={`text-left rounded-xl px-5 py-5 flex items-center justify-between gap-4 border-2 transition-colors duration-200 ${
+                    className={`rounded-xl px-5 py-5 flex items-center justify-between gap-4 border-2 transition-colors duration-200 ${
                       selected ? "bg-[#5C3324] border-[#5C3324]" : "bg-[#E0D4C4] border-transparent"
                     }`}
                   >
-                    <div className="flex flex-col gap-0.5">
+                    <div className="flex flex-col gap-0.5 min-w-0">
                       <p className={`font-sans font-semibold text-sm ${selected ? "text-[#D8DDB8]" : "text-[#222E2C]"}`}>{item.title}</p>
                       {item.description && (
                         <p className={`font-sans text-xs ${selected ? "text-[#D8DDB8]/70" : "text-[#222E2C]/55"}`}>{item.description}</p>
                       )}
+                      <span className={`font-sans text-xs font-semibold mt-1 ${selected ? "text-[#D8DDB8]/80" : "text-[#222E2C]/70"}`}>
+                        {item.price}
+                      </span>
                     </div>
-                    <span className={`flex items-center gap-1.5 font-sans font-semibold text-sm whitespace-nowrap shrink-0 ${selected ? "text-[#D8DDB8]" : "text-[#222E2C]"}`}>
-                      {selected && <TbCheck size={14} />}
-                      {item.price}
-                    </span>
-                  </button>
+                    <div className="shrink-0">
+                      <QtyStepper
+                        value={qty}
+                        onChange={(n) => setBevQty((prev) => ({ ...prev, [i]: n }))}
+                        min={0}
+                        size="sm"
+                        tone={selected ? "dark" : "light"}
+                        label={item.title}
+                      />
+                    </div>
+                  </div>
                 );
               })}
             </div>
@@ -573,19 +681,30 @@ export default function FullFridgePage() {
               {/* Order summary */}
               <div className="rounded-xl bg-white/8 border border-white/10 px-5 py-4 flex flex-col gap-2 mt-2">
                 <p className="font-sans text-xs font-semibold text-[#D8DDB8]/60 uppercase tracking-widest mb-1">Order summary</p>
-                {cart.lines.length === 0 ? (
+                {draftLines.length === 0 ? (
                   <p className="font-sans text-sm italic text-[#D8DDB8]/40">Select your package and any add-ons above to see your total here.</p>
                 ) : (
                   <>
-                    {cart.lines.map((line, i) => (
-                      <div key={i} className="flex items-center justify-between gap-4">
-                        <span className="font-sans text-sm text-[#D8DDB8]/80">{line.label}</span>
-                        <span className="font-sans text-sm font-medium text-[#D8DDB8] shrink-0">${line.price.toLocaleString("en-US")}</span>
+                    {draftLines.map((line) => (
+                      <div key={line.lineId} className="flex items-center justify-between gap-4">
+                        <span className="font-sans text-sm text-[#D8DDB8]/80">
+                          {line.title}{line.qty > 1 ? ` × ${line.qty}` : ""}
+                        </span>
+                        <span className="font-sans text-sm font-medium text-[#D8DDB8] shrink-0 tabular-nums">
+                          {money(line.qty * line.unitPrice)}
+                        </span>
                       </div>
                     ))}
+                    {selectedProduce.length > 0 && (
+                      <div className="flex items-center justify-between gap-4 pt-1">
+                        <span className="font-sans text-sm text-[#D8DDB8]/60">
+                          {selectedProduce.length} produce items selected
+                        </span>
+                      </div>
+                    )}
                     <div className="border-t border-white/15 mt-1 pt-2 flex items-center justify-between">
                       <span className="font-sans text-sm font-semibold text-[#D8DDB8]">Total</span>
-                      <span className="font-sans text-base font-bold text-[#D8DDB8]">${cart.total.toLocaleString("en-US")}</span>
+                      <span className="font-sans text-base font-bold text-[#D8DDB8] tabular-nums">{money(draftTotal)}</span>
                     </div>
                   </>
                 )}
@@ -593,10 +712,12 @@ export default function FullFridgePage() {
 
               <button
                 type="button"
-                className="mt-2 self-start flex items-center gap-2.5 bg-[#D8DDB8] text-[#5C3324] font-sans font-semibold text-sm px-6 py-3.5 rounded-full hover:bg-[#EDE5D8] transition-colors duration-200"
+                onClick={addToCart}
+                disabled={draftLines.length === 0}
+                className="mt-2 self-start flex items-center gap-2.5 bg-[#D8DDB8] text-[#5C3324] font-sans font-semibold text-sm px-6 py-3.5 rounded-full hover:bg-[#EDE5D8] transition-colors duration-200 disabled:opacity-50"
               >
-                <TbShoppingCart size={16} />
-                Add to cart
+                {inCart ? <TbCheck size={16} /> : <TbShoppingCart size={16} />}
+                {inCart ? t("cart.update") : t("cart.addToCart")}
               </button>
 
             </div>

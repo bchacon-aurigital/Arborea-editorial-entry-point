@@ -1,17 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useI18n } from "@/app/context/I18nContext";
 import Navbar from "@/components/layout/navbar";
 import Footer from "@/components/layout/Footer";
-import { useOrderCart } from "@/hooks/useOrderCart";
-import { submitOrder } from "@/lib/orderApi";
+import { useCart } from "@/app/context/CartContext";
+import { skuOf, lineIdOf } from "@/lib/sku";
+import { money } from "@/lib/format";
 import {
   TbArrowLeft, TbLeaf, TbCircleCheck, TbBrandWhatsapp, TbCheck,
   TbGlassCocktail, TbCoffee, TbSalad, TbToolsKitchen2,
   TbHandClick, TbAdjustments, TbSend, TbListCheck, TbCalendarEvent, TbPlus,
-  TbNotes, TbAlertCircle, TbLoader2,
+  TbNotes, TbShoppingBag,
 } from "react-icons/tb";
 
 const WHATSAPP = "50685011042";
@@ -34,9 +35,11 @@ function findThemedTier(tiers, guests) {
 // Which meal menus a given per-service option unlocks (Full Day unlocks all three).
 const SERVICE_MEALS = [["breakfast"], ["lunch"], ["dinner"], ["breakfast", "lunch", "dinner"]];
 
+const SERVICE = "private-chef";
+
 export default function PrivateChefPage() {
   const { t } = useI18n();
-  const cart = useOrderCart();
+  const { setLine, clearService, setServiceForm, openCart, linesByService, lines, serviceForms, hydrated } = useCart();
   const [notes, setNotes] = useState("");
 
   const nav             = t("privateChef.nav");
@@ -90,17 +93,11 @@ export default function PrivateChefPage() {
 
   const DISH_PRICE = 15;
 
-  const changeDishQty = (id, label, group, qty) => {
-    const next = Math.max(0, qty);
-    setDishQty((prev) => ({ ...prev, [id]: next }));
-    const displayLabel = next > 1 ? `${label} ×${next}` : label;
-    if (next === 0) {
-      setDishes((prev) => { const n = { ...prev }; delete n[id]; return n; });
-      cart.removeItem(id);
-    } else {
-      setDishes((prev) => ({ ...prev, [id]: { label: displayLabel, group } }));
-      cart.setItem(id, { label: displayLabel, price: DISH_PRICE * next });
-    }
+  /* Desserts and bakery are priced items, so they are quantities — not the dish
+   * "preferences" that `dishes` tracks for the meal menus. The old version wrote to
+   * both, and the copy in `dishes` was never read back. */
+  const changeDishQty = (id, qty) => {
+    setDishQty((prev) => ({ ...prev, [id]: Math.max(0, qty) }));
   };
 
   const visibleMeals = selectedServiceIdx === null ? [] : SERVICE_MEALS[selectedServiceIdx];
@@ -116,13 +113,6 @@ export default function PrivateChefPage() {
     const nextIdx = deselecting ? null : i;
     setSelectedServiceIdx(nextIdx);
 
-    if (deselecting) {
-      cart.removeItem("service");
-    } else {
-      const item = pricingPS[i];
-      cart.setItem("service", { label: `${item.label} · ${guests} guests`, price: computeServicePrice(item, guests) });
-    }
-
     // Drop dish picks whose menu is no longer on screen.
     const stillVisible = nextIdx === null ? [] : SERVICE_MEALS[nextIdx];
     setDishes((prev) =>
@@ -132,70 +122,224 @@ export default function PrivateChefPage() {
     );
   };
 
-  const changeGuests = (val) => {
-    const g = Math.max(2, Number(val) || 2);
-    setGuests(g);
-    if (selectedServiceIdx !== null && Array.isArray(pricingPS)) {
-      const item = pricingPS[selectedServiceIdx];
-      cart.setItem("service", { label: `${item.label} · ${g} guests`, price: computeServicePrice(item, g) });
-    }
-  };
+  const changeGuests = (val) => setGuests(Math.max(2, Number(val) || 2));
 
   const pickNight = (i) => {
     if (selectedNightIdx === i) {
       setSelectedNightIdx(null);
       setThemedDate("");
-      cart.removeItem("themed-night");
       return;
     }
     setSelectedNightIdx(i);
-    const tier = findThemedTier(themedTiers, themedGuests);
-    cart.setItem("themed-night", { label: `${themedNights[i].title} · ${themedGuests} guests`, price: tier.priceValue });
   };
 
-  const changeThemedGuests = (g) => {
-    const clamped = Math.max(2, Math.min(15, g));
-    setThemedGuests(clamped);
-    if (selectedNightIdx !== null) {
-      const tier = findThemedTier(themedTiers, clamped);
-      cart.setItem("themed-night", { label: `${themedNights[selectedNightIdx].title} · ${clamped} guests`, price: tier.priceValue });
+  const changeThemedGuests = (g) => setThemedGuests(Math.max(2, Math.min(15, g)));
+
+  const handleThemedDate = (d) => setThemedDate(d);
+
+  const changeBevQty = (i, qty) => setBevQty((prev) => ({ ...prev, [i]: Math.max(0, qty) }));
+
+  const pickBartender = (i) => setBartenderIdx((prev) => (prev === i ? null : i));
+
+  const clearBartender = () => setBartenderIdx(null);
+
+  const inCart = linesByService.some((g) => g.service.id === SERVICE);
+
+  /*
+   * Restore the page when the guest returns via the cart's "Edit" link, so
+   * re-committing doesn't wipe what they already added (every commit clears this
+   * service first). Each committed line is matched back to the control that made it.
+   */
+  const seeded = useRef(false);
+  useEffect(() => {
+    if (seeded.current || !hydrated) return;
+    seeded.current = true;
+
+    const mine = lines.filter((l) => l.service === SERVICE);
+    if (!mine.length) return;
+    const bySku = new Map(mine.map((l) => [l.sku, l]));
+
+    if (Array.isArray(pricingPS)) {
+      pricingPS.forEach((_, i) => {
+        const line = bySku.get(skuOf("privateChef.pricing.perService.items", i, "label"));
+        if (!line) return;
+        setSelectedServiceIdx(i);
+        setServiceDate(line.date ?? "");
+        const n = parseInt(line.options?.guests, 10);
+        if (Number.isFinite(n)) setGuests(Math.max(2, n));
+      });
     }
-  };
 
-  const handleThemedDate = (d) => {
-    setThemedDate(d);
-    if (selectedNightIdx !== null) {
+    if (Array.isArray(themedNights)) {
+      themedNights.forEach((_, i) => {
+        const line = bySku.get(skuOf("privateChef.themedNights.nights", i, "title"));
+        if (!line) return;
+        setSelectedNightIdx(i);
+        setThemedDate(line.date ?? "");
+        const n = parseInt(line.options?.guests, 10);
+        if (Number.isFinite(n)) setThemedGuests(Math.max(2, Math.min(15, n)));
+      });
+    }
+
+    if (Array.isArray(pricingBar)) {
+      pricingBar.forEach((_, i) => {
+        if (bySku.has(skuOf("privateChef.pricing.bartender.items", i, "label"))) setBartenderIdx(i);
+      });
+    }
+
+    if (Array.isArray(fridgeBeverages?.items)) {
+      const restored = {};
+      fridgeBeverages.items.forEach((_, i) => {
+        const line = bySku.get(skuOf("fullFridge.beverages.items", i, "title"));
+        if (line) restored[i] = line.qty;
+      });
+      if (Object.keys(restored).length) setBevQty(restored);
+    }
+
+    const restoredQty = {};
+    for (const [group, path] of [["dessert", "privateChef.desserts.items"], ["bakery", "privateChef.bakery.items"]]) {
+      const items = t(path);
+      if (!Array.isArray(items)) continue;
+      items.forEach((_, i) => {
+        const line = bySku.get(`${group}-${skuOf(path, i, "title")}`);
+        if (line) restoredQty[`dish-${group}-${i}`] = line.qty;
+      });
+    }
+    if (Object.keys(restoredQty).length) setDishQty(restoredQty);
+
+    const saved = serviceForms[SERVICE];
+    if (saved?.notes) setNotes(saved.notes);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hydrated]);
+
+  /*
+   * Everything priced on this page: the chosen service, a themed night, beverages,
+   * the bartender, and dessert/bakery quantities.
+   *
+   * Guest counts drive the price but are NOT folded into the title — they go in
+   * `options` so the drawer caption and the sheet keep them as their own field.
+   */
+  const buildLines = () => {
+    const out = [];
+
+    if (selectedServiceIdx !== null && Array.isArray(pricingPS)) {
+      const item = pricingPS[selectedServiceIdx];
+      const sku = skuOf("privateChef.pricing.perService.items", selectedServiceIdx, "label");
+      out.push({
+        lineId: lineIdOf(SERVICE, sku),
+        service: SERVICE,
+        sku,
+        title: item.label,
+        qty: 1,
+        unitPrice: computeServicePrice(item, guests),
+        date: serviceDate,
+        options: { guests: `${guests} guests` },
+      });
+    }
+
+    if (selectedNightIdx !== null && Array.isArray(themedNights) && Array.isArray(themedTiers)) {
+      const night = themedNights[selectedNightIdx];
       const tier = findThemedTier(themedTiers, themedGuests);
-      cart.setItem("themed-night", { label: `${themedNights[selectedNightIdx].title} · ${themedGuests} guests`, price: tier.priceValue, date: d });
+      const sku = skuOf("privateChef.themedNights.nights", selectedNightIdx, "title");
+      out.push({
+        lineId: lineIdOf(SERVICE, sku),
+        service: SERVICE,
+        sku,
+        title: night.title,
+        qty: 1,
+        unitPrice: tier?.priceValue ?? 0,
+        date: themedDate,
+        options: { guests: `${themedGuests} guests` },
+      });
     }
+
+    if (Array.isArray(fridgeBeverages?.items)) {
+      fridgeBeverages.items.forEach((item, i) => {
+        const qty = bevQty[i] || 0;
+        if (!qty) return;
+        const sku = skuOf("fullFridge.beverages.items", i, "title");
+        out.push({
+          lineId: lineIdOf(SERVICE, sku),
+          service: SERVICE,
+          sku,
+          title: item.title,
+          qty,
+          unitPrice: item.priceValue,
+          date: "",
+          options: {},
+        });
+      });
+    }
+
+    if (bartenderIdx !== null && Array.isArray(pricingBar)) {
+      const item = pricingBar[bartenderIdx];
+      const sku = skuOf("privateChef.pricing.bartender.items", bartenderIdx, "label");
+      out.push({
+        lineId: lineIdOf(SERVICE, sku),
+        service: SERVICE,
+        sku,
+        title: `Bartender — ${item.label}`,
+        qty: 1,
+        unitPrice: item.priceValue,
+        date: "",
+        options: {},
+      });
+    }
+
+    /* Desserts and bakery share one flat per-item price. */
+    for (const [group, path] of [["dessert", "privateChef.desserts.items"], ["bakery", "privateChef.bakery.items"]]) {
+      const items = t(path);
+      if (!Array.isArray(items)) continue;
+      items.forEach((item, i) => {
+        const qty = dishQty[`dish-${group}-${i}`] || 0;
+        if (!qty) return;
+        const sku = `${group}-${skuOf(path, i, "title")}`;
+        out.push({
+          lineId: lineIdOf(SERVICE, sku),
+          service: SERVICE,
+          sku,
+          title: item.title,
+          qty,
+          unitPrice: DISH_PRICE,
+          date: "",
+          options: {},
+        });
+      });
+    }
+
+    return out;
   };
 
-  const changeBevQty = (i, qty) => {
-    const next = Math.max(0, qty);
-    setBevQty((prev) => ({ ...prev, [i]: next }));
-    const id = `themed-bev-${i}`;
-    if (!Array.isArray(fridgeBeverages?.items)) return;
-    const item = fridgeBeverages.items[i];
-    if (next === 0) {
-      cart.removeItem(id);
-    } else {
-      cart.setItem(id, { label: `${item.title} × ${next}`, price: item.priceValue * next });
+  const draftLines = buildLines();
+  const draftTotal = draftLines.reduce((sum, l) => sum + l.qty * l.unitPrice, 0);
+
+  /* Dish picks per meal, grouped by meal. These are free-text preferences for the
+   * chef to read, so they stay as the titles in the guest's own language — unlike
+   * `sku`, which must be locale-independent because it identifies a priced item. */
+  const buildDishPicks = () => {
+    const picks = {};
+    for (const d of Object.values(dishes)) {
+      if (!["breakfast", "lunch", "dinner"].includes(d.group)) continue;
+      (picks[d.group] ??= []).push(d.label);
     }
+    return picks;
   };
 
-  const pickBartender = (i) => {
-    if (bartenderIdx === i) {
-      setBartenderIdx(null);
-      cart.removeItem("bartender");
-      return;
-    }
-    setBartenderIdx(i);
-    cart.setItem("bartender", { label: pricingBar[i].label, price: pricingBar[i].priceValue });
-  };
+  const addToCart = (dietary) => {
+    if (!draftLines.length) return;
 
-  const clearBartender = () => {
-    setBartenderIdx(null);
-    cart.removeItem("bartender");
+    /* Replace rather than append, so deselecting something and re-adding doesn't
+     * leave the old line behind. */
+    clearService(SERVICE);
+    draftLines.forEach(setLine);
+
+    const form = { ...dietary };
+    const picks = buildDishPicks();
+    if (Object.keys(picks).length) form.dishes = picks;
+    if (notes.trim()) form.notes = notes.trim();
+    if (Object.keys(form).length) setServiceForm(SERVICE, form);
+
+    openCart();
   };
 
   const buildInfoLines = () => {
@@ -646,12 +790,17 @@ export default function PrivateChefPage() {
           <div id="book" className="flex flex-col gap-6 scroll-mt-40 border-t border-[#222E2C]/8 bg-[#E0D4C4]/35 px-8 md:px-16 py-14 md:py-20">
             <Eyebrow num="05" label={nav.book} standalone />
 
-            <ChefCheckout
-              lines={cart.lines}
+            <ChefSummary
+              lines={draftLines.map((l) => ({
+                label: l.qty > 1 ? `${l.title} × ${l.qty}` : l.title,
+                price: l.qty * l.unitPrice,
+              }))}
               infoLines={buildInfoLines()}
-              total={cart.total}
+              total={draftTotal}
               notes={notes}
               onNotesChange={setNotes}
+              onAddToCart={addToCart}
+              inCart={inCart}
             />
           </div>
 
@@ -780,14 +929,14 @@ function SimpleMenuSection({ heading, subheading, items, group, dishQty, onQtyCh
               <div className="shrink-0">
                 {active ? (
                   <div className="flex items-center rounded-xl overflow-hidden border border-white/15 bg-white/10">
-                    <button type="button" onClick={() => onQtyChange(id, item.title, group, qty - 1)}
+                    <button type="button" onClick={() => onQtyChange(id, qty - 1)}
                       className="w-8 h-8 flex items-center justify-center font-sans text-lg leading-none text-[#D8DDB8]/70 hover:bg-white/10 transition-colors select-none">−</button>
                     <span className="w-7 text-center font-sans text-sm font-bold text-[#EDE5D8]">{qty}</span>
-                    <button type="button" onClick={() => onQtyChange(id, item.title, group, qty + 1)}
+                    <button type="button" onClick={() => onQtyChange(id, qty + 1)}
                       className="w-8 h-8 flex items-center justify-center font-sans text-lg leading-none text-[#D8DDB8]/70 hover:bg-white/10 transition-colors select-none">+</button>
                   </div>
                 ) : (
-                  <button type="button" onClick={() => onQtyChange(id, item.title, group, 1)}
+                  <button type="button" onClick={() => onQtyChange(id, 1)}
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#213B2F] text-[#D8DDB8] font-sans text-xs font-semibold hover:bg-[#213B2F]/85 transition-colors">
                     <TbPlus size={11} />
                     Add
@@ -817,12 +966,16 @@ function DarkField({ label, placeholder, value, onChange }) {
   );
 }
 
-function ChefCheckout({ lines, infoLines = [], total, notes, onNotesChange }) {
-  const { t, locale } = useI18n();
-  const [status, setStatus] = useState("idle");
+/*
+ * End-of-page summary. The dietary form lives here rather than on the page because
+ * nothing else needs it; on commit it is handed up as structured data and stored in
+ * the cart's `serviceForms["private-chef"]`, not flattened into zero-price lines the
+ * way the old version did.
+ */
+function ChefSummary({ lines, infoLines = [], total, notes, onNotesChange, onAddToCart, inCart }) {
+  const { t } = useI18n();
 
   const df  = t("privateChef.dietaryForm");
-  const sl  = t("privateChef.summaryLabels");
 
   const [restrictionCounts, setRestrictionCounts] = useState({});
   const [restrictionOther, setRestrictionOther]   = useState("");
@@ -837,33 +990,13 @@ function ChefCheckout({ lines, infoLines = [], total, notes, onNotesChange }) {
     });
   };
 
-  const buildDietaryLines = () => {
-    const out = [];
-    const parts = Object.entries(restrictionCounts).map(([opt, n]) => `${opt} (${n})`);
-    if (restrictionOther.trim()) parts.push(`Other: ${restrictionOther.trim()}`);
-    if (parts.length) out.push({ label: `${sl.restrictions}: ${parts.join(", ")}`, price: 0 });
-    if (allergies.trim())   out.push({ label: `${sl.allergies}: ${allergies.trim()}`,     price: 0 });
-    if (preferences.trim()) out.push({ label: `${sl.preferences}: ${preferences.trim()}`, price: 0 });
-    return out;
-  };
-
-  const handleSubmit = async () => {
-    if (lines.length === 0) return;
-    setStatus("submitting");
-    const allInfo = [...infoLines, ...buildDietaryLines()];
-    const result = await submitOrder({
-      submissionId: crypto.randomUUID(),
-      service: "Private Chef",
-      name: "",
-      casa: "",
-      dateNeeded: "",
-      items: [...lines, ...allInfo].map(({ label, price }) => ({ label, price })),
-      total,
-      currency: "USD",
-      notes: notes || "",
-      locale,
-    });
-    setStatus(result?.ok ? "success" : "error");
+  const handleAddToCart = () => {
+    const dietary = {};
+    if (Object.keys(restrictionCounts).length) dietary.restrictions = restrictionCounts;
+    if (restrictionOther.trim()) dietary.restrictionOther = restrictionOther.trim();
+    if (allergies.trim())        dietary.allergies        = allergies.trim();
+    if (preferences.trim())      dietary.preferences      = preferences.trim();
+    onAddToCart(dietary);
   };
 
   return (
@@ -882,14 +1015,14 @@ function ChefCheckout({ lines, infoLines = [], total, notes, onNotesChange }) {
               {lines.map((line, i) => (
                 <div key={i} className="flex items-center justify-between gap-4 px-4 py-2.5">
                   <span className="font-sans text-sm text-[#D8DDB8]/85">{line.label}</span>
-                  <span className="font-sans font-medium text-sm whitespace-nowrap text-[#D8DDB8]">
-                    ${(line.price || 0).toLocaleString("en-US")}
+                  <span className="font-sans font-medium text-sm whitespace-nowrap text-[#D8DDB8] tabular-nums">
+                    {money(line.price)}
                   </span>
                 </div>
               ))}
               <div className="flex items-center justify-between gap-4 px-4 py-3 bg-white/10">
                 <span className="font-sans font-semibold text-sm text-[#D8DDB8]">Total</span>
-                <span className="font-sans font-semibold text-base text-[#D8DDB8]">${total.toLocaleString("en-US")}</span>
+                <span className="font-sans font-semibold text-base text-[#D8DDB8] tabular-nums">{money(total)}</span>
               </div>
             </div>
           )}
@@ -968,27 +1101,14 @@ function ChefCheckout({ lines, infoLines = [], total, notes, onNotesChange }) {
           </div>
         </label>
 
-        {status === "success" && (
-          <div className="flex items-center gap-2 rounded-xl border px-4 py-3 bg-[#D8DDB8]/15 border-[#D8DDB8]/30">
-            <TbCheck size={16} className="shrink-0 text-[#D8DDB8]" />
-            <p className="font-sans text-sm font-medium text-[#D8DDB8]">Order received — we'll be in touch to confirm before your stay.</p>
-          </div>
-        )}
-        {status === "error" && (
-          <div className="flex items-center gap-2 rounded-xl bg-red-500/15 border border-red-400/30 px-4 py-3">
-            <TbAlertCircle size={16} className="text-red-300 shrink-0" />
-            <p className="font-sans text-sm text-red-200">Something went wrong — please try again or reach out on WhatsApp.</p>
-          </div>
-        )}
-
         <button
           type="button"
-          onClick={handleSubmit}
-          disabled={status === "submitting" || lines.length === 0}
+          onClick={handleAddToCart}
+          disabled={lines.length === 0}
           className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-sans font-medium text-sm shadow-sm hover:shadow transition-all duration-200 w-fit disabled:opacity-50 bg-[#D8DDB8] text-[#213B2F] hover:bg-[#D8DDB8]/90"
         >
-          {status === "submitting" && <TbLoader2 size={16} className="animate-spin" />}
-          {status === "submitting" ? "Sending…" : "Add to cart"}
+          {inCart ? <TbCheck size={16} /> : <TbShoppingBag size={16} />}
+          {inCart ? t("cart.update") : t("cart.addToCart")}
         </button>
 
       </div>

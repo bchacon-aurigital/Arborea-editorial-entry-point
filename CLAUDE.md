@@ -68,21 +68,52 @@ Consequences that bite:
 
 ### Cart
 
-> **Under construction.** The shared primitives and the service registry are in
-> place; the context, drawer and `/checkout/` are not built yet. See the status
-> table in [docs/ORDERS-BACKEND.md](docs/ORDERS-BACKEND.md) for what actually
-> exists right now, and don't assume a section below is already wired.
+> **Partly built.** The context, sku helper, shared primitives, service registry,
+> drawer, floating button and the `/checkout/` review section exist. The six
+> service pages are **not** wired yet — they still use their own local state — and
+> `/checkout/` has no guest form or submit. See the status table in
+> [docs/ORDERS-BACKEND.md](docs/ORDERS-BACKEND.md) before assuming a section below
+> is live.
+
+`LenisProvider` reads `isOpen` from the cart to stop smooth scrolling while the
+drawer is open, and to clear the `pointer-events: none` Lenis puts on `<body>`
+during scroll. Any future overlay needs the same treatment, and anything that must
+stay clickable while the page scrolls needs an explicit `pointer-events-auto`.
+
+Cart line `options` values are rendered as a `·`-joined caption with the keys
+hidden, so each value must read as a label by itself — `{ days: "3 days" }`, not
+`{ days: 3 }`.
 
 Single session-scoped cart in `src/app/context/CartContext.jsx`, mounted in
 `layout.tsx` inside `I18nProvider`. Every service page adds lines to it; the drawer
 and `/checkout/` are the only places an order is reviewed or submitted.
 
+**The cart holds the committed order, not the working state.** Every surface keeps
+its own local draft and writes to the cart only when the guest explicitly commits:
+
+- Home page (activities, vehicles): the card holds quantity/date, and one
+  "Add to cart" press commits that single line. There is no section summary.
+- In-house service pages: the *whole page* is the draft. Selections and the
+  preference questions accumulate in local state, the page shows its own summary at
+  the end, and a single "Add to cart" commits the priced lines plus that service's
+  `serviceForms` entry together.
+
+Committing a service should `clearService(id)` first, then add, so re-submitting a
+page replaces its lines instead of leaving orphans behind from deselected items.
+
+When seeding a draft from an existing cart line, do it in an effect guarded on
+`hydrated` — **not** in a `useState` initialiser. The first render happens before
+the cart has read `sessionStorage`, so an initialiser captures an empty cart and
+never re-runs. Guard with a ref so it fires once and can't overwrite live edits
+(see `ActivityCard` and `MulaRentalSection` for the pattern).
+
 - One line shape for all services: `{ lineId, service, sku, title, qty, unitPrice, date, options }`.
 - `lineTotal` is **derived** (`qty * unitPrice`) in the context. Do not bake
   quantity into a price or into a display label — earlier code did both and it was
   the source of persistent desync bugs.
-- `sku` is a stable slug derived from the **English** title, so an id never changes
-  when the user switches language.
+- `sku` is a stable slug derived from the **English** title via `skuOf()` in
+  [src/lib/sku.js](src/lib/sku.js) — never build an id from `t()` output or from an
+  array index, or it changes with the locale and shifts when an array is reordered.
 - Per-service free-form preference blobs (chef dietary form, fridge questionnaire,
   spa allergies) live in `serviceForms`, keyed by service id — not as fake
   zero-price cart lines.
@@ -111,6 +142,14 @@ by `ui/select.tsx`; don't migrate the pages to them incidentally.
 Core palette: `#213B2F` forest green, `#D8DDB8` pale sage, `#EDE5D8` bone,
 `#222E2C` near-black, `#E0D4C4` sand. Per-service accents: spa `#8B5A3C`, fridge
 `#5C3324`, chef `#213B2F`, gold detail `#C9974F`.
+
+**Never split a Tailwind utility family across the static and conditional halves of
+a `className`.** Whichever class Tailwind emits later in the stylesheet wins, not
+the one listed later in the attribute — so
+`` `fixed pointer-events-auto ${open ? "" : "pointer-events-none"}` `` stays
+clickable when closed, the opposite of how it reads. Emit exactly one class per
+family from the ternary. This already caused a full-screen invisible click trap
+over the whole site once; it type-checks and builds silently.
 
 Display serif is GT Alpina, applied as `style={{ fontFamily: "var(--font-alpina)" }}`
 (declared in `globals.css`, *not* in the Tailwind `fontFamily.display` slot, which

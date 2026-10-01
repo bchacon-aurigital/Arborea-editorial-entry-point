@@ -1,8 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { TbUsers, TbRoute, TbCirclePlus, TbCircleCheck, TbPhoto } from "react-icons/tb";
-import OrderCheckoutForm from "@/components/sections/OrderCheckoutForm";
+import { useState, useEffect } from "react";
+import { TbUsers, TbRoute, TbCirclePlus, TbCircleCheck, TbPhoto, TbTrash } from "react-icons/tb";
+import { useCart } from "@/app/context/CartContext";
+import { useI18n } from "@/app/context/I18nContext";
+import { lineIdOf } from "@/lib/sku";
+import { money } from "@/lib/format";
+import QtyStepper from "@/components/ui/QtyStepper";
+import DateField from "@/components/ui/DateField";
 
 const VEHICLES = [
   {
@@ -70,35 +75,20 @@ const VEHICLES = [
 
 const initConfigs = Object.fromEntries(VEHICLES.map((v) => [v.id, { days: 1, date: "" }]));
 
-function Stepper({ value, onChange }) {
-  return (
-    <div className="flex items-center gap-1 bg-white/10 rounded-xl p-1 w-fit">
-      <button
-        type="button"
-        onClick={() => onChange(Math.max(1, value - 1))}
-        className="size-9 flex items-center justify-center rounded-lg text-[#D8DDB8] hover:bg-white/15 active:bg-white/20 transition-colors font-sans text-xl leading-none select-none"
-      >
-        −
-      </button>
-      <span className="w-9 text-center font-sans text-base font-semibold text-[#D8DDB8]">{value}</span>
-      <button
-        type="button"
-        onClick={() => onChange(value + 1)}
-        className="size-9 flex items-center justify-center rounded-lg text-[#D8DDB8] hover:bg-white/15 active:bg-white/20 transition-colors font-sans text-xl leading-none select-none"
-      >
-        +
-      </button>
-    </div>
-  );
-}
-
-function VehicleCard({ vehicle, days, date, inCart, onDaysChange, onDateChange, onToggle }) {
+function VehicleCard({ vehicle, days, date, cartLine, onDaysChange, onDateChange, onCommit, onRemove }) {
+  const { t } = useI18n();
   const total = days * vehicle.dailyRate;
+
+  /* A committed line is "dirty" once the draft no longer matches it, which turns
+   * the CTA from a confirmation into an update. */
+  const dirty = cartLine
+    ? cartLine.unitPrice !== total || cartLine.date !== date
+    : true;
 
   return (
     <div
       className={`flex flex-col rounded-2xl overflow-hidden transition-all duration-300 h-full bg-[#213B2F] ${
-        inCart
+        cartLine
           ? "ring-2 ring-[#D8DDB8]/50 shadow-lg"
           : "ring-1 ring-white/10 hover:ring-white/20 hover:shadow-md"
       }`}
@@ -157,40 +147,53 @@ function VehicleCard({ vehicle, days, date, inCart, onDaysChange, onDateChange, 
         {/* Days + Date side by side */}
         <div className="flex gap-3">
           <div className="flex flex-col gap-1.5 shrink-0">
-            <label className="font-sans text-[10px] font-semibold text-[#D8DDB8]/50 uppercase tracking-wide">Days</label>
-            <Stepper value={days} onChange={onDaysChange} />
+            <label className="font-sans text-[10px] font-semibold text-[#D8DDB8]/50 uppercase tracking-wide">
+              {t("cart.days")}
+            </label>
+            <QtyStepper value={days} onChange={onDaysChange} min={1} size="md" tone="dark" label={t("cart.days")} />
           </div>
-          <div className="flex flex-col gap-1.5 flex-1 min-w-0">
-            <label className="font-sans text-[10px] font-semibold text-[#D8DDB8]/50 uppercase tracking-wide">Pickup date</label>
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => onDateChange(e.target.value)}
-              className="w-full font-sans text-sm text-[#D8DDB8] bg-white/10 border border-white/15 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D8DDB8]/30 focus:border-transparent transition-all [color-scheme:dark]"
-            />
+          <div className="flex-1 min-w-0">
+            <DateField value={date} onChange={onDateChange} label={t("cart.pickupDate")} tone="dark" />
           </div>
         </div>
 
         {/* Price + CTA */}
         <div className="flex items-center justify-between gap-3">
           <div className="flex flex-col gap-0">
-            <p className="font-sans text-[10px] text-[#D8DDB8]/50">${vehicle.dailyRate}/day</p>
-            <p className="font-sans font-bold text-2xl leading-tight text-[#D8DDB8]">
-              ${total.toLocaleString("en-US")}
+            <p className="font-sans text-[10px] text-[#D8DDB8]/50">{money(vehicle.dailyRate)}/day</p>
+            <p className="font-sans font-bold text-2xl leading-tight text-[#D8DDB8] tabular-nums">
+              {money(total)}
             </p>
           </div>
-          <button
-            type="button"
-            onClick={onToggle}
-            className={`flex items-center gap-1.5 rounded-xl px-4 py-2.5 font-sans text-sm font-semibold transition-all duration-200 whitespace-nowrap ${
-              inCart
-                ? "bg-[#D8DDB8] text-[#213B2F] hover:bg-[#c8cda8]"
-                : "bg-[#D8DDB8]/20 text-[#D8DDB8] hover:bg-[#D8DDB8]/30 border border-[#D8DDB8]/25"
-            }`}
-          >
-            {inCart ? <TbCircleCheck size={15} /> : <TbCirclePlus size={15} />}
-            {inCart ? "Added" : "Add"}
-          </button>
+
+          <div className="flex items-center gap-1.5">
+            {cartLine && (
+              <button
+                type="button"
+                onClick={onRemove}
+                aria-label={`${t("cart.remove")} — ${vehicle.name}`}
+                className="size-9 rounded-full flex items-center justify-center text-[#D8DDB8]/50 hover:text-red-300 hover:bg-red-400/10 transition-colors"
+              >
+                <TbTrash size={15} />
+              </button>
+            )}
+
+            {dirty ? (
+              <button
+                type="button"
+                onClick={onCommit}
+                className="flex items-center gap-1.5 rounded-xl px-4 py-2.5 font-sans text-sm font-semibold transition-all duration-200 whitespace-nowrap bg-[#D8DDB8] text-[#213B2F] hover:bg-[#c8cda8]"
+              >
+                <TbCirclePlus size={15} />
+                {cartLine ? t("cart.update") : t("cart.addToCart")}
+              </button>
+            ) : (
+              <span className="flex items-center gap-1.5 rounded-xl px-4 py-2.5 font-sans text-sm font-semibold whitespace-nowrap bg-white/12 text-[#D8DDB8]">
+                <TbCircleCheck size={15} />
+                {t("cart.inOrder")}
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -198,9 +201,35 @@ function VehicleCard({ vehicle, days, date, inCart, onDaysChange, onDateChange, 
 }
 
 export default function MulaRentalSection() {
+  const { getLine, setLine, removeLine, openCart, hydrated } = useCart();
   const [configs, setConfigs] = useState(initConfigs);
-  const [cartIds, setCartIds] = useState(new Set());
-  const [notes, setNotes] = useState("");
+
+  /*
+   * Restore each card's day count and pickup date from the cart once hydration
+   * finishes, so coming back to the home page doesn't show "1 day" for a vehicle
+   * already booked for five. Days are recovered as unitPrice / dailyRate, which is
+   * exact because that is how the line was priced.
+   *
+   * Depends only on `hydrated`: adding `getLine` would re-run this on every cart
+   * change and fight the guest's in-progress edits.
+   */
+  useEffect(() => {
+    if (!hydrated) return;
+    setConfigs((prev) => {
+      let changed = false;
+      const next = { ...prev };
+      for (const vehicle of VEHICLES) {
+        const line = getLine(lineIdOf("transport", vehicle.id));
+        if (!line) continue;
+        const days = Math.max(1, Math.round(line.unitPrice / vehicle.dailyRate));
+        if (next[vehicle.id].days !== days || next[vehicle.id].date !== line.date) {
+          next[vehicle.id] = { days, date: line.date };
+          changed = true;
+        }
+      }
+      return changed ? next : prev;
+    });
+  }, [hydrated]);
 
   const updateDays = (id, val) =>
     setConfigs((prev) => ({ ...prev, [id]: { ...prev[id], days: val } }));
@@ -208,23 +237,27 @@ export default function MulaRentalSection() {
   const updateDate = (id, val) =>
     setConfigs((prev) => ({ ...prev, [id]: { ...prev[id], date: val } }));
 
-  const toggleCart = (id) =>
-    setCartIds((prev) => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
+  /*
+   * qty is the number of VEHICLES, not days — so the drawer's stepper reads as
+   * "two of this vehicle" rather than silently changing the rental length. The
+   * day count is folded into unitPrice (days x dailyRate) and surfaced as an
+   * option label, which is why `options.days` is a string: describeLine() joins
+   * option values and hides the keys, so a bare number would render as "3".
+   */
+  const commit = (vehicle) => {
+    const { days, date } = configs[vehicle.id];
+    setLine({
+      lineId: lineIdOf("transport", vehicle.id),
+      service: "transport",
+      sku: vehicle.id,
+      title: vehicle.name,
+      qty: 1,
+      unitPrice: days * vehicle.dailyRate,
+      date,
+      options: { days: `${days} ${days === 1 ? "day" : "days"}` },
     });
-
-  const cartVehicles = VEHICLES.filter((v) => cartIds.has(v.id));
-  const lines = cartVehicles.map((v) => {
-    const { days, date } = configs[v.id];
-    const dateStr = date ? ` · pickup ${date}` : "";
-    return {
-      label: `${v.name} · ${days} day${days !== 1 ? "s" : ""}${dateStr}`,
-      price: days * v.dailyRate,
-    };
-  });
-  const total = lines.reduce((sum, l) => sum + l.price, 0);
+    openCart();
+  };
 
   return (
     <section id="transport" className="flex flex-col px-8 md:px-16 pb-24 gap-12">
@@ -242,35 +275,23 @@ export default function MulaRentalSection() {
         </p>
       </div>
 
-      {/* Vehicle grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" data-aos="fade-up">
+      {/* Vehicle grid. No section summary or submit here by design — vehicles go
+          straight into the cart, and the drawer is the only place they're reviewed. */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {VEHICLES.map((vehicle) => (
           <VehicleCard
             key={vehicle.id}
             vehicle={vehicle}
             days={configs[vehicle.id].days}
             date={configs[vehicle.id].date}
-            inCart={cartIds.has(vehicle.id)}
+            cartLine={getLine(lineIdOf("transport", vehicle.id))}
             onDaysChange={(val) => updateDays(vehicle.id, val)}
             onDateChange={(val) => updateDate(vehicle.id, val)}
-            onToggle={() => toggleCart(vehicle.id)}
+            onCommit={() => commit(vehicle)}
+            onRemove={() => removeLine(lineIdOf("transport", vehicle.id))}
           />
         ))}
       </div>
-
-      {/* Checkout — visible only when cart has items */}
-      {cartIds.size > 0 && (
-        <div data-aos="fade-up">
-          <OrderCheckoutForm
-            service="Transportation"
-            lines={lines}
-            total={total}
-            notes={notes}
-            onNotesChange={setNotes}
-            compact
-          />
-        </div>
-      )}
 
     </section>
   );

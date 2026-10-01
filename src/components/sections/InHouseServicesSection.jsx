@@ -56,7 +56,7 @@ export default function InHouseServicesSection() {
   const steps = t("inhouse.craftSteps");
 
   return (
-    <section className="flex flex-col px-8 md:px-16 pb-24 gap-16">
+    <section id="experiences" className="flex flex-col px-8 md:px-16 pb-24 gap-16">
 
       {/* Craft intro + steps */}
       <div className="flex flex-col gap-10" data-aos="fade-up">
